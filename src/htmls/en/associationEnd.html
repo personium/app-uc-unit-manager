@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<div>
+	<div class="associationEndOperationsBar">
+		<div style="float: left;">
+			<div class="associationEndCreateIcon removeBorderRight" id="associationEndCreateIcon" onclick="openCreateEntityModal('#createAssociationModal','#createAssociationDialog', 'txtFromAssEnd')" title="Create"></div>
+			<div class="associationEndEditIcon associationEndEditIconDisabled" id="associationEndEditIcon" style="display: none;" title="Edit"></div>
+			<div class="divDeleteIcon divDeleteAssignEntityIcon addBorderRight" id="dvDeleteIconAssociationEnd" style="display: none;margin-left: 0px;">
+				<input type="button" disabled="disabled" class="deleteIconDisabled" id="associationEndDeleteIcon" onclick="openCreateEntityModal('#associationDeleteModalWindow', '#associationDeleteDialogBox', 'btnCancelAssociationEndDelete');" title="Close">
+			</div>
+			<!-- <div class="associationEndDeleteIcon associationEndDeleteIconDisabled" id="associationEndDeleteIcon" style="display: none;pointer-events: none;" onclick="openCreateEntityModal('#associationDeleteModalWindow', '#associationDeleteDialogBox');"></div> -->
+		</div>
+		<div style="float: right;">
+			<div class="associationEndViewIcon" id="associationEndViewIcon" onclick="uSchemaManagement.clickAssociationEndViewMode();" title="Diagram View"></div>
+			<div class="associationEndGridIcon" id="associationEndGridIcon" onclick="uSchemaManagement.clickAssociationEndGridMode();" title="Grid View"></div>
+		</div>
+	</div>
+	<div id="associationEndViewMode" class="associationEndViewMode entityGridTbody">
+		<div class="lblEntityTypeAssociationEnd" id="diagramHead">
+		<label id="lbldiagramHead"></label>
+		</div>
+		<div class="diagramModeView diagramMode">
+			<div id="schematicRep" class="dvSchemaRep">
+				<div class="dvSchemaDiag" id="schemaDiag">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="associationEndGridMode" style="display: none">
+	<div id="dvEditModeAssociationTable"
+					class="tableMode">
+		<table id="mainAssociationTable" class="tableMode mainTable"
+			cellspacing="0" cellpadding="0" border='0' style="min-width: 982px">
+			<thead>
+				<tr>
+					<th class='col1' style="padding: 0px 10px 0px 10px"><input type='checkbox'
+						id='chkSelectallAssocEditMode'
+						onclick='uSchemaManagement.checkAll(this);'
+						class='checkBox cursorHand regular-checkbox big-checkbox' /> <label
+						for="chkSelectallAssocEditMode" class="checkBoxLabel"></label></th>
+					<th class="col2">Entity Type</th>
+					<th class="col3">
+						<div style="padding-left: 30px; margin-top: -15px">From</div>
+						<div>Association End</div>
+					</th>
+					<th class="col4" style="border-right: 1px solid #fff">Association
+						Type</th>
+					<th class="col5">Entity Type</th>
+					<th class="col6">
+						<div style="padding-left: 30px; margin-top: -15px">To</div>
+						<div>Association End</div>
+					</th>
+					<th class="col7">Association Type</th>
+				</tr>
+			</thead>
+			<tbody id='associationEndGridTbody' class="entityGridTbody" style="max-height: 176px"></tbody>
+		</table>
+	</div>
+</div>
+<div id="dvemptyAscEndViewMode"
+				class="emptyTableMessage dvNoAssociationEnd" style="display: none;">
+				<label style="padding-right: 5px;">No Association added yet.</label>
+				<a class="noComplexTypeAnchor" onclick="openCreateEntityModal('#createAssociationModal','#createAssociationDialog', 'txtFromAssEnd');">Add
+					New Association</a>
+			</div>
+	<!-- /********************* CREATE ASSOCIATION POPUP : START **********************/ -->
+	<div id="createAssociationModal" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 410px; width: 706px; background: #ffffff"
+			id="createAssociationDialog">
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#createAssociationModal');" tabindex="8" title="Close"></div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Add New Association</label>
+			</div>
+			<div>
+				<table cellpadding='0' cellspacing='0' border='0'
+					class="popupcreatePropertyTable">
+					<tr>
+						<td id="" style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">From</label>
+							</div>
+						</td>
+						<td id=""><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">To</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td id="" style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">Entity Type</label>
+							</div>
+						</td>
+						<td id=""><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">Entity Type</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement" id="fromEntityTypeName" style="color: #3c3c3c;vertical-align: top"></label>
+							</div>
+						</td>
+							<td id="">
+							<div class="customSelectIconAssociation" style="background-position-x: 107%">
+								<select name="" onblur="uSchemaManagement.validateAssocialtionEntityNameOnBlur();" id="toEntityTypeName" class="selectMenuPopup"
+									onclick=""
+									onchange="" tabindex="3">
+								</select>
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon" id="popupToEntityTypeNameErrorMsg"></aside>
+						</span></td>
+					</tr>
+					<tr>
+					<td id="" style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">Association End</label>
+							</div>
+							<div>
+								<input type="text" onblur="uSchemaManagement.txtFromAssEndValidationsOnBlur();" class="bigTextBox propertyPopUpTextBox"
+									id="txtFromAssEnd" tabindex="1">
+								<span class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="popupFromAssEndErrorMsg"></aside>
+								</span>
+							</div></td>
+							<td id=""><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">Association End</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox" onblur="uSchemaManagement.validateAssociationEndFieldOnBlur();"
+									id="txtToAssEnd" tabindex="4">
+								<span class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="popupToAssEndErrorMsg"></aside>
+								</span>
+							</div></td>
+					</tr>
+					<tr>
+						<td id="" style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">Association Type</label>
+							</div>
+							<div class="customSelectIconAssociation">
+								<select name="" id="ddFromAssEndTypes" onblur="uSchemaManagement.ddFromAssEndTypesValidationsOnBlur();" class="selectMenuPopup"
+									onclick=""
+									onchange="" tabindex="2">
+									<option>Select</option>
+									<option>0..1</option>
+									<option>1</option>
+									<option>*</option>
+								</select>
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon" id="popupFromAssEndTypeErrorMsg"></aside>
+						</span></td>
+						<td id=""><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">Association Type</label>
+							</div>
+							<div class="customSelectIconAssociation" style="background-position-x: 107%">
+								<select name=""  id="ddToAssEndTypes" onblur="uSchemaManagement.ddToAssEndTypesOnBlur();" class="selectMenuPopup"
+									onclick=""
+									onchange="" tabindex="5">
+									<option>Select</option>
+									<option>0..1</option>
+									<option>1</option>
+									<option>*</option>
+								</select>
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon" id="popupToAssEndTypeErrorMsg"></aside>
+						</span></td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- Button Section Starts -->
+			<section class="positionButtons">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button" id="btnCreateAssociation" class="btnClose" onclick="uSchemaManagement.createAssociation();"
+						value="Create" tabindex="7">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id=""
+						onclick="closeEntityModal('#createAssociationModal')"
+						class="cancelBtn" value="Cancel" tabindex="6">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+	<!-- /********************* CREATE ASSOCIATION POPUP : END **********************/ -->
+</div>
+
+<!--  DELETE ASSOCIATION POPUP - START-->
+
+	<div id="associationDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="associationDeleteDialogBox">
+
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#associationDeleteModalWindow');" tabindex="3" title="Close"></div>
+
+			<div class="sessionExpiryDiv" id="dvAccessheader">
+				<label class="sessionExpiredPopUpHeading" id="lblHeadingAccessToken">
+					Delete Association</label>
+			</div>
+
+			<div class="sessionExpiredLabel" style="margin-top: 26px;">
+				<label>Do you want to delete selected Association(s) ?</label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup" id="btnCancelAssociationEndDelete"
+					onclick="closeEntityModal('#associationDeleteModalWindow');" tabindex="1">
+				<input type="button" id="btnDeleteAssociation" class="btnSavePopup"
+					onclick="uSchemaManagement.getSelectedAssociation();" value="Delete" style="margin-right: 0px;" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!--  DELETE ASSOCIATION POPUP - END -->

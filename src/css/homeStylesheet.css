@@ -1,0 +1,1918 @@
+/**
+ * Personium
+ * Copyright 2016 FUJITSU LIMITED
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ *{margin:0;padding:0}
+
+@font-face{
+	font-family: "Segoe UI Light";
+	src: url("../font/segoe-ui-light.ttf");
+}
+
+.japaneseFont {
+	font-family: Meiryo!important;
+}
+
+.main{
+	width:100%;
+	margin: 10px auto;
+	min-width:1280px;
+}
+#leftcol {
+	float:left;
+	width:10%;
+}
+#midcol {
+	margin-left:10%;
+	margin-right:10%;
+	margin: 0 atuo;
+	overflow:hidden;
+}
+#rightcol {
+	float: right;
+	width:10%;
+}
+
+#unitHeader {
+	float: right;
+	width:100%;
+	height:35px;
+	border-bottom:1px solid #b1b1b1;
+}
+#DomainHeader {
+	background-color: #f6f6f6;
+	width:100%;
+	height:30px;
+}
+
+#UnitInfo {
+	background-color: #f6f6f6;
+	float: left;
+	width:85%;
+	height:30px;
+}
+
+#EnvInfo {
+	background-color: #f6f6f6;
+	float: right;
+	width:15%;
+	/* height:130px; */
+}
+
+.height30 {
+	height: 30px;
+}
+
+progress {  
+	background-color: #f3f3f3;  
+	border: 0;  
+	height: 15px;  
+	border-radius: 9px;
+	width:30px;
+}
+
+/* #EnvBtn{
+	background:#ffe3e3;
+	border-color:#f6cdcd;
+	margin-bottom:15px;
+	width: 127px;
+	float:right;
+	height: 32px;
+	text-align:center;
+	margin-right:15px;
+}
+
+#EnvBtn:hover {
+	cursor: pointer;
+	background: #fff1f1;
+	border-color: #f6cdcd;
+} */
+
+.EnvBtnEnabled{
+	background:#ffe3e3;
+	border-color:#f6cdcd;
+	margin-bottom:15px;
+	width: 163px;
+	float:right;
+	height: 30px;
+	text-align:center;
+	margin-right:15px;
+}
+
+.EnvBtnDisabled{
+	background:#e0e0e0;
+	border-color:#f6cdcd;
+	margin-bottom:15px;
+	width: 163px;
+	float:right;
+	height: 30px;
+	text-align:center;
+	margin-right:15px;
+}
+
+.EnvBtnEnabled:hover {
+	cursor: pointer;
+	background: #fff1f1;
+	border-color: #f6cdcd;
+}
+
+.btnConfigurationUnit:hover{
+	background:#e8e8e8;	
+	border-color:#e8e8e8;
+}
+
+.openCellListIcon{
+	background:url(../images/newSprite.png) no-repeat -11px -2327px;
+	float:left;
+}
+
+.domainURLText{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	max-width:445px;
+	overflow:hidden;
+}
+
+.envIDText{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	max-width:412px;
+	overflow:hidden;
+	float:right;
+	margin-left:5px;
+}
+
+.unitNameText{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+	float:left;
+}
+
+.unitIdText{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+	float:right;
+}
+
+/** Service Management Header - Start */
+
+@font-face{
+	font-family: "Fujitsu Sans";
+	src: url("../font/FujitsuSansRegular.ttf");
+}
+
+.topHeader{
+	width:100%;
+	min-width:1280px;
+	/* height:45px; */
+}
+
+.topHeader .leftSection{
+	cursor:pointer;
+	float:left;
+	min-width:285px;
+	/* margin-top:12.5px; */
+	margin-top:33.5px; 
+	font-family:Fujitsu Sans;
+	font-size:14pt;
+	color:#1b1b1b;
+	margin-left:20px;
+}
+
+.topHeader .rightSection{
+	float:right;
+}
+
+.topHeader .rightSection .headerButtons{
+	float:left;
+}
+
+.topHeader .rightSection .fujitsuIcon{
+	float:right;
+}
+
+.topHeader .rightSection .headerButtons .documentation{
+	float:left;
+	background: #d9d9d9;
+	cursor:pointer;
+	margin: 8.5px 15px 8.5px 0px;
+}
+
+.topHeader .rightSection .headerButtons .documentation:hover{
+	background: #e8e8e8;
+}
+
+.topHeader .rightSection .headerButtons .documentation .documentationTxt{
+	color:#1b1b1b;
+	height: 20px;
+	border: none;
+	float: right;
+	margin-right: 10px;
+	margin-top: 5px;
+	font-family: Segoe UI;
+	font-size: 10pt;
+}
+
+.topHeader .rightSection .headerButtons .documentation .documentationIcon{
+	background:url(../images/newSprite.png) no-repeat -14px -918px;
+	height: 20px;
+	width: 20px;
+	margin: 3px 10px 4px 8px;
+	float:left;
+}
+
+.topHeader .rightSection .headerButtons .userNameWrapper{
+	cursor:pointer;
+	float:right;
+	border: 1px solid #d9d9d9;
+	/* margin: 8.5px 20px 0 0; */
+	margin: 8.5px 50px 0 0;
+	list-style: none;
+}
+
+.topHeader .rightSection .headerButtons .userNameWrapper .userNameIcon{
+	background:url(../images/newSprite.png) no-repeat -14px -485px;
+	height: 20px;
+	width: 20px;
+	margin-left: 7px;
+	float:left;
+	margin-top: 2px;
+	margin-bottom: 3px;
+}
+
+.topHeader .rightSection .headerButtons .userNameWrapper .userNameTxt{
+	color:#1b1b1b;
+	float: left;
+	margin: 4px 10px 2px 10px;
+	font-family: Segoe UI;
+	font-size: 10pt;
+}
+
+.topHeader .rightSection .headerButtons .userNameWrapper .userNameArrow{
+	background:url(../images/sprite.png) no-repeat 43% -598px;
+	float:left;
+	height:20px;
+	width:20px;
+}
+
+#userID{
+	width: 67px;
+	max-width: 67px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;	
+}
+.userSubMenu{
+	display:none;
+	list-style:none;
+	position: absolute;
+	margin-left: 150px;
+	top:43px;
+	z-index:1;
+}
+
+.editMyInfo{
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-bottom: 1px solid #f2f2f2;
+	color:#1b1b1b;
+	cursor:pointer;
+	padding: 8px 9px 6px 8px;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.editMyInfo:hover{
+	background: #fff1f1;
+	border:1px solid #f6cdcd;
+}
+
+.changePasswordWrapper{
+	margin-top: 15px;
+}
+
+.changePassword{
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-bottom: 1px solid #f2f2f2;
+	border-top: 1px solid #f2f2f2;
+	color:#1b1b1b;
+	cursor:pointer;
+	padding: 8px 22px 6px 8px;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.changePassword:hover{
+	background: #fff1f1;
+	border:1px solid #f6cdcd;
+}
+
+.logoutWrapper{
+	margin-top:15px;
+}
+
+.logout{
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-top: 1px solid #f2f2f2;
+	color:#1b1b1b;
+	cursor:pointer;
+	padding: 8px 83px 8px 9px;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.logout:hover{
+	background: #fff1f1;
+	border:1px solid #f6cdcd;
+}
+
+.topHeader .rightSection .fujitsuIcon{
+	background:url(../images/logo.png) no-repeat;
+	height: 40px;
+	width: 62px;
+	margin-right:50px;
+}
+
+/** Service Management Header - End */
+
+/** Service Management Navigation Bar - Start */
+
+.navigationBarService {
+	width:100%;
+	min-width:1280px;
+	/* height:43px; */
+	height:89px;
+}
+
+.serviceMgmtWrapper{
+	float:left;
+	height:22px;
+	margin:10px 0 0 20px;
+	min-width:135px;
+	width:135px;
+}
+
+.serviceMgmtTxtRed{
+	color:#c80000;
+	font-family:Segoe UI;
+	font-size:13pt;
+}
+
+.serviceMgmtTxtGrey{
+	color:#1b1b1b;
+	font-family:Segoe UI;
+	font-size:13pt;
+}
+
+.adminMgmtWrapper{
+	float:left;
+	height:22px;
+	margin:10px 0 0 35px;
+	min-width:145px;
+	width:145px;
+}
+
+.adminMgmtTxtRed{
+	color:#c80000;
+	font-family:Segoe UI;
+	font-size:13pt;
+}
+
+.adminMgmtTxtGrey{
+	color:#1b1b1b;
+	font-family:Segoe UI;
+	font-size:13pt;
+}
+
+/** Service Management Navigation Bar - End */
+
+/** Service Management Screen - Start */
+
+.serviceMgmtScroll{
+	max-height: 420px;
+	min-width:1272px;
+	display: block;
+	width: 100%;
+	overflow: auto;
+	margin-top:6px;
+}
+
+/** Service Management Screen - End */
+
+/****************** Modal window - Start ****************/
+.modelback{
+	background: rgba(0, 0, 0, 0.5);
+	position: fixed;	
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index:1
+}
+div.modal-window {
+	position: absolute;
+	left: 0;
+	top: 0;
+	-moz-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+	box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+}
+.modal-content {
+	overflow: hidden;
+	margin: -2.833em -1.667em -1.667em;
+	padding: 2.833em 1.667em 1.667em;
+	}
+	
+.modelbackSpinner{
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;	
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;	
+	z-index:3	
+}
+	
+	
+#modal > .block-border > .block-content {
+	/* z-index: 90; */
+}
+
+/****************** Modal window - End ****************/
+
+.btnPopupCancel {
+	font-family: Tahoma;
+	font-size: 10pt;
+	color: #1b1b1b;;
+	background: #d9d9d9;
+	width: 90px;
+	height: 29px;
+	border: none;
+	margin-right: 20px;
+}
+.btnPopupCancel:hover {
+	background: #e8e8e8;
+	cursor: pointer;
+}
+
+.btnPopupSave {
+	font-family: Tahoma;
+	font-size: 10pt;
+	color: #ffffff;
+	background: #4b4b4b;
+	width: 90px;
+	height: 29px;
+	border: none;
+	margin-right: 20px;
+}
+.btnPopupSave:hover {
+	background: #5c5c5c;
+	cursor: pointer;
+}
+
+.spanPopupErrorMessage {
+	color:#c80000;
+	float:left;
+	height:15px;
+	padding:1px 0 0 0px;
+	text-align:left;
+	width:100%;
+	margin-top: 5px;
+}
+.asidePopupErrorMessage {
+	color:#c80000;
+	text-align:left;
+	font-family: Segoe UI;
+	font-size: 10px;
+}
+
+.editIconEnabled {
+	background: url(../images/sprite.png) no-repeat 43% -696px;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+}
+
+.editIconEnabled:hover {
+	background: url(../images/sprite.png) no-repeat 43% -663px;
+	cursor: pointer;
+}
+
+#scrollUnit::-webkit-scrollbar {
+	width: 4px;
+}
+ 
+#scrollUnit::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 25px #9c9c9c; 
+	border-radius: 10px;
+	display: none;
+}
+ 
+#scrollUnit::-webkit-scrollbar-thumb {
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 6px #9c9c9c; 
+}
+
+#divNotificationMessage::-webkit-scrollbar {
+	width: 4px;
+}
+ 
+#divNotificationMessage::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 25px #9c9c9c; 
+	border-radius: 10px;
+	display: none;
+}
+ 
+#divNotificationMessage::-webkit-scrollbar-thumb {
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 6px #9c9c9c; 
+}
+
+.scrollNotificationMessageSection {
+	max-height: 62px;
+	overflow: auto;
+	display: block;
+}
+
+#serviceMgmtScroll::-webkit-scrollbar {
+	width: 4px;
+}
+
+#serviceMgmtScroll::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 25px #9c9c9c; 
+	border-radius: 10px;
+	display: none;
+}
+
+#serviceMgmtScroll::-webkit-scrollbar-thumb {
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 6px #9c9c9c; 
+}
+
+.imgLogoutSuccess {
+	margin-left: 69px;
+	margin-top: 69px;
+	background: url(../images/green_icon.png) no-repeat 8px 6px;
+	padding:4px 32px;
+}
+.lblLogoutMsg {
+	font-family: Tahoma;
+	font-size: 10pt;
+	color: #5e5e5e;
+	font-weight: bold;
+}
+.btnLogoutOk {
+	font-family: Tahoma;
+	font-size: 10pt;
+	color: #b7b7b7;
+	background: #383838;
+	width: 61px;
+	height: 22px;
+	border: none;
+	cursor: pointer;
+}
+.btnLogoutOk:hover {
+	background: #474747;
+}
+.divLogoutBtn {
+	display: table;
+	margin: 0 auto;
+	margin-top: 12px;
+}
+
+/****************** Unit Management - Start ****************/
+.divMainUnitManagement {
+	min-width: 1272px;
+	width: 100%;
+}
+
+.divInnerUnitManagement {
+	margin-left: 30px;
+	margin-right: 9px;
+	margin-bottom: 15px;
+}
+
+.divBreadcrumServiceManagement {
+	margin: 14px 0px 30px 0px;
+}
+
+.divUnitManagement {
+	height: 26px;
+	margin-bottom: 30px;
+}
+
+.lblUnitName {
+	float: left;
+	padding: 0px;
+	line-height: 23px;
+	height: 32px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 1210px;
+}
+
+.iconEditUnitName {
+	margin-top: 6px;
+}
+
+.divScrollUnitManagement {
+	max-height: 418px;
+	display: block;
+	width: 100%;
+	overflow: auto;
+}
+
+.divScrollInnerUnitManagement {
+	margin-right: 25px;
+	cursor: default;
+}
+
+.divOuterNotificationMessageUnit {
+	border: 1px solid #f6cdcd;
+	background-color: #fff1f1;
+}
+
+.divInnerNotificationMessageUnit {
+	background-color: #fff1f1;
+	margin-right: 4px;
+}
+
+.divOuterUnitDetails {
+	background-color: #f2f2f2;
+	margin-top: 25px;
+	height: 115px;
+	border: 1px solid #e2e2e2;
+}
+
+.divInnerUnitDetails {
+	margin-left: 10px;
+	margin-top: 7px;
+}
+
+.lblStatusText {
+	float: left;
+}
+
+.lblStatusIcon {
+	margin-left: 15px;
+}
+
+.lblStatusValue {
+	margin-left: 4px;
+	text-transform: capitalize;
+}
+
+.lblPlanValue {
+	margin-left: 23px;
+}
+
+.lblDomainValue {
+	margin-left: 3px;
+}
+
+.lblEnvIDValue {
+	margin-left: 10px;
+}
+
+.divOuterAPIVersion {
+	margin-top: 25px;
+	border: 1px solid #e2e2e2;
+	height: 76px;
+}
+
+.divHeader {
+	height: 36px;
+	background-color: #f2f2f2;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+.divHeading {
+	padding: 7px 0px 0px 10px;
+}
+
+.divContentAPIVersion {
+	padding: 10px 0px 0px 21px;
+}
+
+.divOuterStorage {
+	margin-top: 25px;
+	border: 1px solid #e2e2e2;
+	height: 153px;
+}
+
+.divGauge {
+	width: 180px;
+	height: 138px;
+	margin-top: -25px;
+	margin-left: 5px;
+}
+
+.divDiskSpace {
+	float: left;
+	width: 241px;
+	height: 38px;
+	margin: 52px 0px 0px 60px;
+}
+
+.divOuterGlobalIP {
+	margin-top: 25px;
+	border: 1px solid #e2e2e2;
+	overflow: hidden;
+}
+
+.divOuterMail {
+	margin-top: 25px;
+	border: 1px solid #e2e2e2;
+	height: 120px;
+}
+
+.divMailText {
+	padding: 6px 0px 0px 21px;
+}
+
+.divServerText {
+	padding: 4px 0px 0px 21px;
+}
+
+.divPortText {
+	padding: 3px 0px 0px 21px;
+}
+
+.divEditUnitPopup {
+	display: block;
+	height: 231px;
+	width: 474px;
+	background: #ffffff
+}
+
+.divEditUnitPopupInner {
+	width: 444px;
+	height: 203px;
+	margin-top: -7px;
+	margin-left: 30px;
+}
+
+.txtEditUnitName {
+	width: 245px;
+	height: 27px;
+	border: 1px solid #d2d2d2;
+	padding: 0px 5px 0px 5px;
+	font-family: Segoe UI;
+	color: #696969;
+}
+
+.sectionEditunit {
+	margin-top: 11px;
+	height: 89px;
+}
+
+.divNotificationMessageList {
+	margin: 6px 0px 8px 10px;
+}
+
+.divGlobalIPList {
+	margin: 10px 0px 7px 21px;
+}
+
+.umContentHeading {
+	font-family: Segoe UI;
+	font-size: 10pt;
+	color: #1b1b1b;
+}
+
+.umContentText {
+	font-family: Segoe UI;
+	font-size: 10pt;
+	color: #3c3c3c;
+}
+
+#breadCrumServiceManagement:hover {
+	text-decoration:underline;
+	color:#c80000;
+	cursor: pointer;
+}
+
+.crudOperationSuccessIcon {
+	background: url(../images/newSprite.png) no-repeat 56% -1709px;
+	width: 17px;
+	height: 20px;
+	float: left;
+	position: relative;
+	padding-right: 10px;
+	margin-left: 2px;
+}
+
+.crudOperationSuccessMsg {
+	font-family: Segoe UI;
+	font-size: 10pt;
+	width: 222px;
+	color: #1b1b1b;
+}
+
+.crudOperationWrapper {
+	float: left;
+	width: 63%;
+}
+
+.crudOperationSuccessWrapper {
+	display: block;
+	margin: -5px 0px 0px 0px;
+	margin: 0 auto;
+	background: #fff1f1;
+	width: 225px;
+	height: 23px;
+	border: 1px solid #d2d2d2;
+	line-height: 19px
+}
+
+.unitURLEllipsis{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+/****************** Unit Management - End ****************/
+
+
+/************* Administrator Management - Start **********/
+.adminMgmtPanel{
+	margin-right:8px;	
+}
+
+.adminMgmtScroll{
+	max-height: 420px;
+	min-width:1272px;
+	display: block;
+	width: 100%;
+	overflow: auto;
+	margin-top:6px;
+}
+
+.adminMgmtContent{
+	margin:0 10px 15px 15px;
+}
+
+.adminMgmtHead{
+	width:100%;
+}
+
+.adminMgmtTxt{
+	float:left;
+	margin: 13px 0 27px 20px;
+}
+
+.createUser{
+	float:right;
+	background: #d9d9d9;
+	cursor:pointer;
+	margin: 22px 15px 0 0;
+	color:#1b1b1b;
+	border: none;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	padding: 3px 10px 6px 10px;
+}
+.createUser:hover{
+	background: #e8e8e8;
+}
+
+.createUser:disabled{
+	background-color: rgb(232, 232, 232);
+	color: rgb(157, 157, 157);
+	cursor:default;
+}
+
+#adminMgmtTableDiv{
+	margin:0 15px;
+}
+
+.adminMgmtTable {
+	width:100%;
+	font-family:Segoe UI;
+	min-width:1212px;
+	cursor: default;
+}
+
+.adminMgmtTable th {
+	padding: 0 10px 0px 1px;
+	font-weight: normal;
+	height: 37px;
+	color: #1b1b1b;
+	text-align: left;
+	border-bottom: 1px solid #b1b1b1;
+	border-top: 1px solid #b1b1b1;
+	font-family: Segoe UI;
+	font-size: 10pt;
+}
+
+/* .adminMgmtTable tbody tr {
+	border-bottom:1px solid #e6e6e6;
+} */
+
+ .adminMgmtTable tbody tr:not(.loggedInUser):hover {
+	cursor: pointer;
+	background-color: #f4f4f4;
+}
+
+.loggedInUser {
+	background-color: #fff1f1;
+}
+
+.adminMgmtTable tbody td {
+	border-bottom: 1px solid #e6e6e6;
+	padding:0 10px 0 1px;
+	font-size:10pt;
+	height: 37px;
+	color: #3c3c3c;
+}
+
+#adminMgmtTable .col1{width:15%}
+#adminMgmtTable .col2{width:15%}
+#adminMgmtTable .col3{width:15%}
+#adminMgmtTable .col4{width:17%}
+#adminMgmtTable .col5{width:10%}
+#adminMgmtTable .col6{width:9%}
+#adminMgmtTable .col7{width:9%}
+#adminMgmtTable .col8{width:9%}
+
+.adminMgmtTableEllipsis{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+/* Cutomize scrollbar for Administrator Management Start*/
+.adminMgmtScroll::-webkit-scrollbar {
+	width: 4px;
+}
+ 
+.adminMgmtScroll::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 25px #9c9c9c; 
+	border-radius: 10px;
+	display: none;
+}
+ 
+.adminMgmtScroll::-webkit-scrollbar-thumb {
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 6px #9c9c9c; 
+}  
+/* Cutomize scrollbar for Administrator Management End*/
+
+.adminMgmntEditIcon{
+	background: url(../images/sprite.png) no-repeat  43% -699px;
+	float: left;width: 22px;height: 18px;margin-right: 10px;
+}
+.adminMgmntEditIcon:hover{
+	background: url(../images/sprite.png) no-repeat  43% -666px;
+	cursor: pointer;
+}
+.adminMgmntDeleteIcon{
+	background: url(../images/sprite.png) no-repeat  43% -772px;
+	float: left;
+	width: 22px;
+	height: 18px;
+	margin-right: 10px;
+}
+.adminMgmntDeleteIcon:hover{
+	background: url(../images/sprite.png) no-repeat  41% -803px;
+	cursor: pointer;
+}
+.adminMgmntPassSettingsIcon{
+	background: url(../images/newSprite.png) no-repeat -14px -1836px;
+	float: left;
+	width: 22px;
+	height: 20px;
+	margin-right: 5px;
+}
+
+.adminMgmntPassSettingsIconDisabled{
+	background: url(../images/newSprite.png) no-repeat -13px -1888px;
+	float: left;
+	width: 22px;
+	height: 20px;
+	margin-right: 5px;
+}
+
+.adminMgmntPassSettingsIcon:hover{
+	background: url(../images/newSprite.png) no-repeat -13px -1862px;
+	cursor: pointer;
+}
+
+.adminMgmntLockIcon{
+	background: url(../images/newSprite.png) no-repeat  -17px -1115px;
+	float: left;
+	width: 16px;
+	height: 18px;
+	margin-left: 19%;
+}
+
+.adminMgmntLockIcon:hover{
+	background: url(../images/newSprite.png) no-repeat  -17px -1115px;
+}
+
+.maxUserLimitMessage{
+	height: 23px;
+	background: #fff1f1;
+	width: 237px;
+	padding-left: 10px;
+	border: 1px solid #d2d2d2;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	color: #1b1b1b;
+	padding-top: 2px;
+	margin-top: 22px;
+}
+
+.userPrivilegeMsg{
+	height: 29px;
+	background: #fff1f1;
+	width: 442px;
+	padding-left: 10px;
+	border: 1px solid #d2d2d2;
+	font-family: Segoe UI Light;
+	font-size: 13pt;
+	color: #1b1b1b;
+	padding-top: 5px;
+}
+
+.successMsgDiv{
+	background: #fff1f1;
+	padding: 3px 10px 5px 10px;
+	border: 1px solid #d2d2d2;
+	margin-top:22px;
+
+}
+
+.greenTick{
+	background: url(../images/newSprite.png) no-repeat  -17px -1709px;
+	float:left;
+	height:15px;
+	width:12px;
+	padding-right:10px;
+}
+
+.successMsg{
+	float:right;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	color: #1b1b1b;
+}
+
+/************* Administrator Management - End **********/
+
+/**** Session Expiration Pop Up Starts ****/
+
+.headerSection {
+	margin-bottom: 26px;
+}
+.sessionExpiryDiv {
+	padding-bottom: 15px;
+	padding-top: 20px;
+	padding-left: 30px;
+}
+.sessionExpiredPopUpHeading {
+	font-family: Segoe UI Light;
+	font-size: 24pt;
+	color: #1b1b1b;
+}
+.sessionExpiredLabel {
+	font-family: Segoe UI;
+	padding-left: 75px;
+	padding-right: 75px;
+	font-size: 13px;
+	color: #3c3c3c;
+	text-align: center;
+	margin-bottom: 45px;
+}
+.dvClosePopUp {
+padding-bottom: 20px;
+	float: right;
+	padding-right: 20px;	
+}
+.normalButton {
+	height: 29px;
+	width: 90px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #ffffff;
+	background: #4b4b4b;
+	cursor: pointer;
+	border: none;
+}
+.normalButton:hover {
+	background: #5c5c5c;
+}
+.sessionPopUpCloseSection {
+	padding-bottom: 20px;
+	float: right;
+	padding-right: 20px;
+}
+.popupCloseIcon {
+	background: url(../images/newSprite.png) no-repeat -16px
+		-1468px;
+	float: right;
+	height: 14px;
+	width: 15px;
+	/* margin: 20px 20px 0px 0px; */
+}
+.popupCloseIcon:hover {
+	background: url(../images/newSprite.png) no-repeat -17px
+		-1497px;
+	cursor: pointer;
+}
+.closeIconDiv {
+	padding-top: 20px;
+	padding-right: 20px;
+	width: 20%;
+	float: right;
+	height: 10px;
+	margin:0px;
+}
+/**** Session Expiration Pop Up Ends ****/
+
+/**** Administrator Management PopUps - Start *****/
+
+.lblElement {
+	font-family: Segoe UI;
+	font-size: 12px;
+	color: #1b1b1b;
+	padding-bottom: 10px;
+
+}
+
+.createEntityHeading {
+	font-family: Segoe UI Light;
+	font-size: 24pt;
+	color: #1b1b1b;
+	margin-bottom:20px;
+}
+
+.divPopupInner {
+	width: 444px;
+	height: 203px;
+	margin-top: -7px;
+	margin-left: 30px;
+}
+
+.sectionContent {
+	margin-top: 11px;
+	height: 89px;
+}
+
+.sectionContentCreateUser{
+	width: 608px;
+	height: 330px;
+	margin:0 10px 20px 58px;
+}
+
+.bigTextBox {
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #696969;
+	border: solid 1px #d2d2d2;
+	height: 27px;
+	width: 220px;
+	padding-right: 25px;
+}
+
+.userPopUpTextBox {
+	padding-left: 5px;
+	width: 215px;
+}
+
+.spanPopupErrorMessageCommon {
+	color:#c80000;
+	float:left;
+	height:15px;
+	padding:1px 0 0 0px;
+	text-align:left;
+	width:100%;
+	margin-top: 5px;
+}
+
+.asidePopupErrorMessageCommon {
+	color:#c80000;
+	text-align:left;
+	font-family: Segoe UI;
+	font-size: 10px;
+}
+
+.asidePopupSuccessMessageCommon {
+	color:green;
+	text-align:left;
+	font-family: Segoe UI;
+	font-size: 10px;
+}
+
+.btnCancelPopup {
+	font-family: Tahoma;
+	font-size: 10pt;
+	color: #1b1b1b;;
+	background: #d9d9d9;
+	width: 90px;
+	height: 29px;
+	border: none;
+	margin-right: 13px;
+}
+.btnCancelPopup:hover {
+	background: #e8e8e8;
+	cursor: pointer;
+}
+
+.btnSavePopup {
+	font-family: Tahoma;
+	font-size: 10pt;
+	color: #ffffff;
+	background: #4b4b4b;
+	width: 90px;
+	height: 29px;
+	border: none;
+	margin-right: 20px;
+}
+.btnSavePopup:hover {
+	background: #5c5c5c;
+	cursor: pointer;
+}
+
+.radioButtonMargin {
+	margin-right: 20px;	
+}
+
+/*  Start: Custom radio button */
+input[type=radio].css-checkbox {
+	display: none;
+}
+input[type=radio].css-checkbox+label.css-label {
+	padding-left: 24px;
+	height: 19px;
+	display: inline-block;
+	line-height: 19px;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	font-size: 13px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+input[type=radio].css-checkbox:checked+label.css-label {
+	background-position: 0 -19px;
+}
+label.css-label {
+	background-image:url(../images/custom_radio.png);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+/*  End: Custom radio button */
+
+.customRadio {
+	display: inline-table;
+	cursor: pointer;
+	position: relative;
+	padding-left: 25px;
+	/* margin-right: 15px; */
+	font-family: Segoe UI;
+	font-size: 12px;
+	color: #1b1b1b;
+	
+}
+
+input[type=radio] {
+	display: none;
+}
+
+.customRadio:before {
+	content: "";
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	background-color: #FFFFFF;
+	border: 1px solid #C4C4C4;
+	margin-right: 10px;
+	position: absolute;
+	left: 0;
+}
+
+.customRadio:before {
+	border-radius: 8px;
+}
+
+.radio input[type=radio]:checked+label:before {
+	content: "\2022";
+	color: black;
+	font-size: 25px;
+	text-align: center;
+	line-height: 10px;
+}
+
+#txtCreateNewUserFamilyName { background-color: #fff; }
+#txtCreateNewUserFamilyName:focus { background-color: #fff; }
+
+.validValueIcon{
+	background:url(../images/newSprite.png) no-repeat 207px -250px;
+}
+
+.errorIcon {
+	background: url(../images/newSprite.png) no-repeat 207px -214px;
+}
+
+.bigTextBoxCollection {
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #696969;
+	border: solid 1px #d2d2d2;
+	height: 27px;
+	width: 253px;
+	padding-right: 35px;
+	padding-left: 5px;
+}
+
+.validValueIconBig{
+	background:url(../images/newSprite.png) no-repeat 251px -250px;
+}
+
+.errorIconBig {
+	background: url(../images/newSprite.png) no-repeat 251px -214px;
+}
+
+.sectionContentEditUser{
+	width: 608px;
+	height: 245px;
+	margin:0 10px 20px 58px;
+}
+/**** Administrator Management PopUps - End *****/
+/**** Changes pertaining to the movement of Service Mgmt and Admin mmgmt icons on the top - Begins *****/
+.positionServiceMgmt {
+	cursor: pointer;
+	margin-top: 33.5px;
+	margin-right: 59px ;
+	margin-left: 59px;
+	}
+
+.positionAdminMgmt {
+	margin-top: 33.5px;
+	cursor: pointer
+}
+.positionUserName{
+	margin-top:25.5px;
+}
+.positionUserSubMenu{
+	margin-left: 0px;
+	margin-top: 16.5px;
+}
+/**** Changes pertaining to the movement of Service Mgmt and Admin mmgmt icons on the top - Ends *****/
+
+
+
+/*******************************Edit My User popup ***********************************/
+.crossDeletePropIcon {
+	background: url(../images/newSprite.png) no-repeat -16px -1468px;
+	float: right;
+	margin-top: 20px;
+	margin-right: 20px;
+	height: 15px;
+	width: 15px;
+}
+
+.crossDeletePropIcon:hover {
+	background: url(../images/newSprite.png) no-repeat -17px -1497px;
+	cursor: pointer;
+}
+.accessTokenDiv {
+	padding-bottom: 15px;
+	padding-top: 20px;
+	padding-left: 30px;
+}
+.AccessTokenHeading {
+	font-family: Segoe UI Light;
+	font-size: 24pt;
+	color: #1b1b1b;
+}
+.popupcreatePropertyTable {
+	margin-left: 75px;
+	margin-right: 75px;
+	width: 556px;
+}
+.propertyPopUpTextBox {
+	padding-left: 5px;
+	width: 215px;
+}
+.positionButtons {
+	width:100%;float: right;
+	margin-top: 9px;
+}
+.dvCreate{
+	float:right;padding-right: 20px;padding-bottom: 20px;
+}
+.btnClose {
+	height: 29px;
+	width: 90px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #ffffff;
+	background: #4b4b4b;
+	cursor: pointer;
+	border: none;
+}
+.btnClose:hover {
+	background: #5c5c5c;
+}
+.cancelBtn {
+	height: 29px;
+	width: 90px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	background: #d9d9d9;
+	color: #1b1b1b;
+	cursor: pointer;
+	border: none;
+}
+.cancelBtn:hover {
+	background: #e8e8e8;
+}
+
+.editMyInfoHeader {
+	margin-left: 10px;
+	color: #1b1b1b;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.editMyInfoHeaderWrapper {
+	height: 25px;
+	width: 134px;
+	padding-top: 5px;
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.editMyInfoHeaderWrapper:hover {
+	cursor: pointer;
+	background: #fff1f1;
+	border: 1px solid #f6cdcd;
+}
+
+.changePasswordHeaderWrapper {
+	height: 25px;
+	width: 134px;
+	padding-top: 5px;
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-bottom: 1px solid #f2f2f2;
+	border-top: 1px solid #f2f2f2;
+}
+
+.changePasswordHeaderWrapper:hover {
+	cursor: pointer;
+	background: #fff1f1;
+	border: 1px solid #f6cdcd;
+}
+
+.changePasswordHeader {
+	margin-left: 10px;
+	color: #1b1b1b;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.logoutHeader {
+	margin-left: 10px;
+	color: #1b1b1b;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.logoutHeaderWrapper {
+	height: 25px;
+	width: 134px;
+	padding-top: 5px;
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-top: 1px solid #f2f2f2;
+}
+
+.logoutHeaderWrapper:hover {
+	cursor: pointer;
+	background: #fff1f1;
+	border: 1px solid #f6cdcd;
+}
+/* Custom Checkbox Start */
+.regular-checkbox {
+	display: none;
+}
+
+.regular-checkbox+label {
+	background-color: #FFFFFF;
+	border: 1px solid #C4C4C4;
+	border-radius: 0;
+	display: inline-block;
+	position: relative;
+}
+
+.regular-checkbox:checked+label {
+	border: 1px solid #ADB8C0;
+	color: #99A1A7;
+}
+
+.regular-checkbox:checked+label:after {
+	color: #3b3b3b;
+	content: "";
+	position: absolute;
+	-webkit-transform: rotate(-45deg);
+	left: 2px;
+	top: 5px;
+	height: 4px;
+	width: 8px;
+	border-image: none;
+	border-style: none none solid solid;
+	border-width: medium medium 2.7px 2.7px;
+}
+
+.big-checkbox+label {
+	height: 16px;
+	width: 16px;
+}
+
+.big-checkbox:checked+label:after {
+	left: 3px;
+	top: 3px;
+}
+
+.chkboxPositionInherit {
+	position: inherit !important;
+}
+
+/* Custom Checkbox End*/
+
+.selectRow td {
+	background: #f4f4f4;
+	border-bottom: 1px solid #fff;
+	cursor: default;
+}
+
+.divEditIcon {
+	width: 31px;
+	height: 17px;
+	float: left;
+	border-right: 1px solid #4b4b4b;
+	padding-right: 10px;
+}
+
+.editIconDisabled {
+	background: url(../images/sprite.png) no-repeat 43% -632px;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+	pointer-events: none;
+}
+.editIconEnabled {
+	background: url(../images/sprite.png) no-repeat 43% -698px;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+}
+.editIconEnabled:hover {
+	background: url(../images/sprite.png) no-repeat 43% -665px;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+	cursor:pointer;
+}
+
+.divDeleteIcon {
+	width: 31px;
+	height: 17px;
+	float: left;
+	border-right: 1px solid #4b4b4b;
+	padding-right: 10px;
+}
+
+.deleteIconDisabled {
+	background: url(../images/sprite.png) no-repeat 43% -737px !important;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+	cursor: default;
+}
+
+.deleteIconEnabled {
+	background: url(../images/sprite.png) no-repeat 42% -771px;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+}
+
+.deleteIconEnabled:hover {
+	background: url(../images/sprite.png) no-repeat 42% -802px;
+	cursor:pointer;
+	margin-left: 11px;
+}
+
+.createIcon {
+	background: url(../images/sprite.png) no-repeat 43% -524px;
+	width: 20px;
+	float: left;
+	height: 20px;
+	margin-left: 10px;
+	margin-right: 7px;
+}
+
+.createIcon:hover {
+	background: url(../images/sprite.png) no-repeat 43% -552px;
+	cursor: pointer;
+}
+
+.createIconDisabled {
+	background: url(../images/newSprite.png) no-repeat 60% -75px;
+	width: 20px;
+	float: left;
+	height: 20px;
+	margin-left: 10px;
+	margin-right: 7px;
+}
+
+.userFullName:hover {
+	text-decoration: underline;
+	color: #c80000;
+	cursor: pointer;
+}
+
+.lblAutoGenPassword {
+	float: left;
+	padding-left: 10px;
+}
+
+.emailVerificationSuccess {
+	background-color:#22B14C;
+}
+
+.emailVerificationFailure {
+	background-color:#ffe3e3;;
+}
+.dropDownBig{margin-top: 4.5px;min-width: 63px;border: 1px solid #d1d5db;padding: 1.5px;color: #373f49;font-size: 10pt;font-family: Segoe UI;}
+.dropDownBig option{color:#373f49;font-size:0.75em;height:12px}
+
+.activateUserIconEnabled {
+	background: url(../images/sprite3.png) no-repeat 54% -651px;
+	width: 21px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+}
+.activateUserIconEnabled:hover {
+	background: url(../images/sprite3.png) no-repeat 50% -620px;
+	width: 21px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+	cursor:pointer;
+}
+
+.activateUserIconDisabled {
+	background: url(../images/sprite3.png) no-repeat 51% -591px;
+	width: 21px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+	pointer-events: none;
+}
+
+.emptyTableMessage {
+	border: 1px solid #d2d2d2;
+	text-align:center;
+	font-family:Segoe UI;
+	font-size:10pt;
+	height:23px;
+	background:#fff1f1;
+	color:#1b1b1b;
+	margin:45px auto;
+	line-height: 21px;
+}
+
+.userManagementEmptyTableMessageWidth {
+	width:187px;
+}
+
+.divOuter {
+	display: table;
+	height: 100%;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.divMiddle {
+	display: table-cell;
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+}
+.divInner {
+	margin: 0 auto !important;
+	text-align: left !important;
+}
+.divMainSignUp {
+	display: block;
+	height: 240px;
+	width: 680px;
+	margin: 0 auto;
+	border: 1px solid #e6e6e6;
+}
+
+.txtPassword{
+	font-family: Tahoma;
+	border:1px solid #e1e1e1;
+	font-size: 12pt;
+	color: #5e5e5e;
+	padding: 0px;
+	float: left;
+	height: 33px;
+	width: 271px;
+	padding-left: 50px;
+	background-color: #fff!important;
+	margin-bottom: 5px;
+}
+
+.newLoginAlertMessage {
+	font-size: 8.5pt;
+	font-family: Tahoma;
+	color: #c80000;
+	padding: 1px 0px 12px 0px;
+	height:15px;
+	width:100%;
+	float:left;
+}
+
+#divResetPassword input[type="password"]{background:url(../images/password.png) no-repeat 0px 0px;background-position: 0px -3px;background-repeat: no-repeat;border-radius: 2px;cursor: default;}
+
+.placeholderColor::-webkit-input-placeholder {
+   color: #d9d9d9;
+}
+.redButton {
+	font-family: Tahoma;
+	font-size: 10pt;
+	color: #ffffff;
+	background-color: #c80000;
+	width: 90px;
+	height: 29px;
+	border: none;
+	margin-right: 20px;
+}
+.redButton:hover {
+	background-color: #d72626;
+	cursor: pointer;
+}
+.divTermsConditions {
+	display: block; margin-top: 7%; height: 355px; width: 950px;
+}
+.btnAgreeAndProceed {
+	margin-right: 0px; width: 125px;
+}
+#divResetPassword {
+	margin-left: 30px;
+}
+.resetPasswordText {
+	margin-top: 20px; font-size: 22pt; color: #b1b1b1
+}
+.resetPasswordProceedText {
+	font-size: 13pt; margin: 25px 0px;
+}
+.resetPassword {
+	margin-right: 0px; width: 272px; height: 35px; font-size: 11pt;
+}
+
+.txtAreaTermsAndConditions {
+	outline: 0;
+	width: 950px;
+	height: 355px;
+	resize: none;
+	border: none;
+	line-height: 20px;
+	font-family: Segoe UI;
+	padding-left: 9px!important;
+	text-align: justify;
+	white-space: pre-line;
+	font-size: 14px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-right: 12px;
+}
+
+/* Customize scrollbar Start*/
+.termsAndConditions::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+}
+
+.termsAndConditions::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 25px #9c9c9c;
+	border-radius: 10px;
+	display: none;
+}
+
+.termsAndConditions::-webkit-scrollbar-thumb {
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 6px #9c9c9c;
+}
+/* Customize scrollbar End*/
+
+.lblSetPassword {
+	float: left;
+	border-right: 1px solid #4b4b4b;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	margin-bottom: 15px;
+}
+
+.selectedPasswordSetting {
+	text-decoration: underline;
+	color: #c80000;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.unselectedPasswordSetting {
+	font-size: 14px;
+	font-weight: bold;
+	color: #1b1b1b;
+	cursor: default;
+}
+
+#divForgotPassword input[type="text"]{background: url(../images/username.png) no-repeat 0px 0px;background-position: 0px -3px;background-repeat: no-repeat;border-radius: 2px;cursor: default;}
+
+.dvHomeOrgNameBorder {
+	float: left;
+	border-right: 1px solid #d9d9d9;
+	padding-right: 10px;
+	height: 30px;
+	margin-top: 9px;
+}
+
+.dvHomeOrgNameText {
+	padding-top: 18px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 1050px;
+}
+
+.lblHomeOrgNameText {
+	padding-left: 10px;
+	font-family: Segoe UI;
+	font-size: 10.5pt;
+	color: #d9d9d9;
+}

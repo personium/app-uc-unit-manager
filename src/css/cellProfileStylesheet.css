@@ -1,0 +1,3330 @@
+/**
+ * Personium
+ * Copyright 2016 FUJITSU LIMITED
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ * {
+	margin: 0;
+	padding: 0
+}
+/** New GUI changes : Start */
+
+@font-face{
+	font-family: "Segoe UI Light";
+	src: url("../font/segoe-ui-light.ttf");
+}
+
+body {
+	width: 100%;
+	height: auto;
+	font-family: Segoe UI Light;
+}
+
+input::-webkit-input-placeholder {
+	color: grey !important;
+	font-family: Segoe UI;
+	font-size: 1em;
+}
+
+#mainContainer {
+	margin: 0 auto;
+	width: 100%;
+	height: auto;
+	min-width: 1280px;
+}
+
+#mainContainer #contentWrapper {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+#mainContainer #contentWrapper #rightPanel {
+	float: right;
+	text-align: justify;
+	min-width: 1263px;
+	width: 98.671875%;
+}
+
+#mainContainer #contentWrapper #leftPanel {
+	min-width: 17px;
+	width: 1.328125%;
+	float: left;
+	position: absolute;
+	min-height: 650px;
+	background: #4d4d4d;
+	cursor: pointer;
+	text-align: center;
+}
+
+#mainContainer #contentWrapper #leftPanel:hover {
+	background-color: #5f5f5f;
+	cursor: pointer;
+}
+
+
+#mainContainer #contentWrapper #rightPanel #header {
+	width: 100%;
+	height: 43px;
+	margin-top: 18px;
+	margin-bottom: 27px;
+	min-width: 1263px;
+}
+
+#mainContainer #contentWrapper #rightPanel #navigationBar {
+	margin-bottom: 26px;
+	min-width: 1263px;
+	padding-bottom: 30px;
+	width: 100%;
+}
+
+#mainContainer #contentWrapper #rightPanel #subHeading {
+	width: 100%;
+	padding-left: 15px;
+	height: 20px;
+}
+
+#mainContainer #contentWrapper #rightPanel #mainContent {
+	/* width:100%; */
+	padding-left: 15px;
+	height: 200px;
+}
+
+.leftHeading {
+	float: left;
+	min-width: 1174px;
+	padding-bottom: 20px;
+	/* width: 93.1116389%; */
+	cursor: default;
+}
+
+.rightHeading {
+	float: right;
+}
+
+.cellURLHeading {
+	float: right;
+	font-size: 10pt;
+	font-family: Segoe UI;
+	color: #3c3c3c;
+	margin-top: 15px;
+	padding-left: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 567px;
+}
+
+.cellNameHeading {
+	padding-left: 15px;
+	float: left;
+	font-size: 24pt;
+	color: #1b1b1b;
+	padding-right: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 552px;
+}
+
+.tokenBtn {
+	background: #d9d9d9;
+	border: none;
+	cursor: pointer;
+	height: 29px;
+	margin-top: 15px;
+	width: 59px;
+	margin-left: 10px;
+	margin-right: 20px;
+	font-size: 10pt;
+	font-family: Segoe UI;
+	color: #1b1b1b;
+	text-align: center;
+	margin-top: 9px;
+}
+
+.tokenBtn:hover {
+	background: #e8e8e8;
+}
+
+.navList {
+	list-style: none;
+	min-width: 1263px;
+	width: 100%;
+}
+
+.boxNav {
+	float: left;
+	padding-left: 15px;
+	height: 23px;
+	min-width: 112px;
+}
+
+.boxNav:hover {
+	cursor: pointer;
+}
+
+.boxTabWrapper {
+	float: left;
+	width: 65px;
+	cursor: pointer;
+}
+
+.boxIcon {
+	background: url(../images/sprite.png) no-repeat 43% -60px;
+	float: left;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 4px;
+	width: 20px;
+}
+
+.selected .boxIcon {
+	background: url(../images/sprite.png) no-repeat 43% -25px;
+}
+
+.boxText {
+	font-size: 13pt;
+	color: #1b1b1b;
+	height: 15px;
+	display: inline-block;
+	vertical-align: bottom;
+	cursor: pointer;
+}
+
+.selected .boxText {
+	color: #c80000;
+}
+
+.roleNav {
+	float: left;
+	height: 23px;
+	min-width: 104px;
+}
+
+.roleNav:hover {
+	cursor: pointer;
+}
+
+.roleTabWrapper {
+	float: left;
+	width: 74px;
+	cursor: pointer;
+}
+
+.roleIcon {
+	background: url(../images/sprite.png) no-repeat 43% -129px;
+	float: left;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 4px;
+	width: 20px;
+}
+
+.roleText {
+	font-size: 13pt;
+	color: #1b1b1b;
+	height: 15px;
+	display: inline-block;
+	vertical-align: bottom;
+	cursor: pointer;
+}
+
+.selected .roleIcon {
+	background: url(../images/sprite.png) no-repeat 43% -94px;
+}
+
+.selected .roleText {
+	color: #c80000;
+}
+
+.accountNav {
+	float: left;
+	height: 23px;
+	min-width: 136px;
+}
+
+.accountNav:hover {
+	cursor: pointer;
+}
+
+.accountTabWrapper {
+	float: left;
+	width: 104px;
+	cursor: pointer;
+}
+
+.accountIcon {
+	background: url(../images/sprite.png) no-repeat 43% -198px;
+	float: left;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 4px;
+	width: 20px;
+}
+
+.accountText {
+	font-size: 13pt;
+	color: #1b1b1b;
+	height: 15px;
+	display: inline-block;
+	vertical-align: bottom;
+	cursor: pointer;
+}
+
+.selected .accountIcon {
+	background: url(../images/sprite.png) no-repeat 43% -165px;
+}
+
+.selected .accountText {
+	color: #c80000;
+}
+
+.socialNav {
+	float: left;
+	height: 23px;
+	min-width: 129px;
+}
+
+.socialNav:hover {
+	cursor: pointer;
+}
+
+.socialTabWrapper {
+	float: left;
+	width: 97px;
+	cursor: pointer;
+}
+
+.socialIcon {
+	background: url(../images/sprite.png) no-repeat 43% -273px;
+	float: left;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 4px;
+	width: 20px;
+}
+
+.socialText {
+	font-size: 13pt;
+	float: left;
+	color: #1b1b1b;
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+.socialArrow {
+	background: url(../images/newSprite.png) no-repeat -20px
+		-33px;
+	float: left;
+	height: 12px;
+	margin-left: 5px;
+	margin-top: 13px;
+	width: 10px;
+}
+
+.selected .socialIcon {
+	background: url(../images/sprite.png) no-repeat 43% -235px;
+}
+
+.selected .socialText {
+	color: #c80000;
+}
+
+.selected .socialArrow {
+	background: url(../images/newSprite.png) no-repeat -20px -14px;
+}
+
+.messageNav {
+	float: left;
+	height: 23px;
+	min-width: 157px;
+}
+
+.messageNav:hover {
+	cursor: pointer;
+}
+.messageTabWrapper {
+	float: left;
+	width: 125px;
+	cursor: pointer;
+}
+
+.messageIcon {
+	background: url(../images/sprite.png) no-repeat 43% -351px;
+	float: left;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 4px;
+	width: 20px;
+}
+
+.messageText {
+	font-size: 13pt;
+	float: left;
+	color: #1b1b1b;
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+.messageArrow {
+	background: url(../images/newSprite.png) no-repeat -20px
+		-33px;
+	float: left;
+	height: 12px;
+	margin-left: 5px;
+	margin-top: 13px;
+	width: 10px;
+}
+
+.selected .messageIcon {
+	background: url(../images/sprite.png) no-repeat 43% -318px;
+}
+
+.selected .messageText {
+	color: #c80000;
+}
+
+.selected .messageArrow {
+	background: url(../images/newSprite.png) no-repeat -20px
+		-14px;
+}
+
+.logNav {
+	float: left;
+	height: 23px;
+	min-width: 99px;
+}
+
+.logNav:hover {
+	cursor: pointer;
+}
+
+.logTabWrapper {
+	float: left;
+	width: 67px;
+	cursor: pointer;
+}
+
+.logIcon {
+	background: url(../images/sprite.png) no-repeat 43% -423px;
+	float: left;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 4px;
+	width: 20px;
+}
+
+.logText {
+	font-size: 13pt;
+	color: #1b1b1b;
+	height: 15px;
+	display: inline-block;
+	vertical-align: bottom;
+	cursor: pointer;
+}
+
+.selected .logIcon {
+	background: url(../images/sprite.png) no-repeat 43% -388px;
+}
+
+.selected .logText {
+	color: #c80000;
+}
+
+.infoNav {
+	float: left;
+	height: 23px;
+	min-width: 58px;
+}
+
+.infoNav:hover {
+	cursor: pointer;
+}
+
+.infoTabWrapper {
+	float: left;
+	width: 67px;
+	cursor: pointer;
+}
+
+.infoIcon {
+	background: url(../images/sprite.png) no-repeat 43% -491px;
+	float: left;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 4px;
+	width: 20px;
+}
+
+.infoText {
+	font-size: 13pt;
+	color: #1b1b1b;
+	height: 16px;
+	display: inline-block;
+	vertical-align: bottom;
+	cursor: pointer;
+}
+
+.selected .infoIcon {
+	background: url(../images/sprite.png) no-repeat 43% -457px;
+}
+
+.selected .infoText {
+	color: #c80000;
+}
+
+.rightSubHeading {
+	float: right;
+	/* min-width:267px; */
+	height: 20px;
+	margin-top: 4px;
+}
+
+.sortWrapper {
+	float: left;
+}
+
+.sortText {
+	font-family: Segoe UI;
+	font-size: 10pt;
+	float: left;
+	color: #1b1b1b;
+	margin-top: 2px;
+}
+
+.downArrow {
+	background: url(../images/sprite.png) no-repeat 18% -600px;
+	border-right: 1px solid #4b4b4b;
+	width: 13px;
+	height: 16px;
+	float: right;
+	padding: 0px 15px;
+}
+
+.paginationWrapper {
+	float: right;
+}
+
+.recordCount {
+	float: left;
+	font-size: 10pt;
+	font-family: Segoe UI;
+	color: #3c3c3c;
+	margin-left: 15px;
+	margin-top: 2px;
+	cursor: default;
+}
+
+.paginationIcons {
+	float: right;
+}
+
+.leftPagination {
+	float: left
+}
+
+.rightPagination {
+	float: right;
+}
+
+.firstPageEnabled {
+	background: url(../images/sprite.png) no-repeat 42% -1014px;
+	cursor: pointer;
+	float: left;
+	height: 12px;
+	width: 14px;
+	margin-left: 15px;
+	margin-top: 4px;
+}
+
+.firstPageDisabled {
+	background: url(../images/newSprite.png) no-repeat -18px
+		-377px;
+	float: left;
+	height: 13px;
+	width: 14px;
+	margin-left: 15px;
+	margin-top: 3px;
+}
+
+.prevPageDisabled {
+	background: url(../images/newSprite.png) no-repeat -19px
+		-403px;
+	height: 12px;
+	width: 10px;
+	margin-left: 15px;
+	float: right;
+	margin-top: 4px;
+}
+
+.prevPageEnabled {
+	background: url(../images/sprite.png) no-repeat 46% -1059px;
+	cursor: pointer;
+	height: 12px;
+	width: 10px;
+	margin-left: 15px;
+	float: right;
+	margin-top: 4px;
+}
+
+.nextPageDisabled {
+	background: url(../images/newSprite.png) no-repeat -21px
+		-458px;
+	height: 12px;
+	width: 10px;
+	margin-left: 15px;
+	float: left;
+	margin-top: 4px;
+}
+
+.nextPageEnabled {
+	background: url(../images/sprite.png) no-repeat 46% -1083px;
+	cursor: pointer;
+	height: 12px;
+	width: 10px;
+	margin-left: 15px;
+	float: left;
+	margin-top: 4px;
+}
+
+.lastPageDisabled {
+	background: url(../images/newSprite.png) no-repeat -19px
+		-433px;
+	height: 12px;
+	width: 15px;
+	margin-left: 15px;
+	float: right;
+	margin-top: 4px;
+}
+
+.lastPageEnabled {
+	background: url(../images/sprite.png) no-repeat 42% -1107px;
+	cursor: pointer;
+	height: 12px;
+	width: 15px;
+	margin-left: 15px;
+	float: right;
+	margin-top: 4px;
+}
+
+.firstPageEnabled:hover {
+	background: url(../images/sprite.png) no-repeat 42% -993px;
+}
+
+.prevPageEnabled:hover {
+	background: url(../images/sprite.png) no-repeat 42% -1037px;
+}
+
+.nextPageEnabled:hover {
+	background: url(../images/sprite.png) no-repeat 50% -970px;
+}
+
+.lastPageEnabled:hover {
+	background: url(../images/sprite.png) no-repeat 48% -948px;
+}
+
+/** New GUI changes : Cell List View - Start */
+.minCellList {
+	background: url(../images/sprite.png) no-repeat 48%
+		-903px;
+	/* background: #4d4d4d url(../images/sprite.png) no-repeat 48% -903px; */
+	width: 17px;
+	height: 23px;
+	cursor: pointer;
+	outline: 0;
+	border: none;
+	margin-top: 325px;
+}
+
+.btnCellListStretch {
+	background: url(../images/expandCellListIcon.png) no-repeat
+		0px -10px;
+	width: 3px;
+	height: 21px;
+	border: none;
+	outline: 0;
+	margin-top: 196px;
+	padding-left: 7px;
+	cursor: ew-resize;
+}
+
+#mainCellTable {
+	width: 100%
+}
+
+#mainCellTable tr td {
+	height: 36px;
+	padding: 5px 0px 5px 20px;
+	font-family: Segoe UI;
+	font-size: 10pt;
+}
+
+#mainCellTable .selectedCellInCellList {
+	background-color: #fff1f1;
+	color: #c80000;
+	/* pointer-events: auto; */
+}
+
+#mainCellTable .selectedCellInCellList:hover {
+	cursor: default;
+	background-color: #fff1f1;
+	color: #c80000;
+	/* pointer-events: none; */
+}
+
+.allCell {
+	color: #bfbfbf;
+}
+
+.allCell:hover {
+	cursor: pointer;
+	background-color: #363636;
+}
+
+#searchCellTable {
+	width: 100%
+}
+
+#searchCellTable tr td {
+	height: 36px;
+	padding: 5px 0px 5px 20px;
+	font-family: Segoe UI;
+	font-size: 13px;
+}
+
+#searchCellTable .selectedCellInCellList {
+	background-color: #fff1f1;
+	color: #c80000;
+}
+
+#searchCellTable .selectedCellInCellList:hover {
+	cursor: default;
+	background-color: #fff1f1;
+	color: #c80000;
+}
+
+.searchImage {
+	background: url(../images/sprite.png) no-repeat 37% -1177px;
+	width: 30px;
+	height: 28px;
+	border: 1px solid #414141;
+	background-color: #343434;
+	float: left;
+}
+
+.searchImage:hover {
+	background: url(../images/sprite.png) no-repeat 37% -1204px;
+}
+
+.clearable {
+	background: url(../images/greyCross.png) no-repeat right;
+	background-position-y: 8px;
+}
+
+.clearableHover {
+	background: url(../images/hoverCross.png) no-repeat right;
+	background-position-y: 8px;
+}
+
+.noCell {
+	font-family: Segoe UI Light;
+	font-size: 16px;
+	color: #dfdfdf;
+	text-align: center;
+}
+
+.btnCellRefresh {
+	background: url(../images/sprite.png) no-repeat 45% -1236px;
+	width: 30px;
+	height: 28px;
+	border: 1px solid #414141;
+	background-color: #343434;
+	float: right;
+	position: absolute;
+	margin-left: 38px;
+}
+
+.btnCellRefresh:hover {
+	cursor: pointer;
+	background: url(../images/sprite.png) no-repeat 45% -1267px;
+}
+
+#btnCreateCell:hover {
+	background-color: #5f5f5f;
+	cursor: pointer;
+}
+
+.cellCreateIcon {
+	background: url(../images/newSprite.png) no-repeat -14px -72px;
+	width: 24px;
+	height: 29px;
+	border: none;
+	outline: 0;
+	float: left;
+	margin-left: 125px;
+	margin-top: 12px;
+	cursor: pointer;
+}
+
+.lblCellCreate {
+	border: none;
+	color: #dfdfdf;
+	cursor: pointer;
+	line-height: 46px;
+	font-family: Segoe UI Light;
+	font-size: 13pt;
+	margin-left: 10px;
+}
+
+.mainellListContainer {
+	position: absolute;
+	float: left;
+	width: 375px;
+	background-color: #4d4d4d;
+	min-height: 650px;
+	display: none;
+}
+
+.rightPanelDefaultHeight {
+	height: 650px;
+}
+
+.envNameHeadingCellList {
+	font-family: Segoe UI Light;
+	font-size: 13pt;
+	color: #dfdfdf;
+	border-bottom: 1px solid #313131;
+	padding: 0px 0px 0px 20px;
+	background-color: #3b3b3b;
+	margin-right: 10px;
+	line-height: 51px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 345px;
+	max-width: 345px;
+	cursor: default;
+}
+
+.divTxtboxCellListSearch {
+	height: 31px;
+	border: 1px solid #434343;
+	padding: 10px 9px 10px 18px;
+	background-color: #3b3b3b;
+	margin-right: 10px;
+}
+
+.txtBoxCellSearch {
+	background-color: #343434;
+	border: 1px solid #414141;
+	height: 26px;
+	padding: 0px 27px 0px 10px;
+	width: 228px;
+	float: left;
+	font-family: Segoe UI;
+	font-size: 9pt;
+	color: #a1a1a1;
+}
+
+.divCellCountDisplay {
+	height: 24px;
+	background-color: #363636;
+	margin-right: 10px;
+}
+
+.lblCellCountDisplay {
+	font-family: Segoe UI;
+	font-size: 9pt;
+	color: #9b9b9b;
+	padding-left: 20px;
+}
+
+.divCellTable {
+	position: absolute;
+	float: left;
+	width: 365px;
+	background-color: #3b3b3b;
+}
+
+.divExpandCellList {
+	position: absolute;
+	float: left;
+	left: 365px;
+	width: 10px;
+}
+
+.divCreateCell {
+	height: 43px;
+	background-color: #4d4d4d;
+	position: absolute;
+	bottom: 4px;
+	width: 375px;
+}
+
+/** New GUI changes : Cell List View - End */
+
+/* COMMON TABLE CSS */
+.mainTable {
+	width: 100%;
+	font-family: Segoe UI;
+	min-width: 1228px;
+	cursor: default;
+}
+
+.mainTable th {
+	padding: 0px 10px 0px 1px;
+	font-weight: normal;
+	height: 37px;
+	color: #1b1b1b;
+	text-align: left;
+	border-bottom: 1px solid #b1b1b1;
+	border-top: 1px solid #b1b1b1;
+	font-family: Segoe UI;
+	font-size: 10pt;
+}
+
+.mainTable tbody tr:not(#msg) {
+	border-bottom: 1px solid #e6e6e6;
+}
+
+.mainTable tbody tr:not(#msg):hover {
+	cursor: pointer;
+	background-color: #f4f4f4;
+}
+.removeRowHighlight tbody tr:not(#msg):hover {
+	cursor: auto !important;
+	background-color: inherit !important;
+
+}
+
+.removeRowHighlight tbody td:not(#msg) {
+	border-bottom: 0px !important;
+}
+.mainTable tbody td:not(#msg) {
+	padding: 0px 10px 0px 1px;
+	font-size: 10pt;
+	border-bottom: 1px solid #e6e6e6;
+	height: 36px;
+	color: #3c3c3c;
+}
+
+.mainTable td a {
+	text-decoration: none;
+	color: #3c3c3c;
+}
+
+.mainTable td a:hover {
+	text-decoration: underline;
+	color: #c80000;
+}
+
+.mainTableHeaderRow {
+	display: block;
+}
+
+.mainTableTbody {
+	max-height: 406px;
+	display: block;
+	width: 100%;
+	overflow: auto;
+}
+
+.selectRow td {
+	background: #f4f4f4;
+	border-bottom: 1px solid #fff;
+	cursor: default;
+}
+
+.mainTableEllipsis {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.operationMsgDynamicWidth {
+	display: table-cell;
+	white-space: nowrap;
+	padding-right: 34px;
+}
+
+/* BOX TABLE */
+.boxOperationSection {
+	width: 100%;
+	height: 22px;
+	margin-bottom: 20px;
+}
+
+#createEntityWrapper:hover {
+	cursor: pointer;
+}
+
+.leftSubHeading {
+	margin: auto;
+	height: 20px;
+	/* width: 320px; */
+	float: left;
+	margin-top: 4px;
+}
+
+.divList { /* width: 73px; */
+	float: left;
+	border-right: 1px solid #4b4b4b;
+	height: 18px;
+	margin-top: 0px;
+}
+
+.lblList {
+	font-family: Segoe UI Light;
+	font-size: 13pt;
+	color: #1b1b1b;
+	padding-right: 20px;
+}
+
+#createEntityWrapper {
+	width: 135px;
+	float: left;
+	border-right: 1px solid #4b4b4b;
+	/* padding-right: 10px; */
+	height: 17px;
+}
+
+.createAccountWrapper {
+	width: 128px!important;
+	padding-right: 10px!important;
+}
+
+.createRoleWrapper {
+	width: 105px!important;
+	padding-right: 10px!important;
+}
+
+.createRelationWrapper {
+	width: 127px!important;
+	padding-right: 10px!important;
+}
+
+.createExternalCellWrapper {
+	width: 161px!important;
+	padding-right: 10px!important;
+}
+
+.createExternalRoleWrapper {
+	width: 165px!important;
+	padding-right: 10px!important;
+}
+
+.createIcon {
+	background: url(../images/sprite.png) no-repeat 43% -523px;
+	width: 20px;
+	float: left;
+	height: 20px;
+	margin-left: 10px;
+	margin-right: 7px;
+}
+
+.createText {
+	float: left;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	color: #1b1b1b;
+	margin-top: 2px;
+}
+
+.downArrowCreate {
+	background: url(../images/sprite.png) no-repeat 18% -600px;
+	width: 23px;
+	height: 16px;
+	float: left;
+}
+
+.divEditIcon {
+	width: 31px;
+	height: 17px;
+	float: left;
+	border-right: 1px solid #4b4b4b;
+	padding-right: 10px;
+}
+
+.editIconDisabled {
+	background: url(../images/sprite.png) no-repeat 43% -632px;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+	/* pointer-events: none; */
+}
+.editIconEnabled {
+	background: url(../images/sprite.png) no-repeat 43% -698px;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+}
+.editIconEnabled:hover {
+	background: url(../images/sprite.png) no-repeat 43% -665px;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+	cursor:pointer;
+}
+
+.divDeleteIcon {
+	width: 31px;
+	height: 17px;
+	float: left;
+	border-right: 1px solid #4b4b4b;
+	padding-right: 10px;
+}
+
+.deleteIconDisabled {
+	background: url(../images/sprite.png) no-repeat 43% -737px !important;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+	cursor: default;
+}
+
+.deleteIconEnabled {
+	background: url(../images/sprite.png) no-repeat 42% -771px;
+	width: 20px;
+	border: none;
+	float: left;
+	margin-left: 10px;
+	outline: 0;
+	height: 20px;
+}
+
+.deleteIconEnabled:hover {
+	background: url(../images/sprite.png) no-repeat 42% -802px;
+	cursor:pointer;
+	margin-left: 11px;
+} 
+
+.deleteIconWebDavEnabled:hover{
+	background: url(../images/sprite.png) no-repeat 21% -802px;
+	cursor:pointer;
+	margin-right: 10px !important;
+	margin-left: 1px !important;
+	margin-top: 8px !important;
+}
+#mainBoxTable {
+	width: 100%
+}
+
+#mainBoxTable .col1 {
+	width: 1%
+}
+
+#mainBoxTable .col2 {
+	width: 29%
+}
+
+#mainBoxTable .col3 {
+	width: 40%
+}
+
+#mainBoxTable .col4 {
+	width: 15%
+}
+
+#mainBoxTable .col5 {
+	width: 15%
+}
+
+.boxInstallIcon {
+	background: url(../images/sprite.png) no-repeat 80% -838px;
+	float: left;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 4px;
+	width: 90px;
+}
+
+/* Customize scrollbar Start*/
+.entityGridTbody::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+}
+
+.entityGridTbody::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 25px #9c9c9c;
+	border-radius: 10px;
+	display: none;
+}
+
+.entityGridTbody::-webkit-scrollbar-thumb {
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 6px #9c9c9c;
+}
+/* Customize scrollbar End*/
+
+/* Custom Checkbox Start */
+.regular-checkbox {
+	display: none;
+}
+
+.regular-checkbox+label {
+	background-color: #FFFFFF;
+	border: 1px solid #C4C4C4;
+	border-radius: 0;
+	display: inline-block;
+	position: relative;
+}
+
+.regular-checkbox:checked+label {
+	border: 1px solid #ADB8C0;
+	color: #99A1A7;
+}
+
+.regular-checkbox:checked+label:after {
+	color: #3b3b3b;
+	content: "";
+	position: absolute;
+	-webkit-transform: rotate(-45deg);
+	left: 2px;
+	top: 5px;
+	height: 4px;
+	width: 8px;
+	border-image: none;
+	border-style: none none solid solid;
+	border-width: medium medium 2.7px 2.7px;
+}
+
+.big-checkbox+label {
+	height: 16px;
+	width: 16px;
+}
+
+.big-checkbox:checked+label:after {
+	left: 3px;
+	top: 3px;
+}
+
+.chkboxPositionInherit {
+	position: inherit !important;
+}
+
+/* Custom Checkbox End*/
+
+/** New GUI changes : End */
+.cellNameList {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 318px;
+	max-width: 318px;
+	padding-right: 10px !important;
+}
+
+.search {
+	padding: 1% 1% 1% 6%;
+	width: 91%
+}
+
+.searchBox {
+	margin: 8% 0 4% 0;
+	border: medium none;
+	color: #373f49;
+	padding: 2%
+}
+
+.searchIcon {
+	cursor: pointer;
+	width: 29px;
+	margin: 2px 0 0 2px;
+	border: none
+}
+
+.searchImage {
+	padding: 18px 0 0 3px;
+	position: absolute;
+	height: 28px;
+	cursor: pointer
+}
+
+.searchBullet {
+	background: url(../newImages/sprite_icons.png) no-repeat 0 -749px;
+	width: 13px;
+	height: 12px
+}
+
+.refreshButton {
+	background: url(../newImages/sprite_icons.png) no-repeat -7px -43px;
+	border: none;
+	cursor: pointer;
+	float: right;
+	height: 28px;
+	margin: 17px 0 0 33px;
+	position: absolute;
+	width: 27px
+}
+
+.bigButton {
+	width: 149px;
+	height: 29px;
+	background-color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	color: #178e9d;
+	cursor: pointer;
+	line-height: 29px;
+	font-family: Segoe UI;
+	font-size: 0.9em
+}
+
+.breadcrumb {
+	list-style: none;
+	float: left;
+	margin-bottom: 5px;
+	clear: both;
+	width: 100%;
+	min-width: 952px;
+	padding: 14px 0 7px 0;
+	font-family: Segoe UI
+}
+
+.breadcrumb li .firstHeading {
+	background: url(../newImages/sprite_icons.png) no-repeat scroll right
+		-1946px transparent;
+	font-size: 0.8em;
+	color: #373f49;
+	float: left;
+	margin: 4px 10px 0 0;
+	padding: 0 10px 0 0;
+	width: 100%
+}
+
+.mainContentTop {
+	margin: 15px 10px 0 0;
+	width: 100%;
+	min-width: 952px;
+}
+
+.mainNav {
+	margin: 10px 0 0 0;
+	width: 100%;
+	min-width: 952px
+}
+
+.mainNav ul {
+	display: block;
+	width: 100%
+}
+
+.mainNav ul li {
+	display: inline;
+	float: left;
+	list-style: none;
+	background: #edeef0;
+	border-right: 1px solid #edeef0;
+	line-height: 22px;
+	padding: 5px 0;
+	/* border-bottom:1px solid #cdd3de; */
+	margin-bottom: 10px;
+}
+
+.mainNav ul li:hover {
+	background: #dfdfdf
+}
+
+.mainNav ul li a {
+	text-decoration: none;
+	color: #373f49;
+	font-size: 0.9em;
+	font-family: Segoe UI
+}
+
+.cell {
+	min-width: 14.186%
+}
+
+.box {
+	min-width: 14.186%
+}
+
+.role {
+	min-width: 14.186%
+}
+
+.acc {
+	min-width: 14.186%
+}
+
+.extC {
+	min-width: 14.186%
+}
+
+.rel {
+	min-width: 14.186%
+}
+
+.extR {
+	min-width: 14.186%
+}
+
+/**** Left Panel starts here ****/
+/* .leftPanel{background:#edeef0;width:50px;float:left;position:absolute}
+.leftPanelCellList{background:#edeef0;width:50px;float:left;min-height:559px} */
+.leftNav {
+	width: 45px
+}
+
+.leftNav ul li {
+	list-style: none;
+	float: left;
+	width: 50px
+}
+
+.leftNav ul li.selected {
+	background-color: #4fbfcd
+}
+
+.leftNav ul li a {
+	text-indent: -2000px;
+	float: left;
+	padding: 10px
+}
+
+.leftNav ul li:hover {
+	background: #4FBFCD
+}
+
+.socialGraph {
+	background: url(../newImages/sprite_icons.png) no-repeat 5px -890px;
+	width: 35px;
+	height: 36px
+}
+
+.resouceMgmt {
+	background: url(../newImages/sprite_icons.png) no-repeat 5px -946px;
+	width: 35px;
+	height: 37px
+}
+
+.statistic {
+	background: url(../newImages/sprite_icons.png) no-repeat 5px -1006px;
+	width: 35px;
+	height: 36px
+}
+
+.leftNav ul li.selected .socialGraph {
+	background: url(../newImages/sprite_icons.png) no-repeat 5px -1064px;
+	width: 35px;
+	height: 36px
+}
+
+.leftNav ul li.selected .resouceMgmt {
+	background: url(../newImages/sprite_icons.png) no-repeat 5px -1122px;
+	width: 35px;
+	height: 37px
+}
+
+.leftNav ul li.selected .statistic {
+	background: url(../newImages/sprite_icons.png) no-repeat 5px -1181px;
+	width: 35px;
+	height: 36px
+}
+/**** Left Panel ends here ****/
+.mainNav .selected {
+	background: #4fbfcd url(../newImages/nav_bgPattern.png) 0 0;
+	width: auto
+}
+
+.mainNav .selected:hover {
+	background: #4fbfcd url(../newImages/nav_bgPattern.png) 0 0
+}
+
+.mainNav .selected a {
+	color: #fff
+}
+
+.cellProfileNav {
+	background: url(../newImages/sprite_icons.png) no-repeat 1% -90px;
+	padding: 9px 30px 5px 37px
+}
+/* .boxNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -135px;padding:6px 74px 5px 37px} */
+/* .roleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -177px;padding:6px 70px 5px 37px} */
+/* .accountNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -220px;padding:6px 45px 5px 37px} */
+.extCellNav {
+	background: url(../newImages/sprite_icons.png) no-repeat 1% -261px;
+	padding: 9px 20px 5px 37px
+}
+
+.relationNav {
+	background: url(../newImages/sprite_icons.png) no-repeat 1% -309px;
+	padding: 7px 45px 5px 37px
+}
+
+.extRoleNav {
+	background: url(../newImages/sprite_icons.png) no-repeat 1% -350px;
+	padding: 9px 15px 5px 37px
+}
+
+.selected .cellProfileNav {
+	background: url(../newImages/sprite_icons.png) no-repeat 1% -392px;
+	padding: 9px 30px 5px 37px
+}
+/* .selected .boxNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -439px;padding:6px 74px 5px 37px} */
+/* .selected .roleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -482px;padding:6px 70px 5px 37px} */
+/* .selected .accountNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -526px;padding:6px 45px 5px 37px} */
+/* .selected .extCellNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -568px;padding:9px 20px 5px 37px}
+.selected .relationNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -618px;padding:7px 45px 5px 37px}
+.selected .extRoleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -663px;padding:9px 15px 5px 37px} */
+/**** Main Container ends here ****/
+
+/**** Message-Successful/Partial Successful/Error starts here ****/
+.messageWrapper {
+	width: 100%;
+	margin: -5px 0 0 0;
+	text-align: center;
+	float: left;
+	display: block;
+	border-bottom: 5px solid #ffffff;
+	font-style: normal;
+	color: #373f49;
+	font-family: Segoe UI;
+	font-size: .7em;
+	font-weight: bold;
+	line-height: 23px
+}
+
+.messageWrapper .messageClose {
+	background: url(../newImages/close.png) no-repeat scroll 0 0;
+	border: none;
+	float: right;
+	height: 8px;
+	width: 8px;
+	margin: 5px 5px 0 0;;
+	cursor: pointer
+}
+
+.successfulWrapper {
+	background: #d4ee7b;
+	width: 100%
+}
+
+/* .mainTable{
+	width:100%;
+	font-family:Segoe UI;
+	color:#373f49;
+	min-width:952px
+} */
+.displayNone {
+	display: none;
+}
+
+.verticalAlignTop {
+	vertical-align: top;
+}
+
+.downloadIcon {
+	background: url(../newImages/sprite_icons.png) no-repeat -9px -2926px;
+	text-indent: -2000px;
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin-left: 50px;
+	cursor: default
+}
+
+.downloadIcon:hover {
+	background: url(../newImages/sprite_icons.png) no-repeat -9px -2926px;
+}
+
+.imgSize {
+	height: 20px;
+	width: 20px;
+}
+
+.smallBlueButton {
+	min-width: 80px;
+}
+
+.importBtnDisabled {
+	background: #4fbfcd url(../newImages/sprite_icons.png) no-repeat 3px
+		-2819px;
+	min-width: 45px;
+	height: 29px;
+	border: none;
+	border-radius: 5px;
+	color: #ffffff;
+}
+
+.profileTableWrapper {
+	height: 175px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: #ffffff
+}
+
+.mappingInfo li.last {
+	margin-right: 0
+}
+
+.leftslidIn {
+	background: url(../newImages/sprite_icons_Graph.png) no-repeat -7px
+		-2910px;
+	border: none;
+	cursor: pointer;
+	float: right;
+	height: 28px;
+	margin: 16px 0 0 40px;
+	position: absolute;
+	width: 27px
+}
+
+.rightslidOut {
+	background: url(../newImages/sprite_icons_Graph.png) no-repeat -7px
+		-2883px;
+	border: none;
+	cursor: pointer;
+	float: right;
+	height: 28px;
+	margin: 16px 0 0 40px;
+	position: absolute;
+	width: 27px
+}
+
+.mainContentBottom {
+	border: 1px solid #e0e0e0;
+	padding: 10px;
+	height: 232px
+}
+
+.aboutAuthor {
+	height: 235px
+}
+
+.smallestTextBoxPopUp {
+	width: 100px;
+	border: 0;
+	height: 16px;
+	font-family: Segoe UI;
+	font-size: 1.0em;
+	color: #373f49;
+	padding: 5px;
+	clear: both;
+	float: left
+}
+
+.smallerTextBoxPopUp {
+	width: 150px;
+	height: 23px;
+}
+
+.smallTextBoxPopUp {
+	width: 180px;
+}
+
+.envNameHeader {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 77% !important;
+	max-width: 77% !important;
+	padding-right: 10px !important;
+	padding-top: 10px !important
+}
+
+.shortName {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding-right: 10px !important;
+}
+
+.celldisplayNameText {
+	width: 52% !important;
+	max-width: 52% !important;
+	padding-left: 5px; ! important;
+	margin-left: -10px;
+}
+
+.breadCrumbCellName {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding-right: 19px !important;
+	max-width: 98% !important;
+}
+/****************** Modal window Starts ****************/
+.modelback {
+	/* background: url(../newImages/old-browsers-bg/black50.png); */
+	background: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1
+}
+
+div.modal-window {
+	position: absolute;
+	left: 0;
+	top: 0;
+	-moz-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+	box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+}
+
+.modal-content {
+	overflow: hidden;
+	margin: -2.833em -1.667em -1.667em;
+	padding: 2.833em 1.667em 1.667em;
+}
+
+.modelbackSpinner {
+	/* background: url(../newImages/old-browsers-bg/black50.png); */
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 3
+}
+
+#modal>.block-border>.block-content { /* z-index: 90; */
+	
+}
+/****************** Modal window End ****************/
+
+/** Access Token Pop Up Starts **/
+.textAreaShowAccessToken {
+	height: 219px;
+	width: 516px;
+	border: 0px;
+	padding-right: 7px;
+	line-height: 22px;
+	font-family: Segoe UI Light;
+	resize:none;
+}
+
+.outerDvTextArea {
+	padding: 19px;
+	border: solid 1px #d2d2d2;
+}
+
+.accessTokenDiv {
+	padding-bottom: 15px;
+	padding-top: 20px;
+	padding-left: 30px;
+}
+
+.AccessTokenHeading {
+	font-family: Segoe UI Light;
+	font-size: 24pt;
+	color: #1b1b1b;
+}
+
+.accessTokenLabel {
+	font-family: Segoe UI;
+	padding-left: 75px;
+	padding-right: 75px;
+	font-size: 13px;
+	color: #3c3c3c;
+	padding-bottom: 20px;
+}
+
+.popupCloseIcon {
+	background: url(../images/newSprite.png) no-repeat -16px
+		-1468px;
+	float: right;
+	height: 14px;
+	width: 15px;
+}
+
+.closeIconDiv {
+	padding-top: 20px;
+	padding-right: 20px;
+	width: 20%;
+	float: right;
+	height: 10px;
+}
+
+.popupCloseIcon:hover {
+	background: url(../images/newSprite.png) no-repeat -17px
+		-1497px;
+	cursor: pointer;
+}
+
+#txtAccessToken::-webkit-scrollbar {
+	width: 4px;
+}
+
+#txtAccessToken::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 25px #9c9c9c;
+	border-radius: 10px;
+	display: none;
+}
+
+#txtAccessToken::-webkit-scrollbar-thumb {
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 6px #9c9c9c;
+}
+
+.btnClose {
+	height: 29px;
+	width: 90px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #ffffff;
+	background: #4b4b4b;
+	cursor: pointer;
+	border: none;
+}
+
+.dvClose {
+	padding-bottom: 20px;
+	float: right;
+	padding-right: 20px;
+}
+
+.dvTextArea {
+	padding-left: 75px;
+	padding-right: 75px;
+	font-size: 13px;
+	color: #3c3c3c;
+	padding-bottom: 15px;
+}
+
+.btnClose:hover {
+	background: #5c5c5c;
+}
+/** Access Token Pop Up Ends **/
+
+/**** Cell Create PopUp - Start ****/
+.popupCellHeader {
+	width: 100%;
+	height:30px;
+}
+
+.popupCellHeading {
+	float: left;
+	margin-top: 30px;
+	margin-left: 30px;
+	font-family: Segoe UI Light;
+	font-size: 27px;
+	color: #1b1b1b;
+}
+
+.popuplabel{
+	font-family: Segoe UI;
+	font-size: 10px;
+	color: #3c3c3c;
+}
+
+.popuplabeltop{
+	margin-top:10px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #3c3c3c;
+}
+
+.popuplabelellipses{
+	margin-top:10px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #3c3c3c;
+	max-width: 250px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space:nowrap;
+}
+
+.popuplabelmessage{
+	width:100%;
+	margin-top:0px;
+	font-family: Segoe UI;
+	font-size: 11px;
+	color:#696969
+}
+
+.popuplabel{
+	margin-top:20px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #3c3c3c;
+}
+
+.popuplabeldisabled{
+	margin-top:20px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #3c3c3c;
+}
+
+.cellpopuplabel{
+	margin-top:10px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #3c3c3c;
+}
+.browse{
+	width:50px;
+	height:27px;
+}
+.popupTextBox{
+	margin-top:10px;
+	height:27px;
+	font-size: 13px;
+	color: #3c3c3c;
+	padding: 0px 5px;
+	padding-right: 25px;
+	width: 225px;
+	border: 1px solid #d2d2d2;
+}
+.popupTextArea{
+	margin-top:10px;
+	width:245px;
+	height:80px;
+	font-size: 13px;
+	color: #3c3c3c;
+}
+
+.crossCellIcon {
+	float: right;
+	margin-top: 20px;
+	margin-right: 20px;
+	background: url(../images/newSprite.png) no-repeat -17px -1469px;
+	height: 12px;
+	width: 12px;
+	cursor:pointer;
+}
+
+.crossCellIcon:hover {
+	background: url(../images/newSprite.png) no-repeat -17px -1499px;
+	cursor: pointer;
+}
+
+.popupCellBody {
+	margin-top: 62px;
+	margin-left:30px;
+	width: 646px;
+	height: 362px;
+	max-height: 362px;
+	overflow: auto;
+	display: block;
+	border: 1px solid;
+	border-color:#d9d9d9;
+}
+
+.popupCreateCellBody {
+	margin-top: 40px;
+	margin-left:75px;
+	margin-right:45px;
+	width: 598px;
+	height: 391px;
+}
+
+.cellPopupLeft{
+	float: left;
+	width:267px;
+	margin-left:0px;
+}
+
+.cellPopupRight{
+	margin-left:10px;
+	float: right;
+	width:297px;
+}
+
+.popupCellBodyRow {
+	width: 100%;
+	height: 86px;
+	color: #1b1b1b;
+	display: flex;
+}
+
+.popupCellBodySelected {
+	background: #ffe3e3;
+	color: #e62525;
+	cursor: pointer;
+}
+
+.popupCellBodyDisable {
+	color: #d9d9d9;
+	cursor: normal;
+}
+
+.popupCellBodyLeft {
+	float: left;
+	width: 221.5px;
+	padding-top: 10px;
+	margin-left: 25px;
+	font-family: Segoe UI Light;
+	font-size: 16px;
+}
+
+.popupCellBodyRight {
+	float: right;
+	width: 257.5px;
+	padding-top: 10px;
+	margin-left: 75px;
+	margin-right: 75px;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	color: #525252;
+}
+
+.popupCellBottom {
+	width: 100%;
+	background-color: #c80000;
+	height: 42px;
+	margin-top:32px;
+}
+
+.popupCellCreateBottom {
+	width: 100%;
+	background-color: #c80000;
+	height: 42px;
+	margin-top:27px;
+}
+
+.pageFwdIcon {
+	float: right;
+	margin-top: 4px;
+	margin-right: 10px;
+	background: url(../images/newSprite.png) no-repeat -9px
+		-2037px;
+	height: 35px;
+	width: 30px;
+}
+
+.cancelCellCreateIcon {
+	float: right;
+	margin-top: 4px;
+	margin-right: 10px;
+	background: url(../images/newSprite.png) no-repeat -9px
+		-1956px;
+	height: 33px;
+	width: 32px;
+}
+
+.createCellIcon {
+	float: right;
+	margin-top: 4px;
+	margin-right: 10px;
+	background: url(../images/newSprite.png) no-repeat -9px
+		-1996px;
+	height: 32px;
+	width: 30px;
+}
+
+.pagePrevIcon {
+	float: left;
+	margin-top: 4px;
+	margin-left: 10px;
+	background: url(../images/newSprite.png) no-repeat -9px
+		-1911px;
+	height: 33px;
+	width: 30px;
+}
+
+.pageFwdIcon:hover {
+	cursor: pointer;
+	background: url(../images/sprite3.png) no-repeat -9px -111px;
+}
+
+.pagePrevIcon:hover {
+	cursor: pointer;
+	height: 37px;
+	background: url(../images/sprite3.png) no-repeat -9px -5px;
+}
+
+.createCellIcon:hover {
+	cursor: pointer;
+	height: 37px;
+	background: url(../images/sprite3.png) no-repeat -9px -77px;
+}
+.cancelCellCreateIcon:hover {
+	cursor: pointer;
+	height: 37px;
+	background: url(../images/sprite3.png) no-repeat -9px -41px;
+}
+
+
+.popupCellBody::-webkit-scrollbar {
+	width: 4px;
+}
+
+.popupCellBody::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 25px #9c9c9c;
+	border-radius: 10px;
+	display: none;
+}
+
+.popupCellBody::-webkit-scrollbar-thumb {
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 6px #9c9c9c;
+}
+.cellpopupInlineComment {
+	font-family: Segoe UI;
+	font-size: 10px;
+	color: #c80000;
+}
+/**** Cell Create PopUp - End ****/
+
+
+/**** Main navigation social hover - Start ****/
+
+.socialSubMenu {
+	display: none;
+	list-style: none;
+	position: absolute;
+	top: 113px;
+}
+.messageSubMenu {
+	display: none;
+	list-style: none;
+	position: absolute;
+	top: 113px;
+	z-index: 1;
+}
+.externalCell {
+	margin-left: 10px;
+	color: #1b1b1b;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.externalCellWrapper {
+	height: 30px;
+	width: 137px;
+	padding-top: 5px;
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.externalCellWrapper:hover {
+	cursor: pointer;
+	background: #fff1f1;
+	border: 1px solid #f6cdcd;
+}
+
+.relationWrapper {
+	height: 30px;
+	width: 137px;
+	padding-top: 5px;
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-bottom: 1px solid #f2f2f2;
+	border-top: 1px solid #f2f2f2;
+}
+
+.relationWrapper:hover {
+	cursor: pointer;
+	background: #fff1f1;
+	border: 1px solid #f6cdcd;
+}
+
+.relation {
+	margin-left: 10px;
+	color: #1b1b1b;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.externalRole {
+	margin-left: 10px;
+	color: #1b1b1b;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.externalRoleWrapper {
+	height: 30px;
+	width: 137px;
+	padding-top: 5px;
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-top: 1px solid #f2f2f2;
+}
+
+.externalRoleWrapper:hover {
+	cursor: pointer;
+	background: #fff1f1;
+	border: 1px solid #f6cdcd;
+}
+
+/**** Main navigation social hover - End ****/
+
+.emptyTableMessage {
+	border: 1px solid #d2d2d2;
+	text-align:center;
+	font-family:Segoe UI;
+	font-size:10pt;
+	height:23px;
+	background:#fff1f1;
+	color:#1b1b1b;
+	margin:45px auto;
+	line-height: 21px;
+}
+
+.accountEmptyTableMessageWidth {
+	width:187px;
+}
+
+#mainAccountTable{width:100%}
+#mainAccountTable .col1{width:1%}
+#mainAccountTable .col2{width:34.1%}
+#mainAccountTable .col3{width:15%}
+#mainAccountTable .col4{width:14.9%}
+#mainAccountTable .col5{width:35%}
+
+#mainRelationTable{width:100%}
+#mainRelationTable .col1{width:1%}
+#mainRelationTable .col2{width:22.1%}
+#mainRelationTable .col3{width:23.15%}
+#mainRelationTable .col4{width:15%}
+#mainRelationTable .col5{width:14.9%}
+#mainRelationTable .col6{width:24%}
+
+#mainRoleTable{
+	width:100%
+}
+
+#mainRoleTable .col1{
+	width:1%
+}
+
+#mainRoleTable .col2{
+	width:33%
+}
+
+#mainRoleTable .col3{
+	width:32%
+}
+
+#mainRoleTable .col4{
+	width:17%
+}
+#mainRoleTable .col5{
+	width:17%
+}
+/*  Box Pop Up Starts */
+.createBoxSubMenu{
+	display:none;
+	list-style:none;
+	position: relative;
+	padding-top: 24px;
+}
+
+.createBoxItem{
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-bottom: 1px solid #f2f2f2;
+	color:#1b1b1b;
+	cursor:pointer;
+	padding: 7px 60px 8px 9px;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.createBoxItem:hover{
+	background: #fff1f1;
+	border:1px solid #f6cdcd;
+}
+
+.importBoxWrapper{
+	margin-top: 15px; 
+}
+
+.importBoxItem{
+	background: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	border-top: 1px solid #f2f2f2;
+	color:#1b1b1b;
+	cursor:pointer;
+	padding:  9px 59px 8px 8px; 
+	font-family: Segoe UI;
+	font-size: 10pt;
+	text-decoration: none;
+}
+
+.importBoxItem:hover{
+	background: #fff1f1;
+	border:1px solid #f6cdcd;
+}
+
+.selectMenuPopup {
+	width:247px;
+	border: solid 1px #d2d2d2;
+	height:29px;
+	font-family:Segoe UI;
+	font-size:13px;
+	color:#696969;
+	padding:3px;
+	clear:both;
+	float:left;
+	-webkit-appearance: none;
+	background: transparent;
+	
+}
+
+.bigTextBox {
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #696969;
+	border: solid 1px #d2d2d2;
+	height: 27px;
+	width: 220px;
+	padding-right: 25px;
+}
+
+.positionLeftHandElements {
+	margin-right: 55px;
+	margin-left: 75px;
+	float: left;
+}
+
+.positionRHSElements {
+	margin-right: 75px;
+	float: right;
+}
+
+.lblElement {
+		font-family: Segoe UI;
+	font-size: 12px;
+	color: #1b1b1b;
+	padding-bottom: 10px;
+
+}
+.itemInfo{
+	font-family: Segoe UI;
+	font-size: 10px;
+	color: #696969;
+}
+.topHeader .rightSection .fujitsuIcon{
+	background:url(../images/logo.png) no-repeat;
+	height: 40px;
+	width: 62px;
+	margin-right:20px;
+}
+.checkBoxPopup {
+	margin: 0 7px 0 5px
+}
+.boxProfileImage {
+	width:71px;
+	height:70px;
+	background: url(../images/profile_image_without_border.png) no-repeat;
+}
+.positionTopDiv {
+	padding-bottom: 26px;
+}
+.bigTextBoxHeight {
+height: 70px;
+resize:none;
+}
+.widthApplicationImage{
+width: 247px;	
+}
+.floatLeft {
+	float:left;
+}
+.positionButtons {
+	width:100%;float: right;
+	margin-top: 9px;
+}
+.dvCreate{
+	float:right;padding-right: 20px;padding-bottom: 20px;
+}
+.positionApplicationImageSection{
+	padding-top: 0px;
+}
+.browseButton {
+	padding-left: 82px; padding-top: 8px;
+}
+.positionImageSection{
+	padding-bottom: 4px;
+}
+.hideErrorMessage{
+	visibility: hidden;
+}
+.positionImageInfo{
+	padding-left: 5px;
+}
+.validValueIcon{
+	background:url(../images/newSprite.png) no-repeat 207px -250px;
+}
+.errorIcon {
+	background: url(../images/newSprite.png) no-repeat 207px -214px;
+}
+.validValueIconCellProfile{
+	background:url(../images/newSprite.png) no-repeat 217px -250px;
+}
+.errorIconCellProfile {
+	background: url(../images/newSprite.png) no-repeat 217px -214px;
+}
+.popupAlertArea {
+	float: left;
+	height: 15px;
+	padding: 1px 0px 1% 0px;
+	width: 100%;
+	padding-top: 7px;
+}
+
+.chkBoxCreateProfilePosition{
+	/* padding-bottom: 15px;
+	margin-left: -4px; */
+	padding-bottom: 15px;
+}
+.chkBoxCreateElement {
+	font-family: Segoe UI;
+	font-size: 12px;
+	color: #1b1b1b;
+	padding-bottom: 0px;
+}
+.checkBoxElementLabel {
+margin-top: -20px;margin-left: 31px;	
+}
+.popupAlertmsg {
+	font-size: 10px;
+	font-family: Segoe UI;
+	color: #c80000;
+	text-align: left;
+}
+.crudOperationSuccessIcon {
+	background: url(../images/newSprite.png) no-repeat 56% -1710px;
+	width: 17px;
+	height: 20px;
+	float: left;
+	position: relative;
+	padding-right: 10px;
+}
+.crudOperationErrorIcon {
+	background: url(../images/newSprite.png) no-repeat 56% -218px;
+	width: 17px;
+	height: 20px;
+	float: left;
+	position: relative;
+	padding-right: 10px;
+}
+.crudOperationSuccessMsg {
+	font-family: Segoe UI;
+	font-size: 10pt;
+	/* width: 263px; */
+	color: #1b1b1b;
+	padding-top: 1px;
+}
+
+.crudOperationWrapper {
+	float: left;
+	width: 63%;
+}
+
+.crudOperationSuccessWrapper {
+	display: block;
+	margin: -5px 0px 0px 0px;
+	margin: 0 auto;
+	background: #fff1f1;
+	width: 200px;
+	height: 23px;
+	border: 1px solid #d2d2d2;
+}
+
+.file-input-wrapper {
+	overflow: hidden;
+	position: relative;
+	width: 90px;
+}
+
+.file-input-wrapper>input[type="file"] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0;
+}
+
+.file-input-wrapper>.btn-file-input {
+	display: inline-block;
+	cursor: pointer;
+	border: none;
+}
+
+.fileUpload {
+	position: relative;
+	overflow: hidden;
+	margin: 10px;
+}
+.fileUpload input.upload {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: default;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+.imgBorder {
+	border:1px solid #e2e2e2;
+	height: 70px; !important;
+	width: 71px; !important;
+	
+}
+.btnDisabled {
+	height: 29px;
+	width: 90px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #ffffff;
+	background: #AAA6A6;
+	cursor: default;
+	border: none;
+}
+.imageTableDimensions{
+	height: 71px;
+	width:70px;
+}
+
+.browseButtonSection {
+	padding-top:15px;
+}
+
+.cancelBtn {
+	height: 29px;
+	width: 90px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	background: #d9d9d9;
+	color: #1b1b1b;
+	cursor: pointer;
+	border: none;
+}
+
+.cancelBtn:hover {
+	background: #e8e8e8;
+}
+/*  Box Pop Up Ends */
+#mainExternalCellTable{
+	width:100%
+}
+
+#mainExternalCellTable .col1{
+	width:1%
+}
+
+#mainExternalCellTable .col2{
+	width:15%
+}
+
+#mainExternalCellTable .col3{
+	width:24%
+}
+
+#mainExternalCellTable .col4{
+	width:15%
+}
+
+#mainExternalCellTable .col5{
+	width:15%;
+}
+
+#mainExternalCellTable .col6{
+	width:30%;
+}
+
+#externalRoleTable{width:100%}
+#externalRoleTable .col1{width:1%}
+#externalRoleTable .col2{width:20%}
+#externalRoleTable .col3{width:15%}
+#externalRoleTable .col4{width:15.1%}
+#externalRoleTable .col5{width:15%}
+#externalRoleTable .col6{width:14.9%}
+#externalRoleTable .col7{width:19%}
+
+/* Assign Grid: Start */
+.assignBackWrapper {
+	display: inline-block;
+}
+
+.assignBackWrapper:hover {
+	cursor: pointer;
+}
+
+.assignBackIcon {
+	background: url(../images/newSprite.png) no-repeat 57% -1525px;
+	width: 13px;
+	float: left;
+	height: 22px;
+}
+
+.assignEntityText {
+	font-size: 13pt;
+	color: #c80000;
+	margin-left: 5px;
+	font-family: Segoe UI Light;
+}
+
+.assignEntityText:hover {
+	cursor: pointer;
+}
+
+.assignEntities {
+	font-family: Segoe UI;
+	font-size: 10pt;
+	color: #1b1b1b;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #b1b1b1;
+	height: 20px;
+	padding-left: 2px;
+}
+
+.assignEntities ul li {
+	list-style: none;
+	float: left;
+	margin-right: 10px;
+	padding: 5px 15px 0px 15px;
+	cursor: pointer;
+}
+
+.assignEntities ul li:first-child {
+	padding-left: 0px!important;
+}
+
+.assignEntities ul li:last-child {
+	margin-right: 0px!important;
+}
+
+.assignEntities ul li label:hover{
+	cursor: pointer;
+}
+
+.assignBtn {
+	background: #d9d9d9 url(../images/newSprite.png) no-repeat -15% -1074px;
+	border: none;
+	cursor: pointer;
+	height: 29px;
+	width: 90px;
+	font-size: 10pt;
+	font-family: Segoe UI;
+	color: #1b1b1b;
+	text-align: center;
+	padding: 4px 0px 6px 22px;
+}
+
+.assignBtnDisabled {
+	background-color: #e8e8e8;
+	cursor: default;
+}
+
+.assignBtn:hover {
+	background-color: #e8e8e8;
+}
+
+.assignEntities .selected {
+	color:#c80000;
+}
+
+.assignNavigation:hover {
+	color:#c80000;
+	cursor: pointer;
+}
+
+.divAssignEntity {
+	/*border-top: 1px solid #b1b1b1;*/
+	height: 37px;
+	border-bottom: 1px solid #b1b1b1;
+}
+
+.divAssignEntityTxtBox {
+	width: 257px;
+	float: left;
+	margin-right: 10px;
+}
+
+.assignEntityTxtBox {
+	margin-top: 4px;
+	padding: 0px 5px;
+	margin-right: 10px;	
+}
+
+.divAssignEntityBtn {
+	float: left;
+	margin-top: 4px;
+}
+
+.divDeleteAssignEntityIcon {
+	float: left;
+	margin-top: 9px;
+	margin-left: 7px;
+	border: none;
+}
+
+.assignEntityDownArrow {
+	padding: 0px 10px;
+	margin-top: 5px;
+}
+
+.divAssignEllipsis {
+	float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;
+}
+
+#mainRoleAccountLinkTable{width:100%}
+#mainRoleAccountLinkTable .col1{width:1%;border-top: none;}
+#mainRoleAccountLinkTable .col2{width:99%;border-top: none;}
+
+#mainRoleExtCellLinkTable{width:100%}
+#mainRoleExtCellLinkTable .col1{width:1%;border-top: none;}
+#mainRoleExtCellLinkTable .col2{width:39.8%;border-top: none;}
+#mainRoleExtCellLinkTable .col3{width:59%;border-top: none;}
+
+#mainRoleRelationLinkTable{width:100%}
+#mainRoleRelationLinkTable .col1{width:1%;border-top: none;}
+#mainRoleRelationLinkTable .col2{width:49%;border-top: none;}
+#mainRoleRelationLinkTable .col3{width:50%;border-top: none;}
+
+#mainRoleExtRoleLinkTable{width:100%}
+#mainRoleExtRoleLinkTable .col1{width:1%;border-top: none;}
+#mainRoleExtRoleLinkTable .col2{width:49%;border-top: none;}
+#mainRoleExtRoleLinkTable .col3{width:25%;border-top: none;}
+#mainRoleExtRoleLinkTable .col4{width:25%;border-top: none;}
+
+#mainExternalCellRoleLinkTable{width:100%}
+#mainExternalCellRoleLinkTable .col1{width:1%;border-top: none;}
+#mainExternalCellRoleLinkTable .col2{width:49%;border-top: none;}
+#mainExternalCellRoleLinkTable .col3{width:55%;border-top: none;}
+
+#mainExternalCellRelationLinkTable{width:100%}
+#mainExternalCellRelationLinkTable .col1{width:1%;border-top: none;}
+#mainExternalCellRelationLinkTable .col2{width:49%;border-top: none;}
+#mainExternalCellRelationLinkTable .col3{width:55%;border-top: none;}
+
+#mainRelationExtCellLinkTable{width:100%}
+#mainRelationExtCellLinkTable .col1{width:1%;border-top: none;}
+#mainRelationExtCellLinkTable .col2{width:39.6%;border-top: none;}
+#mainRelationExtCellLinkTable .col3{width:59%;border-top: none;}
+
+#mainRelationRoleLinkTable{width:100%}
+#mainRelationRoleLinkTable .col1{width:1%;border-top: none;}
+#mainRelationRoleLinkTable .col2{width:49%;border-top: none;}
+#mainRelationRoleLinkTable .col3{width:50%;border-top: none;}
+
+.cursorPointer {
+	cursor: pointer!important;
+}
+/* Assign Grid: End */
+
+/*  Start: Custom radio button */
+input[type=radio].css-checkbox {
+	display: none;
+}
+input[type=radio].css-checkbox+label.css-label {
+	padding-left: 24px;
+	height: 19px;
+	display: inline-block;
+	line-height: 19px;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	font-size: 13px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+input[type=radio].css-checkbox:checked+label.css-label {
+	background-position: 0 -19px;
+}
+label.css-label {
+	background-image:url(../images/custom_radio.png);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+/*  End: Custom radio button */
+
+
+/**** Session Expiration Pop Up Starts ****/
+
+.headerSection {
+	margin-bottom: 26px;
+}
+.sessionExpiryDiv {
+	padding-bottom: 15px;
+	padding-top: 20px;
+	padding-left: 30px;
+}
+.sessionExpiredPopUpHeading {
+	font-family: Segoe UI Light;
+	font-size: 24pt;
+	color: #1b1b1b;
+}
+.sessionExpiredLabel {
+	font-family: Segoe UI;
+	padding-left: 75px;
+	padding-right: 75px;
+	font-size: 13px;
+	color: #3c3c3c;
+	text-align: center;
+	margin-bottom: 45px;
+}
+.dvClosePopUp {
+padding-bottom: 20px;
+	float: right;
+	padding-right: 20px;	
+}
+
+.normalButton {
+	height: 29px;
+	width: 90px;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #ffffff;
+	background: #4b4b4b;
+	cursor: pointer;
+	border: none;
+}
+.normalButton:hover {
+	background: #5c5c5c;
+}
+
+.sessionPopUpCloseSection {
+	padding-bottom: 20px;
+	float: right;
+	padding-right: 20px;
+}
+
+
+/**** Session Expiration Pop Up Ends ****/
+#mainRoleAccountControlTable {
+	width:100%;
+}
+
+#mainRoleAccountControlTable .col1{
+	width:1%;
+}
+#mainRoleAccountControlTable .col2{
+	width:49%;
+}
+#mainRoleAccountControlTable .col3{
+	width:50%;
+}
+#extRoleToRoleMappingTable {
+	width:100%;
+}
+
+#extRoleToRoleMappingTable .col1{
+	width:1%;
+}
+#extRoleToRoleMappingTable .col2{
+	width:49%;
+}
+#extRoleToRoleMappingTable .col3{
+	width:50%;
+}
+
+/*Common Button CSS  */
+.btnCancelPopup {
+	font-family: Tahoma;
+	font-size: 10pt;
+	color: #1b1b1b;;
+	background: #d9d9d9;
+	width: 90px;
+	height: 29px;
+	border: none;
+	margin-right: 13px;
+}
+.btnCancelPopup:hover {
+	background: #e8e8e8;
+	cursor: pointer;
+}
+
+.btnSavePopup {
+	font-family: Tahoma;
+	font-size: 10pt;
+	color: #ffffff;
+	background: #4b4b4b;
+	width: 90px;
+	height: 29px;
+	border: none;
+	margin-right: 20px;
+}
+.btnSavePopup:hover {
+	background: #5c5c5c;
+	cursor: pointer;
+}
+
+.divPopupInner {
+	width: 444px;
+	height: 203px;
+	margin-top: -7px;
+	margin-left: 30px;
+}
+
+.sectionContent {
+	margin-top: 11px;
+	height: 89px;
+}
+
+.spanPopupErrorMessageCommon {
+	color:#c80000;
+	float:left;
+	height:15px;
+	padding:1px 0 0 0px;
+	text-align:left;
+	width:100%;
+	margin-top: 5px;
+}
+
+.asidePopupErrorMessageCommon {
+	color:#c80000;
+	text-align:left;
+	font-family: Segoe UI;
+	font-size: 10px;
+}
+
+.labelCapcha {
+	margin:25px 0px 0px 210px;
+	text-align:center;
+	width:167px;
+	height: 51px;
+	letter-spacing: 15px;
+}
+
+.textCapcha {
+	margin:20px 0px 0px 210px;
+	text-align:left;
+	width:157px;
+	height: 27px;
+	padding: 0px 5px 0px 5px;
+}
+/* EDIT - ACL - STARTS */
+.tblEditSettingsAcl {
+	float: left;
+	font-family: Segoe UI;
+	cursor: default;
+	/* border-top: 1px solid #b1b1b1; */
+	/* min-height: 280px; */
+ 	width:844px;
+}
+
+#tblHeaderEditAcl th {
+	padding: 0px 10px 0px 10px;
+	font-weight: normal;
+	height: 37px;
+	color: #1b1b1b;
+	text-align: left;
+	font-family: Segoe UI;
+	font-size: 10pt;
+	border-top: 1px solid #b1b1b1;
+	border-right: 1px solid #e6e6e6;
+	border-left: 1px solid #e6e6e6;
+}
+
+
+/* .tblEditSettingsAcl tbody tr {
+	border-bottom: 1px solid #e6e6e6;
+} */
+.tblEditSettingsAcl tbody tr:hover {
+	cursor: default;
+	background-color: #f4f4f4;
+}
+
+.tblEditSettingsAcl tbody td {
+	padding: 0px 10px 0px 10px;
+	font-size: 10pt;
+	border-bottom: 1px solid #e6e6e6;
+	height: 36px;
+	color: #3c3c3c;
+	text-align: center;
+	padding-right: 22px;
+}
+
+.radio label {
+	display: inline-table;
+	cursor: pointer;
+	position: relative;
+	padding-left: 25px;
+	/* margin-right: 15px; */
+	font-family: Segoe UI;
+	font-size: 12px;
+	color: #1b1b1b;
+	
+}
+
+input[type=radio] {
+	display: none;
+}
+
+.radio label:before {
+	content: "";
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	background-color: #FFFFFF;
+	border: 1px solid #C4C4C4;
+	margin-right: 10px;
+	position: absolute;
+	left: 0;
+}
+
+.radio label:before {
+	border-radius: 8px;
+}
+
+.radio input[type=radio]:checked+label:before {
+	content: "\2022";
+	color: #535353;
+	font-size: 25px;
+	text-align: center;
+	line-height: 10px;
+}
+.editACLTableEllipsis {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width:147px;
+	
+}
+#editACLGridTbody,#editCellACLGridTbody {
+	border: 1px solid #e6e6e6;
+	height: 250px; overflow: auto; max-height: 250px; display: block;
+	max-width: 844px;
+	width:844px;
+}
+.checkBoxLabel {
+	cursor:pointer;
+}
+.borderRight{
+border-right:1px solid #e6e6e6;
+min-width:147px;
+}
+
+/* #editACLGridTbody tr:last-child td {
+    border-bottom: 0px;
+} */
+
+.readProperties {
+	width: 95px;
+}
+.writeProperties {
+	width: 96px;
+}
+.readAcl {
+	width: 51px;
+}
+.writeAcl {
+	width: 52px;
+}
+.writeContent {
+	width: 79px;
+}
+
+.radioButtonMargin {
+	margin-right: 18px;	
+}
+
+.positionottomButtons {
+margin-top:20px;	
+}
+
+.firstHeaderWidth {
+	width:21.5%
+	
+}
+
+.schemaAuthDIV{
+	padding-bottom: 40px;
+}
+.schemaAuthOptionsDIV {
+	padding-right: 30px;
+	padding-top: 5px;
+}
+.tblEditACLHeader{
+	max-height: 846px;width:846px;
+}
+/* EDIT - ACL - ENDS */
+
+.dropDownBig{margin-top: 4.5px;min-width: 233px;border: 1px solid #d1d5db;padding: 4.5px;color: #373f49;font-size: 0.75em;}
+.dropDownBig option{color:#373f49;font-size:0.75em;height:12px}
+/* Property Details - Pop Up - Starts */
+
+.collectionPopupCloseIcon:hover {
+	background: url(../images/newSprite.png) no-repeat -14px
+		-1498px;
+	cursor: pointer;
+	background-color: white;
+	border: 0px;
+}
+.collectionPopupCloseIcon {
+	height: 16px;
+	width: 18px;
+	float: right;
+	margin: 0px 5px 0px 8px;
+	background: url(../images/newSprite.png) no-repeat -13px -1469px;
+	background-color: white;
+	border: 0px;
+}
+
+.propertyDetailsTbody {
+	display: block;
+	height: 80px;
+	overflow-y: scroll;
+}
+.propertyDetailsTablePopUp tbody tr:hover {
+	cursor: default;
+	background-color: #f4f4f4;
+}
+.propertyDetailsTablePopUp tbody td {
+	padding-left: 10px;
+	font-size: 10pt;
+	border-bottom: 1px solid #e6e6e6;
+	width: 148px;
+	height: 26px;
+	color: #3c3c3c;
+}
+
+/* Property Details - Pop Up - Ends */
+/* EDIT Cell - Pop Up - Starts */
+.auth-read {
+	width: 61px;
+}
+
+.message-read {
+	width: 88px;
+}
+
+.event-read {
+	width: 66px;
+}
+
+.log-read {
+	width: 57px;
+}
+
+.social-read {
+	width: 69px;
+}
+
+.box-read {
+	width: 56px;
+}
+
+.box-install {
+	width: 59px;
+}
+
+.acl-read {
+	width: 52px;
+}
+.editCellTbodyHeight {
+	max-height: 304px !important;
+	height: 304px !important;
+}
+/* EDIT Cell - Pop Up - Ends */
+
+.customSlectDDDisabled {
+	background: #EBEBE4 url(../images/sprite.png) no-repeat 107% -598px;
+}
+
+.assignChkBoxLabel {
+	vertical-align: text-top;
+	margin-left: 10px;
+	display: inline-block;
+	margin-top: 2px;
+}
+
+
+/****************delete box ****************/
+.boxPopupWrapper {
+	width: 100%;
+	line-height: 18px;
+	position: relative
+}
+
+/* Customize horizontal scrollbar for DataGrid Start*/
+/* #receivedMessageTable::-webkit-scrollbar {
+	height: 6px;
+}
+
+#receivedMessageTable::-webkit-scrollbar-track {
+	-webkit-border-radius: 4px;
+	-webkit-box-shadow: inset 0 0 25px #9c9c9c;
+	border-radius: 10px;
+	display: none;
+}
+
+#receivedMessageTable::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 4px;
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 6px #9c9c9c;
+} */
+
+#btnGridReceivedMessage:hover{
+	background: url(../images/newSprite.png) no-repeat -12px -1153px;
+}
+#btnRawReceivedMessage:hover{
+	background: url(../images/newSprite.png) no-repeat -11px -1234px;
+}
+
+.dvReceivedMessage {
+	padding: 0px 0px 0px 1px;
+	font-weight: normal;
+	color: #1b1b1b;
+	/* height: 44px; */
+	text-align: left;
+	border-top: 1px solid #b1b1b1;
+	font-family: Segoe UI;
+	font-size: 10pt;
+}
+
+.receivedMessageTableDiv {
+	overflow: hidden;
+	/* max-height:447px; */
+	/* min-height: 419px; */
+	/* height: 419px; */
+	max-width: 100%;
+	width: 100%
+}
+
+.tblReceivedMessage {
+/* min-height: 419px; */
+max-width: 100%;
+overflow-x: auto;
+overflow-y: hidden;
+display: block;
+}
+.tblReceivedMessageThead {
+	/* min-width: 1228px;
+	max-width: 1228px;
+	width: 100%; */
+}
+
+.tblReceivedMessageThead th{
+	border-top: 0px;
+	border-bottom: 0px !important;
+}
+.tblReceivedMessageTBody {
+	min-width: 1228px;
+	display: block;
+/* 	width: 3417px; */
+	overflow-x: hidden;
+	overflow-y: auto;
+	border-top: 1px solid #b1b1b1;
+}
+
+.tblSentMessageTBody {
+	min-width: 1228px;
+	display: block;
+/* 	width: 3417px; */
+	overflow-x: hidden;
+	overflow-y: auto;
+	border-top: 1px solid #b1b1b1;
+}
+
+.mediumSpacedCol {
+	min-width: 150px;
+}
+
+.largeCol {
+	min-width: 280px;
+}
+
+.smallCol {
+	min-width: 200px;
+}
+
+.smallestCol {
+	min-width: 100px;
+	border-top: 0px;
+}
+
+.logBreadCrumb {
+	text-decoration: none;
+	cursor: default;
+}
+
+.linkLogBreadCrumb {
+	color: #1b1b1b;
+	cursor: pointer;
+}
+
+.linkLogBreadCrumb:hover {
+	color:#c80000;
+	text-decoration:underline;
+}
+
+.emptyBoxTable {
+	max-height: 406px;
+	width: 100%;
+	overflow: auto;
+}
+
+/************** for time*****************/
+.time {
+	width: 114px;
+	float: right;
+	margin-top: -50px;
+	height: 21px;
+	border: solid 1px #d2d2d2;
+	font-family: Segoe UI;
+	font-size: 13px;
+	color: #696969;
+	padding: 3px;
+	-webkit-appearance: none;
+	background: transparent;
+}
+
+.aclCheckboxFocus {
+	display: flex;
+	opacity:0;
+}
+
+.aclLabelFocus {
+	margin-left: 0px;
+	top: -5px;
+}
+.rowCountBanner {
+	height: 20px;
+	float: left;
+	position: relative;
+	padding-right: 44px;
+}
+.showInstallationIcon {
+	display: block;
+	height: inherit;
+	background: url(../images/sprite.png) 25% -830px no-repeat;
+	padding-left: 31px;
+	cursor: pointer;
+}
+
+progress::-webkit-progress-value {
+	background: red;
+}
+.headerFontSettings {
+	font-size: 10pt;
+	color: #3c3c3c;
+	padding: 0px 10px 0px 10px;
+}

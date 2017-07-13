@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<div>
+	<div style="height: 30px;">
+		<div class="assignBackWrapper"
+			onclick="objCommon.clickAssignBackButton();">
+			<div class="assignBackIcon"></div>
+			<div class="divAssignEllipsis" id="divAssignRoleName"><label id="assignRoleName" class="assignEntityText"></label></div><label
+				id="assignBoxName" style="display: none;"></label>
+		</div>
+	</div>
+
+	<div class="assignEntities">
+		<ul>
+			<li id="assignAccountToRole" class="assignNavigation selected"
+				onclick="clickRoleAccountLinkMappingPage();"><label>Assign
+					Account</label></li>
+			<li id="assignExtCellToRole" class="assignNavigation" onclick="openRoleExtCellLinkPage();"><label>Assign
+					External Cell</label></li>
+			<li id="assignRelationToRole" class="assignNavigation" onclick="openRoleRelationLinkMappingPage();"><label>Assign
+					Relation</label></li>
+			<li id="assignExtRoleToRole" class="assignNavigation" onclick="openRoleExtRoleLinkPage();"><label>Assign
+					External Role</label></li>
+			<li id="assignRoleInfo" class="assignNavigation" onclick="uMainNavigation.openRoleInfo();"><label>Info</label></li>
+		</ul>
+
+	</div>
+
+	<div id="roleAccountLinkDiV"></div>
+	<div style="display: none;width:0px;padding-left: 8px;padding-right: 8px;" id="dvemptyAssignTableMessage"
+		class="emptyTableMessage"></div>
+
+</div>

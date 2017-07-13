@@ -1,0 +1,1042 @@
+/**
+ * Personium
+ * Copyright 2016 FUJITSU LIMITED
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ *{margin:0;padding:0}
+body{font-family:Segoe UI;font-size:1em}
+
+/*****************   COMMON CSS STARTS HERE		******************/
+img, img a{border:none}
+.flLt{float:left}
+.flRt{float:right}
+.clearBoth{clear:both}
+.txtLeft{text-align:left}
+.txtRight{text-align:right}
+.borderNone{border:none!important}
+.borderRNone{border-right:none!important}
+.displayNone{display:none;}
+.verticalAlignTop{vertical-align:top;}
+
+/**** Header starts here ****/
+.innerHeaderContainer{width:100%;background:#373f49}
+.innerHeaderContainer .personaLogo{background:url(../images/personainner_logo.png) no-repeat top left;float:left;margin:9px 15px 0 15px;line-height:20px}
+.userName{float:right;font-size:0.9em;font-weight:normal;padding:10px 0 10px 15px;width:180px;background:#1d2126 url(../images/userIcon.png) no-repeat 10px 10px}
+.userName a{color:#fff;font-size:0.9em;font-family:Segoe UI;text-decoration:none;padding:0 0 0 15px}
+.userName a:hover{text-decoration:underline}
+.userName a img{float:right;padding:8px 15px 0 0}
+.slidingDiv{position:absolute;color:#fff;top:35px;height:20px;background:#1D2126;width:180px;padding:0 10px;text-align:center}
+.slidingDiv .logout{padding:0 0 0 17px}
+.show_hide {display:none}
+/*****************   COMMON CSS FOR 1366 STARTS HERE	******************/
+@media all and (min-width:1280px), (min-height:600px){
+.slidingDiv{right:10px;height:23px;text-align:left}
+}
+/*****************   COMMON CSS FOR 1024 STARTS HERE	******************/
+@media all and (max-width:1024px){
+.slidingDiv{right:21px;border-right:1px solid #FFFFFF;height:23px;text-align:left}	
+}
+
+/**** Header ends here ****/
+
+/**** Footer for Inner Pages starts here ****/
+/* .innerFooter{width:100%;background:#373f49;height:10px;padding:10px 0;font-family:Segoe UI}
+.innerFooter nav{width:450px;float:left}
+.innerFooter nav ul{margin:0 20px 0 10px;font-size:0.70em;font-family:Segoe UI}
+.innerFooter nav ul li{display:inline;float:left;padding:0 10px;border-right:1px solid #918d8d;line-height:10px;color:#a7abaf}
+.innerFooter nav ul li a{color:#a7abaf;text-decoration:none}
+.innerFooter a:hover{color:#fff}
+.innerFooter address{float:right;width:120px;text-align:right;margin: 0 20px 0 0;color:#a7abaf;font-style:normal;font-size:0.71em;font-family:Segoe UI}
+.innerFooter address a{text-transform:uppercase;color:#a7abaf;text-decoration:none;} */
+/************* Footer for Inner Pages ends here *********************/
+/************* Main navigation starts here *********************/
+.mainNav ul{display:block;width:100%;}
+.mainNav ul li{display:inline;float:left;list-style:none;background:#edeef0;border-right:1px solid #cdd3de;line-height:22px;padding:5px 0;border-bottom:1px solid #cdd3de;}
+.mainNav ul li:hover{background:#dfdfdf}
+/************* Main navigation ends here *********************/
+
+/************* All Icons starts here *********************/
+.downloadIcon{background:url(../images/sprite_icons.png) no-repeat -9px -2926px;text-indent:-2000px;float:left;width:20px;height:20px;margin-left:50px;cursor:default}
+.downloadIcon:hover{background:url(../images/sprite_icons.png) no-repeat -9px -2926px;}
+.editIcon{background:url(../images/sprite_icons.png) no-repeat -9px -1436px;text-indent:-2000px;float:left;width:20px;height:20px;margin-left:50px}
+.editIcon:hover{background:url(../images/sprite_icons.png) no-repeat -9px -2613px;}
+.deleteIcon{background:url(../images/sprite_icons.png) no-repeat -9px -1463px;text-indent:-2000px;float:left;width:20px;height:20px;margin-left:20px}
+.deleteIcon:hover{background:url(../images/sprite_icons.png) no-repeat -9px -2640px;}
+.deleteIconDisabled{background:url(../images/sprite_icons.png) no-repeat -9px -1673px;text-indent:-2000px;float:left;width:20px;height:20px;margin-left:20px}
+.accountIcon{background:url(../images/sprite_icons.png) no-repeat -9px -1498px;text-indent:-2000px;float:left;width:26px;height:21px;cursor:pointer}
+.accountIcon:hover{background:url(../images/sprite_icons.png) no-repeat -9px -2344px;}
+.extCellIcon{background:url(../images/sprite_icons.png) no-repeat -9px -1538px;text-indent:-2000px;float:left;width:25px;height:22px;cursor:pointer}
+.relationIcon{background:url(../images/sprite_icons.png) no-repeat -9px -1586px;text-indent:-2000px;float:left;width:22px;height:20px;cursor:pointer}
+.extRoleIcon{background:url(../images/sprite_icons.png) no-repeat -9px -1637px;text-indent:-2000px;float:left;width:22px;height:18px;cursor:pointer}
+.exportIcon{background:url(../images/sprite_icons.png) no-repeat -9px -1798px;text-indent:-2000px;float:left;width:20px;height:20px;margin-left:20px}
+.collectionIcon{background:url(../images/sprite_icons.png) no-repeat -9px -1715px;text-indent:-2000px;float:left;width:22px;height:20px;cursor:pointer}
+.boxIcon{background:url(../images/sprite_icons.png) no-repeat -9px -1714px;text-indent:-2000px;float:left;width:25px;height:20px;margin-right:5px}
+.smielyIcon{background:url(../images/congrats_smiely.png) no-repeat 0 0;width:50px;height:50px;text-indent:-2000px;display:inline-block;margin-left:45%}
+.tickIcon{background:url(../images/sucess_reg.png) no-repeat 0 0;width:357px;height:225px;text-indent:-2000px;display:inline-block;margin:0 auto}
+.relationMappingIcon{background:url(../images/sprite_icons.png) no-repeat -5px -2161px;text-indent:-2000px;float:left;width:22px;height:18px;cursor:pointer}
+.imgSize{height:20px;width:20px;}
+/************* All Icons ends here *********************/
+/************* Sub Tab Area Starts here *********************/
+.subTabArea{margin:10px 0 0 0}
+.subTabs{float:left}
+.subTabs li{list-style:none;float:left;display:inline}
+.subTabs li a{text-decoration:none;color:#373f49;font-family:Segoe UI;padding:7px 10px;font-size:0.8em;margin-right:10px;float:left;cursor:default}
+.subTabs .selected a{background:#edeef0;cursor:default}
+.subTabArea .popupAlertmsg{font-size:0.6em!important}
+.mappingCount{float:right;font-size:0.7em;color:#373f49;margin:10px 0 0 0}
+
+.subTabBottom{background:#edeef0;padding:6px 10px}
+.subLeft{float:left}
+.subLeft select{margin-right:20px}
+.subRight{float:right;top:0}
+/************* Sub Tab Area ends here *********************/
+/************* Linking Area Starts here *********************/
+.linkWrapper{background:#ffffff;padding:5px;width:100%;border:1px solid #e0e0e0;margin:10px 0;font-size: 0.8em}
+.linkLeft{width:20%;padding:6px 0}
+.linkRight{width:45%}
+.linkInfo{text-align:right;padding:0 0 0 10px;color:#373F49;font-size:0.85em}
+.linkWrapper .dropDownBig{font-size:0.85em}
+.linkWrapper .emptyTableSmall{width:275px;text-align:center;font-family:Segoe UI;font-size:1em;background:#f4d558;color:#373f49;padding:8px 0;margin: 0 0 0 110px}
+
+.linkTable{font-family:Segoe UI;color:#373f49}
+.linkTable td{padding:4px 10px;font-size:0.9em;border-bottom:1px solid #dfdfdf}
+.linkTable .alterRow{background:#c7ecf7}
+.linkTable .selectRow td{background:#dfdfdf;border-top:1px solid #fff;border-bottom:1px solid #fff}
+.linkTable .popupAlertmsg{color:#e90000;font-size:0.8em;text-align:left}
+
+/************* Linking Area Ends here *********************/
+.upward a, .downward a{width:100%;text-indent:-2000px;background:#373f49 url(../images/sprite_icons.png) no-repeat;float:left;height:10px}
+.upward a{background-position:110px -77px}
+.downward a{background-position:110px -715px}
+
+.upward a:hover{background:url(../images/sprite_icons.png) no-repeat 110px -77px #101215}
+.downward a:hover{background:url(../images/sprite_icons.png) no-repeat 110px -715px #101215}
+
+.upwardDisable a, .downwardDisable a{width:100%;text-indent:-2000px;background:#30a0ae url(../images/sprite_icons.png) no-repeat;float:left;height:10px;cursor:default}
+.upwardDisable a{background-position:110px -2112px}
+.downwardDisable a{background-position:110px -2136px}
+
+.normalButton{min-width:80px;height:29px;background:url(../images/sprite_icons.png) repeat-x 0 -801px #9bca19;border:none;border-radius:5px;box-shadow:2px 2px 2px #bababa;color:#373f49;cursor:pointer;font-family:Segoe UI;padding:0 5px}
+.smallBlueButton{min-width:80px;}
+.normalButtonBlue{min-width:100px;height:29px;background:#4fbfcd;border:none;border-radius:5px;color:#ffffff;cursor:pointer;font-family:Segoe UI}
+.bigBlueButton{min-width:125px}
+.biggestBlueButton{min-width:150px}
+.normalButtonBlueEnabled{min-width:100px;height:29px;background:#4fbfcd;border-radius:5px;color:#ffffff;cursor:pointer;font-family:Segoe UI}
+.normalButtonBlueDisabled{background:url(../images/sprite_icons.png) repeat-x 0 -1888px;color:#ffffff;cursor:auto;text-shadow:none}
+.normalButtonBlue[disabled="enabled"]{min-width:100px;height:29px;background:#4fbfcd;border:none;border-radius:5px;color:#ffffff;cursor:pointer;font-family:Segoe UI}
+.normalButtonBlue[disabled="disabled"]{background:url(../images/sprite_icons.png) repeat-x 0 -1888px;color:#ffffff;cursor:auto;text-shadow:none}
+.normalButtonYellow{min-width:80px;height:29px;background:#f4d149;border:none;border-radius:5px;color:#373f49;cursor:pointer;font-family:Segoe UI;padding:0 5px}
+.normalButtonYellow:hover{background:#fce17a}
+.normalButtonGrey{width:100px;height:29px;background:#d8d8d8;border:none;border-radius:5px;color:#000000;cursor:pointer;font-family:Segoe UI}
+.normalButton[disabled="disabled"]{background:url(../images/sprite_icons.png) repeat-x 0 -1339px;color:#9b9fa3;cursor:auto;text-shadow:none}
+.bigButton{width:149px;height:29px;background-color:#ffffff;border:none;border-radius:5px;color:#178e9d;cursor:pointer;line-height:29px;font-family:Segoe UI;font-size:0.9em}
+.normalButton[disabled="disabled"]:hover{background:url(../images/sprite_icons.png) repeat-x 0 -1888px}
+.normalButtonBlueDisabled:hover{background:url(../images/sprite_icons.png) repeat-x 0 -1888px}
+.normalButtonBlue[disabled="disabled"]:hover{background:url(../images/sprite_icons.png) repeat-x 0 -1888px}
+.normalButton:hover{background:#61c6d2}
+.normalButtonBlue:hover{background:#61c6d2}
+.normalButtonBlueEnabled:hover{background:#61c6d2}
+.bigButton:hover{background:#f4f4f4}
+.normalButtonGrey:hover{background:#e8e8e8}
+
+.createBtn{background:#4fbfcd url(../images/sprite_icons.png) no-repeat 3px -2741px;min-width:45px;height:29px;border:none;border-radius:5px;color:#ffffff;cursor:pointer;font-family:Segoe UI}
+.createBtn:hover{background:#61c6d2 url(../images/sprite_icons.png) no-repeat 3px -2741px}
+.deleteBtn{background:#4fbfcd url(../images/sprite_icons.png) no-repeat 3px -2776px;min-width:45px;height:29px;border:none;border-radius:5px;color:#ffffff;cursor:pointer}
+.deleteBtn:hover{background:#61c6d2 url(../images/sprite_icons.png) no-repeat 3px -2776px}
+.deleteBtnDisabled{background:#addee4 url(../images/sprite_icons.png) no-repeat 3px -2776px;min-width:45px;height:29px;border:none;border-radius:5px;color:#ffffff;cursor:default}
+.deleteBtnDisabled:hover{background:#addee4 url(../images/sprite_icons.png) no-repeat 3px -2776px;cursor:default}
+.importBtn{background:#4fbfcd url(../images/sprite_icons.png) no-repeat 3px -2819px;min-width:45px;height:28px;border:none;border-radius:5px;color:#ffffff;cursor:pointer}
+.importBtn:hover{background:#61c6d2 url(../images/sprite_icons.png) no-repeat 3px -2819px}
+.importBtnDisabled{background:#4fbfcd url(../images/sprite_icons.png) no-repeat 3px -2819px;min-width:45px;height:29px;border:none;border-radius:5px;color:#ffffff;}
+.normalButtonBrowse{width:72px;height:28px;background:#EAEBD1;border:none;border-radius:5px;box-shadow:2px 2px 2px #bababa;color:#373f49;cursor:pointer;font-family:Segoe UI}
+.textBoxNormal{padding:2%;color:#000000;border:none}
+.textBoxCircle{background:none repeat scroll 0 0 #FFFFFF;border:1px solid #4FBFCD;border-radius:3px;float:left;font-size:0.8em;margin:0 15px 0 1px;max-height:20px;max-width:20px;min-height:12px;text-align:center;cursor:pointer}
+
+.breadcrumb{list-style:none;float:left;margin-bottom:5px;clear:both;width:100%;padding:14px 0 7px 0;font-family:Segoe UI}
+.breadcrumb li{float:left}
+.breadcrumb li .cellName{background:url(../images/sprite_icons.png) no-repeat scroll right -1918px transparent;float:left;margin:0 10px 0 0;width:100%;padding:0 10px 0 0;color:#178e9d;font-size:1.1em}
+.breadcrumb li .firstHeading{background:url(../images/sprite_icons.png) no-repeat scroll right -1946px transparent;font-size:0.8em;color:#373f49;float:left;margin:4px 10px 0 0;padding:0 10px 0 0;width:100%}
+.breadcrumb li .firstHeading a{color:#178e9d;text-decoration:underine}
+.breadcrumb li .firstHeading a:hover{color:#373f49;text-decoration:none}
+
+.cellGroupList{width:100%;float:left;color:#fff;font-family:Segoe UI;float:left;font-size:0.8em}
+.cellGroupList tr td{border-bottom:1px dotted #61c6d2;padding:6px 0 0 38px}
+.cellGroupList tr td a{text-decoration:none;font-weight:bold;color:#fff}
+.cellGroupList tr td span{display:block;font-size:0.8em;font-weight:normal}
+/*.cellGroupList tr td:hover{background:url(../images/sprite_icons.png) no-repeat 18px -744px #61c6d2}*/
+.allCell{background:url(../images/sprite_icons.png) no-repeat 18px -744px}
+.allCell:hover{background:url(../images/sprite_icons.png) no-repeat 18px -744px #61c6d2;cursor:pointer}
+
+.cellGroupList .activeCellList{background:url(../images/sprite_icons.png) no-repeat 18px -2705px #298a96;color:#ffffff}
+.cellGroupList .activeCellList a{background:url(../images/sprite_icons.png) no-repeat 18px -2705px #298a96;color:#ffffff}
+.cellGroupList .activeCellList:hover{background:url(../images/sprite_icons.png) no-repeat 18px -2705px #298a96;color:#ffffff;cursor:default}
+
+.cellGroup{width:100%;float:left;color:#fff;font-family:Segoe UI}
+.cellGroup li{list-style:none;border-bottom:1px dotted #66cbe9;font-size:0.8em;font-weight:bold;}
+.cellGroup li a{color:#fff;font-family:Segoe UI;text-decoration:none}
+.enableCell{background:url(../images/sprite_icons.png) no-repeat}
+.disableCell{background:url(../images/sprite_icons.png) no-repeat}
+.enableCell.activeCell{background-color:#fff;}
+.enableCell.activeCell a{color:#373f49;font-weight:bold}
+.cellGroup li span{display:block;font-size:0.8em;font-weight:normal}
+
+.search{padding:1% 1% 1% 6%;width:91%}
+.searchBox{margin:8% 0 4% 0;border: medium none;color:#4fbfcd;padding:2%}
+.searchIcon{cursor:pointer;width:29px;margin:2px 0 0 2px;border:none}
+
+.pagination{float:right;padding:15px 0;width:auto;min-width:65px}
+.prev{background:#d4d4d4 url(../images/sprite_icons.png) 4px -1397px no-repeat;text-indent:-2000px;float:left;border:1px solid #c3c3c3;width:18px;height:18px;cursor:default;margin:2px 0 0 0}
+.next{background:#d4d4d4 url(../images/sprite_icons.png) -10px -1410px no-repeat;text-indent:-2000px;float:right;border:1px solid #c3c3c3;width:18px;height:18px;cursor:default;margin:2px 0 0 4px}
+.prev:hover{background:url(../images/sprite_icons.png) 4px -1397px no-repeat #f4f4f4}
+.next:hover{background:url(../images/sprite_icons.png) -10px -1410px no-repeat #f4f4f4}
+.paginationBut:hover{background:#f4f4f4}
+.prevDisable{background:#f4f4f4 url(../images/sprite_icons.png) -11px -1972px no-repeat;text-indent:-2000px;float:left;border:1px solid #d8d8d8;width:18px;height:18px;cursor:pointer}
+.nextDisable{background:#f4f4f4 url(../images/sprite_icons.png) -11px -1995px no-repeat;text-indent:-2000px;float:right;border:1px solid #d8d8d8;width:18px;height:18px;cursor:pointer}
+.paginationBut{border:1px solid #d8d8d8;width:20px;height:18px;color:#373f49;font-size:0.68em;margin-left:5px;line-height:20px;text-align:center;background:#ffffff}
+.paginationButSelect{width:20px;height:20px;color:#373f49;font-weight:bold;font-size:0.68em;line-height:20px;text-align:center;background:#ffffff;border:none}
+.pagText{color:#373f49;font-size:0.7em;margin:0 5px}
+
+.topTable{margin-bottom:7px}
+.topLeft{float:left;margin:5px 0 0 0}
+.sortLabel{font-size:0.8em}
+.dropDownNormal{width:150px;border:1px solid #d1d5db;padding:3px}
+.dropDownNormal option{color:#373f49}
+.dropDownBig{min-width:180px;border:1px solid #d1d5db;padding:3px;color:373f49;font-size:0.7em}
+.dropDownBig option{color:#373f49;font-size:0.75em;height:12px}
+.blackSearch{float:right;border:1px solid #d1d5db}
+.blackSearch input{background:url(../images/sprite_icons.png) -7px -1299px no-repeat #fff;padding:3px 3px 3px 25px;color:#373f49}
+.topRight{float:right}
+.topRight input{margin-left:5px}
+
+.mainTable{width:100%;font-family:Segoe UI;color:#373f49}
+.mainTable th{background:#4fbfcd;padding:6px 10px 6px 10px;font-size:0.9em;font-weight:normal;color:#fff;text-align:left;border-bottom:1px solid #fff}
+.mainTable tr{border-bottom:1px solid #dfdfdf}
+.mainTable td{padding:5px 10px;font-size:0.75em;border-bottom:1px solid #dfdfdf}
+.mainTable td a{text-decoration:underline;color:#178E9D}
+.mainTable td a:hover{text-decoration:none;color:#373F49}
+.alterRow{background:#f4f4f4}
+.selectRow td{background:#dfdfdf;border-bottom:1px solid #fff}
+
+.messageWrapper{width:100%;margin:1px 0 0 0;text-align:center;float:left;display:block;border-bottom:5px solid #ffffff;font-style:normal;color:#373f49;font-family:Segoe UI;font-size:.7em;font-weight:bold;line-height:23px}
+.messageWrapper .messageClose{background:url(../images/close.png) no-repeat scroll 0 0;border:none;float:right;height:8px;width:8px;margin:5px 5px 0 0;;cursor:pointer}
+.successfulWrapper{background:#d4ee7b;width:100%}
+.successfulIcon{background:url(../images/sprite_icons.png) no-repeat -9px -2304px;display:inline-block;height:20px;width:20px;padding:0 5px 0 0;top:1px;position:relative}
+.partialSuccessfulWrapper{background:#f4d558;width:100%}
+.partialSuccessfulIcon{background:url(../images/sprite_icons.png) no-repeat -9px -2216px;display:inline-block;height:20px;width:20px;padding:0 5px 0 0;top:1px;position:relative}
+.errorWrapper{background:#e96244;width:100%;color:#fff}
+.errorIcon{background:url(../images/sprite_icons.png) no-repeat -9px -2264px;display:inline-block;height:20px;width:20px;padding:0 5px 0 0;top:1px;position:relative}
+
+.emptyTableMessage{text-align:center;font-family:Segoe UI;font-size:0.9em;width:275px;height:22px;background:#f4d558;color:#373f49;margin:45px auto;padding:5px 0}
+.profileTableWrapper{height:197px;overflow-y:auto;overflow-x:hidden;background:#ffffff}
+.profileTable{width:100%;font-family:Segoe UI;color:#373f49;font-size:0.7em;font-weight:normal;text-align:left;background:#ffffff}
+.profileTable tr{height:30px;background:#ffffff}
+.profileTable tr td{padding:0 0 0 10px}
+.profileTable tr.selectProfileRow .profileDeleteIcon{background:url(../images/sprite_icons.png) no-repeat center -2081px;}
+.profileDeleteIcon{background:url(../images/sprite_icons.png) no-repeat center -2053px;text-indent:-2000px;float:right;width:20px;height:20px;margin-right:5px}
+
+.mappingInfo{background:#addee4;padding:7px;margin:0 0 7px 0;width:98.5%}
+.mappingInfo li{list-style:none;color:#373f49;float:left;font-size:0.85em;width:32%}
+
+/************* Sub Wrapper Starts here *********************/
+.subWrapper{background:#ffffff;overflow-y:auto;overflow-x:none;height:430px;width:100%;border:1px solid #fff;padding:0 5px 0 0}
+.subWrapper .subContent{width:100%}
+.internalHeight{height:437px!important;margin:5px 0 0 0}
+.subWrapperWithHeading{background:#ffffff;overflow-y:auto;overflow-x:none;height:410px;width:100%;border:1px solid #fff;padding:0 5px 0 0}
+.subWrapperWithHeading .subContentWithHeading{width:100%}
+.subInnerHeading{font-family:Segoe UI; color:#1c919f; font-size:0.9em; font-weight:normal}
+/************* Sub Wrapper ends here *********************/
+
+/*****************   COMMON CSS ENDS HERE	******************/
+
+/*****************   COMMON CSS FOR 1366 STARTS HERE	******************/
+@media all and (min-width:1280px), (min-height:600px){
+.rightPanel{width:1296px}
+.mainNav{margin:10px 0 0 0}
+.mainNav ul li a{padding:7px 28.5px 7px 63px;text-decoration:none;color:#373f49;font-size:0.9em;font-family:Segoe UI}
+.mainNav .selected{background:#4fbfcd url(../images/nav_bgPattern.png) 0 0;width:auto}
+.mainNav .selected:hover{background:#4fbfcd url(../images/nav_bgPattern.png) 0 0}
+.mainNav .selected a{color:#fff;}
+.cellProfileNav{background:url(../images/sprite_icons.png) no-repeat 21px -92px}
+.boxNav{background:url(../images/sprite_icons.png) no-repeat 21px -134px}
+.roleNav{background:url(../images/sprite_icons.png) no-repeat 21px -176px}
+.accountNav{background:url(../images/sprite_icons.png) no-repeat 21px -219px}
+.extCellNav{background:url(../images/sprite_icons.png) no-repeat 21px -263px}
+.relationNav{background:url(../images/sprite_icons.png) no-repeat 21px -309px}
+.extRoleNav{background:url(../images/sprite_icons.png) no-repeat 21px -352px}
+
+.selected .cellProfileNav{background:url(../images/sprite_icons.png) no-repeat 20px -394px}
+.selected .boxNav{background:url(../images/sprite_icons.png) no-repeat 20px -437px}
+.selected .roleNav{background:url(../images/sprite_icons.png) no-repeat 20px -480px}
+.selected .accountNav{background:url(../images/sprite_icons.png) no-repeat 20px -524px}
+.selected .extCellNav{background:url(../images/sprite_icons.png) no-repeat 20px -569px}
+.selected .relationNav{background:url(../images/sprite_icons.png) no-repeat 20px -616px}
+.selected .extRoleNav{background:url(../images/sprite_icons.png) no-repeat 20px -664px}	
+
+/*.mappingInfo li{margin-right:170px}
+.mappingInfo li.last{margin-right:0}*/
+
+.blackSearch{margin:5px 190px 0 0}
+.searchBox{width:140px}
+.searchIcon{background:url(../images/sprite_icons.png) no-repeat -5px -3px;height:25px}
+.searchImage{padding:18px 0 0 3px;position:absolute;height:24px;cursor:default}
+}
+
+@media all and (max-width:1024px){
+.rightPanel{width:930px}
+.mainNav{margin:10px 0 0 0}
+.mainNav ul li a{padding:7px 12px 7px 38.5px;text-decoration:none;color:#373f49;font-size:0.9em}
+.mainNav .selected{background:#00a9da url(../images/nav_bgPattern.png) 0 0;width:auto}
+.mainNav .selected a{color:#fff;}
+.mainNav .selected:hover{background:#00a9da url(../images/nav_bgPattern.png) 0 0}
+.cellProfileNav{background:url(../images/sprite_icons.png) no-repeat 1px -92px}
+.boxNav{background:url(../images/sprite_icons.png) no-repeat 1px -134px}
+.roleNav{background:url(../images/sprite_icons.png) no-repeat 1px -176px}
+.accountNav{background:url(../images/sprite_icons.png) no-repeat 1px -219px}
+.extCellNav{background:url(../images/sprite_icons.png) no-repeat 1px -263px}
+.relationNav{background:url(../images/sprite_icons.png) no-repeat 1px -309px}
+.extRoleNav{background:url(../images/sprite_icons.png) no-repeat 1px -352px}
+
+.selected .cellProfileNav{background:url(../images/sprite_icons.png) no-repeat 0 -394px}
+.selected .boxNav{background:url(../images/sprite_icons.png) no-repeat 0px -437px}
+.selected .roleNav{background:url(../images/sprite_icons.png) no-repeat 0px -480px}
+.selected .accountNav{background:url(../images/sprite_icons.png) no-repeat 0px -524px}
+.selected .extCellNav{background:url(../images/sprite_icons.png) no-repeat 0px -569px}
+.selected .relationNav{background:url(../images/sprite_icons.png) no-repeat 0px -616px}
+.selected .extRoleNav{background:url(../images/sprite_icons.png) no-repeat 0px -664px}	
+
+/*.mappingInfo li{margin-right:93px}*/
+
+.blackSearch{margin-right:60px}
+.searchBox{width:100px}
+.searchIcon{background:url(../images/sprite_icons.png) no-repeat -5px -3px;height:24px}
+.searchImage{padding:13px 0 0 3px;position:absolute;height:23px;cursor:pointer}
+}
+/*****************   COMMON CSS FOR 1024 STARTS HERE	******************/
+/*--------------------------------------------------	********* LOGIN PAGE STARTS HERE *********		---------------------------------------------*/
+/******************************************************
+Common CSS for both resolutions starts here 
+*******************************************************/
+.mainContainer{width:100%;margin:0 auto;}
+.topBar{background:url(../images/top_header.gif) repeat-x;text-indent:-1000px;height:5px;width:100%}
+
+/**** Header starts here ****/
+.headerContainer{width:95%;padding:0 2.5%}
+.personaLogo{background:url(../images/persona_logo.gif) no-repeat top left;color:#4d5257;float:left;margin:25px 0;width:271px;height:20px;text-indent:-2000px}
+.fujitsuLogo{float:right;background:url(../images/fujitsu_logo.gif) no-repeat top right;text-indent:-2000px;width:80px;height:41px;margin:20px 0}
+/**** Header ends here ****/
+
+/******************************************************
+Common CSS for both resolutions starts here 
+*******************************************************/
+.ContentWrapper aside{float:left;width:32%;margin:0 0 0 9%}
+.tagLine{color:#e80505;font-size:1.8em;display:block;font-style:normal;margin:0 0 1% 0;width:100%}
+.tagDescriptn{font-size:0.8em;color:#7c7c7c;width:100%}
+.loginHeading{background:url(../images/login.png) no-repeat;text-indent:-9000px;width:55px;height:23px;padding:0 0 6px 0}
+
+.error{background:#3d5369 url(../images/cross-icon.png) no-repeat 8px 8px;color:#fff;border-radius:3px;font-size:0.85em;padding:7px 10px;margin:1% 0 0 0;}
+.success{background:#3d5369 url(../images/success-icon.png) no-repeat 8px 8px;color:#fff;border-radius:3px;font-size:0.85em;padding:7px 10px;margin:1% 0 0 0;}
+.signUp{color:#fff;float:left;width:100%}
+.signupText{float:left;width:70%;margin:6px 0 0 0}
+.signUp input{float:right}
+.logoutMessage{margin-left:25px}
+
+/************************ Login Page Media Query For 1366 X 768 Starts Here ************************/
+@media all and (min-width:1280px){
+.signUp{padding:0}
+}
+/************************* Login Page Media Query For 1366 X 768 Ends Here *************************/
+/************************* Login Page Media Query For 1024 X 768 Starts Here ***********************/
+@media all and (max-width:1024px){
+.signUp{padding:3px 0 0 0}
+}
+/************************* Login Page Media Query For 1024 X 768 Ends Here ***********************/
+
+/**** Footer starts here ****/
+.footer{background:url(../images/box_shadow.png) repeat-x;height:26px;padding:10px 0}
+.footer nav{width:300px;float:left}
+.footer nav ul{margin:0 20px 0 10px}
+.footer nav ul li{display:inline;float:left;padding:0 10px;border-right:1px solid #918d8d;line-height:10px}
+.footer nav ul li a{font-size:0.70em;color:#918d8d;text-decoration:none;font-family:Segoe UI}
+.footer nav ul li a:hover{color:#3D5369}
+.footer address{float:right;width:120px;text-align:right;margin: 0 20px 0 0;color:#918d8d;font-style:normal;font-size:0.71em;font-family:Segoe UI}
+.footer address a{text-transform:uppercase;color:#918d8d;text-decoration:none;}
+/*** Footer ends here ****/
+
+/*****************************************************
+Common CSS for both resolutions ends here 
+******************************************************/
+
+/************************ Login Page Media Query For 1366 X 768 Starts Here ************************/
+
+/**** Tag Line starts here ****/
+@media all and (min-width:1280px){
+.headerContainer{width:98%;padding:0 1%}
+.middleWrapper{width:1346px;margin:0 auto}
+.ContentWrapper{background:url(../images/login_bg.jpg) no-repeat 0 0;height:410px;width:1346px;margin:0 auto;}
+/**** Tag Line ends here ****/
+
+/**** Login Wrapper starts here ****/
+/******* Login Wrapper ends here *******/
+}
+/************************ Login Page Media Query For 1366 X 768 Ends Here ************************/
+
+/************************ Login Page Media Query For 1024 X 768 Starts Here ************************/
+/**** Tag Line starts here ****/
+@media all and (max-width:1024px){
+.headerContainer{width:95%;padding:0 2.5%}
+.middleWrapper{width:980px;margin:0 auto}
+.ContentWrapper{background:url(../images/login_bg_small.jpg) no-repeat top center;height:379px;width:980px;margin:0 auto}
+/**** Tag Line ends here ****/
+
+/**** Login Wrapper starts here ****/
+
+/******* Login Wrapper ends here *******/
+}
+/************************ Login Page Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------------	********* LOGIN PAGE ENDS HERE *********	---------------------------------------------*/
+
+/*--------------------------------------------------	********* HOME PAGE STARTS HERE *********	---------------------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#homePage .middleWrapper{margin:0 auto;box-shadow:0 0 10px #CCC}
+.rightSectionWrapper{background:#ffffff}
+.leftPanel{background:#edeef0;width:50px;float:left;min-height:559px}
+.leftPanelCellList{background:#edeef0;width:50px;float:left;min-height:600px}
+.leftNav{width:45px}
+.leftNav ul li{list-style:none;float:left;width:50px}
+.leftNav ul li.selected{background-color:#4fbfcd}
+.leftNav ul li a{text-indent:-2000px;float:left;padding:8px 8px 10px 8px}
+.leftNav ul li:hover{background:#4FBFCD}
+.socialGraph{background:url(../images/sprite_icons.png) no-repeat 5px -890px;width:35px;height:36px}
+.resouceMgmt{background:url(../images/sprite_icons.png) no-repeat 5px -946px;width:35px;height:37px}
+.statistic{background:url(../images/sprite_icons.png) no-repeat 5px -1006px;width:35px;height:36px}
+
+.leftNav ul li.selected .socialGraph{background:url(../images/sprite_icons.png) no-repeat 5px -1064px;width:35px;height:36px}
+.leftNav ul li.selected .resouceMgmt{background:url(../images/sprite_icons.png) no-repeat 5px -1122px;width:35px;height:37px}
+.leftNav ul li.selected .statistic{background:url(../images/sprite_icons.png) no-repeat 5px -1181px;width:35px;height:36px}
+
+.rightPanel{float:right;min-height:559px;background:#fff}
+.mainText{font-family:Segoe UI}
+.mainText h3{color:#363636;font-size:2.3em;font-weight:normal;}
+.mainText cite{color:#d3441e;display:block;font-size:2.8em;font-style:normal;line-height:50px}
+.mainText description{color:#4b4e50;font-weight:bold;font-size:0.9em}
+/**** Middle Part ends here ****/
+/*****************************************************
+Common CSS for both resolutions ends here 
+*****************************************************/
+
+/************************ Home Page Media Query For 1366 X 768 Starts Here ************************/
+@media all and (min-width:1280px), (min-height:600px){
+#homePage .middleWrapper{width:1346px;margin:0 auto}
+#homePage .rightPanel{background:url(../images/home_bg_big.jpg) no-repeat;width:1296px}
+.mainText{margin:375px 0 0 50px;width:900px}
+}
+/************************ Home Page Media Query For 1366 X 768 Ends Here ************************/
+
+/************************ Home Page Media Query For 1024 X 768 Starts Here ************************/
+@media all and (max-width:1024px){
+#homePage .middleWrapper{width:980px}
+#homePage .rightPanel{background:url(../images/home_bg_small.jpg) no-repeat;width:930px}
+.mainText{margin:375px 0 0 50px;width:800px}
+}
+/************************ Home Page Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------------	********* HOME PAGE ENDS HERE *********	---------------------------------------------*/
+
+/*--------------------------------------------------	********* CELL PROFILE STARTS HERE ********* ---------------------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+#cellProfile .middleWrapper{box-shadow:0 0 10px #CCC}
+
+.leftList{float:left;background:#4fbfcd;height:559px}
+.rightContent{float:left;height:559px;margin:0 5px 0 20px}
+
+.searchBullet{background:url(../images/sprite_icons.png) no-repeat 0 -749px;width:13px;height:12px}
+.refreshButton{background:url(../images/sprite_icons.png) no-repeat -7px -43px;border:none;cursor:pointer;float:right;height:28px;margin:16px 0 0 40px;position:absolute;width:27px}
+
+.leftslidIn{background:url(../newImages/sprite_icons_Graph.png) no-repeat -7px -2910px;border:none;cursor:pointer;float:right;height:28px;margin:16px 0 0 40px;position:absolute;width:27px}
+.rightslidOut{background:url(../newImages/sprite_icons_Graph.png) no-repeat -7px -2883px;border:none;cursor:pointer;float:right;height:28px;margin:16px 0 0 40px;position:absolute;width:27px}
+
+
+
+.mainContentTop{margin:5px 10px 0 0}
+.topArea input[type="button"]{float:right}
+.topArea a{color:#178E9D;float:right;font-size:0.8em;text-decoration:underline}
+.topArea a.topLink{margin:7px 15px 0 0;}
+.topArea a:hover{color:#373F49;text-decoration:none}
+
+.profileDesc{color:#6e6e6e;clear:both}
+.profileDescLeft{float:left;width:130px;margin-right:15px}
+.profileDescLeft figure{text-indent:-2000px;margin-bottom:10px;width:120px;height:120px}
+.cellProfileImage{background:url(../images/userImage.jpg) no-repeat 40% 60%}
+.boxProfileImage{background:url(../images/boxImage.jpg) no-repeat 40% 60%}
+.createInfo, .updateInfo{font-size:0.70em;display:block;margin-bottom:3px;text-align:center}
+
+.profileDescRight{float:left}
+.profileHeading{color:#178e9d;font-family:Segoe UI;font-size:0.8em;font-weight:normal;margin-bottom:10px}
+.profileHeading .boxName{color:#178e9d}
+.profileHeading .bigProfileHeading{font-size:1.3em}
+.profileDescRight p{font-size:0.75em;line-height:16px;margin:10px 0 10px 0}
+.mainContentBottom{border:1px solid #e0e0e0;padding:10px;height:232px}
+.aboutAuthor{width:160px;margin:0 10px 0 0;background:#f4f4f4;float:left}
+.mainContentBottom .subHeading{background:#4fbfcd;padding:6px 10px;font-size:0.9em;font-weight:bold;color:#fff;text-align:left;border-bottom:1px solid #fff}
+.mainContentBottom .subHeading .addLink a{float:right;font-weight:normal;font-size:0.8em;text-decoration:underline;color:#ffffff}
+.mainContentBottom .subHeading .addLink a:hover{text-decoration:none}
+.mainContentBottom .authorContent{margin:9px}
+.mainContentBottom .authorContent figure{background:url(../images/aboutauthor.png) no-repeat center top;width:141px;height:97px;text-indent:-9000px}
+.mainContentBottom .authorContent aside{font-size:0.7em;color:#6e6e6e;margin:5px 0;line-height:15px}
+
+.profileRoles{margin:0 10px 0 0;background:#f4f4f4;float:left}
+.profileRelations{margin:0;background:#f4f4f4;float:left}
+.aclSettings{float:left;width:25%}
+.aclSettings cite{}
+
+
+
+/*****************************************************
+Common CSS for both resolutions ends here 
+*****************************************************/
+
+/************************ Cell Profile Media Query For 1366 X 768 Starts Here ************************/
+@media all and (min-width:1280px), (min-height:600px){
+.rightContent{margin:0 5px 0 20px}
+.leftList{width:238px;height:559px}
+.textBoxNormal{width:62%}
+.cellGroup li{padding:2.55% 12% 2.6% 16%}
+.enableCell{background-position:18px -744px;height:31px}
+.disableCell, .enableCell.activeCell{background-position:17px -853px}
+.createCell input[type="button"]{margin:8px 50px;background-image:url(../images/sprite_icons.png);background-repeat:no-repeat;background-position:10px -1248px;padding-left:20px}
+.rightContent{width:78.5%}
+.profileDescRight{width:83%}
+.mainContentBottom{height:232px}
+.aboutAuthor{height:235px}
+
+.disableCell, .enableCell.activeCell:hover{background-position:17px -853px}
+.cellGroup li:hover{list-style:none;border-bottom:1px dotted #66cbe9;font-size:0.8em;font-weight:bold}
+.cellGroup li a:hover{color:#fff;font-family:Segoe UI;text-decoration:none}
+.enableCell:hover{background:url(../images/sprite_icons.png) no-repeat 18px -744px #61c6d2}
+.disableCell:hover{background:url(../images/sprite_icons.png) no-repeat}
+.enableCell.activeCell:hover{background-color:#fff;}
+.enableCell.activeCell a:hover{color:#373f49;font-weight:bold}
+.cellGroup li span:hover{display:block;font-size:0.8em;font-weight:normal}
+
+.profileRoles{width:42.5%}
+.profileRelations{width:39%}
+}
+/************************ Cell Profile Media Query For 1366 X 768 Ends Here ************************/
+
+/************************ Cell Profile Media Query For 1024 X 768 Starts Here ************************/
+@media all and (max-width:1024px){
+.rightContent{margin:0 0 0 7px}
+.leftList{width:190px}
+.textBoxNormal{width:47%}
+.cellGroup li{padding:3.35% 15% 3.35% 18%}
+.enableCell{background-position:13px -744px;height:31px}
+.disableCell, .enableCell.activeCell{background-position:11px -852px}
+.createCell input[type="button"]{margin:10px 17px;background-image:url(../images/sprite_icons.png);background-repeat:no-repeat;background-position:10px -1248px;padding-left:20px}
+.rightContent{width:78%}
+.profileDescRight{width:76.2%}
+.mainContentBottom{height:240px}
+.aboutAuthor{height:240px}
+
+.disableCell, .enableCell.activeCell:hover{background-position:11px -852px}
+.cellGroup li:hover{list-style:none;border-bottom:1px dotted #66cbe9;font-size:0.8em;font-weight:bold}
+.cellGroup li a:hover{color:#fff;font-family:Segoe UI;text-decoration:none}
+.enableCell:hover{background:url(../images/sprite_icons.png) no-repeat 13px -744px #61c6d2}
+.disableCell:hover{background:url(../images/sprite_icons.png) no-repeat}
+.enableCell.activeCell:hover{background-color:#fff;}
+.enableCell.activeCell a:hover{color:#373f49;font-weight:bold}
+.cellGroup li span:hover{display:block;font-size:0.8em;font-weight:normal}
+.profileRoles{width:38%}
+.profileRelations{width:36%}
+}
+/************************ Cell Profile Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------------	********* CELL PROFILE ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* CELL PROFILE EDIT STARTS HERE ********* ---------------------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+#cellProfileEdit .middleWrapper{box-shadow:0 0 10px #CCC}
+#cellProfileEdit .profileDesc{border:5px solid #edeef0;padding:10px;margin:10px 0}
+.changeImg{font-size:0.8em;margin:0 15%;color:#00a9da}
+.editTextSmall{border:5px solid #edeef0;width:99%;padding:1%;color:#00a9da}
+.editTextarea{border:5px solid #edeef0;width:99%;padding:1%;resize:none;overflow-y:auto;height:80px;font-size:0.75em;color:#6e6e6e;font-family:Segoe UI;overflow-x:hidden}
+/*****************************************************
+Common CSS for both resolutions ends here 
+*****************************************************/
+/*--------------------------------------------------	********* CELL PROFILE ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* ACCOUNT LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#accountView .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainAccountTable{width:100%}
+#mainAccountTable .col1{width:5%}
+#mainAccountTable .col2{width:25%}
+#mainAccountTable .col3{width:25%}
+#mainAccountTable .col4{width:20%}
+#mainAccountTable .col5{width:20%}
+
+.blueBut{color:#7a7f85;border:1px solid #dfdfdf;min-width:40px;border-radius:5px;padding:0 2px;line-height:18px;background:url(../images/sprite_icons.png) 0 -1374px repeat-x;float:left;cursor:pointer;font-size:0.8em}
+.blueBut:hover{background:url(../images/sprite_icons.png) 0 -2022px repeat-x;}
+
+/*--------------------------------------------------	********* ACCOUNT LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* ROLE LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#roleView .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainRoleTable{width:100%}
+#mainRoleTable .col1{width:5%}
+#mainRoleTable .col2{width:15%}
+#mainRoleTable .col3{width:20%}
+#mainRoleTable .col4{width:15%}
+#mainRoleTable .col5{width:30%}
+#mainRoleTable .col6{width:15%}
+/*--------------------------------------------------	********* ROLE LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* ROLE ACCOUNT LINK LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#roleView .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainRoleAccountLinkTable{width:100%}
+#mainRoleAccountLinkTable .col1{width:5%}
+#mainRoleAccountLinkTable .col2{width:30%}
+#mainRoleAccountLinkTable .col3{width:40%}
+/*--------------------------------------------------	********* ROLE ACCOUNT LINK LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* ROLE ACCOUNT LINK CONTROL LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#mainRoleAccountControlTable{width:100%}
+#mainRoleAccountControlTable .col1{width:5%}
+#mainRoleAccountControlTable .col2{width:25%}
+#mainRoleAccountControlTable .col3{width:35%}
+/*--------------------------------------------------	********* ROLE ACCOUNT CONTROL LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* RELATION ROLE MAPPING LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#mappedRoleList .middleWrapper{box-shadow:0 0 10px #CCC}
+#mappedRoleList{width:100%}
+#mappedRoleList .col1{width:5%}
+#mappedRoleList .col2{width:25%}
+#mappedRoleList .col3{width:25%}
+#mappedRoleList .col4{width:25%}
+#mappedRoleList .col5{width:20%}
+/*--------------------------------------------------	********* RELATION ROLE MAPPING LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* RELATION LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#mainRelationTable .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainRelationTable{width:100%}
+#mainRelationTable .col1{width:5%}
+#mainRelationTable .col2{width:25%}
+#mainRelationTable .col3{width:20%}
+#mainRelationTable .col4{width:20%}
+#mainRelationTable .col5{width:15%}
+#mainRelationTable .col6{width:20%}
+/*--------------------------------------------------	********* RELATION LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* External CELL LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#mainExternalCellTable .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainExternalCellTable{width:100%}
+#mainExternalCellTable .col1{width:5%}
+#mainExternalCellTable .col2{width:20%}
+#mainExternalCellTable .col3{width:35%}
+#mainExternalCellTable .col4{width:20%}
+#mainExternalCellTable .col5{width:10%}
+#mainExternalCellTable .col6{width:10%}
+/*--------------------------------------------------	********* External CELL VIEW ENDS HERE ********* ---------------------------------------------*/
+
+#externalRoleTable{width:100%}
+#externalRoleTable .col1{width:5%}
+#externalRoleTable .col2{width:25%}
+#externalRoleTable .col3{width:10%}
+#externalRoleTable .col4{width:12%}
+#externalRoleTable .col5{width:12%}
+#externalRoleTable .col6{width:15%}
+#externalRoleTable .col7{width:21%}
+
+/*--------------------------------------------	********* CREATE CELL(MANAGING RESOURCE) PAGE STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createCell .middleWrapper{margin:0 auto;box-shadow:0 0 10px #CCC}
+#createCell .leftListNoCell{background:#4fbfcd;width:177px;height:559px;float:left}
+.leftText{color:#ffffff;font-family:Segoe UI;font-size:0.85em;text-align:center;margin:230px 0 0 0;line-height:18px}
+#createCell .rightPanel{float:right;min-height:558px}
+#createCell .rightPanel .createCellButton{background:url(../images/createcell_btn_small.png) no-repeat center center;margin:10px 0 0 30px;cursor:pointer;height:34px;width:123px;border:none}
+#createCell .rightPanel .createCellButton a{text-decoration:none; cursor:pointer}
+#createCell .rightContent{float:right;margin:10px 10px 10px 0}
+#createCell .rightContent{height:539px;width:100%}
+
+#createCell .rightContent .createCellCont{padding:0 0 0 65px;background:url(../images/create_cell.jpg) no-repeat center top;width:660px;height:540px}
+#createCell .rightContent .selectCellCont{font-family:Segoe UI;text-align:center;line-height:30px;font-size:1.2em;color:#373f49;margin:250px 0 0 0}
+#createCell .rightContent .createCellCont a{color:#373f49;text-decoration:none}
+#createCell .rightContent .createCellCont a:hover{text-decoration:underline}
+#createCell .rightContent .createCellCont span{color:#4FBFCD}
+#createCell .rightContent .createCellCont span a{color:#4FBFCD;text-decoration:none}
+/*.createCellNorow input[type="button"]{margin:15px 0 0 13px;background-image:url(../images/sprite_icons.png);background-repeat:no-repeat;background-position:10px -1248px;padding-left:20px; text-decoration:none}
+.createCellNorow input[type="button"]{text-decoration:none}*/
+#createCell .bigButton{margin:15px 0 0 13px;padding-left:20px;background:url(../images/sprite_icons.png) no-repeat 10px -1248px #ffffff;color:#178e9d}
+
+/**** Middle Part ends here ****/
+/*****************************************************
+Common CSS for both resolutions ends here 
+*****************************************************/
+
+/************************ Create Cell(Managing Resource) Page Media Query For 1366 X 768 Starts Here ************************/
+@media all and (min-width:1280px), (min-height:600px){
+#createCell .rightPanel{background:#ffffff;min-height:538px}
+#createCell .rightContent{background:#FFFFFF;width:1084px}
+}
+/************************ Create Cell(Managing Resource) Page Media Query For 1366 X 768 Ends Here ************************/
+
+/************************ Create Cell(Managing Resource) Page Media Query For 1024 X 768 Starts Here ************************/
+@media all and (max-width:1024px){
+#createCell .middleWrapper{width:980px}
+#createCell .rightPanel{background:#ffffff;width:930px;margin:0}
+#createCell .rightPanel .createCellButton{margin:18px 0 0 30px}
+#createCell .rightContent{background:#ffffff;width:718px}
+}
+/************************ Create Cell(Managing Resource) Page Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE CELL(MANAGING RESOURCE) PAGE ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------------------	********* SELECT CELL PAGE STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#selectCell .rightContent{height:539px;text-align:center;float:left}
+#selectCell .rightContent .createCellCont{font-family:Segoe UI;text-align:center;line-height:30px;font-size:1.2em;color:#373f49;margin:250px 0 0 0}
+#selectCell .rightContent .createCellCont a{color:#373f49;text-decoration:none}
+#selectCell .rightContent .createCellCont a:hover{text-decoration:underline}
+#selectCell .rightContent .createCellCont span{color:#4FBFCD}
+#selectCell .rightContent .createCellCont span a{color:#4FBFCD;text-decoration:none}
+
+/**** Middle Part ends here ****/
+/*****************************************************
+Common CSS for both resolutions ends here 
+*****************************************************/
+/*--------------------------------------------	********* SELECT CELL PAGE STARTS HERE *********	 -------------------------------*/
+
+
+
+/*------------------------------------------	********* VIEW LINK WITH ACCOUNT STARTS HERE ********* ---------------------------------------------*/
+#accRole .mainTable{margin-top:0}
+#accRole .col1{width:15px}
+#accRole .col2{width:390px}
+#accRole .col3{width:350px}
+#accRole .col4{width:300px}
+/*------------------------------------------	********* VIEW LINK WITH ACCOUNT ENDS HERE ********* ---------------------------------------------*/
+
+/*------------------------------------------	********* EXTERNAL CELL LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#extCellView .col1{width:15px}
+#extCellView .col2{width:250px}
+#extCellView .col3{width:350px}
+#extCellView .col4{width:250px}
+#extCellView .col5{width:300px}
+#extCellView .selectRow span{float:left;margin-top:4px}
+#extCellView .selectRow .deleteIcon{margin-left:100px}
+/*------------------------------------------	********* EXTERNAL CELL LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+/*------------------------------------------	********* EXTERNAL CELL DETAIL STARTS HERE ********* ---------------------------------------------*/
+#extCellDetail .col1{width:15px}
+#extCellDetail .col2{width:250px}
+#extCellDetail .col3{width:350px}
+#extCellDetail .col4{width:250px}
+
+#extCellDetail .linkTable .col1{width:200px}
+#extCellDetail .linkTable .col2{width:200px}
+#extCellDetail .linkTable .col2 .deleteIcon, #extCellDetail .linkTable .col2 .deleteIconDisabled{float:right}
+/*------------------------------------------	********* EXTERNAL CELL DETAIL ENDS HERE ********* ---------------------------------------------*/
+/*------------------------------------------	************** BOX VIEW STARTS HERE ************** ---------------------------------------------*/
+#boxView .editIcon{margin-left:20px}
+#boxView .exportIcon{margin-left:50px}
+@media all and (min-width:1280px), (min-height:600px){
+/*#boxView .col1{width:235px}
+#boxView .col2{width:255px}
+#boxView .col3{width:230px}*/
+#mainBoxTable{width:100%}
+#mainBoxTable .col1{width:5%}
+#mainBoxTable .col2{width:20%}
+#mainBoxTable .col3{width:35%}
+#mainBoxTable .col4{width:15%}
+#mainBoxTable .col5{width:10%}
+ #mainBoxTable .col6{width:15%}
+}
+
+@media all and (max-width:1024px){
+#boxView .col1{width:150px}
+#boxView .col2{width:150px}
+#boxView .col3{width:130px}
+}
+/*------------------------------------------	************** BOX VIEW ENDS HERE ************** ---------------------------------------------*/
+/*------------------------------------------	************** ACCOUNT REGISTRATION STARTS HERE ************** ---------------------------------------------*/
+.regisForm{margin:auto;background:#58c2cf;padding:0;font-family:Segoe UI;border:5px solid #58C2CF}
+.registTop{border:1px dashed #9dddf0;margin-bottom:5px;padding:15px 20px;color:#fff}
+.registTop h1{font-size:1.2em;font-weight:normal}
+.registTop h2{font-size:0.8em;font-weight:normal;margin-top:5px}
+#accRegs .loginButton{background:url(../images/login_btn_small.png) no-repeat;border:none;color:#fff;width:66px;height:24px;padding:2px 0 3px 13px;text-align:left;font-size:1em;font-family:Segoe UI}
+.regisForm form{background:#fff;padding:5px}
+.regisForm form div{margin:10px;color:#373f49}
+.regisForm form label{float:left;font-size:0.87em;display:inline-block;width:170px;margin:7px 0}
+.regisForm form .regFields{padding:0 0 22px 0}
+.regisForm form .regFieldsLast{padding:0 0 8px 0}
+.regisForm form .regFieldsConfirmMsg{padding:0}
+#accRegs .textBoxNormal{border:1px solid #c8c8c8;border-radius:0;width:50%;height:10px;line-height:10px;color:#374049}
+#accRegs .textBoxNormal[disabled="disabled"]{border:none;background:#fff}
+
+#accRegs .buttonArea input{margin-right:5px}
+#accRegs .buttonArea{float:left;margin:18px 0 0 180px}
+#accRegs .alertmsg{color:#e90000;font-size:0.6em;float:left;width:100%;text-align:left;padding:1px 0 10px 170px;height:15px}
+#accRegs .alertConfirmmsg{color:#ffffff;font-size:0.8em;float:left;width:100%;text-align:center;height:20px;font-weight:normal;font-style:italic;background:#5BC2D1}
+#accRegs .alertConfirmmsg aside{padding:3px 0 0 5px;text-align:left}
+#accRegs .alertmsg .deactive{display:none;}
+#accRegs .alertSuccessMsg{color:green;font-size:0.6em;float:left;width:100%;text-align:left;padding:1px 0 10px 170px;height:15px}
+
+/*------------------------------------------	************** ACCOUNT REGISTRATION ENDS HERE ************** ---------------------------------------------*/
+/*-------------------------------------	************** ACCOUNT REGISTRATION CONFIRMATION STARTS HERE ************** -----------------------------------------*/
+#confirmRegs{border:5px solid #58c2cf;height:563px}
+#confirmRegs figure{text-align:center;margin:160px 0 0 55px;background:url(../images/sucess_reg.png) no-repeat center center;width:357px;height:255px;text-indent:-9000px}
+/*-------------------------------------	************** ACCOUNT REGISTRATION CONFIRMATION ENDS HERE ************** -----------------------------------------*/
+/*-------------------------------------	************** VIEW LINK WITH EXTERNAL CELL STARTS HERE ************** -------------------------------------------*/
+#extCellRole .col1{width:20px}
+#extCellRole .col2{width:290px}
+#extCellRole .col3{width:260px}
+#extCellRole .col4{width:215px}
+#extCellRole .col5{width:230px}
+/*-------------------------------------	************** VIEW LINK WITH EXTERNAL CELL ENDS HERE ************** -------------------------------------------*/
+/*-------------------------------------	************** VIEW LINK WITH EXTERNAL ROLE STARTS HERE ************** -------------------------------------------*/
+#extRole_Role .col1{width:20px}
+#extRole_Role .col2{width:290px}
+#extRole_Role .col3{width:240px}
+#extRole_Role .col4{width:285px}
+#extRole_Role .col5{width:180px}
+/*-------------------------------------	************** VIEW LINK WITH EXTERNAL ROLE ENDS HERE ************** -------------------------------------------*/
+/*-------------------------------------	************** VIEW LINK WITH EXTERNAL ROLE STARTS HERE ************** -------------------------------------------*/
+#relation_Role .col1{width:20px}
+#relation_Role .col2{width:290px}
+#relation_Role .col3{width:260px}
+#relation_Role .col4{width:450px}
+/*-------------------------------------	************** VIEW LINK WITH EXTERNAL ROLE ENDS HERE ************** -------------------------------------------*/
+/*-------------------------------------	************** EXTERNAL ROLE VIEW LIST STARTS HERE ************** -------------------------------------------*/
+#extRoleView .col1{width:20px}
+#extRoleView .col2{width:290px}
+#extRoleView .col3{width:260px}
+#extRoleView .col4{width:450px}
+#extRoleView .col5{width:450px}
+#extRoleView .col6{width:450px}
+/*-------------------------------------	************** EXTERNAL ROLE VIEW LIST ENDS HERE ************** -------------------------------------------*/
+/*--------------------------------	************** EXTERNAL ROLE VIEW LINK WITH ROLE STARTS HERE ************** -------------------------------------*/
+#extRole_linkRole .mappingInfo li{margin-right:103px}
+#extRoleView .col1{width:20px}
+#extRoleView .col2{width:290px}
+#extRoleView .col3{width:260px}
+#extRoleView .col4{width:450px}
+#extRoleView .col5{width:450px}
+#extRoleView .col6{width:450px}
+/*--------------------------------	************** EXTERNAL ROLE VIEW LINK WITH ROLE ENDS HERE ************** -------------------------------------*/
+
+/* MODALBOX STARTS */
+#modalbox{position:absolute;width:auto;height:auto;padding:0;background:#fff;color:#000;top:50%;left:50%;margin-left:-350px;margin-top:-200px;display:none;z-index:50000; font-family:Segoe UI;box-shadow:0 0 10px #000000}
+	/*#modalbox #modalbox-header #modalbox-close{float:right;line-height:20px;font-size:11px; color:#669933; text-decoration:none;}
+	#modalbox #modalbox-header #modalbox-close:hover{color:#fff}
+	#modalbox #modalbox-header #modalbox-h2{line-height:20px;font-size:14px; color:#333; text-transform:capitalize;}*/
+#modalbox #modalbox-content{overflow:hidden;height:auto}
+#modalbox-flyout{position:absolute;background:#000;top:0;left:0;display:none;z-index:40000}
+.modalbox{text-decoration:none}
+.closeIcon{background:url(../images/sprite_icons.png) no-repeat center -1820px;float:right;height:40px;position:absolute;right:-16px;text-indent:-2000px;top:-20px;width:34px;z-index:9999;cursor:pointer}
+.closeIcon:hover{background:url(../images/sprite_icons.png) no-repeat center -2660px;}
+.popupHeader{background:#4FBFCD;height:38px;width:365px;color:#ffffff;padding:0 0 0 10px;font-family:Segoe UI;line-height:35px;position:relative}
+.popupContent{margin:10px 10px 7px 10px}
+.popupInnerContent{background:#dedede;font-family:Segoe UI;font-size:0.8em;color:#373f49;padding:15px 10px 5px 10px;line-height:27px}
+.conflict{padding:5px 10px 20px 10px!important;font-size:0.7em;line-height:25px}
+.popupInnerContent label{float:left}
+.popupCommonTable {width:100%}
+.popupCommonTable tr td{padding:0 0 5px 0;line-height:15px}
+.popupCommonTable .space{padding:0 0 15px 0}
+.popupMessage{color:#373F49;font-family:Segoe UI;font-size:0.9em;padding:0;float:right}
+.popupContent .normalButton{width:100px}
+/* MODALBOX ENDS */
+
+/*-------------------------------------	********* CREATE CELL(MANAGING RESOURCE) POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createCellpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+
+.textBoxPopup{width:204px;border:0;height:16px;font-family:Segoe UI;font-size:1.0em;color:#373f49;padding:5px;clear:both;float:right}
+.smallestTextBoxPopUp{width:100px;border:0;height:16px;font-family:Segoe UI;font-size:1.0em;color:#373f49;padding:5px;clear:both;float:left}
+.smallerTextBoxPopUp{width:150px;height:23px;}
+.smallTextBoxPopUp{width:180px;}
+.selectBoxPopup{width:200px;border:0;height:26px;font-family:Segoe UI;font-size:1.0em;color:#373f49;padding:3px;clear:both;float:right}
+.textBoxSmallPopup{width:190px;border:0;height:16px;font-family:Segoe UI;font-size:1.0em;color:#373f49;padding:5px;clear:both;float:right}
+.textBoxPopupSmall{width:110px;border:0;height:16px;font-family:Segoe UI;font-size:1.0em;color:#373f49;padding:5px 10px 5px 5px;clear:both;float:left}
+.checkBoxPopup{margin:0 7px 0 5px}
+.checkBoxPopupText{font-family:Segoe UI;font-size:0.8em;color:#373f49;padding:5px 43px 0 0;float:left}
+.clearSpace{clear:both;height:7px}
+.bottomBtn{float:right;margin:10px 0 0 0}
+.textAreaPopup{width:212px}
+.popupCellTable {width:auto}
+.popupCellTable tr td{padding:0 0 5px 0;line-height:15px}
+.popupCellTable tr td.last{padding:10px}
+.popupAlertArea{color:#E90000;float:left;height:15px;padding:1px 0 0 0px;text-align:left;width:100%}
+.popupAlertmsg{color:#e90000;font-size:0.8em;text-align:left;}
+.popupAlertmsgForDropDown{float:none;width:auto}
+.popupInnerContent .deletePopupField{height:45px;margin:15px 0 0 0;text-align:center} 
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE CELL(MANAGING RESOURCE) POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------------------	********* CREATE ACCOUNT / EDIT ACCOUNT / DELETE ACCOUNT POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createAccountpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+.popupInnerContent .deleteAccount{height:45px;margin:15px 0 0 0;text-align:center}
+.popupInnerContent .conflictAccount{height:65px;margin:15px 0 0 0;text-align:center}
+#editAccountpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE ACCOUNT / EDIT ACCOUNT / DELETE ACCOUNT POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------------------	********* CREATE BOX / EDIT BOX / DELETE BOX POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createBoxpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+.popupInnerContent .deleteBox{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE BOX / EDIT BOX / DELETE BOX POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------------------	********* CREATE ROLE / EDIT ROLE / DELETE ROLE POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createRolepopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+#createRolepopup .popupInnerContent{padding:15px 20px 0}
+#createRolepopup .popupInnerContent .deleteRole{height:65px;margin:15px 0 0 0;text-align:center}
+.popupInnerContent .deleteRole{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE ROLE / EDIT ROLE / DELETE ROLE POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------------------	********* CREATE RELATION / DELETE RELATION POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createRelationpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+#createRelationpopup .popupInnerContent{padding:15px 20px 0;}
+.popupInnerContent .deleteRelation{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE RELATION / DELETE RELATION POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------	********* CREATE EXTERNAL CELL / DELETE CREATE EXTERNAL CELL POPUP STARTS HERE *********	 ---------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createExternalCellpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+.popupInnerContent .deleteExternalCell{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*-------------------------	********* CREATE CREATE EXTERNAL CELL / DELETE CREATE EXTERNAL CELL POPUP ENDS HERE *********	 -----------------------------*/
+
+
+/*--------------------------------	********* CREATE EXTERNAL ROLE / EDIT EXTERNAL ROLE / DELETE CREATE EXTERNAL ROLE POPUP STARTS HERE *********	 ---------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createExternalRolepopup .textBoxSmallPopup{width:175px}
+#createExternalRolepopup .selectBoxPopup{width:185px}
+#editExternalRolepopup .textBoxSmallPopup{width:175px}
+#editExternalRolepopup .selectBoxPopup{width:185px}
+.popupInnerContent .deleteExternalRole{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*-------------------------	********* CREATE CREATE EXTERNAL ROLE / EDIT EXTERNAL ROLE / DELETE CREATE EXTERNAL ROLE POPUP ENDS HERE *********	 -----------------------------*/
+.normalButtonBlue .disableBlue{background:url(../images/sprite_icons.png) repeat-x 0 -1888px;color:#ffffff;cursor:auto;text-shadow:none}
+
+/*--------------------------------------------------	********* BOX PROFILE STARTS HERE ********* ---------------------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+.boxProfileTop{padding:8px 0 0 0}
+
+/*****************************************************
+Common CSS for both resolutions ends here 
+*****************************************************/
+
+/*--------------------------------------------------	********* BOX PROFILE ENDS HERE ********* ---------------------------------------------*/
+
+
+/****************** Modal window ****************/
+.modelback{
+	/* background: url(../images/old-browsers-bg/black50.png); */
+	background: rgba(0, 0, 0, 0.5);
+	position: fixed;	
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index:1
+}
+div.modal-window {
+	position: absolute;
+	left: 0;
+	top: 0;
+	-moz-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+	box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+}
+.modal-content {
+	overflow: hidden;
+	margin: -2.833em -1.667em -1.667em;
+	padding: 2.833em 1.667em 1.667em;
+	}
+	
+.modelbackSpinner{
+	/* background: url(../images/old-browsers-bg/black50.png); */
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;	
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;	
+	z-index:3	
+}
+	
+	
+#modal > .block-border > .block-content {
+	/* z-index: 90; */
+}
+/**** Home Footer starts here ****/
+.innerGraphFooter{width:100%;background:#373f49;height:10px;padding:10px 0;bottom:0;position:fixed;font-family:Segoe UI;font-size:0.70em;color:#a7abaf}
+.innerGraphFooter nav{width:450px;float:left}
+.innerGraphFooter nav ul{margin:0 20px 0 10px}
+.innerGraphFooter nav ul li{display:inline;float:left;padding:0 10px;border-right:1px solid #918d8d;line-height:10px}
+.innerGraphFooter nav ul li a{color:#a7abaf;text-decoration:none}
+.innerGraphFooter a:hover{color:#fff}
+.innerGraphFooter address{float:right;width:120px;text-align:right;margin:0 20px 0 0;color:#a7abaf;font-style:normal}
+.innerGraphFooter address a{text-transform:uppercase;color:#a7abaf;text-decoration:none}
+/**** Home Footer ends here ****/

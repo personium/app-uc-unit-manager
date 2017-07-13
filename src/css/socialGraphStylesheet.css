@@ -1,0 +1,350 @@
+/**
+ * Personium
+ * Copyright 2016 FUJITSU LIMITED
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ #socialGraphBody {
+	background:url(../newImages/home_bk.png) repeat-y #ffffff !important;
+	width:100%;
+	height:auto
+}
+
+input::-webkit-input-placeholder{
+	color:grey!important;
+	font-family:Segoe UI;
+	font-size:1em;
+}
+
+.leftList{float:left;background:#edeef0;height:650px}
+/*height:559px */
+/*duplicate*/
+
+.searchBullet {
+	background:url(../images/sprite_icons.png) no-repeat 0 -749px;
+	width:13px;
+	height:12px
+}
+
+.refreshButton {
+	background:url(../images/sprite_icons.png) no-repeat -7px -43px;
+	border:none;
+	cursor:pointer;
+	float:right;
+	height:28px;
+	margin:16px 0 0 40px;
+	position:absolute;
+	width:27px
+}
+
+.leftslidIn {
+	background:url(../newImages/sprite_icons.png) no-repeat -6px -3008px;
+	border:none;
+	cursor:pointer;
+	float:right;
+	height:28px;
+	margin:16px 0 0 40px;
+	position:absolute;
+	width:27px
+}
+.leftslidIn:hover {
+	background:url(../newImages/sprite_icons.png) no-repeat -6px -3096px;
+}
+.rightslidOut {
+	background:url(../newImages/sprite_icons.png) no-repeat -7px -2966px;
+	border:none;
+	cursor:pointer;
+	float:right;
+	height:28px;
+	margin:16px 0 0 40px;
+	position:absolute;
+	width:27px
+}
+.rightslidOut:hover {
+	background:url(../newImages/sprite_icons.png) no-repeat -5px -3050px;
+}
+/*
+	.leftPanelCellList {
+		background:#edeef0;
+		width:50px;
+		float:left;
+	}
+	.leftNav {
+		width:45px
+	}
+	.leftNav ul li {
+		list-style:none;
+		float:left;
+		width:50px
+	}
+	
+	.leftNav ul li.selected {
+		background-color:#4fbfcd
+	}
+	.leftNav ul li a {
+		text-indent:-2000px;
+		float:left;padding:10px
+	}
+
+	.leftNav ul li:hover {
+		background:#4FBFCD
+	}
+
+	.socialGraph {
+		background:url(../newImages/sprite_icons.png) no-repeat 5px -890px;
+		width:35px;
+		height:36px
+	}
+
+	.resouceMgmt {
+		background:url(../newImages/sprite_icons.png) no-repeat 5px -946px;
+		width:35px;
+		height:37px
+	}
+
+	.leftNav ul li.selected .socialGraph {
+		background:url(../newImages/sprite_icons.png) no-repeat 5px -1064px;
+		width:35px;
+		height:36px
+	}
+
+	.leftNav ul li.selected .resouceMgmt {
+		background:url(../newImages/sprite_icons.png) no-repeat 5px -1122px;
+		width:35px;
+		height:37px
+	}
+*/
+#mainContainer{
+	margin:0 auto;
+	width:100%;
+	height:auto;
+	min-width:1280px;
+}
+
+#mainContainer #contentWrapper{
+	width:100%;
+	min-width:1180px;
+	height:auto;
+	display:block;
+	/* background-color:blue; */
+}
+
+#rightPanel {
+	/* background:Green; */
+	width:40px;
+	min-height:565px;
+	float:right;
+	padding:0 0 10px 0;
+	/* border: 2px solid; */
+}
+
+#mainContainer #contentWrapper #GraphContainer {
+	float:right;
+	position:absolute;
+	margin:0 0 0 50px;
+	text-align:justify;
+	min-height:565px;
+	min-width:930px;
+	padding:10px 10px 10px 10px;
+	/* background-color:red;
+	border: 2px solid; */
+}
+
+.link {
+	stroke: #696969;
+	stroke-width: 0.4px;
+}
+
+.svg {
+	/* background-color: yellow; */
+	stroke-width: 1.0px;
+	border: 1px solid #d3d3d3;
+	margin: 40px 10px 10px 45px;
+}
+
+.separator {
+	stroke: #fff;
+	stroke-width: 2px;
+}
+
+.node circle {
+	stroke: #000;
+	stroke-width: 0.2px;
+}
+
+.node text {
+	font: 9px sans-serif;
+	pointer-events: none;
+}
+div.tooltip {
+	position: absolute;
+	text-align: left;
+	width: auto;
+	height: auto;
+	padding: 8px;
+	font: 10px sans-serif;
+	background: #61c6d2;
+	color: white;
+	border: solid 1px #aaa;
+	border-radius: 8px;
+	opacity: 0;
+}
+.normalButtonBlueCreateEnv {
+	min-width: 100px;
+	height: 29px;
+	background: #58c2cf;
+	border: none;
+	border-radius: 5px;
+	color: #ffffff;
+	cursor: pointer;
+	font-family: Segoe UI;
+	margin: 5px 118px 10px 10px;
+}
+
+.bodysocialGraph {
+	/* background-color:yellow; */
+}
+
+/* CELLLIST ON GRAPH START*/
+
+.rightAlignment {
+	float:right;
+}
+
+.leftAlignment {
+	float:left;
+}
+
+.slideIcon {
+	style: margin-top:250px;
+}
+
+.dvSlider {
+	width:267px;
+	height:559px;
+}
+
+.separator a {
+	width:100%;
+	text-indent:-2000px;
+	background: #373f49 no-repeat;
+	float:left;
+	height: 8px;
+}
+
+.iconCellListOnGraph {
+	background:url(../images/sprite_icons.png) no-repeat 18px -744px
+}
+
+.iconMyCellOnGraph {
+	background:url(../newImages/myCellIcon.png) no-repeat left center
+}
+
+.iconOthersOnGraph {
+	background:url(../newImages/otherCellIcon.png) no-repeat left center
+}
+
+
+.legendsCellListOnGraph {
+	padding-top: 3px;
+	cursor: pointer;
+}
+
+.legendsGraph {
+	font-size: 0.9em;
+	color: #4fbfcd;
+	font-family: Segoe UI;
+	font-weight: bold;
+	padding: 10px 10px 10px 40px;
+}
+
+.topMarginForIcon{
+	margin-top: 30px;
+	margin-left:10px;
+}
+/* CELLLIST ON GRAPH END*/
+
+.emptyTableMessage {
+	text-align:center;
+	font-family:Segoe UI;
+	font-size:0.9em;
+	width:275px;
+	height:22px;
+	background:#f4d558;
+	color:#373f49;
+	margin:45px auto;
+	padding:5px 0
+}
+
+.innerFooter nav ul  {
+	margin: 0 20px 0 -40px
+} 
+
+.innerFooter address {
+	margin: 0 -26px 0 0
+}
+
+.searchBox {
+	margin:8% 0 4% 0;
+	color:#1d2126;
+	padding:2%;
+	border:1px solid #918d8d;
+	margin-left:7px;
+	margin-top:7px;
+	width:164px;
+}
+
+.searchImageSocialGraph {
+	background:#4fbfcd url(../newImages/sprite_icons.png) no-repeat 0px -3221px;
+	min-width:43px;
+	position:absolute;
+	height:27px;
+	cursor:pointer;
+	border:none;
+	margin-top:7px;
+	margin-left:2px
+}
+
+.noCellFound {
+	width:146px;
+	height:23px;
+	padding-top:3px;
+	text-align:center;
+	font-family:Segoe UI;
+	font-size:0.8em;
+	background:#f4d558;
+	margin-left:41px;
+	cursor:default;
+}
+
+.cellGroupList{width:100%;float:left;color:#373f49;font-family:Segoe UI;float:left;font-size:0.8em;font-weight:normal}
+.cellGroupList tr td{border-bottom:1px dotted #c2c3c7;padding:10px 0 0 38px;height:40px}
+.cellGroupList tr td:hover{color: #ffffff;background:#c3c3c3;cursor: pointer;}
+.cellGroupList tr td a{text-decoration:none;font-weight:bold;color:#fff}
+.cellGroupList tr td span{display:block;font-size:0.8em;font-weight:normal}
+.allCell{background:url(../newImages/sprite_icons.png) no-repeat 18px -744px}
+.allCell:hover{background:url(../newImages/sprite_icons.png) no-repeat 18px -744px #61c6d2;cursor:pointer}
+.cellGroupList .activeCellList{background:url(../newImages/sprite_icons.png) no-repeat 18px -2700px #dfdfdf;color:#ffffff}
+.cellGroupList .activeCellList a{color:#ffffff}
+.cellGroupList .activeCellList:hover{background:url(../newImages/sprite_icons.png) no-repeat 18px -2700px #dfdfdf;color:#ffffff;cursor:default}
+
+.backBtn {
+	background:url(../newImages/sprite_icons.png) no-repeat -5px -3145px;
+}
+
+.backBtn:hover {
+	background:url(../newImages/sprite_icons.png) no-repeat -5px -3185px;
+}
+.hideElement {
+	visibility: hidden;
+}

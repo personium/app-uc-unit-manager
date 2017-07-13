@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache" >
+<meta http-equiv="Expires" content="-1">
+</head>
+<body>
+	<table id="webDavTable" class="mainTable webDavTable" cellpadding='0' cellspacing='0' border='0'>
+		<thead>
+				<tr>
+					<th class='col1' style="border-top:none;"><input type='checkbox'
+						id='wdchkSelectall' class='checkBox cursorHand regular-checkbox big-checkbox' onclick="objOdata.checkAll(this);"/>
+						<label for="wdchkSelectall" class="checkBoxLabel"></label></th>
+					<th class='col2' style="border-top:none;">Name</th>
+					<th class="col3" style="border-top:none;">Size</th>
+					<th class='col4' style="border-top:none;">Updated</th>
+				</tr>
+			</thead>
+			<tbody id="webDavTbody" class="entityGridTbody"></tbody>
+	</table>
+	<div id="webDavDetails" class="webDavDetails">
+		<div id="webDavDetailBody">
+			<div class="webDavHead">
+				<div class="propsHead">
+					<div class="propsHeadWebDavIcon" id="propsHeadWebDavIcon"></div>
+					<div class="propsHeadWebDavName" id="propsHeadWebDavName"></div>
+					<input type="button" class="propsXml" id="btnXmlView" value="XML" onclick="uBoxProperty.getXmlData();" tabindex="-1" title="Display the WebDAV information in XML format"/>
+				</div>
+			</div>
+			<div id="webDavBody" class="webDavBody entityGridTbody">
+				<div class="webDavProperties">
+					<div class="informationLbl">Information</div>
+					<table class="propsInfo" id="propsInfo" cellpadding='0' cellspacing='0' >
+						<tr><td class="col1">URL</td><td class="col2"><div id="propsInfoURL" class="propsInfoURL"></div></td></tr>
+						<tr><td class="col1">Resource Type</td><td class="col2"><div id="propsInfoResourceType" class="mainTableEllipsis"></div></td></tr>
+						<tr><td class="col1">Content Type</td><td class="col2"><div id="propsInfoContentType" class="mainTableEllipsis"></div></td></tr>
+						<tr><td class="col1">Created at</td><td class="col2"><div id="propsInfoCreatedAt" class="mainTableEllipsis"></div></td></tr>
+						<tr><td class="col1">Updated at</td><td class="col2"><div id="propsInfoUpdatedAt" class="mainTableEllipsis"></div></td></tr>
+						<tr><td class="col1">Size</td><td class="col2"><div id="propsInfoSize" class="mainTableEllipsis"></div></td></tr>
+					</table>
+				</div>
+				<div class="webDavAclSettings">
+					<div class="aclSettingsHeader">
+						<div class="aclSettingsText">ACL Settings</div>
+						<div onclick="uBoxDetail.openPopUpWindow('#editAclSettingDialog','#editAclSettingModal');" id="boxEditAclSettings" class="editIconACLSettings" title="Configure the access control settings of the selected files"></div>
+					</div>
+					<div id="staticAclMessage" class="staticAclMessage">Inherited privileges are not displayed</div>
+					<table class="aclSettingsData" cellpadding='0' cellspacing='0' ><tbody id="aclSettingsData"></tbody></table>
+				</div>
+			</div>
+		</div>
+		<div id="webDavDetailMessageBody" class="webDavDetailMessageBody" style="display:none;">
+			<div id="resourceCount" class="resourceCount"></div>
+			<div id="resourceMsg" class="resourceMsg">Resources are selected</div>
+		</div>
+	</div>
+</body>
+</html>
