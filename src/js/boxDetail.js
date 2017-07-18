@@ -648,7 +648,7 @@ boxDetail.prototype.showSchemaAuth = function(schemaAuthz) {
  */
 
 boxDetail.prototype.getRoleBoxACLSettings = function() { 
-	var rowCount = $('#editACLGridTbody tr').length;
+    var rowCount = $('#editACLGridTbody tr').length + 1;
 	var rolePrivilegeList = '';
 	var arrCheckedRolePrivilegeList = [];
 	var jsonRolePrivilegeList = null;
@@ -729,7 +729,6 @@ boxDetail.prototype.getRoleBoxACLSettings = function() {
 boxDetail.prototype.populateACLSettings = function(roleList, rolePrivList,
 		schemaAuthz) { 
 	this.showSchemaAuth(schemaAuthz);
-	objCommon.restScrollBar('#editACLGridTbody');
 	var mainBoxValue = getUiProps().MSG0039;
 	var actualMainBoxValue = getUiProps().MSG0293;
 	var boxname = sessionStorage.boxName;
@@ -740,9 +739,15 @@ boxDetail.prototype.populateACLSettings = function(roleList, rolePrivList,
 	var boxNameForRole = "";
 	var noOfRoles = roleList.length;
 	var displayBoxName = '';
-	//var dynamicTable = " <tr><td style='text-align:left;min-width:147px;' class='borderRight' ><div class='editACLTableEllipsis '></div></td><td ><div>All</div></td><td ><div>	Read</div></td><td >Write</td><td ><div class='readProperties'>Read-Properties</div></td><td ><div class='writeProperties'>Write-Properties</div></td><td ><div class='readAcl'>Read-acl</div></td><td ><div class='writeAcl'>Write-acl</div></td><td ><div class='writeContent'>Write-content</div></td><td ><div>Bind</div></td><td ><div>Unbind</div></td><td ><div>Exec</div></td></tr>";
-	var dynamicTable = " <tr><td style='text-align:left;min-width:147px;' class='borderRight' ><div class='editACLTableEllipsis '></div></td><td ><div>All</div></td><td ><div>	Read</div></td><td >Write</td><td ><div class='readProperties'>Read-Properties</div></td><td ><div class='writeProperties'>Write-Properties</div></td><td ><div class='readAcl'>Read-acl</div></td><td ><div class='writeAcl'>Write-acl</div></td><td ><div>Exec</div></td><td ><div>Alter-Schema</div></td></tr>";
+    var dynamicTable = "";
 	var arrCheckedState = [];
+
+    // Destroy DataTable contents and clear HTML table tbody
+    if (jquery1_12_4.fn.DataTable.isDataTable("#editAclSettingsTable")) {
+        jquery1_12_4("#editAclSettingsTable").DataTable().destroy();
+    }
+    jquery1_12_4("#editAclSettingsTable tbody").empty();
+
 	for ( var count = 0; count < noOfRoles; count++) {
 		var rolePrivCounter = 0;
 		var obj = roleList[count];
@@ -798,6 +803,21 @@ boxDetail.prototype.populateACLSettings = function(roleList, rolePrivList,
 	}
 	$("#editACLGridTbody").html(dynamicTable);
 	uBoxDetail.checkPrivleges(arrCheckedState);
+
+    // Construct DataTable from scratches
+    var tempTable = jquery1_12_4('#editAclSettingsTable').DataTable({
+        sScrollX: "100%",
+        sScrollY: 200,
+        sScrollXInner: "150%",
+        bScrollCollapse: true,
+        paging: false,
+        ordering: false,
+        searching: false,
+        info: false,
+        destroy: true
+    });
+    new jquery1_12_4.fn.dataTable.FixedColumns(tempTable);
+
 	$("#btnCancelBoxAcl").attr("tabindex", noOfRoles + 4);
 	$("#btnEditAcl").attr("tabindex", noOfRoles + 5);
 	$(".crossIconFocus").attr("tabindex", noOfRoles + 6);

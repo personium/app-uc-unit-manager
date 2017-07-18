@@ -3008,7 +3008,7 @@ input[type=radio] {
 	max-width:147px;
 	
 }
-#editACLGridTbody,#editCellACLGridTbody {
+#editCellACLGridTbody {
 	border: 1px solid #e6e6e6;
 	height: 250px; overflow: auto; max-height: 250px; display: block;
 	max-width: 844px;
