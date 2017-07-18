@@ -3026,6 +3026,11 @@ min-width:147px;
     border-bottom: 0px;
 } */
 
+.tdDataTables {
+    font-family: Segoe UI;
+    font-size: 10pt;
+}
+
 .readProperties {
 	width: 95px;
 }

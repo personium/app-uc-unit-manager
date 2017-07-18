@@ -707,14 +707,14 @@ boxDetail.prototype.getRoleBoxACLSettings = function() {
 
 		//regex below removes the last comma and extra space from the privilege list.
 		if (rolePrivilegeList.length >= 1) {
-		jsonRolePrivilegeList = {
-				"role" : roleBoxPair,
-				"privilege" : rolePrivilegeList.replace(/,\s*$/, "")
-			};
-		
-		arrCheckedRolePrivilegeList.push(jsonRolePrivilegeList);
-		jsonRolePrivilegeList = null;
-		rolePrivilegeList='';
+    		jsonRolePrivilegeList = {
+    				"role" : roleBoxPair,
+    				"privilege" : rolePrivilegeList.replace(/,\s*$/, "")
+    			};
+    		
+    		arrCheckedRolePrivilegeList.push(jsonRolePrivilegeList);
+    		jsonRolePrivilegeList = null;
+    		rolePrivilegeList='';
 		}
 	}
 	return arrCheckedRolePrivilegeList;
@@ -814,7 +814,14 @@ boxDetail.prototype.populateACLSettings = function(roleList, rolePrivList,
         ordering: false,
         searching: false,
         info: false,
-        destroy: true
+        destroy: true,
+        columnDefs: [
+            { className: "tdDataTables", targets: "_all" },
+            { className: "readProperties", targets: [4] },
+            { className: "writeProperties", targets: [5] },
+            { className: "readAcl", targets: [6] },
+            { className: "writeAcl", targets: [7] }
+        ]
     });
     new jquery1_12_4.fn.dataTable.FixedColumns(tempTable);
 
