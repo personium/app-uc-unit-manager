@@ -811,16 +811,18 @@ boxDetail.prototype.populateACLSettings = function(roleList, rolePrivList,
         sScrollXInner: "150%",
         bScrollCollapse: true,
         paging: false,
-        ordering: false,
+        ordering: true,
         searching: false,
         info: false,
         destroy: true,
+        aaSorting: [], // disable initial sort
         columnDefs: [
             { className: "tdDataTables", targets: "_all" },
             { className: "readProperties", targets: [4] },
             { className: "writeProperties", targets: [5] },
             { className: "readAcl", targets: [6] },
-            { className: "writeAcl", targets: [7] }
+            { className: "writeAcl", targets: [7] },
+            { targets: "no-sort", orderable: false }
         ]
     });
     new jquery1_12_4.fn.dataTable.FixedColumns(tempTable);
