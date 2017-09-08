@@ -115,7 +115,7 @@ var token = getClientStore().token;
 var contextRoot = sessionStorage.contextRoot;
 var gcellList = null;
 var selectedCellTemplate = null;
-var fullTextSearch = false;
+var textSearch = false;
 
 /**
  * The purpose of the following method is to create default role for cell.
@@ -379,12 +379,12 @@ $(document).ready(function() {
 		var crossIconHeight = searchBoxHeight - yPosition;
 
 		if(crossIconWidth >= -4 && crossIconWidth <= 4 && crossIconHeight <= -40 && crossIconHeight >=-56){
-			if(fullTextSearch) {
+			if(textSearch) {
 				restoreCellList();
 			}
 			$("#txtSearchCellName").val("");
 			$("#txtSearchCellName").removeClass("clearableHover");
-			fullTextSearch = false;
+			textSearch = false;
 		}
 	});
 	
@@ -601,8 +601,8 @@ function createcelltable() {
 
 		<input type="text" id="txtSearchCellName" class="txtBoxCellSearch"
 			onkeyup="handleCrossIconOnTextSearch();" placeholder="Search Cell..."
-			onkeypress="fullTextCellSearchOnKeyPress();" tabindex="-1"/> <input type="button"
-			id="imgSearchRecords" title="Search" onclick="fullTextCellSearch();" src=""
+			onkeypress="textCellSearchOnKeyPress();" tabindex="-1"/> <input type="button"
+			id="imgSearchRecords" title="Search" onclick="textCellSearch();" src=""
 			class="searchImage" tabindex="-1"/> <input type="submit" value=""
 			title="Refresh List" class="btnCellRefresh"
 			onclick="refreshCellList();" tabindex="-1"/>
