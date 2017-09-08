@@ -27,11 +27,11 @@ var cellpopup = new cellUI.popup();
  * The purpose of this method is to perform full text search operation on
  * enter key press.
  */
-function fullTextCellSearchOnKeyPress(){
+function textCellSearchOnKeyPress(){
 	var event = window.event;
 	var keycode = (event.keyCode ? event.keyCode : event.which);
 	if(keycode == '13'){
-		fullTextCellSearch();
+		textCellSearch();
 	}
 }
 
@@ -76,43 +76,17 @@ function hideRightPanel(){
 }
 
 /**
- * The purpose of this method is to perform the full text search operation 
+ * The purpose of this method is to perform the text search operation 
  * on cell list.
  */
-function fullTextCellSearch(){
+function textCellSearch(){
 	objCommon.hideListTypePopUp();
-	fullTextSearch = true;
+	textSearch = true;
 	jquery1_9_0("#tableDiv").mCustomScrollbar("destroy");
 	var cellName = $("#txtSearchCellName").val();
 	if(cellName != undefined && cellName != ""){
-		var baseUrl = getClientStore().baseURL;
-		var accessor = objCommon.initializeAccessor(baseUrl, cellName);
-		var objCellManager = new _pc.CellManager(accessor);
-		var result = false;
-		var searchedCellName = "";
-		try{
-			var response = objCellManager.retrieve(cellName);
-			searchedCellName = response.getName();
-			result = true;
-		} catch(exception){
-			if(exception.message.indexOf("No such entity") != -1){
-				result = false;
-			}
-		}
-		if(result){
-			var cellText = getUiProps().LBL0012;
-			$("#lblTotalCellCount").html("1 " + cellText);
-			$("#mainCellTable").hide();
-			$("#noCell").remove();
-			$("#searchCellTable").remove();
-			showRightPanel();
-			$("#mainContentWebDav").hide();
-			var searchRow = '<table id="searchCellTable" cellpadding="0" cellspacing="0"><tr class="allCell selectedCellInCellList" id="searchCellList"><td name = "Cell"><div class="cellNameList" title = "'+searchedCellName+'" valign="top" id="searchedCellName">'+searchedCellName+'</div></td></tr></table>';
-			$("#tableDiv").prepend(searchRow);
-			if(searchedCellName != sessionStorage.lastselectedcell){
-				getselectedcell(searchedCellName, 0, "", true);
-			}
-		}else{
+		var result = forwardTextCellSearch();
+		if(!result){
 			var cellText = getUiProps().LBL0012;
 			$("#lblTotalCellCount").html("0 " + cellText);
 			$("#mainCellTable").hide();
@@ -163,6 +137,97 @@ function fullTextCellSearch(){
 			jquery1_9_0("#tableDiv").mCustomScrollbar("scrollTo",selectedCellClass);
 		}
 	}, 500);
+}
+
+/**
+ * The purpose of this method is to perform the full text search operation 
+ * on cell list.
+ */
+function fullTextCellSearch(cellName){
+	var baseUrl = getClientStore().baseURL;
+	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
+	var objCellManager = new _pc.CellManager(accessor);
+	var result = false;
+	var searchedCellName = "";
+	try{
+		var response = objCellManager.retrieve(cellName);
+		searchedCellName = response.getName();
+		result = true;
+	} catch(exception){
+		if(exception.message.indexOf("No such entity") != -1){
+			result = false;
+			
+		}
+	}
+	if(result){
+		var cellText = getUiProps().LBL0012;
+		$("#lblTotalCellCount").html("1 " + cellText);
+		$("#mainCellTable").hide();
+		$("#noCell").remove();
+		$("#searchCellTable").remove();
+		showRightPanel();
+		$("#mainContentWebDav").hide();
+		var searchRow = '<table id="searchCellTable" cellpadding="0" cellspacing="0"><tr class="allCell selectedCellInCellList" id="searchCellList"><td name = "Cell"><div class="cellNameList" title = "'+searchedCellName+'" valign="top" id="searchedCellName">'+searchedCellName+'</div></td></tr></table>';
+		$("#tableDiv").prepend(searchRow);
+		if(searchedCellName != sessionStorage.lastselectedcell){
+			getselectedcell(searchedCellName, 0, "", true);
+		}
+	}else{
+		return false;
+	}
+	return true;
+}
+
+/**
+ * The purpose of this method is to perform the forward text search operation
+ * on cell list.
+ */
+function forwardTextCellSearch(cellName){
+	var baseUrl = getClientStore().baseURL;
+	var objJdcContext = new _pc.PersoniumContext(baseUrl, "", "", "");
+	var ac = objJdcContext.withToken(token);
+	//var res = ac.asCellOwner().unit.cell.query().filter("substringof('"+cellName+"',Name)").orderby('__updated desc').top(500).skip(0).run();
+	var res = ac.asCellOwner().unit.cell.query().filter("startswith(Name,'"+cellName+"')").orderby('__updated desc').top(500).skip(0).run();
+	var jsondata = JSON.stringify(res);
+	var JSONstring = JSON.parse(jsondata);
+	var lenJSONstring = JSONstring.length;
+	if (lenJSONstring > 0) {
+		var cellsText = getUiProps().LBL0011;
+		$("#lblTotalCellCount").html(lenJSONstring+" "+cellsText);
+		$("#mainCellTable").hide();
+		$("#noCell").remove();
+		$("#searchCellTable").remove();
+		showRightPanel();
+		$("#mainContentWebDav").hide();
+		var date = new Array();
+		var searchRow = '<table id="searchCellTable" cellpadding="0" cellspacing="0">';
+		for(var count = 0; count < lenJSONstring; count++) {
+			var obj = JSONstring[count];
+			var fullCellName = JSONstring[count].Name;
+			date[count] = obj.__published;
+			var dtCreate = ""+ date[count]+"";
+			var selectedCellDate = objCommon.convertEpochDateToReadableFormat(dtCreate);
+			var finalSelectedCellDate = "'"+selectedCellDate+"'";
+			if(count == 0){
+				searchRow += '<tr class="allCell selectedCellInCellList" id="searchCellList'+count+'">';
+				searchRow += '<td onClick="getselectedcell(\'' + fullCellName + '\',\'' + count + '\','+finalSelectedCellDate+')" name = "Cell"><div class="cellNameList" title = "'+fullCellName+'" valign="top" id="fullCellName">'+fullCellName+'</div></td>';
+			}else{
+				searchRow += '<tr class="allCell" id="searchCellList'+count+'">';
+				searchRow += '<td onClick="getselectedcell(\'' + fullCellName + '\',\'' + count + '\','+finalSelectedCellDate+')" name = "Cell"><div class="cellNameList" title = "'+fullCellName+'" valign="top">'+fullCellName+'</div></td>';
+			}
+			
+			searchRow += '</tr>';
+		}
+		searchRow += '</table>';
+		$("#tableDiv").prepend(searchRow);
+		var searchedCellName = JSONstring[0].Name;
+		if(searchedCellName != sessionStorage.lastselectedcell){
+			getselectedcell(searchedCellName, 0, "", true);
+		}
+	}else{
+		return false;
+	}
+	return true;
 }
 
 /**
