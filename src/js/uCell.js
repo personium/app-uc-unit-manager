@@ -85,7 +85,7 @@ function textCellSearch(){
 	jquery1_9_0("#tableDiv").mCustomScrollbar("destroy");
 	var cellName = $("#txtSearchCellName").val();
 	if(cellName != undefined && cellName != ""){
-		var result = forwardTextCellSearch();
+		var result = forwardTextCellSearch(cellName);
 		if(!result){
 			var cellText = getUiProps().LBL0012;
 			$("#lblTotalCellCount").html("0 " + cellText);
