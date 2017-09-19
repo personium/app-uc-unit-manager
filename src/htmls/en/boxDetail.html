@@ -706,16 +706,26 @@ limitations under the License.
 			<div id="" class="folderElement">
 				<div id="" class="lblElement errorMessageSpan ">Access Control</div>
 				<div>
-					<table id="tblHeaderEditAcl" cellpadding="0" cellspacing="0"
-						border="0" class="tblEditACLHeader">
-						<th class="firstHeaderWidth">Principals</th>
-						<th>Privileges</th>
-					</table>
-					<table id="editAclSettingsTable" class="tblEditSettingsAcl"
-						cellpadding="0" cellspacing="0" border="0">
-						<tbody id="editACLGridTbody" class="entityGridTbody">
-						</tbody>
-					</table>
+                    <table id="editAclSettingsTable" class="display" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="firstHeaderWidth" rowspan="2">Principals</th>
+                                <th colspan="9">Privileges</th>
+                            </tr>
+                            <tr>
+                                <th class="no-sort"><div>All</div></th>
+                                <th class="no-sort"><div>Read</div></th>
+                                <th class="no-sort"><div>Write</div></th>
+                                <th class="no-sort"><div>Read-Properties</div></th>
+                                <th class="no-sort"><div>Write-Properties</div></th>
+                                <th class="no-sort"><div>Read-acl</div></th>
+                                <th class="no-sort"><div>Write-acl</div></th>
+                                <th class="no-sort"><div>Exec</div></th>
+                                <th class="no-sort"><div>Alter-Schema</div></th>
+                            </tr>
+                        </thead>
+                        <tbody id="editACLGridTbody"></tbody>
+                    </table>
 				</div>
 			</div>
 			<!-- Button Section Starts -->

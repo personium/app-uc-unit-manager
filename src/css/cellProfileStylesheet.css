@@ -3008,7 +3008,7 @@ input[type=radio] {
 	max-width:147px;
 	
 }
-#editACLGridTbody,#editCellACLGridTbody {
+#editCellACLGridTbody {
 	border: 1px solid #e6e6e6;
 	height: 250px; overflow: auto; max-height: 250px; display: block;
 	max-width: 844px;
@@ -3025,6 +3025,11 @@ min-width:147px;
 /* #editACLGridTbody tr:last-child td {
     border-bottom: 0px;
 } */
+
+.tdDataTables {
+    font-family: Segoe UI;
+    font-size: 10pt;
+}
 
 .readProperties {
 	width: 95px;
