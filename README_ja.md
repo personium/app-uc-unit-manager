@@ -1,36 +1,40 @@
-# UnitManager  
+# Cell Manager  
+Cell ManagerはPersoniumのセル単位での管理を行う事が出来るGUIツールです。  
 
-UnitManagerはPersoniumに対してUnitセル単位での管理を行う事が出来るGUIツールです。  
-UnitManagerはWebサーバーに配置するだけで使用する事が出来ます。   
+- Personium Unit配下のセル（複数）  
+- 一般セル
+
+## 必要な情報  
+
+1. Personium Unitもしくは一般セル  
+1. セル名（Unitセルもしくは一般セル）  
+1. 上記のセルの管理者アカウントのログイン情報（ID/パスワード）  
 
 ## セットアップ  
+Cell ManagerはWebサーバーに配置するだけで使用する事が出来ます。   
 
-### 必要な情報  
+## アクセス手順  
 
-1. PersoniumのURL  
-1. UnitAdminCellのセル名  
-1. UnitAdminアカウント  
-1. 3.のパスワード  
-
-### 手順  
-
-1. UnitManagerのソースをWebサーバーに配置する。  
 1. 以下にアクセスする  
 
         {配置したUnitManagerのURL}/login.html
 
-### 操作方法  
+## 操作方法  
   
-Cell作成の場合、以下の様に操作する事で簡単にCellを作成出来ます。  
+セルに対して一般な操作は簡単で出来ます。  
 
-![alt text](./doc/demo.gif "Operation sample")  
+[YouTube デモビデオ](https://youtu.be/d1_pET0M-YA)  
 
-1. 必要な情報を入力し、UnitManagerにログイン。  
-1. 左サイドメニューのCell一覧の最下部にある「Create」を選択。   
-(Cellが1つもない場合、自動的にCell作成のポップアップが表示されます。)  
-1. 表示されたポップアップの右下にある次へをクリック。  
-1. Cell名を入力し、右下の「create」ボタンをクリック。  
-(この時、プロフィールや管理roleなどの作成をする事も出来ます。)  
+1. 必要な情報を入力し、Cell Managerにログイン。  
+1. [main]をクリックしてmain boxの配下を表示。   
+1. "Create"ボタン上ホバーし、表示されたポップアップメニューの"Folder"を選択。  
+"Create Folder"ダイアログが表示される。  
+1. フォルダ名を入力し、右下の「create」ボタンをクリック。  
+1. 新規作成したフォルダのアンカーをクリックして、フォルダの配下を表示。  
+1. "Upload"ボタンをクリックして、ファイルをupload。  
+1. Uploadしたファイルをチェックし、ゴミ箱アイコンをクリックしてファイルを削除。  
+1. パンくずリストでmain boxの配下に戻る。  
+1. 作成したフォルダをチェックし、ゴミ箱アイコンをクリックしてフォルダを削除。  
 
 ## License
 
