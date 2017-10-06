@@ -21,58 +21,138 @@ function login() {
 var uLogin = new login();
 
 login.prototype.getEnvDetail = function() {
-	document.getElementById("logoutDiv").style.visibility = "hidden";
+    document.getElementById("logoutDiv").style.visibility = "hidden";
 
-	if (validateForm()) {
-		var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
-		$.ajax({
-			type: "GET",
-			url: unitCellUrl,
-			headers:{
-				'Accept':'application/xml'
-			},
-			success : function(res) {
-				$.ajax({
-					dataType : 'json',
-					url : unitCellUrl + '__token' ,//+ tokenUrl,
-					data : {
-			                        grant_type: "password",
-						username  : $("#userId").val(),
-			                        password  : $("#passwd").val(),
-						p_target : $("#unitUrl").val()
-					},
-					type : 'POST',
-					async : false,
-					cache : false,
-					success : function(jsonData) {
-						localStorage.setItem("clickedEnvironmentUnitUrl", $("#unitUrl").val());
-						localStorage.setItem("clickedEnvironmentUnitCellName", $("#unitCellName").val());
-						localStorage.setItem("clickedEnvironmentId", $("#userId").val());
-						localStorage.setItem("clickedEnvironmentPass", $("#passwd").val());
-						sessionStorage.setItem("selectedLanguage", $("#ddLanguageSelector").val());
-						var href = location.href.split("/");
-						var root = "";
-						for (var i=0; i < href.length - 1; i++) {
-						    root += href[i] + "/";
-						}
-						root = root.substr(0, root.length - 1);
-						sessionStorage.setItem("contextRoot", root);
-	
-						window.open('./htmls/'+sessionStorage.selectedLanguage+'/environment.html','_blank');
-						//location.href = './htmls/'+sessionStorage.selectedLanguage+'/environment.html';
-					},
-					error : function(jsonData) {
-						document.getElementById("logoutDiv").style.visibility = "visible";
-						$("#logoutDiv").addClass("loginErrorMessage");
-						$("#logoutMsg").text("Invalid username or password");
-					}
-				});
-			},
-			error : function(res) {
-				document.getElementById("logoutDiv").style.visibility = "visible";
-				$("#logoutDiv").addClass("loginErrorMessage");
-				$("#logoutMsg").text("The target unitcell does not exist.");
-			}
-		});
-	}
+    if (validateForm()) {
+        var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
+        $.ajax({
+            type: "GET",
+            url: unitCellUrl,
+            headers:{
+                'Accept':'application/xml'
+            },
+            success : function(res) {
+                login.determineManagerType(unitCellUrl);
+            },
+            error : function(res) {
+                document.getElementById("logoutDiv").style.visibility = "visible";
+                $("#logoutDiv").addClass("loginErrorMessage");
+                $("#logoutMsg").text("The target unitcell does not exist.");
+            }
+        });
+    }
+    return false;
+}
+
+login.determineManagerType = function(unitCellUrl) {
+    let cellTokenCredential = {
+        grant_type: "password",
+        username: $("#userId").val(),
+        password: $("#passwd").val()
+    };
+    let unitTokenCredential = $.extend(
+        true,
+        _.clone(cellTokenCredential),
+        {
+            p_target : $("#unitUrl").val()
+        }
+    );
+
+    $.when(
+        login.getToken(unitCellUrl, unitTokenCredential),
+        login.getToken(unitCellUrl, cellTokenCredential)).done(function(json1, json2){
+            login.isUnitCell(json1[0], json2[0]);
+    });
+}
+
+login.getToken = function(unitCellUrl, loginInfo) {
+    return  $.ajax({
+        dataType : 'json',
+        url : unitCellUrl + '__token' ,//+ tokenUrl,
+        data : loginInfo,
+        type : 'POST',
+        async : false,
+        cache : false,
+        error : function(jsonData) {
+            document.getElementById("logoutDiv").style.visibility = "visible";
+            $("#logoutDiv").addClass("loginErrorMessage");
+            $("#logoutMsg").text("Invalid username or password");
+        }
+    });
+}
+
+login.isUnitCell = function(jsonData1, jsonData2) {
+    $.ajax({
+        type: "GET",
+        url: $("#unitUrl").val() + '__ctl/Cell',
+        headers: {
+            'Accept':'application/json',
+            'Authorization':'Bearer ' + jsonData1.access_token
+        },
+        async : false,
+        cache : false,
+        success: function(res) {
+            console.log("Unit Manager");
+            login.setupInfo({ isCellManager: false });
+            login.openManagerWindow();
+        },
+        error: function(res) {
+            if (res.status === 403) {
+                console.log("Cell Manager");
+                login.getCellInfo(jsonData2);
+            } else {
+                console.log(res.status);
+            }
+        }
+    });
+}
+
+/*
+ * For user that can manage a cell, need to use PROPFIND to retrieve information about the cell. 
+ * "Depth" must be set to zero to get only the information about the box.
+ */
+login.getCellInfo = function(jsonData) {
+    $.ajax({
+        type: "PROPFIND",
+        url: $("#unitUrl").val() + $("#unitCellName").val() + "/__",
+        headers: {
+            'Accept':'application/xml',
+            'Depth': '0',
+            'Authorization':'Bearer ' + jsonData.access_token
+        },
+        async : false,
+        cache : false,
+        success: function(res, textStatus, xhr) {
+            let lastModified = $(res).find('getlastmodified').first().text();
+            let epoch = new Date(lastModified).getTime();
+            let managerInfo = {
+                isCellManager: true,
+                __published: "/Date(" + epoch + ")/"//need to change to epoch time
+            };
+            login.setupInfo(managerInfo);
+            login.openManagerWindow();
+        },
+        error: function(res) {
+            console.log(res.status);
+        }
+    });
+}
+
+login.setupInfo = function(managerInfo) {
+    localStorage.setItem("clickedEnvironmentUnitUrl", $("#unitUrl").val());
+    localStorage.setItem("clickedEnvironmentUnitCellName", $("#unitCellName").val());
+    localStorage.setItem("clickedEnvironmentId", $("#userId").val());
+    localStorage.setItem("clickedEnvironmentPass", $("#passwd").val());
+    localStorage.setItem("ManagerInfo", JSON.stringify(managerInfo));
+    sessionStorage.setItem("selectedLanguage", $("#ddLanguageSelector").val());
+}
+
+login.openManagerWindow = function() {
+    let url = new URL(location.href);
+    let urlParts = url.href.split("/");
+    let filename = _.last(urlParts);
+    let root = _.without(urlParts, filename).join("/");
+    sessionStorage.setItem("contextRoot", root);
+
+    window.open('./htmls/'+sessionStorage.selectedLanguage+'/environment.html','_blank');
 }

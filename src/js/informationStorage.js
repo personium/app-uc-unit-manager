@@ -52,17 +52,6 @@ function loadCellList() {
 	// Code for Spinner START.
 	$("#dvCellListContainer").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellListView.html', function(){
 	});
-        //var xmlhttp = new XMLHttpRequest();
-        //xmlhttp.open("GET", contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellListView.html', true);
-        //xmlhttp.onreadystatechane = function() {
-        //    if (xmlhttp.readyState == 4 && xmlhttp.status==200) {
-        //        var data = xmlhttp.responseText;
-        //        var elem = document.getElementById("dvCellListContainer");
-        //        elem.innerHTML = data;
-        //        return data;
-        //    }
-        //}
-        //xmlhttp.send(null);
 
 	spinner.stop();
 	// Code for Spinner END.
