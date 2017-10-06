@@ -333,25 +333,6 @@ function applyContents() {
 /* The purpose of this function is to get the first cell selected
  * every time user logs into the application
  */
- /*function getFirstCellSelected(cellName, celldate) {
-	var objCommon = new common();
-	var selectedCellDate = objCommon.convertEpochDateToReadableFormat(celldate);
-	sessionStorage.selectedcelldate = selectedCellDate;
-	var shorterCellName = objCommon.getShorterEntityName(cellName);
-	sessionStorage.selectedcell = cellName;
-	var objFirstCell=$('#cellList'+0);
-	objFirstCell.siblings().removeClass('activeCellList');
-	objFirstCell.addClass('activeCellList');
-	$("#dvCellName").html(shorterCellName);
-	$("#dvCellName").attr('title', cellName);
-	//sessionStorage.tempToken = "";
-	uCellProfile.displayProfileDetails();
-}*/
-
-
-/* The purpose of this function is to get the first cell selected
- * every time user logs into the application
- */
  function getFirstCellSelected(cellName, celldate,index) {
 	var objCommon = new common();
 	var selectedCellDate = objCommon.convertEpochDateToReadableFormat(celldate);
@@ -383,7 +364,15 @@ function applyContents() {
 		boxListData();
 	} else {
 		boxListData(function() {
-			$("#dvCellListContainer").show();
+			let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+            if (ManagerInfo.isCellManager) {
+                // For Cell Manager, hide the button.
+                $("#leftPanel").hide();
+                $("#dvCellListContainer").hide();
+                $("#btnCreateCell").hide();
+            } else {
+                $("#dvCellListContainer").show();
+            }
 			jquery1_9_0("#tableDiv").mCustomScrollbar("update");
 			objCommon.checkCellContainerVisibility();
 		});
@@ -771,8 +760,10 @@ function collapseCellList() {
 function hideCellListOnCellSelection() {
 	$('.checkBoxLabel').removeClass("chkboxPositionInherit");
 	$('.associationSchemaDiagramRow').addClass("addPositionOnAssociationVieMode");
-	$("#leftPanel").show();
-	$("#dvCellListContainer").hide();
+	if (!JSON.parse(sessionStorage.ManagerInfo).isCellManager) {
+		$("#leftPanel").show();
+		$("#dvCellListContainer").hide();
+	}
 }
 
 $(document).ready(function() {

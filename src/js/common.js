@@ -17,23 +17,23 @@
 function common() {
 }
 $(document).ready(function() {
-	window.setInterval(objCommon.checkIdleTime, 1000);
-	document.onclick = function() {
-		LASTACTIVITY = new Date().getTime();
-	};
-	document.onmousemove = function() {
-		LASTACTIVITY = new Date().getTime();
-	};
-	document.onkeypress = function() {
-		LASTACTIVITY = new Date().getTime();
-	};
+    window.setInterval(objCommon.checkIdleTime, 1000);
+    document.onclick = function() {
+        LASTACTIVITY = new Date().getTime();
+    };
+    document.onmousemove = function() {
+        LASTACTIVITY = new Date().getTime();
+    };
+    document.onkeypress = function() {
+        LASTACTIVITY = new Date().getTime();
+    };
   $.ajaxSetup({ cache : false });
-	  if (getUiProps() != undefined) {
-		common.prototype.linkIcon = getUiProps().MSG0224;
-		common.prototype.linkSymbolHTTPCode = getUiProps().MSG0223;
-		common.prototype.startBracket = getUiProps().MSG0290;
-		common.prototype.endBracket = getUiProps().MSG0291;
-	}
+      if (getUiProps() != undefined) {
+        common.prototype.linkIcon = getUiProps().MSG0224;
+        common.prototype.linkSymbolHTTPCode = getUiProps().MSG0223;
+        common.prototype.startBracket = getUiProps().MSG0290;
+        common.prototype.endBracket = getUiProps().MSG0291;
+    }
 });
 var objCommon = new common();
 var cellList = null;
@@ -51,23 +51,23 @@ common.prototype.MAXROWS = 50;
  * This method checks idle time.
  */
 common.prototype.checkIdleTime = function() {
-	if (new Date().getTime() > LASTACTIVITY + IDLE_TIMEOUT) {
-		//if (objCommon.isSessionExist() == null) {
-			// If Cell Profile is loaded.
-			if (sessionStorage.isResourceMgmt = "true") {
-				// objCommon.removeEnvironmentIDFromLocalStorage(sessionStorage.selectedEnvID);
-				sessionStorage.isResourceMgmt == "false";
-				objCommon.openPopUpWindow("#timeOutCellProfileDialogBox",
-						"#timeOutCellProfileModalWindow");
-			}
-			// If Home is loaded.
-			if (sessionStorage.isHomePage = "true") {
-				sessionStorage.isHomePage = "false";
-				objCommon.openPopUpWindow("#timeOutDialogBox",
-						"#timeOutModalWindow");
-			}
-		//}
-	}
+    if (new Date().getTime() > LASTACTIVITY + IDLE_TIMEOUT) {
+        //if (objCommon.isSessionExist() == null) {
+            // If Cell Profile is loaded.
+            if (sessionStorage.isResourceMgmt = "true") {
+                // objCommon.removeEnvironmentIDFromLocalStorage(sessionStorage.selectedEnvID);
+                sessionStorage.isResourceMgmt == "false";
+                objCommon.openPopUpWindow("#timeOutCellProfileDialogBox",
+                        "#timeOutCellProfileModalWindow");
+            }
+            // If Home is loaded.
+            if (sessionStorage.isHomePage = "true") {
+                sessionStorage.isHomePage = "false";
+                objCommon.openPopUpWindow("#timeOutDialogBox",
+                        "#timeOutModalWindow");
+            }
+        //}
+    }
 };
 
 /**
@@ -77,29 +77,29 @@ common.prototype.checkIdleTime = function() {
  * @param selectedEnvID
  */
 common.prototype.openPopUpWindow = function(idDialogBox, idModalWindow,
-		selectedEnvID) {
-	envtID = selectedEnvID;
-	$(idModalWindow).fadeIn();
-	var windowHeight = $(window).height();
-	var windowWidth = $(window).width();
-	$(idDialogBox).css('top', windowHeight / 2 - $(idDialogBox).height() / 2);
-	$(idDialogBox).css('left', windowWidth / 2 - $(idDialogBox).width() / 2);
-	if (idDialogBox == '#timeOutDialogBox' || idDialogBox == '#timeOutCellProfileDialogBox') {
-		$("#btnTimeout").focus();
-	}
+        selectedEnvID) {
+    envtID = selectedEnvID;
+    $(idModalWindow).fadeIn();
+    var windowHeight = $(window).height();
+    var windowWidth = $(window).width();
+    $(idDialogBox).css('top', windowHeight / 2 - $(idDialogBox).height() / 2);
+    $(idDialogBox).css('left', windowWidth / 2 - $(idDialogBox).width() / 2);
+    if (idDialogBox == '#timeOutDialogBox' || idDialogBox == '#timeOutCellProfileDialogBox') {
+        $("#btnTimeout").focus();
+    }
 };
 
 /**
  * This method redirects session expiration pop up to the login page.
  */
 common.prototype.redirectToLoginPageOnServerExpiration = function() {
-	var contextRoot = sessionStorage.contextRoot;
-	if (contextRoot.length == 0) {
-		// "/" escapes in URL thereby not altering the URL.
-		window.location.href = "/";
-	} else {
-		objCommon.redirectLoginPage();
-	}
+    var contextRoot = sessionStorage.contextRoot;
+    if (contextRoot.length == 0) {
+        // "/" escapes in URL thereby not altering the URL.
+        window.location.href = "/";
+    } else {
+        objCommon.redirectLoginPage();
+    }
 };
 
 /**
@@ -119,7 +119,7 @@ function openCreateEntityModal(parentDivId, childDivId, firstElementToBeFocussed
     uCellProfile.resetFileInput('#idImgFileBox', 'popupBoxImageErrorMsg');
   }
   if (parentDivId == '#createRoleModal' && childDivId == '#createRoleDialog') {
-	refreshCreateRolePopup();
+    refreshCreateRolePopup();
     retrieveBox("dropDownBox");
   }
   if (parentDivId == '#roleEditModalWindow' && childDivId == '#roleEditDialogBox') {
@@ -222,28 +222,28 @@ function openCreateEntityModal(parentDivId, childDivId, firstElementToBeFocussed
     objAdministratorManagement.emptyCreateUserPopupFieldValues();
   }
   if (parentDivId == '#modalCreateRel' && childDivId == '#dialogCreateRel') {
-	  var objRelation = new uRelation();
-	  objRelation.retrieveBox();
-	  objRelation.emptyCreateRelationPopupFields();
+      var objRelation = new uRelation();
+      objRelation.retrieveBox();
+      objRelation.emptyCreateRelationPopupFields();
   }
   if (parentDivId == '#externalCellModalWindow' && childDivId == '#externalCellDialogBox') {
-	  objExtCell.emptyCreateExtCellPopUp();
-	  refreshDropDown();
-	  objExtCell.bindDropDown();
-	  objExtCell.bindRelationBoxDropDown();
-	  }
+      objExtCell.emptyCreateExtCellPopUp();
+      refreshDropDown();
+      objExtCell.bindDropDown();
+      objExtCell.bindRelationBoxDropDown();
+      }
   if (parentDivId == '#createBoxPopUpModalWindow' && childDivId == '#createBoxPopUpDialogBox') {
-	  $('.popupContent').find('input:text').removeClass( "errorIcon validValueIcon" );
-  	}
+      $('.popupContent').find('input:text').removeClass( "errorIcon validValueIcon" );
+    }
   if (parentDivId == '#boxEditModalWindow' && childDivId == '#boxEditDialogBox') {
-	  $('.sectionContent').find('input:text').removeClass( "errorIcon validValueIcon" );
+      $('.sectionContent').find('input:text').removeClass( "errorIcon validValueIcon" );
      }
   /*if (parentDivId == '#multipleEntityDeleteModalWindow' && childDivId == '#multipleEntityDeleteDialogBox') {
-	  $("#createEntityTable tbody").empty();
-	  $("#editEntityTable tbody").empty();
+      $("#createEntityTable tbody").empty();
+      $("#editEntityTable tbody").empty();
   }*/
   if (firstElementToBeFocussed != undefined) {
-	  $("#"+firstElementToBeFocussed).focus();
+      $("#"+firstElementToBeFocussed).focus();
   }
 //  } else {
 //     window.location.href = contextRoot;
@@ -253,30 +253,30 @@ function openCreateEntityModal(parentDivId, childDivId, firstElementToBeFocussed
  * The purpose of this function is to close popup model
  */
 function closeEntityModal(modelId) {
-	if (modelId == '#tokenPopUpModalWindow') {
-		$('#txtAccessToken').remove();
-	}
-	$(modelId).hide("fast");
-	var selectedIndexValue = "";
-	if (modelId == '#propertyModalWindow') {
-		selectedIndexValue = document.getElementById("dropDownPropType").selectedIndex;
-		if (selectedIndexValue == 0) {
-			var input = document.getElementById("txtBoxPropDefaultValue");
-			input.type = "text";
-			$("#defaultTime").remove();
-			$("#txtBoxPropDefaultValue").css("width", '240px');
-			uEntityTypeProperty.setHTMLVal('#txtBoxPropDefaultValue', '');
-		}
-	} else if (modelId == '#complexTypePropertyModalWindow') {
-		selectedIndexValue = document.getElementById("dropDownType").selectedIndex;
-		if (selectedIndexValue == 0) {
-			var input = document.getElementById("txtBoxDefaultValue");
-			input.type = "text";
-			$("#complexDefaultValueTime").remove();
-			$("#txtBoxDefaultValue").css("width", '240px');
-			$('#txtBoxDefaultValue').val('');
-		}
-	}
+    if (modelId == '#tokenPopUpModalWindow') {
+        $('#txtAccessToken').remove();
+    }
+    $(modelId).hide("fast");
+    var selectedIndexValue = "";
+    if (modelId == '#propertyModalWindow') {
+        selectedIndexValue = document.getElementById("dropDownPropType").selectedIndex;
+        if (selectedIndexValue == 0) {
+            var input = document.getElementById("txtBoxPropDefaultValue");
+            input.type = "text";
+            $("#defaultTime").remove();
+            $("#txtBoxPropDefaultValue").css("width", '240px');
+            uEntityTypeProperty.setHTMLVal('#txtBoxPropDefaultValue', '');
+        }
+    } else if (modelId == '#complexTypePropertyModalWindow') {
+        selectedIndexValue = document.getElementById("dropDownType").selectedIndex;
+        if (selectedIndexValue == 0) {
+            var input = document.getElementById("txtBoxDefaultValue");
+            input.type = "text";
+            $("#complexDefaultValueTime").remove();
+            $("#txtBoxDefaultValue").css("width", '240px');
+            $('#txtBoxDefaultValue').val('');
+        }
+    }
 }
 
 /**
@@ -295,8 +295,8 @@ common.prototype.isRecordExist = function(recordSize, messageDivID) {
  * This method redirects to the login page.
  */
 common.prototype.redirectLoginPage = function() {
-	var contextRoot = sessionStorage.contextRoot;
-	window.location.href = contextRoot;
+    var contextRoot = sessionStorage.contextRoot;
+    window.location.href = contextRoot;
 };
 
 
@@ -388,21 +388,21 @@ common.prototype.unCheck = function() {
  * The purpose of this function is to check/uncheck all the checkboxes.
  */
 common.prototype.checkBoxSelect = function(chkBox, id, editBtnID) {
-	var cbSelected = document.getElementsByTagName('input');
-	var len = cbSelected.length;
-	for ( var count = 0; count < len; count++) {
-		if (cbSelected[count].type == 'checkbox') {
-			cbSelected[count].checked = chkBox.checked;
-		}
-	}
-	if (chkBox.checked == true) {
-		this.enableButton(id);
-		this.disableEditButton(editBtnID);
-	}
-	if (chkBox.checked == false) {
-		this.disableButton(id);
-		this.disableEditButton(editBtnID);
-	}
+    var cbSelected = document.getElementsByTagName('input');
+    var len = cbSelected.length;
+    for ( var count = 0; count < len; count++) {
+        if (cbSelected[count].type == 'checkbox') {
+            cbSelected[count].checked = chkBox.checked;
+        }
+    }
+    if (chkBox.checked == true) {
+        this.enableButton(id);
+        this.disableEditButton(editBtnID);
+    }
+    if (chkBox.checked == false) {
+        this.disableButton(id);
+        this.disableEditButton(editBtnID);
+    }
 };
 
 /**
@@ -415,18 +415,18 @@ common.prototype.checkBoxSelect = function(chkBox, id, editBtnID) {
  * @param parentCheckBoxID
  */
 common.prototype.assignEntityCheckBoxSelect = function(chkBox, id, editBtnID,
-		checkBoxID, recordCount, parentCheckBoxID) {
-	if (parentCheckBoxID.checked == true) {
-		this.enableButton(id);
-		for ( var count = 0; count <= recordCount; count++) {
-			$('#' + checkBoxID + count).attr('checked', true);
-		}
-	} else if (parentCheckBoxID.checked == false) {
-		this.disableButton(id);
-		for ( var count = 0; count <= recordCount; count++) {
-			$('#' + checkBoxID + count).attr('checked', false);
-		}
-	}
+        checkBoxID, recordCount, parentCheckBoxID) {
+    if (parentCheckBoxID.checked == true) {
+        this.enableButton(id);
+        for ( var count = 0; count <= recordCount; count++) {
+            $('#' + checkBoxID + count).attr('checked', true);
+        }
+    } else if (parentCheckBoxID.checked == false) {
+        this.disableButton(id);
+        for ( var count = 0; count <= recordCount; count++) {
+            $('#' + checkBoxID + count).attr('checked', false);
+        }
+    }
 };
 
 /**
@@ -442,7 +442,7 @@ common.prototype.showSelectedRow = function(chkSelectall,colID,rowIDVal) {
       $("#"+colID+count).hide();
     }
   } else {
-	  for (var count = 0; count < len; count++) {
+      for (var count = 0; count < len; count++) {
       var rowID = $('#'+rowIDVal+count);
       rowID.removeClass('selectRow');
     }
@@ -454,374 +454,374 @@ common.prototype.showSelectedRow = function(chkSelectall,colID,rowIDVal) {
  * @param tableID Table ID.
  */
 common.prototype.activateEditIcon = function(customCheckBoxesChecked,tableID) {
-	if ((customCheckBoxesChecked == 1) && (tableID == "mainRoleTable")) {
-		$("#btnEditRoleIcon").removeClass();
-		$("#btnEditRoleIcon").addClass('editIconEnabled');
-		$('#btnEditRoleIcon').removeAttr("disabled");
-	} else {
-		$("#btnEditRoleIcon").removeClass();
-		$("#btnEditRoleIcon").addClass('editIconDisabled');
-		$("#btnEditRoleIcon").attr("disabled", true);
-	}
-	if ((customCheckBoxesChecked == 1) && (tableID == "mainAccountTable")) {
-		$("#iconEditAccount").removeClass();
-		$("#iconEditAccount").addClass('editIconEnabled');
-		$('#iconEditAccount').removeAttr("disabled");
-	} else {
-		$("#iconEditAccount").removeClass();
-		$("#iconEditAccount").addClass('editIconDisabled');
-		$("#iconEditAccount").attr("disabled", true);
-	}
-	if ((customCheckBoxesChecked == 1) && (tableID == "mainBoxTable")) {
-		$("#btnEditBoxIcon").removeClass();
-		$("#btnEditBoxIcon").addClass('editIconEnabled');
-		$('#btnEditBoxIcon').removeAttr("disabled");
-	} else {
-		$("#btnEditBoxIcon").removeClass();
-		$("#btnEditBoxIcon").addClass('editIconDisabled');
-		$("#btnEditBoxIcon").attr("disabled", true);
-	}
-	if ((customCheckBoxesChecked == 1) && (tableID == "mainRelationTable")) {
-		$("#iconEditRelation").removeClass();
-		$("#iconEditRelation").addClass('editIconEnabled');
-		$('#iconEditRelation').removeAttr("disabled");
-	} else {
-		$("#iconEditRelation").removeClass();
-		$("#iconEditRelation").addClass('editIconDisabled');
-		$("#iconEditRelation").attr("disabled", true);
-	}
+    if ((customCheckBoxesChecked == 1) && (tableID == "mainRoleTable")) {
+        $("#btnEditRoleIcon").removeClass();
+        $("#btnEditRoleIcon").addClass('editIconEnabled');
+        $('#btnEditRoleIcon').removeAttr("disabled");
+    } else {
+        $("#btnEditRoleIcon").removeClass();
+        $("#btnEditRoleIcon").addClass('editIconDisabled');
+        $("#btnEditRoleIcon").attr("disabled", true);
+    }
+    if ((customCheckBoxesChecked == 1) && (tableID == "mainAccountTable")) {
+        $("#iconEditAccount").removeClass();
+        $("#iconEditAccount").addClass('editIconEnabled');
+        $('#iconEditAccount').removeAttr("disabled");
+    } else {
+        $("#iconEditAccount").removeClass();
+        $("#iconEditAccount").addClass('editIconDisabled');
+        $("#iconEditAccount").attr("disabled", true);
+    }
+    if ((customCheckBoxesChecked == 1) && (tableID == "mainBoxTable")) {
+        $("#btnEditBoxIcon").removeClass();
+        $("#btnEditBoxIcon").addClass('editIconEnabled');
+        $('#btnEditBoxIcon').removeAttr("disabled");
+    } else {
+        $("#btnEditBoxIcon").removeClass();
+        $("#btnEditBoxIcon").addClass('editIconDisabled');
+        $("#btnEditBoxIcon").attr("disabled", true);
+    }
+    if ((customCheckBoxesChecked == 1) && (tableID == "mainRelationTable")) {
+        $("#iconEditRelation").removeClass();
+        $("#iconEditRelation").addClass('editIconEnabled');
+        $('#iconEditRelation').removeAttr("disabled");
+    } else {
+        $("#iconEditRelation").removeClass();
+        $("#iconEditRelation").addClass('editIconDisabled');
+        $("#iconEditRelation").attr("disabled", true);
+    }
 };
 
 /** Following method disables edit icon.
  * @param tableID
  */
 common.prototype.deActivateEditIcon = function(tableID) {
-	if (tableID == "mainRoleTable") {
-		$("#btnEditRoleIcon").removeClass();
-		$("#btnEditRoleIcon").addClass('editIconDisabled');
-		$("#btnEditRoleIcon").attr("disabled", true);
-	}
-	if (tableID == "mainAccountTable") {
-		$("#iconEditAccount").removeClass();
-		$("#iconEditAccount").addClass('editIconDisabled');
-		$("#iconEditAccount").attr("disabled", true);
-	}
-	if (tableID == "mainBoxTable") {
-		$("#btnEditBoxIcon").removeClass();
-		$("#btnEditBoxIcon").addClass('editIconDisabled');
-		$("#btnEditBoxIcon").attr("disabled", true);
-	}
-	if (tableID == "mainRelationTable") {
-		$("#iconEditRelation").removeClass();
-		$("#iconEditRelation").addClass('editIconDisabled');
-		$("#iconEditRelation").attr("disabled", true);
-	}
+    if (tableID == "mainRoleTable") {
+        $("#btnEditRoleIcon").removeClass();
+        $("#btnEditRoleIcon").addClass('editIconDisabled');
+        $("#btnEditRoleIcon").attr("disabled", true);
+    }
+    if (tableID == "mainAccountTable") {
+        $("#iconEditAccount").removeClass();
+        $("#iconEditAccount").addClass('editIconDisabled');
+        $("#iconEditAccount").attr("disabled", true);
+    }
+    if (tableID == "mainBoxTable") {
+        $("#btnEditBoxIcon").removeClass();
+        $("#btnEditBoxIcon").addClass('editIconDisabled');
+        $("#btnEditBoxIcon").attr("disabled", true);
+    }
+    if (tableID == "mainRelationTable") {
+        $("#iconEditRelation").removeClass();
+        $("#iconEditRelation").addClass('editIconDisabled');
+        $("#iconEditRelation").attr("disabled", true);
+    }
 };
 
 /**
  * The purpose of this method is to highlight rows according to their selection.
  */
 common.prototype.rowSelect = function(objRow, rowID, chkBoxID, colID, delButID,
-		chkAllID, count, totalRecordsize, editButID, collectionName, isAcl,
-		fileType, tableID, collectionURL) {
-	var targetID = event.target.id.indexOf("Link");
-	if (fileType == "p:service") {
-		sessionStorage.rowSelectCollectionName = collectionName;
-	}
-	if(targetID == -1){
-		if (event.target.tagName.toUpperCase() !== "INPUT") {
-			if (tableID == "webDavTable") {
-				sessionStorage.selectedCollectionURL = collectionURL;
-			}
-			sessionStorage.rowSelectCollectionName = collectionName;
-			sessionStorage.rowSelectCount = count;
-			sessionStorage.selectedRowCount = count;
-			var noOfSelectedRows = 0;
-			if ($(event.target).is('.customChkbox')
-					&& event.target.tagName.toUpperCase() === "LABEL") {
-				var obj = $('#' + rowID + count);
-				if ($('#' + chkBoxID + count).is(':checked')) {
-					obj.removeClass('selectRow');
-					$('#' + chkBoxID + count).attr('checked', true);
-					$('#' + colID + count).show();
-				} else {
-					obj.addClass('selectRow');
-					$('#' + chkBoxID + count).attr('checked', false);
-					$('#' + colID + count).hide();
-				}
-			}else {
-				var obj = $('#' + rowID + count);
-				obj.siblings().removeClass('selectRow');
-				obj.addClass('selectRow');
-				for ( var index = 0; index < totalRecordsize; index++) {
-					if (index != count) {
-						$('#' + colID + index).hide();
-						$('#' + chkBoxID + index).attr('checked', false);
-					}
-				}
-				$('#' + chkBoxID + count).attr('checked', true);
-				$('#' + colID + count).show();
-			}
-			for ( var index = 0; index < totalRecordsize; index++) {
-				if ($('#' + chkBoxID + index).is(':checked')) {
-					noOfSelectedRows++;
-				}
-			}
-			
-			if ($('#' + chkAllID).is(':checked')) {
-				$('#' + chkAllID).attr('checked', false);
-			}
-			if (fileType == 'logFile') {
-				var numberOfChecked = $('input[name="chkName"]:checked').length;
-				if (numberOfChecked == totalRecordsize) {
-					$("#chkSelectall").attr('checked', true);
-				} else {
-					$("#chkSelectall").attr('checked', false);
-				}
-			}
-		}
-		//For checking and unchecking parent checkbox on the basis of child checkbox.
-		var customCheckBoxesChecked = 0;
-		var customCheckBoxesCheckedForWebDavGrid = 0;
-		var totalDisplayedRowsInGrid = 0;
-		if (tableID == "mainBoxTable") {
-			var mainBoxText = $(".mainBoxSelector").text();
-			var mainBoxValue = getUiProps().MSG0039;
-			totalDisplayedRowsInGrid = $("#"+tableID+" tbody tr").length;
-			if (mainBoxText == mainBoxValue) {
-				totalDisplayedRowsInGrid = $("#"+tableID+" tbody tr").length-1;
-			}
-		} else {
-			totalDisplayedRowsInGrid = $("#"+tableID+" > tbody > tr").length;
-		}
-		for ( var index = 0; index < totalDisplayedRowsInGrid; index++) {
-			if ($('#' + chkBoxID + index).is(':checked')) {
-				customCheckBoxesChecked++;
-			}
-		}
-		if (totalDisplayedRowsInGrid == customCheckBoxesChecked) {
-			$('#'+chkAllID).attr('checked', true);
-		} else {
-			$('#'+chkAllID).attr('checked', false);
-		}
-		var objOdata = new odata();
-		if (tableID == "webDavTable") {
-			uFileDownload.disableDownloadArea();
-			this.disableDeleteIcon("#btnDeleteCollection");	
-		}
-		if (tableID == "entityTable") {
-			this.disableDeleteIcon('#' + delButID);
-			uDataManagement.disableEditButton(editButID);
-		}
-		//this.checkEditButton(customCheckBoxesChecked, editButID, fileType, isAcl);
-		if (customCheckBoxesChecked > 0) {
-			this.activateEditIcon(customCheckBoxesChecked, tableID);
-			this.checkEditButton(customCheckBoxesChecked, editButID, fileType, isAcl);
-			//commonObj.enableButton('#' + delButID);
-			if (customCheckBoxesChecked != 1) {
-				for ( var index = 0; index < totalRecordsize; index++) {
-					$('#' + colID + index).hide();
-				}
-			} else {
-				for ( var index = 0; index < totalRecordsize; index++) {
-					var objRow = $('#' + rowID + index);
-					if (objRow.hasClass("selectRow")) {
-						$('#' + colID + index).show();
-					}
-				}
-			}
-			if (fileType != undefined && fileType != 'logFile') {
-				var objOdata = new odata();
-				objOdata.removeClassFromSrc();
-			}
-			/* */
-			
-			if (tableID == "entityTable") {
-				this.activateCollectionDeleteIcon('#' + delButID);
-				if(customCheckBoxesChecked == 1){
-					uDataManagement.enableEditButton();
-				}
-			}
-			this.enableButton('#' + delButID);
-				if (tableID == "webDavTable" && customCheckBoxesChecked == 1) {
-					var objOdata = new odata();
-						var selectedFileType = objOdata.getFileType();
-						fileType = selectedFileType;
-						if (fileType == 'file') {
-							objOdata.activateDownloadLink();
-						}
-					}
-				if (tableID == "webDavTable") {
-					this.activateCollectionDeleteIcon("#btnDeleteCollection");
-				}
-			if (isAcl != false && isAcl != undefined) {
-				var tableLength = $("#"+tableID+" > tbody > tr").length;
-				if (event.target.tagName.toUpperCase() !== 'LABEL') {
-					for ( var index = 0; index < tableLength; index++) {
-						if ($('#' + chkBoxID + index).is(':checked')) {
-							customCheckBoxesCheckedForWebDavGrid++;
-						}
-					}
-				}
-				//uBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
-				var checkedCollectionName = "";
-				if(customCheckBoxesCheckedForWebDavGrid == 1){
-					for ( var index = 0; index < totalRecordsize; index++) {
-						if ($('#' + chkBoxID + index).is(':checked')) {
-							checkedCollectionName = $("#boxDetailLink_"+index).text();
-							break;
-						}
-					}
-					var urlArray = collectionURL.split("/");
-					var len = urlArray.length;
-					urlArray[len-1] = checkedCollectionName;
-					var checkedCollectionURL = urlArray.join("/");
-					var target = document.getElementById('spinner');
-					var spinner = new Spinner(opts).spin(target);
-					hideCellListOnCellSelection();
-					setTimeout(function() {
-						uBoxDetail.populatePropertiesList(checkedCollectionURL, checkedCollectionURL, checkedCollectionName, false, fileType);
-						uBoxAcl.getAclSetting(checkedCollectionURL, sessionStorage.boxName);
-						uBoxAcl.showSelectedResourceCount(0);
-						spinner.stop();
-					}, 1);
-					var objOdata = new odata();
-					objOdata.setMarginForSelectedResourcesMessage();
-				} else if (customCheckBoxesCheckedForWebDavGrid > 1) {
-					uBoxAcl.showSelectedResourceCount(customCheckBoxesCheckedForWebDavGrid);
-				}
-				
-				/*if (customCheckBoxesChecked == 1) {
-					var currentSelectedCol = null;
-					currentSelectedCol = collectionName;
-					for ( var indexS = 0; indexS < totalRecordsize; indexS++) {
-						if ($('#' + rowID + indexS).hasClass('selectRow')) {
-							var currId = 'col' + indexS;
-							currentSelectedCol = document
-									.getElementById(currId).title;
-						}
-					}
-					//only one selection is selected
-					objBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
-				} else {
-					//more than one collection are selected
-					objBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
-				}*/
-			}
-		}else{
-			if (tableID == "webDavTable") {
-				var objOdata = new odata();
-				objOdata.hidePluginIcons();
-			}
-			this.deActivateEditIcon(tableID);
-			if (fileType == 'file') {
-				var objFileDownload = new fileDownload();
-				objFileDownload.disableDownloadArea();
-			}
-			
-			if (tableID == 'logTable' && fileType == 'logFile') {
-				var objLog = new log();
-				objLog.disableDownloadButton();
-			}
-			
-			objCommon.disableEditButton('#' + editButID);
-			objCommon.disableButton('#' + delButID);
-			
-			
-			this.disableButton('#' + delButID);
-			if (tableID == "entityTable") {
-				uDataManagement.disableEditButton(editButID);
-			}
-			if (isAcl != false && isAcl != undefined) {
-				uBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
-				var pathArray = sessionStorage.Path.split('/');
-				var parentCollectionName = pathArray[(pathArray.length) - 1];
-				var lengthBreadCrumb = $("#tblBoxBreadCrum tbody tr").length;
-				var type ="";
-				if(lengthBreadCrumb == 1){
-					type = "box";
-				}else if(lengthBreadCrumb > 1){
-					type = "folder";
-				}
-				if(type == "box" && parentCollectionName == getUiProps().MSG0293){
-					parentCollectionName = getUiProps().MSG0039;
-				}
-				var target = document.getElementById('spinner');
-				var spinner = new Spinner(opts).spin(target);
-				setTimeout(function() {
-					uBoxDetail.populatePropertiesList(sessionStorage.Path, sessionStorage.Path, parentCollectionName, false, type);
-					var boxNamePath = "";
-					for(var index = 4; index < pathArray.length; index++){
-						boxNamePath += pathArray[index] + '/';
-					}
-					uBoxAcl.getAclSetting(sessionStorage.Path, sessionStorage.boxName);
-					spinner.stop();
-				}, 1);
-				var objOdata = new odata();
-				objOdata.setMarginForSelectedResourcesMessage();
-			}
-		}
-	}
+        chkAllID, count, totalRecordsize, editButID, collectionName, isAcl,
+        fileType, tableID, collectionURL) {
+    var targetID = event.target.id.indexOf("Link");
+    if (fileType == "p:service") {
+        sessionStorage.rowSelectCollectionName = collectionName;
+    }
+    if(targetID == -1){
+        if (event.target.tagName.toUpperCase() !== "INPUT") {
+            if (tableID == "webDavTable") {
+                sessionStorage.selectedCollectionURL = collectionURL;
+            }
+            sessionStorage.rowSelectCollectionName = collectionName;
+            sessionStorage.rowSelectCount = count;
+            sessionStorage.selectedRowCount = count;
+            var noOfSelectedRows = 0;
+            if ($(event.target).is('.customChkbox')
+                    && event.target.tagName.toUpperCase() === "LABEL") {
+                var obj = $('#' + rowID + count);
+                if ($('#' + chkBoxID + count).is(':checked')) {
+                    obj.removeClass('selectRow');
+                    $('#' + chkBoxID + count).attr('checked', true);
+                    $('#' + colID + count).show();
+                } else {
+                    obj.addClass('selectRow');
+                    $('#' + chkBoxID + count).attr('checked', false);
+                    $('#' + colID + count).hide();
+                }
+            }else {
+                var obj = $('#' + rowID + count);
+                obj.siblings().removeClass('selectRow');
+                obj.addClass('selectRow');
+                for ( var index = 0; index < totalRecordsize; index++) {
+                    if (index != count) {
+                        $('#' + colID + index).hide();
+                        $('#' + chkBoxID + index).attr('checked', false);
+                    }
+                }
+                $('#' + chkBoxID + count).attr('checked', true);
+                $('#' + colID + count).show();
+            }
+            for ( var index = 0; index < totalRecordsize; index++) {
+                if ($('#' + chkBoxID + index).is(':checked')) {
+                    noOfSelectedRows++;
+                }
+            }
+            
+            if ($('#' + chkAllID).is(':checked')) {
+                $('#' + chkAllID).attr('checked', false);
+            }
+            if (fileType == 'logFile') {
+                var numberOfChecked = $('input[name="chkName"]:checked').length;
+                if (numberOfChecked == totalRecordsize) {
+                    $("#chkSelectall").attr('checked', true);
+                } else {
+                    $("#chkSelectall").attr('checked', false);
+                }
+            }
+        }
+        //For checking and unchecking parent checkbox on the basis of child checkbox.
+        var customCheckBoxesChecked = 0;
+        var customCheckBoxesCheckedForWebDavGrid = 0;
+        var totalDisplayedRowsInGrid = 0;
+        if (tableID == "mainBoxTable") {
+            var mainBoxText = $(".mainBoxSelector").text();
+            var mainBoxValue = getUiProps().MSG0039;
+            totalDisplayedRowsInGrid = $("#"+tableID+" tbody tr").length;
+            if (mainBoxText == mainBoxValue) {
+                totalDisplayedRowsInGrid = $("#"+tableID+" tbody tr").length-1;
+            }
+        } else {
+            totalDisplayedRowsInGrid = $("#"+tableID+" > tbody > tr").length;
+        }
+        for ( var index = 0; index < totalDisplayedRowsInGrid; index++) {
+            if ($('#' + chkBoxID + index).is(':checked')) {
+                customCheckBoxesChecked++;
+            }
+        }
+        if (totalDisplayedRowsInGrid == customCheckBoxesChecked) {
+            $('#'+chkAllID).attr('checked', true);
+        } else {
+            $('#'+chkAllID).attr('checked', false);
+        }
+        var objOdata = new odata();
+        if (tableID == "webDavTable") {
+            uFileDownload.disableDownloadArea();
+            this.disableDeleteIcon("#btnDeleteCollection"); 
+        }
+        if (tableID == "entityTable") {
+            this.disableDeleteIcon('#' + delButID);
+            uDataManagement.disableEditButton(editButID);
+        }
+        //this.checkEditButton(customCheckBoxesChecked, editButID, fileType, isAcl);
+        if (customCheckBoxesChecked > 0) {
+            this.activateEditIcon(customCheckBoxesChecked, tableID);
+            this.checkEditButton(customCheckBoxesChecked, editButID, fileType, isAcl);
+            //commonObj.enableButton('#' + delButID);
+            if (customCheckBoxesChecked != 1) {
+                for ( var index = 0; index < totalRecordsize; index++) {
+                    $('#' + colID + index).hide();
+                }
+            } else {
+                for ( var index = 0; index < totalRecordsize; index++) {
+                    var objRow = $('#' + rowID + index);
+                    if (objRow.hasClass("selectRow")) {
+                        $('#' + colID + index).show();
+                    }
+                }
+            }
+            if (fileType != undefined && fileType != 'logFile') {
+                var objOdata = new odata();
+                objOdata.removeClassFromSrc();
+            }
+            /* */
+            
+            if (tableID == "entityTable") {
+                this.activateCollectionDeleteIcon('#' + delButID);
+                if(customCheckBoxesChecked == 1){
+                    uDataManagement.enableEditButton();
+                }
+            }
+            this.enableButton('#' + delButID);
+                if (tableID == "webDavTable" && customCheckBoxesChecked == 1) {
+                    var objOdata = new odata();
+                        var selectedFileType = objOdata.getFileType();
+                        fileType = selectedFileType;
+                        if (fileType == 'file') {
+                            objOdata.activateDownloadLink();
+                        }
+                    }
+                if (tableID == "webDavTable") {
+                    this.activateCollectionDeleteIcon("#btnDeleteCollection");
+                }
+            if (isAcl != false && isAcl != undefined) {
+                var tableLength = $("#"+tableID+" > tbody > tr").length;
+                if (event.target.tagName.toUpperCase() !== 'LABEL') {
+                    for ( var index = 0; index < tableLength; index++) {
+                        if ($('#' + chkBoxID + index).is(':checked')) {
+                            customCheckBoxesCheckedForWebDavGrid++;
+                        }
+                    }
+                }
+                //uBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
+                var checkedCollectionName = "";
+                if(customCheckBoxesCheckedForWebDavGrid == 1){
+                    for ( var index = 0; index < totalRecordsize; index++) {
+                        if ($('#' + chkBoxID + index).is(':checked')) {
+                            checkedCollectionName = $("#boxDetailLink_"+index).text();
+                            break;
+                        }
+                    }
+                    var urlArray = collectionURL.split("/");
+                    var len = urlArray.length;
+                    urlArray[len-1] = checkedCollectionName;
+                    var checkedCollectionURL = urlArray.join("/");
+                    var target = document.getElementById('spinner');
+                    var spinner = new Spinner(opts).spin(target);
+                    hideCellListOnCellSelection();
+                    setTimeout(function() {
+                        uBoxDetail.populatePropertiesList(checkedCollectionURL, checkedCollectionURL, checkedCollectionName, false, fileType);
+                        uBoxAcl.getAclSetting(checkedCollectionURL, sessionStorage.boxName);
+                        uBoxAcl.showSelectedResourceCount(0);
+                        spinner.stop();
+                    }, 1);
+                    var objOdata = new odata();
+                    objOdata.setMarginForSelectedResourcesMessage();
+                } else if (customCheckBoxesCheckedForWebDavGrid > 1) {
+                    uBoxAcl.showSelectedResourceCount(customCheckBoxesCheckedForWebDavGrid);
+                }
+                
+                /*if (customCheckBoxesChecked == 1) {
+                    var currentSelectedCol = null;
+                    currentSelectedCol = collectionName;
+                    for ( var indexS = 0; indexS < totalRecordsize; indexS++) {
+                        if ($('#' + rowID + indexS).hasClass('selectRow')) {
+                            var currId = 'col' + indexS;
+                            currentSelectedCol = document
+                                    .getElementById(currId).title;
+                        }
+                    }
+                    //only one selection is selected
+                    objBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
+                } else {
+                    //more than one collection are selected
+                    objBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
+                }*/
+            }
+        }else{
+            if (tableID == "webDavTable") {
+                var objOdata = new odata();
+                objOdata.hidePluginIcons();
+            }
+            this.deActivateEditIcon(tableID);
+            if (fileType == 'file') {
+                var objFileDownload = new fileDownload();
+                objFileDownload.disableDownloadArea();
+            }
+            
+            if (tableID == 'logTable' && fileType == 'logFile') {
+                var objLog = new log();
+                objLog.disableDownloadButton();
+            }
+            
+            objCommon.disableEditButton('#' + editButID);
+            objCommon.disableButton('#' + delButID);
+            
+            
+            this.disableButton('#' + delButID);
+            if (tableID == "entityTable") {
+                uDataManagement.disableEditButton(editButID);
+            }
+            if (isAcl != false && isAcl != undefined) {
+                uBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
+                var pathArray = sessionStorage.Path.split('/');
+                var parentCollectionName = pathArray[(pathArray.length) - 1];
+                var lengthBreadCrumb = $("#tblBoxBreadCrum tbody tr").length;
+                var type ="";
+                if(lengthBreadCrumb == 1){
+                    type = "box";
+                }else if(lengthBreadCrumb > 1){
+                    type = "folder";
+                }
+                if(type == "box" && parentCollectionName == getUiProps().MSG0293){
+                    parentCollectionName = getUiProps().MSG0039;
+                }
+                var target = document.getElementById('spinner');
+                var spinner = new Spinner(opts).spin(target);
+                setTimeout(function() {
+                    uBoxDetail.populatePropertiesList(sessionStorage.Path, sessionStorage.Path, parentCollectionName, false, type);
+                    var boxNamePath = "";
+                    for(var index = 4; index < pathArray.length; index++){
+                        boxNamePath += pathArray[index] + '/';
+                    }
+                    uBoxAcl.getAclSetting(sessionStorage.Path, sessionStorage.boxName);
+                    spinner.stop();
+                }, 1);
+                var objOdata = new odata();
+                objOdata.setMarginForSelectedResourcesMessage();
+            }
+        }
+    }
 };
 
 common.prototype.checkEditButton = function(noOfSelectedRows, editButID,
-		fileType, isAcl) {
-	if (fileType != undefined && fileType != 'logFile') {
-		var objOdata = new odata();
-		var selectedFileType = objOdata.getFileType();
-		fileType = selectedFileType;
-	}
-	if (noOfSelectedRows === 0 && fileType != undefined) {
-		var objOdata = new odata();
-		objOdata.hidePluginIcons();
-		if (fileType == 'logFile') {
-			var objLog = new log();
-			objLog.disableDownloadButton();
-		} else {
-			var objOdata = new odata();
-			objOdata.showHideButtons();
-			// objOdata.toggleDownloadLink();
-		}
-	}
-	if (noOfSelectedRows === 1) {
-		if (fileType == 'logFile') {
-			var objLog = new log();
-			objLog.enableDownloadButton();
-		}
-		this.enableEditButton('#' + editButID);
-		if (fileType == 'file') {
-			var objOdata = new odata();
-			objOdata.hidePluginIcons();
-			// objOdata.toggleUploadLink();
-			var uFileDownload = new fileDownload();
-			uFileDownload.clearBlobStorage();
-		} else if (fileType == 'p:odata' || fileType == 'folder') {
-			var objOdata = new odata();
-			objOdata.hidePluginIcons();
-			// objOdata.toggleDownloadLink();
-		} else if (fileType == 'p:service') {
-			// $("#submenu").hide();
-			var objOdata = new odata();
-			objOdata.displayPluginIcons();
-			// objOdata.showEngineServiceButtons();
-		}
+        fileType, isAcl) {
+    if (fileType != undefined && fileType != 'logFile') {
+        var objOdata = new odata();
+        var selectedFileType = objOdata.getFileType();
+        fileType = selectedFileType;
+    }
+    if (noOfSelectedRows === 0 && fileType != undefined) {
+        var objOdata = new odata();
+        objOdata.hidePluginIcons();
+        if (fileType == 'logFile') {
+            var objLog = new log();
+            objLog.disableDownloadButton();
+        } else {
+            var objOdata = new odata();
+            objOdata.showHideButtons();
+            // objOdata.toggleDownloadLink();
+        }
+    }
+    if (noOfSelectedRows === 1) {
+        if (fileType == 'logFile') {
+            var objLog = new log();
+            objLog.enableDownloadButton();
+        }
+        this.enableEditButton('#' + editButID);
+        if (fileType == 'file') {
+            var objOdata = new odata();
+            objOdata.hidePluginIcons();
+            // objOdata.toggleUploadLink();
+            var uFileDownload = new fileDownload();
+            uFileDownload.clearBlobStorage();
+        } else if (fileType == 'p:odata' || fileType == 'folder') {
+            var objOdata = new odata();
+            objOdata.hidePluginIcons();
+            // objOdata.toggleDownloadLink();
+        } else if (fileType == 'p:service') {
+            // $("#submenu").hide();
+            var objOdata = new odata();
+            objOdata.displayPluginIcons();
+            // objOdata.showEngineServiceButtons();
+        }
 
-		/*
-		 * if (noOfSelectedRows < 2 && isAcl != false) { var objBoxAcl = new
-		 * boxAcl(); objBoxAcl.setACLHeader(sessionStorage.boxName, 0); }
-		 */
+        /*
+         * if (noOfSelectedRows < 2 && isAcl != false) { var objBoxAcl = new
+         * boxAcl(); objBoxAcl.setACLHeader(sessionStorage.boxName, 0); }
+         */
 
-	} else if (noOfSelectedRows > 1) {
-		var objOdata = new odata();
-		objOdata.hidePluginIcons();
-		this.disableEditButton('#' + editButID);
-		if (fileType == 'file' || fileType == 'p:odata'
-				|| fileType == 'folder' || fileType == 'p:service') {
-			var objOdata = new odata();
-			objOdata.showHideButtons();
-			// objOdata .toggleDownloadLink();
-		}
-	}
+    } else if (noOfSelectedRows > 1) {
+        var objOdata = new odata();
+        objOdata.hidePluginIcons();
+        this.disableEditButton('#' + editButID);
+        if (fileType == 'file' || fileType == 'p:odata'
+                || fileType == 'folder' || fileType == 'p:service') {
+            var objOdata = new odata();
+            objOdata.showHideButtons();
+            // objOdata .toggleDownloadLink();
+        }
+    }
 };
 
 
@@ -829,29 +829,29 @@ common.prototype.checkEditButton = function(noOfSelectedRows, editButID,
  * This function is used for generating date in the format to be shown in the list.
  */
 common.prototype.convertEpochDateToReadableFormat = function(epochDate) {
-	if (epochDate != undefined) {
-		// Epoch Date Conversion
-		var convertedDateTime = null;
-		var strPublishedDate = epochDate.substring(6, 19);
-		var numPublishedDate = parseInt(strPublishedDate);
-		var objEpochDate = new Date(numPublishedDate);
-		var timeStamp = objCommon.getTimeStamp(objEpochDate);
-		var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun",
-				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-		var day = objEpochDate.getDate();
-		var curr_month = objEpochDate.getMonth();
-		var month = m_names[curr_month];
-		var year = objEpochDate.getFullYear();
-		var timeZone = sessionStorage.timeZone;
-		if (timeZone != null && timeZone != 'null' && timeZone != undefined) {
-			convertedDateTime = day + '-' + month + '-' + year + " "
-			+ timeStamp+" "+timeZone;
-		} else {
-			convertedDateTime = day + '-' + month + '-' + year + " "
-			+ timeStamp;
-		}
-		return convertedDateTime;
-	}
+    if (epochDate != undefined) {
+        // Epoch Date Conversion
+        var convertedDateTime = null;
+        var strPublishedDate = epochDate.substring(6, 19);
+        var numPublishedDate = parseInt(strPublishedDate);
+        var objEpochDate = new Date(numPublishedDate);
+        var timeStamp = objCommon.getTimeStamp(objEpochDate);
+        var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+        var day = objEpochDate.getDate();
+        var curr_month = objEpochDate.getMonth();
+        var month = m_names[curr_month];
+        var year = objEpochDate.getFullYear();
+        var timeZone = sessionStorage.timeZone;
+        if (timeZone != null && timeZone != 'null' && timeZone != undefined) {
+            convertedDateTime = day + '-' + month + '-' + year + " "
+            + timeStamp+" "+timeZone;
+        } else {
+            convertedDateTime = day + '-' + month + '-' + year + " "
+            + timeStamp;
+        }
+        return convertedDateTime;
+    }
 };
 
 /**
@@ -862,23 +862,23 @@ common.prototype.convertEpochDateToReadableFormat = function(epochDate) {
  * @returns {String}
  */
 common.prototype.getTimeStamp = function (objEpochDate) {
-	var hours = objEpochDate.getHours();
-	var minutes = objEpochDate.getMinutes();
-	var seconds = objEpochDate.getSeconds();
-	var sHours = hours.toString();
-	var sMinutes = minutes.toString();
-	var sSeconds = seconds.toString();
-	if (hours < 10) {
-		sHours = "0" + sHours;
-	}
-	if (minutes < 10) {
-		sMinutes = "0" + sMinutes;
-	}
-	if (seconds < 10) {
-		sSeconds = "0" + sSeconds;
-	}
-	var time = sHours + ":" + sMinutes+":" + sSeconds;
-	return time;
+    var hours = objEpochDate.getHours();
+    var minutes = objEpochDate.getMinutes();
+    var seconds = objEpochDate.getSeconds();
+    var sHours = hours.toString();
+    var sMinutes = minutes.toString();
+    var sSeconds = seconds.toString();
+    if (hours < 10) {
+        sHours = "0" + sHours;
+    }
+    if (minutes < 10) {
+        sMinutes = "0" + sMinutes;
+    }
+    if (seconds < 10) {
+        sSeconds = "0" + sSeconds;
+    }
+    var time = sHours + ":" + sMinutes+":" + sSeconds;
+    return time;
 };
 
 /**
@@ -1039,7 +1039,7 @@ function createUIForPagination(tableID, maxRows, recordSize){
     $(".mainTable tr:odd").css("background-color", "#F4F4F4");
     $(".selectProfileRow").css("background-color", "#dfdfdf");
     $('#next').addClass('disabled');
-  }	
+  } 
   $('#page1').addClass('paginationButSelect');
   $('#page1').css('cursor','default');
   $('#prev').addClass('disabled');
@@ -1055,12 +1055,12 @@ function createUIForPagination(tableID, maxRows, recordSize){
  * class after removing all the added classes.
  */
 function addErrorClass(divID) {
-	if (divID==undefined || divID==null) {
-		divID ='#WebDavMessageIcon';
-	}
-	$(divID).removeClass("crudOperationSuccessIcon");
-	$(divID).addClass("crudOperationErrorIcon");
-	return;
+    if (divID==undefined || divID==null) {
+        divID ='#WebDavMessageIcon';
+    }
+    $(divID).removeClass("crudOperationSuccessIcon");
+    $(divID).addClass("crudOperationErrorIcon");
+    return;
 }
 
 /**
@@ -1068,12 +1068,12 @@ function addErrorClass(divID) {
  * class after removing all the added classes.
  */
 function addSuccessClass(divID) {
-	if (divID==undefined || divID==null) {
-		divID ='#WebDavMessageIcon';
-	}
-	$(divID).removeClass("crudOperationErrorIcon");
-	$(divID).addClass("crudOperationSuccessIcon");
-	return;
+    if (divID==undefined || divID==null) {
+        divID ='#WebDavMessageIcon';
+    }
+    $(divID).removeClass("crudOperationErrorIcon");
+    $(divID).addClass("crudOperationSuccessIcon");
+    return;
 }
 
 /**
@@ -1094,12 +1094,12 @@ function addPartialSuccessClass() {
  * child div(s) of messageBlock div.
  */
 function inlineMessageBlock(width,divID) {
-	if (divID==undefined || divID==null) {
-		divID = "#crudOperationMessageBlock";
-	}
-	$(divID).css("width", width);
-	$(divID).css("display", 'block');
-	return;
+    if (divID==undefined || divID==null) {
+        divID = "#crudOperationMessageBlock";
+    }
+    $(divID).css("width", width);
+    $(divID).css("display", 'block');
+    return;
 }
 
 /************************ NOTIFICATION RIBBON: End ************************/
@@ -1127,7 +1127,7 @@ function showDynamicSpinner(modal,left,top){
   var winW = $(window).width();
   $(id).css('top', winH / 2 - $(id).height() / 2);
   $(id).css('left', winW / 2 - $(id).width() / 2);
-  var objCommon = new common();	
+  var objCommon = new common(); 
   var target = document.getElementById('spinnerPopUp');
   objCommon.opts.left = left;
   objCommon.opts.top = top;
@@ -1144,7 +1144,7 @@ function showSpinner(modal){
   var winW = $(window).width();
   $(id).css('top', winH / 2 - $(id).height() / 2);
   $(id).css('left', winW / 2 - $(id).width() / 2);
-  var objCommon = new common();	
+  var objCommon = new common(); 
   var target = document.getElementById('spinnerPopUp');
   objCommon.opts.left = 'auto';
   objCommon.opts.top = 'auto';
@@ -1485,17 +1485,17 @@ common.prototype.displaySuccessfulMessage = function (startText, entityName, las
  * @param width
  */
 common.prototype.displaySuccessMessage = function(message, modelWindowId, width, divMsgBlock) {
-	$(modelWindowId).hide();
-	addSuccessClass();
-	if (divMsgBlock != undefined && divMsgBlock != null) {
-		$("#"+divMsgBlock).css("display", 'table');
-		$("#"+divMsgBlock).css("width", '0px');
-	} else {
-		inlineMessageBlock(width);
-	}
-	$("#WebDavSuccessmsg").text(message);
-	objCommon.centerAlignRibbonMessage("#crudOperationMessageBlock");
-	objCommon.autoHideAssignRibbonMessage("crudOperationMessageBlock");
+    $(modelWindowId).hide();
+    addSuccessClass();
+    if (divMsgBlock != undefined && divMsgBlock != null) {
+        $("#"+divMsgBlock).css("display", 'table');
+        $("#"+divMsgBlock).css("width", '0px');
+    } else {
+        inlineMessageBlock(width);
+    }
+    $("#WebDavSuccessmsg").text(message);
+    objCommon.centerAlignRibbonMessage("#crudOperationMessageBlock");
+    objCommon.autoHideAssignRibbonMessage("crudOperationMessageBlock");
 };
 
 /**
@@ -1505,17 +1505,17 @@ common.prototype.displaySuccessMessage = function(message, modelWindowId, width,
  * @param width
  */
 common.prototype.displayErrorMessage = function(message, modelWindowId, width, divMsgBlock) {
-	$(modelWindowId).hide();
-	addErrorClass();
-	if (divMsgBlock != undefined && divMsgBlock != null) {
-		$("#"+divMsgBlock).css("display", 'table');
-		$("#"+divMsgBlock).css("width", '0px');
-	} else {
-		inlineMessageBlock(width);
-	}
-	$("#WebDavSuccessmsg").text(message);
-	objCommon.centerAlignRibbonMessage("#crudOperationMessageBlock");
-	objCommon.autoHideAssignRibbonMessage("crudOperationMessageBlock");
+    $(modelWindowId).hide();
+    addErrorClass();
+    if (divMsgBlock != undefined && divMsgBlock != null) {
+        $("#"+divMsgBlock).css("display", 'table');
+        $("#"+divMsgBlock).css("width", '0px');
+    } else {
+        inlineMessageBlock(width);
+    }
+    $("#WebDavSuccessmsg").text(message);
+    objCommon.centerAlignRibbonMessage("#crudOperationMessageBlock");
+    objCommon.autoHideAssignRibbonMessage("crudOperationMessageBlock");
 };
 
 /**
@@ -1650,9 +1650,9 @@ common.prototype.getReadableDateForAccessToken = function(epochDate,strEpochDate
     var convertedDateTime = null;
     var timeZone = sessionStorage.timeZone;
     if (timeZone != null) {
-    	convertedDateTime = day+' '+month+' '+year+" at "+ expiryTime+" "+timeZone;
+        convertedDateTime = day+' '+month+' '+year+" at "+ expiryTime+" "+timeZone;
     } else {
-    	convertedDateTime = day+' '+month+' '+year+" at "+ expiryTime;
+        convertedDateTime = day+' '+month+' '+year+" at "+ expiryTime;
     }
     return convertedDateTime; 
   }
@@ -1661,39 +1661,39 @@ common.prototype.getReadableDateForAccessToken = function(epochDate,strEpochDate
  * This function extracts the status code from response object.
  */
 common.prototype.getStatusCode = function (response) {
-	if (response instanceof _pc.DavResponse) {
-		return this.getStatusCode(response.body);
-	} else if (response instanceof _pc.PersoniumHttpClient) {
-		return response.httpClient.status;
-	} else if (response instanceof _pc.Promise) {
-		if (response.resolvedValue!== null) {
-			return response.resolvedValue.status;
-		} else { 
-			return -100;
-		}
-	}
+    if (response instanceof _pc.DavResponse) {
+        return this.getStatusCode(response.body);
+    } else if (response instanceof _pc.PersoniumHttpClient) {
+        return response.httpClient.status;
+    } else if (response instanceof _pc.Promise) {
+        if (response.resolvedValue!== null) {
+            return response.resolvedValue.status;
+        } else { 
+            return -100;
+        }
+    }
 };
 
 /**
  * These are spinner settings specific only to the main spinner while loading the application.
  */
 common.prototype.optsCommon = {
-		lines : 8, // The number of lines to draw
-		length : 0, // The length of each line
-		width : 7, // The line thickness
-		radius : 11, // The radius of the inner circle
-		corners : 1, // Corner roundness (0..1)
-		rotate : 0, // The rotation offset
-		direction : 1, // 1: clockwise, -1: counterclockwise
-		color : '#b6b6b6', // #rgb or #rrggbb
-		speed : 1.2, // Rounds per second
-		trail : 68, // Afterglow percentage
-		shadow : false, // Whether to render a shadow
-		hwaccel : false, // Whether to use hardware acceleration
-		className : 'spinner', // The CSS class to assign to the spinner
-		zIndex : 2e9, // The z-index (defaults to 2000000000)
-		top : '300', // Top position relative to parent in px
-		left : 'auto' // Left position relative to parent in px
+        lines : 8, // The number of lines to draw
+        length : 0, // The length of each line
+        width : 7, // The line thickness
+        radius : 11, // The radius of the inner circle
+        corners : 1, // Corner roundness (0..1)
+        rotate : 0, // The rotation offset
+        direction : 1, // 1: clockwise, -1: counterclockwise
+        color : '#b6b6b6', // #rgb or #rrggbb
+        speed : 1.2, // Rounds per second
+        trail : 68, // Afterglow percentage
+        shadow : false, // Whether to render a shadow
+        hwaccel : false, // Whether to use hardware acceleration
+        className : 'spinner', // The CSS class to assign to the spinner
+        zIndex : 2e9, // The z-index (defaults to 2000000000)
+        top : '300', // Top position relative to parent in px
+        left : 'auto' // Left position relative to parent in px
 };
 
 /**
@@ -1780,17 +1780,21 @@ function HashTable(obj)
  * @returns count
  */
 common.prototype.retrieveCellRecordCount = function () {
-	var baseUrl = getClientStore().baseURL;
-	var token = getClientStore().token;
-	var objJdcContext = new _pc.PersoniumContext(baseUrl, "", "", "");
-	var accessor = objJdcContext.withToken(token);
-	var uri = baseUrl + "__ctl/Cell";
-	uri = uri + "?$top=0&$inlinecount=allpages";
-	var restAdapter = _pc.RestAdapterFactory.create(accessor);
-	var response = restAdapter.get(uri, "application/json");
-	var json = response.bodyAsJson().d;
-	var count = json.__count;
-	return count;
+    let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+    if (ManagerInfo.isCellManager) {
+        return 1;
+    };
+    var baseUrl = getClientStore().baseURL;
+    var token = getClientStore().token;
+    var objJdcContext = new _pc.PersoniumContext(baseUrl, "", "", "");
+    var accessor = objJdcContext.withToken(token);
+    var uri = baseUrl + "__ctl/Cell";
+    uri = uri + "?$top=0&$inlinecount=allpages";
+    var restAdapter = _pc.RestAdapterFactory.create(accessor);
+    var response = restAdapter.get(uri, "application/json");
+    var json = response.bodyAsJson().d;
+    var count = json.__count;
+    return count;
 };
 
 /**
@@ -1799,27 +1803,22 @@ common.prototype.retrieveCellRecordCount = function () {
  * @param response
  */
 common.prototype.getCellCountAndOpenPage = function() {
-	//var id = objCommon.isSessionExist();
-	var totalCellCount = this.retrieveCellRecordCount();
-	sessionStorage.totalCellCountForUnit = totalCellCount;
-	//if (id != null) {
-		if (totalCellCount == 0) {
-			$("#mainContainer").hide();
-			//open create cell popup
-			var ucellP = new cellUI.popup();
-			ucellP.openAutoPopup();
-			//$("#mainContainer").load(contextRoot + '/htmls/firstCellCreate.html');
-			setTimeout(function() {
-				$("#mainContainer").show();
-				if(document.getElementById("spinnerEnvt") != null){
-					$("#spinnerEnvt").remove();
-				}
-			}, 300);
-		} else if (totalCellCount > 0) {
-		}
-	//} else {
-	//	window.location.href = contextRoot;
-	//}
+    var totalCellCount = this.retrieveCellRecordCount();
+    sessionStorage.totalCellCountForUnit = totalCellCount;
+    if (totalCellCount == 0) {
+        $("#mainContainer").hide();
+        //open create cell popup
+        var ucellP = new cellUI.popup();
+        ucellP.openAutoPopup();
+        //$("#mainContainer").load(contextRoot + '/htmls/firstCellCreate.html');
+        setTimeout(function() {
+            $("#mainContainer").show();
+            if(document.getElementById("spinnerEnvt") != null){
+                $("#spinnerEnvt").remove();
+            }
+        }, 300);
+    } else if (totalCellCount > 0) {
+    }
 };
 
 /**
@@ -1828,19 +1827,19 @@ common.prototype.getCellCountAndOpenPage = function() {
  * @returns {Boolean}
  */
 common.prototype.getSelectedEntity = function(dropdownID) {
-	var arrRole = false;
-	if (document.getElementById(dropdownID).selectedIndex > 0) {
-		var selectedRole = document.getElementById(dropdownID).value;
-		arrRole = selectedRole.split(objCommon.startBracket);
-	}
-	return arrRole;
+    var arrRole = false;
+    if (document.getElementById(dropdownID).selectedIndex > 0) {
+        var selectedRole = document.getElementById(dropdownID).value;
+        arrRole = selectedRole.split(objCommon.startBracket);
+    }
+    return arrRole;
 };
 /**
  * This method adds environment IDs in local storage.
  * @param envID
  *//*
 common.prototype.addEnvironmentIds = function(envID) {
-	localStorage.setItem(envID, envID);
+    localStorage.setItem(envID, envID);
 };
 
 *//**
@@ -1849,10 +1848,10 @@ common.prototype.addEnvironmentIds = function(envID) {
  * @returns {Boolean}
  *//*
 common.prototype.isMultipleTabsOpened = function(envID) {
-	if (localStorage.getItem(envID) == null) {
-		return false;
-	}
-	return true;
+    if (localStorage.getItem(envID) == null) {
+        return false;
+    }
+    return true;
 };
 
 *//**
@@ -1860,15 +1859,15 @@ common.prototype.isMultipleTabsOpened = function(envID) {
  * @param envID
  *//*
 common.prototype.removeEnvironmentIDFromLocalStorage = function(envID) {
-	localStorage.removeItem(envID);
-	sessionStorage.selectedEnvID = null;
+    localStorage.removeItem(envID);
+    sessionStorage.selectedEnvID = null;
 };
 
 *//**
  * Following method is invoked to remove environment from local storage.
  *//*
 window.onbeforeunload = function() {
-	objCommon.removeEnvironmentIDFromLocalStorage(sessionStorage.selectedEnvID);
+    objCommon.removeEnvironmentIDFromLocalStorage(sessionStorage.selectedEnvID);
 };*/
 
 /**
@@ -1876,7 +1875,7 @@ window.onbeforeunload = function() {
  * page refresh scenario.
  */
 /*window.onload = function() {
-	objCommon.addEnvironmentIds(sessionStorage.selectedEnvID);
+    objCommon.addEnvironmentIds(sessionStorage.selectedEnvID);
 };*/
 
 /**
@@ -1884,11 +1883,11 @@ window.onbeforeunload = function() {
  * cell container.
  */
 common.prototype.checkCellContainerVisibility = function () {
-	if ($('#dvCellListContainer').is(':visible')) {
-		$('.checkBoxLabel').addClass("chkboxPositionInherit");
-	} else {
-		$('.checkBoxLabel').removeClass("chkboxPositionInherit");
-	}
+    if ($('#dvCellListContainer').is(':visible')) {
+        $('.checkBoxLabel').addClass("chkboxPositionInherit");
+    } else {
+        $('.checkBoxLabel').removeClass("chkboxPositionInherit");
+    }
 };
 
 /** Pagination : Start */
@@ -1896,361 +1895,361 @@ common.prototype.checkCellContainerVisibility = function () {
  * This function displays spinner on pagination.
  */
 common.prototype.showSpinnerForEntities = function(type) {
-	if (type == "Account" || type == "Relation" || type == "ExtRole" || type == "ExtCell") {
-		var target = document.getElementById('spinner');
-		spinner = new Spinner(opts).spin(target);
-	}
+    if (type == "Account" || type == "Relation" || type == "ExtRole" || type == "ExtCell") {
+        var target = document.getElementById('spinner');
+        spinner = new Spinner(opts).spin(target);
+    }
 };
 /**
  * This function is the first view generator for pagination as per present data.
  */
 common.prototype.createUIForPaginationTemp = function(maxRows, totalRecordCount,type,activePage,startIndex){
-	var lowerRecordCount = 0;
-	var upperRecordCount = 0;
-	if (totalRecordCount != 0) {
-		lowerRecordCount = 1;
-		if (totalRecordCount <= maxRows) {
-			upperRecordCount = totalRecordCount;
-		} else {
-			upperRecordCount = maxRows;
-		}
-	}
-	var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " "+
-	+ totalRecordCount;
-	//var startIndex = sessionStorage.startIndex;
-	$('#firstPage_'+type).addClass('firstPageDisabled');
-	$('#firstPage_'+type).removeClass('firstPageEnabled');
-	$('#prevPage_'+type).addClass('prevPageDisabled');
-	$('#prevPage_'+type).removeClass('prevPageEnabled');
-	if (startIndex == undefined){
-		
-	} else {
-		startIndex = parseInt(startIndex) + 1;
-		if (totalRecordCount != 0) {
-				if (totalRecordCount <= maxRows) {
-					upperRecordCount = totalRecordCount;
-				} else {
-					//var activePage = parseInt(sessionStorage.activePage); 
-					upperRecordCount = activePage * maxRows;
-				}
-			}
-		recordCount = startIndex + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " " + totalRecordCount;
-			$('#firstPage_'+type).addClass('firstPageEnabled');
-			$('#firstPage_'+type).removeClass('firstPageDisabled');
-			$('#prevPage_'+type).removeClass('prevPageDisabled');
-			$('#prevPage_'+type).addClass('prevPageEnabled');
-	}
-	if (totalRecordCount <= maxRows) {
-		$('#nextPage_'+type).addClass('nextPageDisabled');
-		$('#nextPage_'+type).removeClass('nextPageEnabled');
-		$('#lastPage_'+type).addClass('lastPageDisabled');
-		$('#lastPage_'+type).removeClass('lastPageEnabled');
-	} else {
-		$('#nextPage_'+type).removeClass('nextPageDisabled');
-		$('#nextPage_'+type).addClass('nextPageEnabled');
-		$('#lastPage_'+type).removeClass('lastPageDisabled');
-		$('#lastPage_'+type).addClass('lastPageEnabled');
-	} 
-	var lastPage = Math.ceil(totalRecordCount/maxRows);
-	if (activePage == 1) {
-		$('#firstPage_'+type).addClass('firstPageDisabled');
-		$('#firstPage_'+type).removeClass('firstPageEnabled');
-		$('#prevPage_'+type).addClass('prevPageDisabled');
-		$('#prevPage_'+type).removeClass('prevPageEnabled');
-		
-	} else if(activePage == lastPage)  {
-		$('#nextPage_'+type).addClass('nextPageDisabled');
-		$('#nextPage_'+type).removeClass('nextPageEnabled');
-		$('#lastPage_'+type).addClass('lastPageDisabled');
-		$('#lastPage_'+type).removeClass('lastPageEnabled');
-		recordCount = startIndex + " - " + totalRecordCount + " " + getUiProps().MSG0323 + " "+ totalRecordCount;
-		if (totalRecordCount <= objCommon.MAXROWS) {
-			$('#prevPage_'+type).addClass('prevPageDisabled');
-			$('#prevPage_'+type).removeClass('prevPageEnabled');
-			$('#firstPage_'+type).addClass('firstPageDisabled');
-			$('#firstPage_'+type).removeClass('firstPageEnabled');
-			$('#nextPage_'+type).removeClass('nextPageDisabled');
-			$('#nextPage_'+type).addClass('nextPageEnabled');
-			$('#lastPage_'+type).removeClass('lastPageDisabled');
-			$("#lastPage_"+type).addClass("lastPageEnabled");
-		}
-	}
-	$("#recordCount_"+type).text(recordCount);
-	return true;
+    var lowerRecordCount = 0;
+    var upperRecordCount = 0;
+    if (totalRecordCount != 0) {
+        lowerRecordCount = 1;
+        if (totalRecordCount <= maxRows) {
+            upperRecordCount = totalRecordCount;
+        } else {
+            upperRecordCount = maxRows;
+        }
+    }
+    var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " "+
+    + totalRecordCount;
+    //var startIndex = sessionStorage.startIndex;
+    $('#firstPage_'+type).addClass('firstPageDisabled');
+    $('#firstPage_'+type).removeClass('firstPageEnabled');
+    $('#prevPage_'+type).addClass('prevPageDisabled');
+    $('#prevPage_'+type).removeClass('prevPageEnabled');
+    if (startIndex == undefined){
+        
+    } else {
+        startIndex = parseInt(startIndex) + 1;
+        if (totalRecordCount != 0) {
+                if (totalRecordCount <= maxRows) {
+                    upperRecordCount = totalRecordCount;
+                } else {
+                    //var activePage = parseInt(sessionStorage.activePage); 
+                    upperRecordCount = activePage * maxRows;
+                }
+            }
+        recordCount = startIndex + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " " + totalRecordCount;
+            $('#firstPage_'+type).addClass('firstPageEnabled');
+            $('#firstPage_'+type).removeClass('firstPageDisabled');
+            $('#prevPage_'+type).removeClass('prevPageDisabled');
+            $('#prevPage_'+type).addClass('prevPageEnabled');
+    }
+    if (totalRecordCount <= maxRows) {
+        $('#nextPage_'+type).addClass('nextPageDisabled');
+        $('#nextPage_'+type).removeClass('nextPageEnabled');
+        $('#lastPage_'+type).addClass('lastPageDisabled');
+        $('#lastPage_'+type).removeClass('lastPageEnabled');
+    } else {
+        $('#nextPage_'+type).removeClass('nextPageDisabled');
+        $('#nextPage_'+type).addClass('nextPageEnabled');
+        $('#lastPage_'+type).removeClass('lastPageDisabled');
+        $('#lastPage_'+type).addClass('lastPageEnabled');
+    } 
+    var lastPage = Math.ceil(totalRecordCount/maxRows);
+    if (activePage == 1) {
+        $('#firstPage_'+type).addClass('firstPageDisabled');
+        $('#firstPage_'+type).removeClass('firstPageEnabled');
+        $('#prevPage_'+type).addClass('prevPageDisabled');
+        $('#prevPage_'+type).removeClass('prevPageEnabled');
+        
+    } else if(activePage == lastPage)  {
+        $('#nextPage_'+type).addClass('nextPageDisabled');
+        $('#nextPage_'+type).removeClass('nextPageEnabled');
+        $('#lastPage_'+type).addClass('lastPageDisabled');
+        $('#lastPage_'+type).removeClass('lastPageEnabled');
+        recordCount = startIndex + " - " + totalRecordCount + " " + getUiProps().MSG0323 + " "+ totalRecordCount;
+        if (totalRecordCount <= objCommon.MAXROWS) {
+            $('#prevPage_'+type).addClass('prevPageDisabled');
+            $('#prevPage_'+type).removeClass('prevPageEnabled');
+            $('#firstPage_'+type).addClass('firstPageDisabled');
+            $('#firstPage_'+type).removeClass('firstPageEnabled');
+            $('#nextPage_'+type).removeClass('nextPageDisabled');
+            $('#nextPage_'+type).addClass('nextPageEnabled');
+            $('#lastPage_'+type).removeClass('lastPageDisabled');
+            $("#lastPage_"+type).addClass("lastPageEnabled");
+        }
+    }
+    $("#recordCount_"+type).text(recordCount);
+    return true;
 };
 
 /**
  * This function is used to show previous page in pagination.
  */
 common.prototype.createPrevButtonTemp = function(tableID, maxRows,
-		totalRecordCount, totalPageNo, manager, json, updateMethod, type,
-		found, propList, activePages, startIndex) {
-	$('#prevPage_'+type).unbind();
-	$('#prevPage_'+type).click(function() {
-		if($("#prevPage_"+type).hasClass("prevPageEnabled")){
-			objCommon.showSpinnerForEntities(type);
-			setTimeout(function() {
-				var lowerRecordInterval = $("#recordCount_"+type).text().split("-")[0]; 
-				var selectedPage = Math.ceil(lowerRecordInterval/maxRows);
-				var pageNoWithData = Math.floor(objCommon.noOfRecordsToBeFetched / maxRows);
-				var newSelectedPage = selectedPage - 1;
-				var modCurrent = newSelectedPage % pageNoWithData;
-				var recordCount = (modCurrent-1)*maxRows;
-				if(newSelectedPage % pageNoWithData == 0 ){
-					var index = newSelectedPage/pageNoWithData;
-					json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index-1),objCommon.noOfRecordsToBeFetched);
-					recordCount = (pageNoWithData - 1) * maxRows;//(objCommon.maxNoOfPages - 1) * maxRows;
-					if (!found) {
-						sessionStorage.dataSetProfile = JSON.stringify(json);
-					} else {
-						sessionStorage.assignDataSetProfile = JSON.stringify(json);
-					}
-				} else {
-					var cnt = parseInt(lowerRecordInterval)-51;
-					json = manager.retrieveChunkedData(cnt,objCommon.noOfRecordsToBeFetched);
-					if (!found) { 
-						sessionStorage.dataSetProfile = JSON.stringify(json);
-					} else { 
-						sessionStorage.assignDataSetProfile = JSON.stringify(json);
-					}
-				}
-				if(type == "OdataGrid"){
-					objCommon.hideListTypePopUp();
-					updateMethod(json, propList, recordCount);
-				}else{
-					updateMethod(json, recordCount, function(){
-						if (spinner != undefined){
-							spinner.stop();
-						}});
-				}
+        totalRecordCount, totalPageNo, manager, json, updateMethod, type,
+        found, propList, activePages, startIndex) {
+    $('#prevPage_'+type).unbind();
+    $('#prevPage_'+type).click(function() {
+        if($("#prevPage_"+type).hasClass("prevPageEnabled")){
+            objCommon.showSpinnerForEntities(type);
+            setTimeout(function() {
+                var lowerRecordInterval = $("#recordCount_"+type).text().split("-")[0]; 
+                var selectedPage = Math.ceil(lowerRecordInterval/maxRows);
+                var pageNoWithData = Math.floor(objCommon.noOfRecordsToBeFetched / maxRows);
+                var newSelectedPage = selectedPage - 1;
+                var modCurrent = newSelectedPage % pageNoWithData;
+                var recordCount = (modCurrent-1)*maxRows;
+                if(newSelectedPage % pageNoWithData == 0 ){
+                    var index = newSelectedPage/pageNoWithData;
+                    json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index-1),objCommon.noOfRecordsToBeFetched);
+                    recordCount = (pageNoWithData - 1) * maxRows;//(objCommon.maxNoOfPages - 1) * maxRows;
+                    if (!found) {
+                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                    } else {
+                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                    }
+                } else {
+                    var cnt = parseInt(lowerRecordInterval)-51;
+                    json = manager.retrieveChunkedData(cnt,objCommon.noOfRecordsToBeFetched);
+                    if (!found) { 
+                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                    } else { 
+                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                    }
+                }
+                if(type == "OdataGrid"){
+                    objCommon.hideListTypePopUp();
+                    updateMethod(json, propList, recordCount);
+                }else{
+                    updateMethod(json, recordCount, function(){
+                        if (spinner != undefined){
+                            spinner.stop();
+                        }});
+                }
 
-				var lowerRecordCount = ((newSelectedPage - 1) * maxRows) + 1;
-				var upperRecordCount = ((newSelectedPage) * maxRows);
-				var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " "+ totalRecordCount;
-				$("#recordCount_"+type).text(recordCount);
+                var lowerRecordCount = ((newSelectedPage - 1) * maxRows) + 1;
+                var upperRecordCount = ((newSelectedPage) * maxRows);
+                var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " "+ totalRecordCount;
+                $("#recordCount_"+type).text(recordCount);
 
-				sessionStorage.selectedPageIndexBox = newSelectedPage;
-				if (newSelectedPage == 1) {
-					$('#prevPage_'+type).addClass('prevPageDisabled');
-					$('#prevPage_'+type).removeClass('prevPageEnabled');
-					$('#firstPage_'+type).addClass('firstPageDisabled');
-					$('#firstPage_'+type).removeClass('firstPageEnabled');
-				}
-				$('#nextPage_'+type).removeClass('nextPageDisabled');
-				$('#nextPage_'+type).addClass('nextPageEnabled');
-				$('#lastPage_'+type).removeClass('lastPageDisabled');
-				$("#lastPage_"+type).addClass("lastPageEnabled");
-				return false;
-			}, 50);
-		}
-	});
+                sessionStorage.selectedPageIndexBox = newSelectedPage;
+                if (newSelectedPage == 1) {
+                    $('#prevPage_'+type).addClass('prevPageDisabled');
+                    $('#prevPage_'+type).removeClass('prevPageEnabled');
+                    $('#firstPage_'+type).addClass('firstPageDisabled');
+                    $('#firstPage_'+type).removeClass('firstPageEnabled');
+                }
+                $('#nextPage_'+type).removeClass('nextPageDisabled');
+                $('#nextPage_'+type).addClass('nextPageEnabled');
+                $('#lastPage_'+type).removeClass('lastPageDisabled');
+                $("#lastPage_"+type).addClass("lastPageEnabled");
+                return false;
+            }, 50);
+        }
+    });
 };
 
 /**
  * This function is used to show next page in pagination.
  */
 common.prototype.createNextButtonTemp = function(tableID, maxRows, totalRecordCount, totalPageNo,manager,json,updateMethod,type, found, propList,activePage,startIndex){
-	$('#nextPage_'+type).unbind();
-	$('#nextPage_'+type).click(function() {
-		if($("#nextPage_"+type).hasClass("nextPageEnabled")){
-			objCommon.showSpinnerForEntities(type);
-			setTimeout(function() {
-				var lowerRecordInterval = $("#recordCount_"+type).text().split("-")[0]; 
-				var selectedPage = Math.ceil(lowerRecordInterval/maxRows);
-				var pageNoWithData = Math.floor(objCommon.noOfRecordsToBeFetched / maxRows);
-				var newSelectedPage = selectedPage +1;
-				var modCurrent = newSelectedPage % pageNoWithData;
-				if(modCurrent === 0){
-					modCurrent = pageNoWithData;//objCommon.maxNoOfPages;
-				}
-				var recordCount = (modCurrent-1)*maxRows;
-				if(newSelectedPage % pageNoWithData == 1){
-					var index = selectedPage/pageNoWithData;
-					json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index),objCommon.noOfRecordsToBeFetched); 
-					if (!found) {
-						sessionStorage.dataSetProfile = JSON.stringify(json);
-					} else {
-						sessionStorage.assignDataSetProfile = JSON.stringify(json);
-					}
-					recordCount = 0;
-				}else{
-					if (!found) {
-					json = sessionStorage.dataSetProfile;
-					
-					} else {
-						json = sessionStorage.assignDataSetProfile;
-					}
-				}
-				if(type == "OdataGrid"){
-					objCommon.hideListTypePopUp();
-					updateMethod(json, propList, recordCount);
-				}else{
-					updateMethod(json, recordCount,function(){
-						if (spinner != undefined){
-							spinner.stop();
-						}});
-				}
-				sessionStorage.selectedPageIndexBox = newSelectedPage;
+    $('#nextPage_'+type).unbind();
+    $('#nextPage_'+type).click(function() {
+        if($("#nextPage_"+type).hasClass("nextPageEnabled")){
+            objCommon.showSpinnerForEntities(type);
+            setTimeout(function() {
+                var lowerRecordInterval = $("#recordCount_"+type).text().split("-")[0]; 
+                var selectedPage = Math.ceil(lowerRecordInterval/maxRows);
+                var pageNoWithData = Math.floor(objCommon.noOfRecordsToBeFetched / maxRows);
+                var newSelectedPage = selectedPage +1;
+                var modCurrent = newSelectedPage % pageNoWithData;
+                if(modCurrent === 0){
+                    modCurrent = pageNoWithData;//objCommon.maxNoOfPages;
+                }
+                var recordCount = (modCurrent-1)*maxRows;
+                if(newSelectedPage % pageNoWithData == 1){
+                    var index = selectedPage/pageNoWithData;
+                    json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index),objCommon.noOfRecordsToBeFetched); 
+                    if (!found) {
+                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                    } else {
+                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                    }
+                    recordCount = 0;
+                }else{
+                    if (!found) {
+                    json = sessionStorage.dataSetProfile;
+                    
+                    } else {
+                        json = sessionStorage.assignDataSetProfile;
+                    }
+                }
+                if(type == "OdataGrid"){
+                    objCommon.hideListTypePopUp();
+                    updateMethod(json, propList, recordCount);
+                }else{
+                    updateMethod(json, recordCount,function(){
+                        if (spinner != undefined){
+                            spinner.stop();
+                        }});
+                }
+                sessionStorage.selectedPageIndexBox = newSelectedPage;
 
-				var lowerRecordCount = (selectedPage * maxRows) + 1;
-				var upperRecordCount = 0;
-				if(newSelectedPage < totalPageNo){
-					upperRecordCount = (newSelectedPage * maxRows);
-				}else if(newSelectedPage == totalPageNo){
-					upperRecordCount = (selectedPage * maxRows) + (totalRecordCount - (selectedPage * maxRows));
-				}
-				var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " " + totalRecordCount;
-				$("#recordCount_"+type).text(recordCount);
+                var lowerRecordCount = (selectedPage * maxRows) + 1;
+                var upperRecordCount = 0;
+                if(newSelectedPage < totalPageNo){
+                    upperRecordCount = (newSelectedPage * maxRows);
+                }else if(newSelectedPage == totalPageNo){
+                    upperRecordCount = (selectedPage * maxRows) + (totalRecordCount - (selectedPage * maxRows));
+                }
+                var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " " + totalRecordCount;
+                $("#recordCount_"+type).text(recordCount);
 
-				if(newSelectedPage == totalPageNo){
-					$('#nextPage_'+type).addClass('nextPageDisabled');
-					$('#nextPage_'+type).removeClass('nextPageEnabled');
-					$('#lastPage_'+type).addClass('lastPageDisabled');
-					$("#lastPage_"+type).removeClass("lastPageEnabled");
-				}
-				$('#prevPage_'+type).removeClass('prevPageDisabled');
-				$('#prevPage_'+type).addClass('prevPageEnabled');
-				$('#firstPage_'+type).removeClass('firstPageDisabled');
-				$('#firstPage_'+type).addClass('firstPageEnabled');
-				return false;
-			}, 50);
-		}
-	});
+                if(newSelectedPage == totalPageNo){
+                    $('#nextPage_'+type).addClass('nextPageDisabled');
+                    $('#nextPage_'+type).removeClass('nextPageEnabled');
+                    $('#lastPage_'+type).addClass('lastPageDisabled');
+                    $("#lastPage_"+type).removeClass("lastPageEnabled");
+                }
+                $('#prevPage_'+type).removeClass('prevPageDisabled');
+                $('#prevPage_'+type).addClass('prevPageEnabled');
+                $('#firstPage_'+type).removeClass('firstPageDisabled');
+                $('#firstPage_'+type).addClass('firstPageEnabled');
+                return false;
+            }, 50);
+        }
+    });
 };
 
 /**
  * This function is used to show first page in pagination.
  */
 common.prototype.createFirstButtonTemp = function(tableID, maxRows, totalRecordCount, totalPageNo, manager, json,updateMethod,type, found, propList,activePage,startIndex){
-	$('#firstPage_'+type).unbind();
-	$('#firstPage_'+type).click(function() {
-		if($("#firstPage_"+type).hasClass("firstPageEnabled")){
-			objCommon.showSpinnerForEntities(type);
-			setTimeout(function() {
-				var lowerRecordInterval = $("#recordCount_"+type).text().split("-")[0];
-				var selectedPage = Math.ceil(lowerRecordInterval/maxRows);
-				var newSelectedPage = 1;
-				var recordCount = 0;
-	
-				if(selectedPage > (objCommon.noOfRecordsToBeFetched/maxRows)){
-					var index = 1;
-					json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index-1),objCommon.noOfRecordsToBeFetched);
-					if (!found) {
-						sessionStorage.dataSetProfile = JSON.stringify(json);
-					} else {
-						sessionStorage.assignDataSetProfile = JSON.stringify(json);
-					}
-				}else{
-					//json = sessionStorage.dataSetProfile;
-					var cnt = parseInt(lowerRecordInterval)-51;
-					json = manager.retrieveChunkedData(cnt,objCommon.noOfRecordsToBeFetched);
-					if (!found) {
-					
-						sessionStorage.dataSetProfile = JSON.stringify(json);
-					} else {
-						sessionStorage.assignDataSetProfile = JSON.stringify(json);
-					}
-				}
-				if(type == "OdataGrid"){
-					objCommon.hideListTypePopUp();
-					updateMethod(json, propList, recordCount);
-				}else{
-					updateMethod(json, recordCount, function(){
-						if (spinner != undefined){
-							spinner.stop();
-						}});
-				}
-	
-				var lowerRecordCount = 1;
-				var upperRecordCount = maxRows;
-				var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " " + totalRecordCount;
-				$("#recordCount_"+type).text(recordCount);
-				
-				sessionStorage.selectedPageIndexBox = newSelectedPage;
-				$('#prevPage_'+type).addClass('prevPageDisabled');
-				$('#prevPage_'+type).removeClass('prevPageEnabled');
-				$('#firstPage_'+type).addClass('firstPageDisabled');
-				$('#firstPage_'+type).removeClass('firstPageEnabled');
+    $('#firstPage_'+type).unbind();
+    $('#firstPage_'+type).click(function() {
+        if($("#firstPage_"+type).hasClass("firstPageEnabled")){
+            objCommon.showSpinnerForEntities(type);
+            setTimeout(function() {
+                var lowerRecordInterval = $("#recordCount_"+type).text().split("-")[0];
+                var selectedPage = Math.ceil(lowerRecordInterval/maxRows);
+                var newSelectedPage = 1;
+                var recordCount = 0;
+    
+                if(selectedPage > (objCommon.noOfRecordsToBeFetched/maxRows)){
+                    var index = 1;
+                    json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index-1),objCommon.noOfRecordsToBeFetched);
+                    if (!found) {
+                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                    } else {
+                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                    }
+                }else{
+                    //json = sessionStorage.dataSetProfile;
+                    var cnt = parseInt(lowerRecordInterval)-51;
+                    json = manager.retrieveChunkedData(cnt,objCommon.noOfRecordsToBeFetched);
+                    if (!found) {
+                    
+                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                    } else {
+                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                    }
+                }
+                if(type == "OdataGrid"){
+                    objCommon.hideListTypePopUp();
+                    updateMethod(json, propList, recordCount);
+                }else{
+                    updateMethod(json, recordCount, function(){
+                        if (spinner != undefined){
+                            spinner.stop();
+                        }});
+                }
+    
+                var lowerRecordCount = 1;
+                var upperRecordCount = maxRows;
+                var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " " + totalRecordCount;
+                $("#recordCount_"+type).text(recordCount);
+                
+                sessionStorage.selectedPageIndexBox = newSelectedPage;
+                $('#prevPage_'+type).addClass('prevPageDisabled');
+                $('#prevPage_'+type).removeClass('prevPageEnabled');
+                $('#firstPage_'+type).addClass('firstPageDisabled');
+                $('#firstPage_'+type).removeClass('firstPageEnabled');
 
-				$('#nextPage_'+type).removeClass('nextPageDisabled');
-				$('#nextPage_'+type).addClass('nextPageEnabled');
-				$('#lastPage_'+type).removeClass('lastPageDisabled');
-				$("#lastPage_"+type).addClass("lastPageEnabled");
-				return false;
-			}, 50);
-		}
-	});
+                $('#nextPage_'+type).removeClass('nextPageDisabled');
+                $('#nextPage_'+type).addClass('nextPageEnabled');
+                $('#lastPage_'+type).removeClass('lastPageDisabled');
+                $("#lastPage_"+type).addClass("lastPageEnabled");
+                return false;
+            }, 50);
+        }
+    });
 };
 
 /**
  * This function is used to show last page in pagination.
  */
 common.prototype.createLastButtonTemp = function(tableID, maxRows, totalRecordCount, totalPageNo, manager, json,updateMethod,type, found, propList){
-	$('#lastPage_'+type).unbind();
-	$('#lastPage_'+type).click(function() {
-		if($("#lastPage_"+type).hasClass("lastPageEnabled")){
-			objCommon.showSpinnerForEntities(type);
-		
-			setTimeout(function() {
-				var lowerRecordInterval = $("#recordCount_"+type).text().split("-")[0];
-				var selectedPage = Math.ceil(lowerRecordInterval/maxRows);
-				var newSelectedPage = 1;
-				var pageNoWithData = Math.floor(objCommon.noOfRecordsToBeFetched / maxRows);
-				var divCurrent = Math.ceil(parseInt(selectedPage) / parseInt(pageNoWithData));
-				var divDataFetched = (divCurrent*2);
-				var modLastPage = parseInt(totalPageNo) % parseInt(pageNoWithData);
-				var recordCount = (pageNoWithData - modLastPage - 1) * maxRows;
-				//recordCount = (modLastPage - 1) * maxRows;
+    $('#lastPage_'+type).unbind();
+    $('#lastPage_'+type).click(function() {
+        if($("#lastPage_"+type).hasClass("lastPageEnabled")){
+            objCommon.showSpinnerForEntities(type);
+        
+            setTimeout(function() {
+                var lowerRecordInterval = $("#recordCount_"+type).text().split("-")[0];
+                var selectedPage = Math.ceil(lowerRecordInterval/maxRows);
+                var newSelectedPage = 1;
+                var pageNoWithData = Math.floor(objCommon.noOfRecordsToBeFetched / maxRows);
+                var divCurrent = Math.ceil(parseInt(selectedPage) / parseInt(pageNoWithData));
+                var divDataFetched = (divCurrent*2);
+                var modLastPage = parseInt(totalPageNo) % parseInt(pageNoWithData);
+                var recordCount = (pageNoWithData - modLastPage - 1) * maxRows;
+                //recordCount = (modLastPage - 1) * maxRows;
 
-				if((totalPageNo - selectedPage) >= pageNoWithData){}
-				if(selectedPage <= divDataFetched && totalPageNo > divDataFetched){
-					var index = Math.floor(totalPageNo / pageNoWithData);
-					if(totalPageNo % pageNoWithData == 0){
-						index = index - 1;
-					}
-					json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index),objCommon.noOfRecordsToBeFetched);
-					if (!found) {
-						sessionStorage.dataSetProfile = JSON.stringify(json);
-					} else {
-						sessionStorage.assignDataSetProfile = JSON.stringify(json);
-					}
-				}else{
-					if (!found) {
-						json = sessionStorage.dataSetProfile;
-					} else {
-						json = sessionStorage.assignDataSetProfile;
-					}
-				}
-				
-				if(type == "OdataGrid"){
-					objCommon.hideListTypePopUp();
-					updateMethod(json, propList, recordCount);
-				}else{
-					updateMethod(json, recordCount, function(){
-						if (spinner != undefined){
-							spinner.stop();
-						}});
-				}
+                if((totalPageNo - selectedPage) >= pageNoWithData){}
+                if(selectedPage <= divDataFetched && totalPageNo > divDataFetched){
+                    var index = Math.floor(totalPageNo / pageNoWithData);
+                    if(totalPageNo % pageNoWithData == 0){
+                        index = index - 1;
+                    }
+                    json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index),objCommon.noOfRecordsToBeFetched);
+                    if (!found) {
+                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                    } else {
+                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                    }
+                }else{
+                    if (!found) {
+                        json = sessionStorage.dataSetProfile;
+                    } else {
+                        json = sessionStorage.assignDataSetProfile;
+                    }
+                }
+                
+                if(type == "OdataGrid"){
+                    objCommon.hideListTypePopUp();
+                    updateMethod(json, propList, recordCount);
+                }else{
+                    updateMethod(json, recordCount, function(){
+                        if (spinner != undefined){
+                            spinner.stop();
+                        }});
+                }
 
-				var lowerRecordCount = ((totalPageNo - 1)*maxRows) + 1;
-				var upperRecordCount = totalRecordCount;
-				var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " "+ totalRecordCount;
-				$("#recordCount_"+type).text(recordCount);
+                var lowerRecordCount = ((totalPageNo - 1)*maxRows) + 1;
+                var upperRecordCount = totalRecordCount;
+                var recordCount = lowerRecordCount + " - " + upperRecordCount + " " + getUiProps().MSG0323 + " "+ totalRecordCount;
+                $("#recordCount_"+type).text(recordCount);
 
-				sessionStorage.selectedPageIndexBox = newSelectedPage;
-				$('#prevPage_'+type).removeClass('prevPageDisabled');
-				$('#prevPage_'+type).addClass('prevPageEnabled');
-				$('#firstPage_'+type).removeClass('firstPageDisabled');
-				$('#firstPage_'+type).addClass('firstPageEnabled');
+                sessionStorage.selectedPageIndexBox = newSelectedPage;
+                $('#prevPage_'+type).removeClass('prevPageDisabled');
+                $('#prevPage_'+type).addClass('prevPageEnabled');
+                $('#firstPage_'+type).removeClass('firstPageDisabled');
+                $('#firstPage_'+type).addClass('firstPageEnabled');
 
-				$('#nextPage_'+type).addClass('nextPageDisabled');
-				$('#nextPage_'+type).removeClass('nextPageEnabled');
-				$('#lastPage_'+type).addClass('lastPageDisabled');
-				$("#lastPage_"+type).removeClass("lastPageEnabled");
-				return false;
-			}, 50);
-		}
-	});
+                $('#nextPage_'+type).addClass('nextPageDisabled');
+                $('#nextPage_'+type).removeClass('nextPageEnabled');
+                $('#lastPage_'+type).addClass('lastPageDisabled');
+                $("#lastPage_"+type).removeClass("lastPageEnabled");
+                return false;
+            }, 50);
+        }
+    });
 };
 
 /**
@@ -2265,35 +2264,35 @@ common.prototype.createLastButtonTemp = function(tableID, maxRows, totalRecordCo
  * @param lastPageIndex lastPageIndex
  */
 common.prototype.createPaginationView = function(totalRecordCount, maxRows,tblMain,
-		manager,json,updateMethod, type, lastPageIndex, propList,selectedPage,startIndex){
-	var totalPageNo = Math.ceil(totalRecordCount / maxRows);
-	if(lastPageIndex != undefined && lastPageIndex != -1){
-		sessionStorage.selectedPageIndexBox = lastPageIndex;
-	}else{
-		sessionStorage.selectedPageIndexBox = 1;
-	}
-	//sessionStorage.dataSetProfile = JSON.stringify(json);
-	var found = $.inArray(type, assignTableIDList) > -1;
-	if (!found) {
-		sessionStorage.dataSetProfile = JSON.stringify(json);
-	} else {
-		sessionStorage.assignDataSetProfile = JSON.stringify(json);
-	}
-	var tableID = $(tblMain);
-	if(type == "OdataGrid"){
-		objCommon.hideListTypePopUp();
-		$(".pagination").empty();
-		uOdataQuery.createQueryPaginationView("OdataGrid");
-	} 
-	
-	var valid = objCommon.createUIForPaginationTemp(maxRows, totalRecordCount, type,selectedPage,startIndex);
-	if (!valid) {
-		return;
-	}
-	objCommon.createPrevButtonTemp(tableID, maxRows, totalRecordCount, totalPageNo, manager, json,updateMethod,type, found, propList,selectedPage,startIndex);
-	objCommon.createNextButtonTemp(tableID, maxRows, totalRecordCount, totalPageNo,manager,json,updateMethod,type, found, propList,selectedPage,startIndex);
-	objCommon.createFirstButtonTemp(tableID, maxRows, totalRecordCount, totalPageNo,manager,json,updateMethod,type, found, propList);
-	objCommon.createLastButtonTemp(tableID, maxRows, totalRecordCount, totalPageNo,manager,json,updateMethod,type, found, propList);
+        manager,json,updateMethod, type, lastPageIndex, propList,selectedPage,startIndex){
+    var totalPageNo = Math.ceil(totalRecordCount / maxRows);
+    if(lastPageIndex != undefined && lastPageIndex != -1){
+        sessionStorage.selectedPageIndexBox = lastPageIndex;
+    }else{
+        sessionStorage.selectedPageIndexBox = 1;
+    }
+    //sessionStorage.dataSetProfile = JSON.stringify(json);
+    var found = $.inArray(type, assignTableIDList) > -1;
+    if (!found) {
+        sessionStorage.dataSetProfile = JSON.stringify(json);
+    } else {
+        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+    }
+    var tableID = $(tblMain);
+    if(type == "OdataGrid"){
+        objCommon.hideListTypePopUp();
+        $(".pagination").empty();
+        uOdataQuery.createQueryPaginationView("OdataGrid");
+    } 
+    
+    var valid = objCommon.createUIForPaginationTemp(maxRows, totalRecordCount, type,selectedPage,startIndex);
+    if (!valid) {
+        return;
+    }
+    objCommon.createPrevButtonTemp(tableID, maxRows, totalRecordCount, totalPageNo, manager, json,updateMethod,type, found, propList,selectedPage,startIndex);
+    objCommon.createNextButtonTemp(tableID, maxRows, totalRecordCount, totalPageNo,manager,json,updateMethod,type, found, propList,selectedPage,startIndex);
+    objCommon.createFirstButtonTemp(tableID, maxRows, totalRecordCount, totalPageNo,manager,json,updateMethod,type, found, propList);
+    objCommon.createLastButtonTemp(tableID, maxRows, totalRecordCount, totalPageNo,manager,json,updateMethod,type, found, propList);
 };
 
 /** Pagination : End */
@@ -2303,15 +2302,15 @@ common.prototype.createPaginationView = function(totalRecordCount, maxRows,tblMa
  * on create entity label.
  */
 common.prototype.creatEntityHoverEffect = function () {
-	$("#createEntityWrapper").hover(function(){
-		$("#createIcon").css("background","url(../../images/sprite.png) no-repeat 43% -551px");
-		$("#createText").css("color","#c80000");
-		$("#arrow").css("background","url(../../images/sprite.png) no-repeat 18% -577px");
-	},function(){
-		$("#createIcon").css("background","url(../../images/sprite.png) no-repeat 43% -523px");
-		$("#createText").css("color","#1b1b1b");
-		$("#arrow").css("background","url(../../images/sprite.png) no-repeat 18% -600px");
-	});
+    $("#createEntityWrapper").hover(function(){
+        $("#createIcon").css("background","url(../../images/sprite.png) no-repeat 43% -551px");
+        $("#createText").css("color","#c80000");
+        $("#arrow").css("background","url(../../images/sprite.png) no-repeat 18% -577px");
+    },function(){
+        $("#createIcon").css("background","url(../../images/sprite.png) no-repeat 43% -523px");
+        $("#createText").css("color","#1b1b1b");
+        $("#arrow").css("background","url(../../images/sprite.png) no-repeat 18% -600px");
+    });
 };
 
 /**
@@ -2319,17 +2318,17 @@ common.prototype.creatEntityHoverEffect = function () {
  * on sort by date label.
  */
 common.prototype.sortByDateHoverEffect = function () {
-	$(".sortWrapper").hover(function(){
-		$(".downArrow").css("background","url(../../images/sprite.png) no-repeat 18% -577px");
-		$(".sortText").css("color","#c80000");
-		$(".downArrow").css("cursor","pointer");
-		$(".sortText").css("cursor","pointer");
-	 },function(){
-		$(".downArrow").css("background","url(../../images/sprite.png) no-repeat 18% -600px");
-		$(".sortText").css("color","#1b1b1b");
-		$(".downArrow").css("cursor","default");
-		$(".sortText").css("cursor","default");
-	});
+    $(".sortWrapper").hover(function(){
+        $(".downArrow").css("background","url(../../images/sprite.png) no-repeat 18% -577px");
+        $(".sortText").css("color","#c80000");
+        $(".downArrow").css("cursor","pointer");
+        $(".sortText").css("cursor","pointer");
+     },function(){
+        $(".downArrow").css("background","url(../../images/sprite.png) no-repeat 18% -600px");
+        $(".sortText").css("color","#1b1b1b");
+        $(".downArrow").css("cursor","default");
+        $(".sortText").css("cursor","default");
+    });
 };
 
 /**
@@ -2337,13 +2336,13 @@ common.prototype.sortByDateHoverEffect = function () {
  * functionality og assign grid.
  */
 common.prototype.assignBackBtnHoverEffect = function(){
-	$(".assignBackWrapper").hover(function(){
-		$(".assignBackIcon").css("background","url(../../images/newSprite.png) no-repeat 58% -1552px");
-		$(".assignEntityText").css("color","#e62525");
-	},function(){
-		$(".assignBackIcon").css("background","url(../../images/newSprite.png) no-repeat 57% -1525px");
-		$(".assignEntityText").css("color","#c80000");
-	});
+    $(".assignBackWrapper").hover(function(){
+        $(".assignBackIcon").css("background","url(../../images/newSprite.png) no-repeat 58% -1552px");
+        $(".assignEntityText").css("color","#e62525");
+    },function(){
+        $(".assignBackIcon").css("background","url(../../images/newSprite.png) no-repeat 57% -1525px");
+        $(".assignEntityText").css("color","#c80000");
+    });
 };
 
 /**
@@ -2351,13 +2350,13 @@ common.prototype.assignBackBtnHoverEffect = function(){
 * dynamically.
 */
 common.prototype.setDynamicPositionOfEmptyMessage = function () {
-	var viewportHeight = $(window).height();
-	var messagePosition = (viewportHeight/2) - 344;
-	if (viewportHeight > 650) {
-		$("#dvemptyTableMessage").css("margin-top", messagePosition);
-	} else if (viewportHeight <= 650) {
-		$("#dvemptyTableMessage").css("margin-top", '-19px');
-	}
+    var viewportHeight = $(window).height();
+    var messagePosition = (viewportHeight/2) - 344;
+    if (viewportHeight > 650) {
+        $("#dvemptyTableMessage").css("margin-top", messagePosition);
+    } else if (viewportHeight <= 650) {
+        $("#dvemptyTableMessage").css("margin-top", '-19px');
+    }
 };
 
 /**
@@ -2368,12 +2367,12 @@ common.prototype.setDynamicPositionOfEmptyMessage = function () {
  * @param type
  */
 common.prototype.displayEmptyMessageInGrid = function (emptyEntityMessage, type) {
-	$("#dvemptyTableMessage").text(emptyEntityMessage);
-	var recordCount = "0 - 0 "+ getUiProps().MSG0323 +" 0";
-	$("#recordCount_"+type).text(recordCount);
-	$("#chkSelectall").attr('disabled', true);
-	document.getElementById("dvemptyTableMessage").style.display = "block";
-	objCommon.setDynamicPositionOfEmptyMessage();
+    $("#dvemptyTableMessage").text(emptyEntityMessage);
+    var recordCount = "0 - 0 "+ getUiProps().MSG0323 +" 0";
+    $("#recordCount_"+type).text(recordCount);
+    $("#chkSelectall").attr('disabled', true);
+    document.getElementById("dvemptyTableMessage").style.display = "block";
+    objCommon.setDynamicPositionOfEmptyMessage();
 };
 
 /**
@@ -2381,13 +2380,13 @@ common.prototype.displayEmptyMessageInGrid = function (emptyEntityMessage, type)
  * grid
  */
 common.prototype.setDynamicPositionOfAssignEmptyMessage = function () {
-	var viewportHeight = $(window).height();
-	var messageHeight = (viewportHeight - 336)/2;
-	if (viewportHeight > 650) {
-		$("#dvemptyAssignTableMessage").css("margin-top", messageHeight);
-	} else if (viewportHeight <= 650) {
-		$("#dvemptyAssignTableMessage").css("margin-top", '157px');
-	}
+    var viewportHeight = $(window).height();
+    var messageHeight = (viewportHeight - 336)/2;
+    if (viewportHeight > 650) {
+        $("#dvemptyAssignTableMessage").css("margin-top", messageHeight);
+    } else if (viewportHeight <= 650) {
+        $("#dvemptyAssignTableMessage").css("margin-top", '157px');
+    }
 };
 
 
@@ -2398,21 +2397,21 @@ common.prototype.setDynamicPositionOfAssignEmptyMessage = function () {
  * @param emptyEntityMessage
  */
 common.prototype.displayEmptyMessageInAssignGrid = function (emptyEntityMessage, type, checkAllID) {
-	$("#dvemptyAssignTableMessage").text(emptyEntityMessage);
-	var recordCount = "0 - 0 " + getUiProps().MSG0323 + " 0";
-	$("#recordCount_"+type).text(recordCount);
-	$("#"+checkAllID).attr('disabled', true);
-	if (checkAllID == 'checkAllRoleAccountAssign' || checkAllID == 'checkAllRoleRelationAssign') {
-		$('.accountEmptyTableMessageWidth').css('width', '165px');
-	} else {
-		$('.accountEmptyTableMessageWidth').css('width', '187px');
-	}
-	document.getElementById("dvemptyAssignTableMessage").style.display = "block";
-	if (checkAllID == 'checkAllRoleAccountAssign' || checkAllID == 'checkAllRoleExtCellAssign' || 'checkAllRoleRelationAssign') {
-		document.getElementById("dvemptyAssignTableMessage").style.display = "table";
-		$('#dvemptyAssignTableMessage').css('width', '0px');
-	}
-	objCommon.setDynamicPositionOfAssignEmptyMessage();
+    $("#dvemptyAssignTableMessage").text(emptyEntityMessage);
+    var recordCount = "0 - 0 " + getUiProps().MSG0323 + " 0";
+    $("#recordCount_"+type).text(recordCount);
+    $("#"+checkAllID).attr('disabled', true);
+    if (checkAllID == 'checkAllRoleAccountAssign' || checkAllID == 'checkAllRoleRelationAssign') {
+        $('.accountEmptyTableMessageWidth').css('width', '165px');
+    } else {
+        $('.accountEmptyTableMessageWidth').css('width', '187px');
+    }
+    document.getElementById("dvemptyAssignTableMessage").style.display = "block";
+    if (checkAllID == 'checkAllRoleAccountAssign' || checkAllID == 'checkAllRoleExtCellAssign' || 'checkAllRoleRelationAssign') {
+        document.getElementById("dvemptyAssignTableMessage").style.display = "table";
+        $('#dvemptyAssignTableMessage').css('width', '0px');
+    }
+    objCommon.setDynamicPositionOfAssignEmptyMessage();
 };
 
 /**
@@ -2424,24 +2423,24 @@ var assignTableIDList = [ "assignRoleTab", "assignExtCellTab","assignAccountTab"
  * The purpose of this function is to perform back button operation.
  */
 common.prototype.clickAssignBackButton = function (){
-	var tab = sessionStorage.tabName;
-	$("#dvemptyTableMessage").hide();
-	$("#mainContent").show();
-	$("#mainContentWebDav").empty();
-	$("#mainContentWebDav").hide();
-	$("#webDavAccountArea").empty();
-	$("#webDavAccountArea").hide();
-	if(tab == "Account"){
-		loadAccountPage();
-	}else if(tab == "External Cell"){
-		var objExternalCell = new externalCell();
-		objExternalCell.loadExternalCellPage();
-	}else if(tab == "Relation"){
-		var objRelation  = new uRelation();
-		objRelation.loadRelationPage();
-	}else if(tab == "External Role"){
-		uExternalRole.loadExternalRolePage();
-	}
+    var tab = sessionStorage.tabName;
+    $("#dvemptyTableMessage").hide();
+    $("#mainContent").show();
+    $("#mainContentWebDav").empty();
+    $("#mainContentWebDav").hide();
+    $("#webDavAccountArea").empty();
+    $("#webDavAccountArea").hide();
+    if(tab == "Account"){
+        loadAccountPage();
+    }else if(tab == "External Cell"){
+        var objExternalCell = new externalCell();
+        objExternalCell.loadExternalCellPage();
+    }else if(tab == "Relation"){
+        var objRelation  = new uRelation();
+        objRelation.loadRelationPage();
+    }else if(tab == "External Role"){
+        uExternalRole.loadExternalRolePage();
+    }
 };
 
 /**
@@ -2449,30 +2448,30 @@ common.prototype.clickAssignBackButton = function (){
  * for assign Entity name on assignation pages.
  */
 common.prototype.setDynamicAssignEntityMaxwidth = function () {
-	var viewPortWidth = $(window).width();
-	var gridWidth = viewPortWidth - 90;
-	if (viewPortWidth > 1280) {
-		$("#divAssignRoleName").css("max-width", gridWidth);
-	} else if (viewPortWidth <= 1280) {
-		$("#divAssignRoleName").css("max-width", '1200px');
-	}
+    var viewPortWidth = $(window).width();
+    var gridWidth = viewPortWidth - 90;
+    if (viewPortWidth > 1280) {
+        $("#divAssignRoleName").css("max-width", gridWidth);
+    } else if (viewPortWidth <= 1280) {
+        $("#divAssignRoleName").css("max-width", '1200px');
+    }
 };
 /**
  * Following method is used to display error Icon.
  * @param txtID
  */
 common.prototype.showErrorIcon = function(txtID){
-	$(txtID).removeClass("validValueIconCollection");
-	$(txtID).addClass("errorIconCollection");	
+    $(txtID).removeClass("validValueIconCollection");
+    $(txtID).addClass("errorIconCollection");   
 };
 /**
  * Following method is used for displaying valid value icon.
  * @param txtID
  */
 common.prototype.showValidValueIcon = function(txtID){
-	$(txtID).removeClass("errorIconCollection");	
-	$(txtID).addClass("validValueIconCollection");
-	
+    $(txtID).removeClass("errorIconCollection");    
+    $(txtID).addClass("validValueIconCollection");
+    
 };
 
 /**
@@ -2480,18 +2479,18 @@ common.prototype.showValidValueIcon = function(txtID){
  * @param txtID
  */
 common.prototype.removeStatusIcons = function(txtID){
-	$(txtID).removeClass("errorIconCollection");	
-	$(txtID).removeClass("validValueIconCollection");
+    $(txtID).removeClass("errorIconCollection");    
+    $(txtID).removeClass("validValueIconCollection");
 };
 
 var messageTimer = null;
 common.prototype.autoHideAssignRibbonMessage = function(divID){
-	if(messageTimer){
-		clearTimeout(messageTimer);
-		messageTimer = null;
-	}
-	var timeOut = getUiProps().MSG0037;
-	messageTimer = window.setTimeout("$('#"+divID+"').hide()", timeOut);
+    if(messageTimer){
+        clearTimeout(messageTimer);
+        messageTimer = null;
+    }
+    var timeOut = getUiProps().MSG0037;
+    messageTimer = window.setTimeout("$('#"+divID+"').hide()", timeOut);
 };
 
 
@@ -2500,48 +2499,48 @@ common.prototype.autoHideAssignRibbonMessage = function(divID){
  * Top and Left are dynamically set as per screen requirement.
  */
 common.prototype.optsCustom = {
-		lines : 8, // The number of lines to draw
-		length : 0, // The length of each line
-		width : 7, // The line thickness
-		radius : 11, // The radius of the inner circle
-		corners : 1, // Corner roundness (0..1)
-		rotate : 0, // The rotation offset
-		direction : 1, // 1: clockwise, -1: counterclockwise
-		color : '#b6b6b6', // #rgb or #rrggbb
-		speed : 1.2, // Rounds per second
-		trail : 68, // Afterglow percentage
-		shadow : false, // Whether to render a shadow
-		hwaccel : false, // Whether to use hardware acceleration
-		className : 'spinner', // The CSS class to assign to the spinner
-		zIndex : 2e9, // The z-index (defaults to 2000000000)
-		top : 'auto', // Top position relative to parent in px
-		left : 'auto' // Left position relative to parent in px
+        lines : 8, // The number of lines to draw
+        length : 0, // The length of each line
+        width : 7, // The line thickness
+        radius : 11, // The radius of the inner circle
+        corners : 1, // Corner roundness (0..1)
+        rotate : 0, // The rotation offset
+        direction : 1, // 1: clockwise, -1: counterclockwise
+        color : '#b6b6b6', // #rgb or #rrggbb
+        speed : 1.2, // Rounds per second
+        trail : 68, // Afterglow percentage
+        shadow : false, // Whether to render a shadow
+        hwaccel : false, // Whether to use hardware acceleration
+        className : 'spinner', // The CSS class to assign to the spinner
+        zIndex : 2e9, // The z-index (defaults to 2000000000)
+        top : 'auto', // Top position relative to parent in px
+        left : 'auto' // Left position relative to parent in px
 };
 /**
  * Following method resets scrollbar.
  */
 common.prototype.restScrollBar = function(tBodyID) {
-	$(tBodyID).scrollTop(0);
-	$(tBodyID).scrollLeft(0);
+    $(tBodyID).scrollTop(0);
+    $(tBodyID).scrollLeft(0);
 };
 
 /**
  * Following method enables delete icon (Collection).
  */
 common.prototype.activateCollectionDeleteIcon = function(id){
-	$(id).removeClass();
-	$(id).removeClass('deleteIconWebDav');
-	$(id).addClass('deleteIconWebDavEnabled');
+    $(id).removeClass();
+    $(id).removeClass('deleteIconWebDav');
+    $(id).addClass('deleteIconWebDavEnabled');
 };
 
 /**
  * Following method disables delete icon (Collection).
  */
 common.prototype.disableDeleteIcon = function(id){
-	$(id).removeAttr('style');
-	$(id).removeClass();
-	$(id).removeClass('deleteIconWebDavEnabled');
-	$(id).addClass('deleteIconWebDav');
+    $(id).removeAttr('style');
+    $(id).removeClass();
+    $(id).removeClass('deleteIconWebDavEnabled');
+    $(id).addClass('deleteIconWebDav');
 };
 
 /**
@@ -2550,7 +2549,7 @@ common.prototype.disableDeleteIcon = function(id){
  * @param value
  */
 common.prototype.setHTMLValue = function(id, value){
-	document.getElementById(id).innerHTML = value;
+    document.getElementById(id).innerHTML = value;
 };
 
 /**
@@ -2559,48 +2558,48 @@ common.prototype.setHTMLValue = function(id, value){
  * @returns {String}
  */
 common.prototype.convertReadableDateToInputDateFormat = function(readableDate){
-	var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-	var monthName = readableDate.split("-")[1];
-	var monthNum = m_names.indexOf(monthName);
-	monthNum = monthNum +1;
-	if(monthNum < 10){
-		monthNum = "0" + monthNum;
-	}
-	var dayNum = "";
-	if(readableDate.split("-")[0].length == 1){
-		dayNum = "0" + readableDate.split("-")[0];
-	}else if(readableDate.split("-")[0].length == 2){
-		dayNum = readableDate.split("-")[0];
-	}
-	var readableYearAndTime = readableDate.split("-")[2];
-	var readableYear = readableYearAndTime.split(" ")[0];
-	var inputDate = readableYear + "-" + monthNum + "-" + dayNum;
-	return inputDate;
+    var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    var monthName = readableDate.split("-")[1];
+    var monthNum = m_names.indexOf(monthName);
+    monthNum = monthNum +1;
+    if(monthNum < 10){
+        monthNum = "0" + monthNum;
+    }
+    var dayNum = "";
+    if(readableDate.split("-")[0].length == 1){
+        dayNum = "0" + readableDate.split("-")[0];
+    }else if(readableDate.split("-")[0].length == 2){
+        dayNum = readableDate.split("-")[0];
+    }
+    var readableYearAndTime = readableDate.split("-")[2];
+    var readableYear = readableYearAndTime.split(" ")[0];
+    var inputDate = readableYear + "-" + monthNum + "-" + dayNum;
+    return inputDate;
 };
 
 common.prototype.replaceNullValues = function(value, replaceString) {
-	if (value== "" || value == null || value == undefined){
-		return replaceString;
-	}
-	return value;
+    if (value== "" || value == null || value == undefined){
+        return replaceString;
+    }
+    return value;
 };
 
 common.prototype.setCellControlsInfoTabValues = function(ccname, cctag0, cctag1, cccreatedat, ccupdatedat, ccurl) {
-	
-	cctag0	= objCommon.replaceNullValues(cctag0,getUiProps().MSG0275);
-	cctag1	= objCommon.replaceNullValues(cctag1,getUiProps().MSG0275);
+    
+    cctag0  = objCommon.replaceNullValues(cctag0,getUiProps().MSG0275);
+    cctag1  = objCommon.replaceNullValues(cctag1,getUiProps().MSG0275);
 
-	var etag = cctag0 + "/" +'" ' +cctag1 + '"';
-	
-	if (cctag1 == getUiProps().MSG0275) {
-		etag = cctag0;
-	}
-	
-	sessionStorage.ccname		= objCommon.replaceNullValues(ccname,getUiProps().MSG0275);
-	sessionStorage.ccetag		= etag;
-	sessionStorage.cccreatedat	= objCommon.replaceNullValues(cccreatedat,getUiProps().MSG0275);
-	sessionStorage.ccupdatedat	= objCommon.replaceNullValues(ccupdatedat,getUiProps().MSG0275);
-	sessionStorage.ccurl		= objCommon.replaceNullValues(ccurl,getUiProps().MSG0275).replace(/[`]/g,"'");
+    var etag = cctag0 + "/" +'" ' +cctag1 + '"';
+    
+    if (cctag1 == getUiProps().MSG0275) {
+        etag = cctag0;
+    }
+    
+    sessionStorage.ccname       = objCommon.replaceNullValues(ccname,getUiProps().MSG0275);
+    sessionStorage.ccetag       = etag;
+    sessionStorage.cccreatedat  = objCommon.replaceNullValues(cccreatedat,getUiProps().MSG0275);
+    sessionStorage.ccupdatedat  = objCommon.replaceNullValues(ccupdatedat,getUiProps().MSG0275);
+    sessionStorage.ccurl        = objCommon.replaceNullValues(ccurl,getUiProps().MSG0275).replace(/[`]/g,"'");
 };
 
 /**
@@ -2609,26 +2608,26 @@ common.prototype.setCellControlsInfoTabValues = function(ccname, cctag0, cctag1,
  * @param dropDownID
  */
 common.prototype.bindRoleBoxDropDown = function(dropDownID) {
-	var message = getUiProps().MSG0225;
-	var mainBox = getUiProps().MSG0039;
-	objCommon.refreshDropDown(dropDownID, message);
-	var jsonString = objCommon.getRoleListForSelectedCell();
-	var select = document.getElementById(dropDownID);
-	for (var count = 0; count < jsonString.length; count++) {
-		var option = document.createElement("option");
-		var objRole = jsonString[count];
-		option.id = objRole.__metadata.etag;
-		var boxName = objRole['_Box.Name'];
-		option.innerHTML = objRole.Name + objCommon.startBracket + boxName + objCommon.endBracket;
-		if (boxName == null) {
-			option.innerHTML = objRole.Name + objCommon.startBracket + mainBox + objCommon.endBracket;
-		}
-		option.title = option.innerHTML;
-		option.value = option.innerHTML;
-		var tooltipRoleBoxName = objCommon.getShorterName(option.innerHTML, 17);
-		option.text = tooltipRoleBoxName ;
-		select.appendChild(option);
-	}
+    var message = getUiProps().MSG0225;
+    var mainBox = getUiProps().MSG0039;
+    objCommon.refreshDropDown(dropDownID, message);
+    var jsonString = objCommon.getRoleListForSelectedCell();
+    var select = document.getElementById(dropDownID);
+    for (var count = 0; count < jsonString.length; count++) {
+        var option = document.createElement("option");
+        var objRole = jsonString[count];
+        option.id = objRole.__metadata.etag;
+        var boxName = objRole['_Box.Name'];
+        option.innerHTML = objRole.Name + objCommon.startBracket + boxName + objCommon.endBracket;
+        if (boxName == null) {
+            option.innerHTML = objRole.Name + objCommon.startBracket + mainBox + objCommon.endBracket;
+        }
+        option.title = option.innerHTML;
+        option.value = option.innerHTML;
+        var tooltipRoleBoxName = objCommon.getShorterName(option.innerHTML, 17);
+        option.text = tooltipRoleBoxName ;
+        select.appendChild(option);
+    }
 };
 
 /**
@@ -2638,12 +2637,12 @@ common.prototype.bindRoleBoxDropDown = function(dropDownID) {
  * @param message
  */
 common.prototype.refreshDropDown = function(dropDownID, message) {
-	var select = document.getElementById(dropDownID);
-	select.options.length = 0;
-	var newOption = document.createElement('option');
-	newOption.value = 0;
-	newOption.innerHTML = message;
-	select.insertBefore(newOption, select.options[-1]);
+    var select = document.getElementById(dropDownID);
+    select.options.length = 0;
+    var newOption = document.createElement('option');
+    newOption.value = 0;
+    newOption.innerHTML = message;
+    select.insertBefore(newOption, select.options[-1]);
 };
 
 /**
@@ -2652,17 +2651,17 @@ common.prototype.refreshDropDown = function(dropDownID, message) {
  * @returns
  */
 common.prototype.getRoleListForSelectedCell = function () {
-	var cellName = sessionStorage.selectedcell;
-	var baseUrl = getClientStore().baseURL;
-	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
-	var objRoleManager = new _pc.RoleManager(accessor);
-	var count = retrieveRoleRecordCount();
-	var uri = objRoleManager.getUrl();
-	uri = uri + "?$orderby=__updated desc &$top=" + count;
-	var restAdapter =  new _pc.RestAdapterFactory.create(accessor);
-	var response = restAdapter.get(uri, "application/json");
-	var json = response.bodyAsJson().d.results;
-	return json;
+    var cellName = sessionStorage.selectedcell;
+    var baseUrl = getClientStore().baseURL;
+    var accessor = objCommon.initializeAccessor(baseUrl, cellName);
+    var objRoleManager = new _pc.RoleManager(accessor);
+    var count = retrieveRoleRecordCount();
+    var uri = objRoleManager.getUrl();
+    uri = uri + "?$orderby=__updated desc &$top=" + count;
+    var restAdapter =  new _pc.RestAdapterFactory.create(accessor);
+    var response = restAdapter.get(uri, "application/json");
+    var json = response.bodyAsJson().d.results;
+    return json;
 };
 
 /**
@@ -2673,19 +2672,19 @@ common.prototype.getRoleListForSelectedCell = function () {
  * @param isRoleBox
  */
 common.prototype.clickAssignChkBoxCreatePopup = function(chkBoxID, dropDownID, isRoleBox, dropDownErrorMsg) {
-	var dropDownDefaultMsg = null;
-	if (isRoleBox) {
-		dropDownDefaultMsg = getUiProps().MSG0225;
-	}
-	if ($('#'+chkBoxID).is(':checked')) {
-		$("#"+dropDownID).removeAttr("disabled");
-		$("#"+dropDownID).removeClass("customSlectDDDisabled");
-	} else {
-		$("#"+dropDownID).attr('disabled', true);
-		$("#"+dropDownID).addClass("customSlectDDDisabled");
-		$("#"+dropDownID).val(dropDownDefaultMsg);
-		$("#"+dropDownErrorMsg).text("");
-	}
+    var dropDownDefaultMsg = null;
+    if (isRoleBox) {
+        dropDownDefaultMsg = getUiProps().MSG0225;
+    }
+    if ($('#'+chkBoxID).is(':checked')) {
+        $("#"+dropDownID).removeAttr("disabled");
+        $("#"+dropDownID).removeClass("customSlectDDDisabled");
+    } else {
+        $("#"+dropDownID).attr('disabled', true);
+        $("#"+dropDownID).addClass("customSlectDDDisabled");
+        $("#"+dropDownID).val(dropDownDefaultMsg);
+        $("#"+dropDownErrorMsg).text("");
+    }
 };
 
 /**
@@ -2700,22 +2699,22 @@ common.prototype.clickAssignChkBoxCreatePopup = function(chkBoxID, dropDownID, i
  * @returns
  */
 common.prototype.assignEntity = function(dropDownID, SOURCE, DESTINATION, key, isMultiKey) {
-	var cellName = sessionStorage.selectedcell;
-	var baseUrl = getClientStore().baseURL;
-	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
-	var context = objCommon.initializeAbstractDataContext(accessor);
-	var arrRoleOrRelation = objCommon.getSelectedEntity(dropDownID);
-	var mainBox = getUiProps().MSG0039;
-	var roleOrRelation = arrRoleOrRelation[0].split(' ').join('');
-	var box = arrRoleOrRelation[1].split(' ').join('');
-	box = objCommon.getBoxSubstring(box);
-	roleOrRelation = roleOrRelation.trim();
-		var objLinkManager = objCommon.initializeLinkManager(accessor, context);
-		if (box == mainBox) {
-			box = null;
-		}
-	var response = objLinkManager.establishLink(context, SOURCE, DESTINATION, key, box, roleOrRelation, isMultiKey);
-	return response;
+    var cellName = sessionStorage.selectedcell;
+    var baseUrl = getClientStore().baseURL;
+    var accessor = objCommon.initializeAccessor(baseUrl, cellName);
+    var context = objCommon.initializeAbstractDataContext(accessor);
+    var arrRoleOrRelation = objCommon.getSelectedEntity(dropDownID);
+    var mainBox = getUiProps().MSG0039;
+    var roleOrRelation = arrRoleOrRelation[0].split(' ').join('');
+    var box = arrRoleOrRelation[1].split(' ').join('');
+    box = objCommon.getBoxSubstring(box);
+    roleOrRelation = roleOrRelation.trim();
+        var objLinkManager = objCommon.initializeLinkManager(accessor, context);
+        if (box == mainBox) {
+            box = null;
+        }
+    var response = objLinkManager.establishLink(context, SOURCE, DESTINATION, key, box, roleOrRelation, isMultiKey);
+    return response;
 };
 
 /**
@@ -2725,14 +2724,14 @@ common.prototype.assignEntity = function(dropDownID, SOURCE, DESTINATION, key, i
  * @returns
  */
 common.prototype.getBoxSubstring = function (boxName) {
-	var boxSubstring = null;
-	if (boxName != undefined) {
-		var lenBoxName = boxName.length;
-		if (lenBoxName > 0) {
-			boxSubstring  = boxName.substring(0, lenBoxName - 1);
-		}
-	}
-	return boxSubstring;
+    var boxSubstring = null;
+    if (boxName != undefined) {
+        var lenBoxName = boxName.length;
+        if (lenBoxName > 0) {
+            boxSubstring  = boxName.substring(0, lenBoxName - 1);
+        }
+    }
+    return boxSubstring;
 };
 
 /**
@@ -2741,8 +2740,8 @@ common.prototype.getBoxSubstring = function (boxName) {
  * @param txtID
  */
 common.prototype.removePopUpStatusIcons = function(txtID){
-	$(txtID).removeClass("errorIcon");	
-	$(txtID).removeClass("validValueIcon");
+    $(txtID).removeClass("errorIcon");  
+    $(txtID).removeClass("validValueIcon");
 };
 
 /**
@@ -2754,9 +2753,9 @@ common.prototype.removePopUpStatusIcons = function(txtID){
  * @param message
  */
 common.prototype.resetAssignationDropDown = function(dropDownID, btnAssign, message){
-	$(dropDownID).val(message);
-	$(btnAssign).attr('disabled', 'disabled');
-	$(btnAssign).addClass('assignBtnDisabled');
+    $(dropDownID).val(message);
+    $(btnAssign).attr('disabled', 'disabled');
+    $(btnAssign).addClass('assignBtnDisabled');
 };
 
 /**
@@ -2764,62 +2763,62 @@ common.prototype.resetAssignationDropDown = function(dropDownID, btnAssign, mess
  * of data management grid.
  */
 common.prototype.hideListTypePopUp = function() {
-	$('.openDetailsPopUpDataMgmt').each(function() {
-		$(".openDetailsPopUpDataMgmt").remove();
-	});
+    $('.openDetailsPopUpDataMgmt').each(function() {
+        $(".openDetailsPopUpDataMgmt").remove();
+    });
 };
 
 common.prototype.contentTypeHashTable = new HashTable({
-	log	:'text/plain', 
-	epf	: 'text/plain',
-	java: 'text/plain',
-	lzh	: 'application/x-compress',
-	bar	: 'application/zip',
-	rar	: 'application/x-rar-compressed',
-	psd	: 'image/vnd.adobe.photoshop',
-	js	: 'application/x-javascript',
-	pdf	: 'application/pdf',
-	txt	: 'text/plain',
-	jpg	: 'image/jpeg',
-	png	: 'image/png',
-	html: 'text/html',
-	docx: 'application/docx',
-	doc	: 'application/docx',
-	xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-	xls	: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-	zip	: 'application/zip',
-	json: 'application/json',
-	wmv	: 'video/x-ms-wmv',
-	xml	: 'text/xml',
-	css	: 'text/css',
-	mp3	: 'audio/mp3',
-	mp4	: 'video/mp4',
-	pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-	jpeg: 'image/jpeg',
-	ppt	: 'application/vnd.ms-powerpoint'
+    log :'text/plain', 
+    epf : 'text/plain',
+    java: 'text/plain',
+    lzh : 'application/x-compress',
+    bar : 'application/zip',
+    rar : 'application/x-rar-compressed',
+    psd : 'image/vnd.adobe.photoshop',
+    js  : 'application/x-javascript',
+    pdf : 'application/pdf',
+    txt : 'text/plain',
+    jpg : 'image/jpeg',
+    png : 'image/png',
+    html: 'text/html',
+    docx: 'application/docx',
+    doc : 'application/docx',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    xls : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    zip : 'application/zip',
+    json: 'application/json',
+    wmv : 'video/x-ms-wmv',
+    xml : 'text/xml',
+    css : 'text/css',
+    mp3 : 'audio/mp3',
+    mp4 : 'video/mp4',
+    pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    jpeg: 'image/jpeg',
+    ppt : 'application/vnd.ms-powerpoint'
 });
 
 
 common.prototype.syntaxHighlight =function(json) {
-	if (typeof json != 'string') {
-		json = JSON.stringify(json, undefined, 2);
-	}
-	json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-	return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-		var cls = 'number';
-		if (/^"/.test(match)) {
-			if (/:$/.test(match)) {
-				cls = 'key';
-			} else {
-				cls = 'string';
-			}
-		} else if (/true|false/.test(match)) {
-			cls = 'boolean';
-		} else if (/null/.test(match)) {
-			cls = 'null';
-		}
-		return '<span class="' + cls + '">' + match + '</span>';
-	});
+    if (typeof json != 'string') {
+        json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
 };
 
 /**
@@ -2827,12 +2826,12 @@ common.prototype.syntaxHighlight =function(json) {
  * @param errorSuccessdivId
  */
 common.prototype.centerAlignRibbonMessage = function(errorSuccessdivId) {
-	var width =$(window).width();
-	var divWidth =$(errorSuccessdivId).width();
-	var divHalfWidth = divWidth/2;
-	var widthDiff = (width)/2 - divHalfWidth;
-	$(errorSuccessdivId).css("left",widthDiff);
-	
+    var width =$(window).width();
+    var divWidth =$(errorSuccessdivId).width();
+    var divHalfWidth = divWidth/2;
+    var widthDiff = (width)/2 - divHalfWidth;
+    $(errorSuccessdivId).css("left",widthDiff);
+    
 };
 
 /**
@@ -2843,26 +2842,26 @@ common.prototype.centerAlignRibbonMessage = function(errorSuccessdivId) {
  * @returns {Boolean} True/False.
  */
 common.prototype.validateURL = function(domainName,errorSpan,txtID) {
-	var letters = /^[0-9a-zA-Z-_.]+$/;
-	var startHyphenUnderscore = /^[-_!@#$%^&*()=+]/;
-	if (domainName == undefined){
-		document.getElementById(errorSpan).innerHTML = getUiProps().MSG0302;
-		cellpopup.showErrorIcon(txtID);
-		return false;
-	}
-	var lenCellName = domainName.length;
-	if (domainName.match(startHyphenUnderscore)) {
-		document.getElementById(errorSpan).innerHTML = getUiProps().MSG0301;
-		cellpopup.showErrorIcon(txtID);
-		return false;
-	} else if (lenCellName != 0 && !(domainName.match(letters))) {
-		document.getElementById(errorSpan).innerHTML = getUiProps().MSG0300;
-		cellpopup.showErrorIcon(txtID);
-		return false;
-	} 
-	document.getElementById(errorSpan).innerHTML = "";
-	cellpopup.showValidValueIcon(txtID);
-	return true;
+    var letters = /^[0-9a-zA-Z-_.]+$/;
+    var startHyphenUnderscore = /^[-_!@#$%^&*()=+]/;
+    if (domainName == undefined){
+        document.getElementById(errorSpan).innerHTML = getUiProps().MSG0302;
+        cellpopup.showErrorIcon(txtID);
+        return false;
+    }
+    var lenCellName = domainName.length;
+    if (domainName.match(startHyphenUnderscore)) {
+        document.getElementById(errorSpan).innerHTML = getUiProps().MSG0301;
+        cellpopup.showErrorIcon(txtID);
+        return false;
+    } else if (lenCellName != 0 && !(domainName.match(letters))) {
+        document.getElementById(errorSpan).innerHTML = getUiProps().MSG0300;
+        cellpopup.showErrorIcon(txtID);
+        return false;
+    } 
+    document.getElementById(errorSpan).innerHTML = "";
+    cellpopup.showValidValueIcon(txtID);
+    return true;
 };
 
 /**
@@ -2874,16 +2873,16 @@ common.prototype.validateURL = function(domainName,errorSpan,txtID) {
  * @returns {Boolean} True/False.
  */
 common.prototype.doesUrlContainSlash = function(schemaURL, schemaSpan,txtID,message) {
-	if (schemaURL != undefined) {
-		if (!schemaURL.endsWith("/")) {
-			document.getElementById(schemaSpan).innerHTML = message;
-			cellpopup.showErrorIcon(txtID);
-			return false;
-		}
-		document.getElementById(schemaSpan).innerHTML = "";
-		cellpopup.showValidValueIcon(txtID);
-		return true;
-	}
+    if (schemaURL != undefined) {
+        if (!schemaURL.endsWith("/")) {
+            document.getElementById(schemaSpan).innerHTML = message;
+            cellpopup.showErrorIcon(txtID);
+            return false;
+        }
+        document.getElementById(schemaSpan).innerHTML = "";
+        cellpopup.showValidValueIcon(txtID);
+        return true;
+    }
 };
 
 /******************************************** Pagination After Delete - Start ********************************************/
@@ -2893,15 +2892,15 @@ common.prototype.doesUrlContainSlash = function(schemaURL, schemaSpan,txtID,mess
  * @returns position
  */
 common.prototype.getSelectedEtag = function(assignEntityGridTbody) {
-	var val = [];
-	if (assignEntityGridTbody != "#entityTableBody") {
-		assignEntityGridTbody = objCommon.replaceNullValues(
-				assignEntityGridTbody, "#entityGridTbody");
-	}
-	$(assignEntityGridTbody + ' :checkbox:checked').each(function(iterate) {
-		val[iterate] = $(this).attr('title');
-	});
-	return val[0];
+    var val = [];
+    if (assignEntityGridTbody != "#entityTableBody") {
+        assignEntityGridTbody = objCommon.replaceNullValues(
+                assignEntityGridTbody, "#entityGridTbody");
+    }
+    $(assignEntityGridTbody + ' :checkbox:checked').each(function(iterate) {
+        val[iterate] = $(this).attr('title');
+    });
+    return val[0];
 };
 
 /**
@@ -2909,17 +2908,17 @@ common.prototype.getSelectedEtag = function(assignEntityGridTbody) {
  * @returns
  */
 common.prototype.getEtagOfFirstUnSelectedCheckBox = function(
-		assignEntityGridTbody) {
-	var val = [];
-	if (assignEntityGridTbody != "#entityTableBody") {
-		assignEntityGridTbody = objCommon.replaceNullValues(
-				assignEntityGridTbody, "#entityGridTbody");
-	}
-	$(assignEntityGridTbody + ' :checkbox:not(:checked)').each(
-			function(iterate) {
-				val[iterate] = $(this).attr('title');
-			});
-	return val[0];
+        assignEntityGridTbody) {
+    var val = [];
+    if (assignEntityGridTbody != "#entityTableBody") {
+        assignEntityGridTbody = objCommon.replaceNullValues(
+                assignEntityGridTbody, "#entityGridTbody");
+    }
+    $(assignEntityGridTbody + ' :checkbox:not(:checked)').each(
+            function(iterate) {
+                val[iterate] = $(this).attr('title');
+            });
+    return val[0];
 };
 
 /**
@@ -2928,25 +2927,25 @@ common.prototype.getEtagOfFirstUnSelectedCheckBox = function(
  * @returns etag value.
  */
 common.prototype.getEtagElementID = function(etagIDOfPreviousRecord,firstCheckBoxID,assignEntityGridTbody) {
-	var previousIndex = 0;
-	var firstAmongSelectedIndexes = 0;
-	var firstAmongUnselectedIndexes = 0;
-	var etagInfo = [];
-	//if ($("#chkBox0").is(':checked')) {
-	if ($(firstCheckBoxID).is(':checked')) {
-		firstAmongUnselectedIndexes = objCommon
-				.getEtagOfFirstUnSelectedCheckBox(assignEntityGridTbody);
-		etagIDOfPreviousRecord += firstAmongUnselectedIndexes;
-	} else {
-		firstAmongSelectedIndexes = objCommon.getSelectedEtag(assignEntityGridTbody);
-		if (firstAmongSelectedIndexes != 0) {
-			previousIndex = firstAmongSelectedIndexes - 1;
-		}
-		etagIDOfPreviousRecord += previousIndex;
-	}
-	etagInfo.push(etagIDOfPreviousRecord);
-	etagInfo.push(previousIndex);
-	return etagInfo;
+    var previousIndex = 0;
+    var firstAmongSelectedIndexes = 0;
+    var firstAmongUnselectedIndexes = 0;
+    var etagInfo = [];
+    //if ($("#chkBox0").is(':checked')) {
+    if ($(firstCheckBoxID).is(':checked')) {
+        firstAmongUnselectedIndexes = objCommon
+                .getEtagOfFirstUnSelectedCheckBox(assignEntityGridTbody);
+        etagIDOfPreviousRecord += firstAmongUnselectedIndexes;
+    } else {
+        firstAmongSelectedIndexes = objCommon.getSelectedEtag(assignEntityGridTbody);
+        if (firstAmongSelectedIndexes != 0) {
+            previousIndex = firstAmongSelectedIndexes - 1;
+        }
+        etagIDOfPreviousRecord += previousIndex;
+    }
+    etagInfo.push(etagIDOfPreviousRecord);
+    etagInfo.push(previousIndex);
+    return etagInfo;
 };
 
 /**
@@ -2957,13 +2956,13 @@ common.prototype.getEtagElementID = function(etagIDOfPreviousRecord,firstCheckBo
  * @returns {Array} array having etag position
  */
 common.prototype.getEtagValue = function(etagIDOfPreviousRecord,previousIndex,type) {
-	var arrEtagInformation = [];
-	var etagValue = document.getElementById(etagIDOfPreviousRecord).value;
-	var paginatonLowerValue = objCommon
-			.getEtagPaginationPosition(previousIndex,type);
-	arrEtagInformation.push(etagValue);
-	arrEtagInformation.push(paginatonLowerValue);
-	return arrEtagInformation;
+    var arrEtagInformation = [];
+    var etagValue = document.getElementById(etagIDOfPreviousRecord).value;
+    var paginatonLowerValue = objCommon
+            .getEtagPaginationPosition(previousIndex,type);
+    arrEtagInformation.push(etagValue);
+    arrEtagInformation.push(paginatonLowerValue);
+    return arrEtagInformation;
 };
 
 /**
@@ -2973,13 +2972,13 @@ common.prototype.getEtagValue = function(etagIDOfPreviousRecord,previousIndex,ty
  * @returns position
  */
 common.prototype.getEtagPaginationPosition = function(previousIndex,type) {
-	var contentPagination = $('#recordCount_'+type).clone().children().remove()
-			.end().text();
-	var arrPaginationText = contentPagination.split('-');
-	var paginatonLowerValue = parseInt(arrPaginationText[0]);
-	if (previousIndex != 0)
-		paginatonLowerValue += (previousIndex - 1);
-	return paginatonLowerValue;
+    var contentPagination = $('#recordCount_'+type).clone().children().remove()
+            .end().text();
+    var arrPaginationText = contentPagination.split('-');
+    var paginatonLowerValue = parseInt(arrPaginationText[0]);
+    if (previousIndex != 0)
+        paginatonLowerValue += (previousIndex - 1);
+    return paginatonLowerValue;
 };
 
 /**
@@ -2991,13 +2990,13 @@ common.prototype.getEtagPaginationPosition = function(previousIndex,type) {
  * @returns etag value.
  */
 common.prototype.fetchEtagOfPreviousRecord = function(etagIDOfPreviousRecord,arrEtag,firstCheckBoxID,mappingTBody) {
-		etagIDOfPreviousRecord = objCommon
-				.getEtagElementID(etagIDOfPreviousRecord,firstCheckBoxID,mappingTBody)[0];
-		arrEtag = objCommon.getEtagValue(etagIDOfPreviousRecord, objCommon
-				.getEtagElementID(etagIDOfPreviousRecord,firstCheckBoxID,mappingTBody)[1]);
-		// Use this Etag value to find the exact postion of record in New Json.
-		etagValue = arrEtag[0];
-	return etagValue;
+        etagIDOfPreviousRecord = objCommon
+                .getEtagElementID(etagIDOfPreviousRecord,firstCheckBoxID,mappingTBody)[0];
+        arrEtag = objCommon.getEtagValue(etagIDOfPreviousRecord, objCommon
+                .getEtagElementID(etagIDOfPreviousRecord,firstCheckBoxID,mappingTBody)[1]);
+        // Use this Etag value to find the exact postion of record in New Json.
+        etagValue = arrEtag[0];
+    return etagValue;
 };
 
 
@@ -3009,86 +3008,86 @@ common.prototype.fetchEtagOfPreviousRecord = function(etagIDOfPreviousRecord,arr
  * @returns {String} json data.
  */
 common.prototype.getUpdatedJsonDataForActivepage = function(tableID,type,startIndex,mappingType) {
-	
-	var endIndex = startIndex + (objCommon.MAXROWS * 2);
-	var json = '';
-	if (type == "OdataGrid") {
-		$("#headerChkBox").attr('disabled', false);
-		json =  uDataManagement.retrieveChunkedData(startIndex, endIndex);
-	} else {
-		$("#chkSelectall").attr('disabled', false);
-		$(tableID + "thead tr").addClass("mainTableHeaderRow");
-		$(tableID + "tbody").removeClass("emptyBoxTable");
-		$(tableID + " tbody").addClass("mainTableTbody");
-	}
-	if (type == "Box") {
-		json = objBox.retrieveChunkedData(startIndex, endIndex);
-	}
-	if (type == "Account") {
-		json = objAccount.retrieveChunkedData(startIndex, endIndex);
-	}
-	if (type == "Role") {
-		json = objRole.retrieveChunkedData(startIndex, endIndex);
-	}
-	if (type == "ExtCell") {
-		json = objExtCell.retrieveChunkedData(startIndex, endIndex);
-	}
-	if (type == "Relation") {
-		json = objRelation.retrieveChunkedData(startIndex, endIndex);
-	}
-	if (type == "assignAccountTab") {
-		json = objRoleAccountLink.retrieveChunkedData(startIndex, endIndex);
-	}
-	if (type == "ReceivedMessage") {
-		json =  uReceivedMessage.retrieveChunkedData(startIndex, endIndex);
-	}
-	if (type == "SentMessage") {
-		json =  uSentMessage.retrieveChunkedData(startIndex, endIndex);
-	}
-	if (type == "ExtRole") {
-		json =  uExternalRole.retrieveChunkedData(startIndex, endIndex);
-	}
-	if (type == "assignRoleTab") {
-		if (mappingType == "RoleToAccount") {
-			json = objRoleToAccountMapping.retrieveChunkedData(startIndex,
-					endIndex);
-		}
-		if (mappingType == "RoleToExtCell") {
-			json = objRoleToExtCellMapping.retrieveChunkedData(startIndex,
-					endIndex);
-		}
-		if (mappingType == "RoleToRelation") {
-			json = objRoleToRelationMapping.retrieveChunkedData(startIndex,
-					endIndex);
-		}
-		if (mappingType == "RoleToExtRole"){
-			json = objRoleToExtRoleMapping.retrieveChunkedData(startIndex,
-					endIndex);
-		}
-	}
-	if (type == "assignRelationTab") {
-		if (mappingType == "RelationToRole") {
-			json = uRelationToRoleMapping.retrieveChunkedData(startIndex, endIndex);
-		}
-		if (mappingType == "RelationToExtCell") {
-			json =  objRelationToExternalCellMapping.retrieveChunkedData(startIndex, endIndex);
-		}
-	}
-	if (type == "assignExtCellTab") {
-		if (mappingType == "ExtCelltoRelation") {
-			json = objExternalCellToRelationMapping.retrieveChunkedData(startIndex, endIndex);
-		}
-		if (mappingType == "ExtCelltoRole") {
-			json =  objExternalCellToRoleMapping.retrieveChunkedData(startIndex, endIndex);
-		}
-	}
-	
-	if (type == "assignExtRoleTab") {
-		if (mappingType == "ExtRoleToRole") {
-			json =  uExternalRoleToRoleMapping.retrieveChunkedData(startIndex, endIndex);
-		}
-	}
-	return json;	
+    
+    var endIndex = startIndex + (objCommon.MAXROWS * 2);
+    var json = '';
+    if (type == "OdataGrid") {
+        $("#headerChkBox").attr('disabled', false);
+        json =  uDataManagement.retrieveChunkedData(startIndex, endIndex);
+    } else {
+        $("#chkSelectall").attr('disabled', false);
+        $(tableID + "thead tr").addClass("mainTableHeaderRow");
+        $(tableID + "tbody").removeClass("emptyBoxTable");
+        $(tableID + " tbody").addClass("mainTableTbody");
+    }
+    if (type == "Box") {
+        json = objBox.retrieveChunkedData(startIndex, endIndex);
+    }
+    if (type == "Account") {
+        json = objAccount.retrieveChunkedData(startIndex, endIndex);
+    }
+    if (type == "Role") {
+        json = objRole.retrieveChunkedData(startIndex, endIndex);
+    }
+    if (type == "ExtCell") {
+        json = objExtCell.retrieveChunkedData(startIndex, endIndex);
+    }
+    if (type == "Relation") {
+        json = objRelation.retrieveChunkedData(startIndex, endIndex);
+    }
+    if (type == "assignAccountTab") {
+        json = objRoleAccountLink.retrieveChunkedData(startIndex, endIndex);
+    }
+    if (type == "ReceivedMessage") {
+        json =  uReceivedMessage.retrieveChunkedData(startIndex, endIndex);
+    }
+    if (type == "SentMessage") {
+        json =  uSentMessage.retrieveChunkedData(startIndex, endIndex);
+    }
+    if (type == "ExtRole") {
+        json =  uExternalRole.retrieveChunkedData(startIndex, endIndex);
+    }
+    if (type == "assignRoleTab") {
+        if (mappingType == "RoleToAccount") {
+            json = objRoleToAccountMapping.retrieveChunkedData(startIndex,
+                    endIndex);
+        }
+        if (mappingType == "RoleToExtCell") {
+            json = objRoleToExtCellMapping.retrieveChunkedData(startIndex,
+                    endIndex);
+        }
+        if (mappingType == "RoleToRelation") {
+            json = objRoleToRelationMapping.retrieveChunkedData(startIndex,
+                    endIndex);
+        }
+        if (mappingType == "RoleToExtRole"){
+            json = objRoleToExtRoleMapping.retrieveChunkedData(startIndex,
+                    endIndex);
+        }
+    }
+    if (type == "assignRelationTab") {
+        if (mappingType == "RelationToRole") {
+            json = uRelationToRoleMapping.retrieveChunkedData(startIndex, endIndex);
+        }
+        if (mappingType == "RelationToExtCell") {
+            json =  objRelationToExternalCellMapping.retrieveChunkedData(startIndex, endIndex);
+        }
+    }
+    if (type == "assignExtCellTab") {
+        if (mappingType == "ExtCelltoRelation") {
+            json = objExternalCellToRelationMapping.retrieveChunkedData(startIndex, endIndex);
+        }
+        if (mappingType == "ExtCelltoRole") {
+            json =  objExternalCellToRoleMapping.retrieveChunkedData(startIndex, endIndex);
+        }
+    }
+    
+    if (type == "assignExtRoleTab") {
+        if (mappingType == "ExtRoleToRole") {
+            json =  uExternalRoleToRoleMapping.retrieveChunkedData(startIndex, endIndex);
+        }
+    }
+    return json;    
 };
 
 /**
@@ -3098,17 +3097,17 @@ common.prototype.getUpdatedJsonDataForActivepage = function(tableID,type,startIn
  * @returns {Number} index
  */
 common.prototype.searchEtagInDataSet = function(etag,json) {
-	var index = 0;
-	var jsonLength = json.length;
-	//This method need to be improved by fetching 100 records and then move on to another set of 100 if records aren't found.
-	for ( var count = 0; count < jsonLength; count++) {
-		var obj = json[count];
-		if (obj.__metadata.etag == etag) {
-			index = count;
-		break;
-		}
-	}
-	return index;
+    var index = 0;
+    var jsonLength = json.length;
+    //This method need to be improved by fetching 100 records and then move on to another set of 100 if records aren't found.
+    for ( var count = 0; count < jsonLength; count++) {
+        var obj = json[count];
+        if (obj.__metadata.etag == etag) {
+            index = count;
+        break;
+        }
+    }
+    return index;
 };
 
 /**
@@ -3118,80 +3117,80 @@ common.prototype.searchEtagInDataSet = function(etag,json) {
  * @returns {Number} Index.
  */
 common.prototype.getStartIndex = function(etagValue,type,mappingType) {
-	var index = 0;
-	var json = '';
-	if (type =="Box" ) {
-		json =  retrieveAllJsonData();
-	}
-	if (type =="Account" ) {
-		json =  retrieveAllAccountData();
-	}
-	if (type =="Role" ) {
-		json =  retrieveAllRoleData();
-	}
-	if (type == "ExtCell") {
-		json =  objExtCell.retrieveAllExternalCellData();
-	}
-	if (type == "Relation") {
-		json =  objRelation.retrieveAllRelationData();
-	}
-	if (type == "ReceivedMessage") {
-		json =  uReceivedMessage.retrieveAllReceivedMessages();
-	}
-	if (type == "SentMessage") {
-		json =  uSentMessage.retrieveAllSentMessages();
-	}
-	if (type == "assignAccountTab") {
-		json =  retrieveAllRoleAccountLinkJsonData();
-	}
-	if (type == "ExtRole") {
-		json =  uExternalRole.retrieveAllExternalRoleData(); 
-	}
-	if (type == "assignRoleTab") {
-		if (mappingType == "RoleToAccount") {
-		json =  retrieveAllRoleToAccountMappingJsonData();
-	} 
-		if (mappingType == "RoleToExtCell") {
-			json =  objRoleToExtCellMapping.retrieveAllRoleToExtCellJsonData();
-		}
-		if (mappingType == "RoleToRelation") {
-			json =  objRoleToRelationMapping.retrieveAllRoleToRelationJsonData();
-		}
-		if (mappingType == "RoleToExtRole"){
-			json =  objRoleToExtRoleMapping.retrieveAllRoleToExtRoleJsonData();
-		}
-	}
-	
-	if (type == "assignRelationTab") {
-		if (mappingType == "RelationToRole") {
-			json =  uRelationToRoleMapping.retrieveAllRelationToRoleJsonData();
-		}
-		if (mappingType == "RelationToExtCell") {
-			json =  objRelationToExternalCellMapping.retrieveAllRelationToExtCellJsonData();
-		}
-	}
-	
-	if (type == "assignExtCellTab") {
-		if (mappingType == "ExtCelltoRelation") {
-			json =  objExternalCellToRelationMapping.retrieveAllExtCellToRelationJsonData();
-		}
-		if (mappingType == "ExtCelltoRole") {
-			json =  objExternalCellToRoleMapping.retrieveAllExtCellToRoleJsonData();
-		}
-	}
-	
-	if (type == "assignExtRoleTab") {
-		if (mappingType == "ExtRoleToRole") {
-			json =  uExternalRoleToRoleMapping.retrieveAllExtRoleToRoleJsonData();
-		}
-	}
-	if (type == "OdataGrid") {
-		json =  uDataManagement.retrieveAllEntityJsonData();
-	}
-	index =	 objCommon.searchEtagInDataSet(etagValue,json);
-	var mod =  index % objCommon.MAXROWS;
-	var startIndex =  index  -  mod;
-	return startIndex;
+    var index = 0;
+    var json = '';
+    if (type =="Box" ) {
+        json =  retrieveAllJsonData();
+    }
+    if (type =="Account" ) {
+        json =  retrieveAllAccountData();
+    }
+    if (type =="Role" ) {
+        json =  retrieveAllRoleData();
+    }
+    if (type == "ExtCell") {
+        json =  objExtCell.retrieveAllExternalCellData();
+    }
+    if (type == "Relation") {
+        json =  objRelation.retrieveAllRelationData();
+    }
+    if (type == "ReceivedMessage") {
+        json =  uReceivedMessage.retrieveAllReceivedMessages();
+    }
+    if (type == "SentMessage") {
+        json =  uSentMessage.retrieveAllSentMessages();
+    }
+    if (type == "assignAccountTab") {
+        json =  retrieveAllRoleAccountLinkJsonData();
+    }
+    if (type == "ExtRole") {
+        json =  uExternalRole.retrieveAllExternalRoleData(); 
+    }
+    if (type == "assignRoleTab") {
+        if (mappingType == "RoleToAccount") {
+        json =  retrieveAllRoleToAccountMappingJsonData();
+    } 
+        if (mappingType == "RoleToExtCell") {
+            json =  objRoleToExtCellMapping.retrieveAllRoleToExtCellJsonData();
+        }
+        if (mappingType == "RoleToRelation") {
+            json =  objRoleToRelationMapping.retrieveAllRoleToRelationJsonData();
+        }
+        if (mappingType == "RoleToExtRole"){
+            json =  objRoleToExtRoleMapping.retrieveAllRoleToExtRoleJsonData();
+        }
+    }
+    
+    if (type == "assignRelationTab") {
+        if (mappingType == "RelationToRole") {
+            json =  uRelationToRoleMapping.retrieveAllRelationToRoleJsonData();
+        }
+        if (mappingType == "RelationToExtCell") {
+            json =  objRelationToExternalCellMapping.retrieveAllRelationToExtCellJsonData();
+        }
+    }
+    
+    if (type == "assignExtCellTab") {
+        if (mappingType == "ExtCelltoRelation") {
+            json =  objExternalCellToRelationMapping.retrieveAllExtCellToRelationJsonData();
+        }
+        if (mappingType == "ExtCelltoRole") {
+            json =  objExternalCellToRoleMapping.retrieveAllExtCellToRoleJsonData();
+        }
+    }
+    
+    if (type == "assignExtRoleTab") {
+        if (mappingType == "ExtRoleToRole") {
+            json =  uExternalRoleToRoleMapping.retrieveAllExtRoleToRoleJsonData();
+        }
+    }
+    if (type == "OdataGrid") {
+        json =  uDataManagement.retrieveAllEntityJsonData();
+    }
+    index =  objCommon.searchEtagInDataSet(etagValue,json);
+    var mod =  index % objCommon.MAXROWS;
+    var startIndex =  index  -  mod;
+    return startIndex;
 };
 
 /**
@@ -3200,9 +3199,9 @@ common.prototype.getStartIndex = function(etagValue,type,mappingType) {
  * @returns selected page number.
  */
 common.prototype.getActivePage = function(type) {
-	var lowerRecordInterval = parseInt($("#recordCount_"+type).text().split("-")[0]);
-	var selectedPage = Math.ceil(lowerRecordInterval / objCommon.MAXROWS);
-	return selectedPage;
+    var lowerRecordInterval = parseInt($("#recordCount_"+type).text().split("-")[0]);
+    var selectedPage = Math.ceil(lowerRecordInterval / objCommon.MAXROWS);
+    return selectedPage;
 };
 
 /**
@@ -3211,8 +3210,8 @@ common.prototype.getActivePage = function(type) {
  * @returns last page number.
  */
 common.prototype.getLastPage = function(totalRecordCount) {
-	var lastPage = Math.ceil(totalRecordCount/objCommon.MAXROWS);
-	return lastPage;
+    var lastPage = Math.ceil(totalRecordCount/objCommon.MAXROWS);
+    return lastPage;
 };
 
 /**
@@ -3223,139 +3222,139 @@ common.prototype.getLastPage = function(totalRecordCount) {
  * @param objCellControlElement cell control object lie objBox,objAccount et al.
  */
 common.prototype.bindGrid = function(etagValue, type, tableID,
-		objCellControlElement, mappingType) {
-	var selectedPage = objCommon.getActivePage(type);
-	var startIndex = objCommon.getStartIndex(etagValue, type, mappingType);
-	var json = objCommon.getUpdatedJsonDataForActivepage(tableID, type,
-			startIndex, mappingType);
-	var totalRecordCount = 0;
-	var table = '';
-	if (type == "Box") {
-		createChunkedBoxTable(json, 0);
-		totalRecordCount = getBoxTotalRecordCount();
-		table = createChunkedBoxTable;
-	}
-	if (type == "Account") {
-		createChunkedAccountTable(json, 0);
-		totalRecordCount = retrieveAccountRecordCount();
-		table = createChunkedAccountTable;
-	}
-	if (type == "Role") {
-		createChunkedRoleTable(json, 0);
-		totalRecordCount = retrieveRoleRecordCount();
-		table = createChunkedRoleTable;
-	}
-	if (type == "ExtCell") {
-		objExtCell.createChunkedExtCellTable(json, 0);
-		totalRecordCount = objExtCell.retrieveRecordCount();
-		table = objExtCell.createChunkedExtCellTable;
-	}
-	if (type == "Relation") {
-		createChunkedRelationTable(json, 0);
-		totalRecordCount = retrieveRelationRecordCount();
-		table = createChunkedRelationTable;
-	}
-	if (type == "ReceivedMessage") {
-		uReceivedMessage.createChunkedReceivedMessageTable(json, 0);
-		totalRecordCount = uReceivedMessage.retrieveRecordCount();
-		table = uReceivedMessage.createChunkedReceivedMessageTable;
-	}
-	if (type == "SentMessage") {
-		uSentMessage.createChunkedSentMessageTable(json, 0);
-		totalRecordCount = uSentMessage.retrieveRecordCount();
-		table = uSentMessage.createChunkedSentMessageTable;
-	}
-	if (type == "assignAccountTab") {
-		createChunkedAccountToRoleMappingTable(json, 0);
-		totalRecordCount = objRoleAccountLink.retrieveRecordCount();
-		table = createChunkedAccountToRoleMappingTable;
-	}
-	if (type == "ExtRole") {
-		uExternalRole.createChunkedExtRoleTable(json, 0);
-		totalRecordCount = uExternalRole.retrieveRecordCount();
-		table = uExternalRole.createChunkedExtRoleTable;
-	}
-	if (type == "assignRoleTab") {
-		if (mappingType == "RoleToAccount") {
-			createRoleToAccountMappingTableChunked(json, 0);
-			totalRecordCount = objRoleToAccountMapping
-					.retrieveRoleAccountAssignRecordCount();
-			table = createRoleToAccountMappingTableChunked;
-		}
-		if (mappingType == "RoleToExtCell") {
-			objRoleToExtCellMapping.createRoleToExtCellMappingTableChunked(
-					json, 0);
-			totalRecordCount = objRoleToExtCellMapping
-					.retrieveRoleExtCellAssignRecordCount();
-			table = objRoleToExtCellMapping.createRoleToExtCellMappingTableChunked;
-		}
-		if (mappingType == "RoleToRelation") {
-			objRoleToRelationMapping.createRoleToRelationMappingTableChunked(
-					json, 0);
-			totalRecordCount = objRoleToRelationMapping
-					.retrieveRoleRelationAssignRecordCount();
-			table = objRoleToRelationMapping.createRoleToRelationMappingTableChunked;
-		}
-		if (mappingType == "RoleToExtRole") {
-			objRoleToExtRoleMapping.createRoleToExtRoleMappingTableChunked(
-					json, 0);
-			totalRecordCount = objRoleToExtRoleMapping
-					.retrieveRoleExtRoleAssignRecordCount();
-			table = objRoleToExtRoleMapping.createRoleToExtRoleMappingTableChunked;
-		}
-	}
+        objCellControlElement, mappingType) {
+    var selectedPage = objCommon.getActivePage(type);
+    var startIndex = objCommon.getStartIndex(etagValue, type, mappingType);
+    var json = objCommon.getUpdatedJsonDataForActivepage(tableID, type,
+            startIndex, mappingType);
+    var totalRecordCount = 0;
+    var table = '';
+    if (type == "Box") {
+        createChunkedBoxTable(json, 0);
+        totalRecordCount = getBoxTotalRecordCount();
+        table = createChunkedBoxTable;
+    }
+    if (type == "Account") {
+        createChunkedAccountTable(json, 0);
+        totalRecordCount = retrieveAccountRecordCount();
+        table = createChunkedAccountTable;
+    }
+    if (type == "Role") {
+        createChunkedRoleTable(json, 0);
+        totalRecordCount = retrieveRoleRecordCount();
+        table = createChunkedRoleTable;
+    }
+    if (type == "ExtCell") {
+        objExtCell.createChunkedExtCellTable(json, 0);
+        totalRecordCount = objExtCell.retrieveRecordCount();
+        table = objExtCell.createChunkedExtCellTable;
+    }
+    if (type == "Relation") {
+        createChunkedRelationTable(json, 0);
+        totalRecordCount = retrieveRelationRecordCount();
+        table = createChunkedRelationTable;
+    }
+    if (type == "ReceivedMessage") {
+        uReceivedMessage.createChunkedReceivedMessageTable(json, 0);
+        totalRecordCount = uReceivedMessage.retrieveRecordCount();
+        table = uReceivedMessage.createChunkedReceivedMessageTable;
+    }
+    if (type == "SentMessage") {
+        uSentMessage.createChunkedSentMessageTable(json, 0);
+        totalRecordCount = uSentMessage.retrieveRecordCount();
+        table = uSentMessage.createChunkedSentMessageTable;
+    }
+    if (type == "assignAccountTab") {
+        createChunkedAccountToRoleMappingTable(json, 0);
+        totalRecordCount = objRoleAccountLink.retrieveRecordCount();
+        table = createChunkedAccountToRoleMappingTable;
+    }
+    if (type == "ExtRole") {
+        uExternalRole.createChunkedExtRoleTable(json, 0);
+        totalRecordCount = uExternalRole.retrieveRecordCount();
+        table = uExternalRole.createChunkedExtRoleTable;
+    }
+    if (type == "assignRoleTab") {
+        if (mappingType == "RoleToAccount") {
+            createRoleToAccountMappingTableChunked(json, 0);
+            totalRecordCount = objRoleToAccountMapping
+                    .retrieveRoleAccountAssignRecordCount();
+            table = createRoleToAccountMappingTableChunked;
+        }
+        if (mappingType == "RoleToExtCell") {
+            objRoleToExtCellMapping.createRoleToExtCellMappingTableChunked(
+                    json, 0);
+            totalRecordCount = objRoleToExtCellMapping
+                    .retrieveRoleExtCellAssignRecordCount();
+            table = objRoleToExtCellMapping.createRoleToExtCellMappingTableChunked;
+        }
+        if (mappingType == "RoleToRelation") {
+            objRoleToRelationMapping.createRoleToRelationMappingTableChunked(
+                    json, 0);
+            totalRecordCount = objRoleToRelationMapping
+                    .retrieveRoleRelationAssignRecordCount();
+            table = objRoleToRelationMapping.createRoleToRelationMappingTableChunked;
+        }
+        if (mappingType == "RoleToExtRole") {
+            objRoleToExtRoleMapping.createRoleToExtRoleMappingTableChunked(
+                    json, 0);
+            totalRecordCount = objRoleToExtRoleMapping
+                    .retrieveRoleExtRoleAssignRecordCount();
+            table = objRoleToExtRoleMapping.createRoleToExtRoleMappingTableChunked;
+        }
+    }
 
-	if (type == "assignRelationTab") {
-		if (mappingType == "RelationToRole") {
-			uRelationToRoleMapping.createChunkedRelationToRoleMappingTable(
-					json, 0);
-			totalRecordCount = uRelationToRoleMapping.retrieveLinkedRoleCount();
-			table = uRelationToRoleMapping.createChunkedRelationToRoleMappingTable;
-		}
-		if (mappingType == "RelationToExtCell") {
-			objRelationToExternalCellMapping
-					.createChunkedRelationToExtCellMappingTable(json, 0);
-			totalRecordCount = objRelationToExternalCellMapping
-					.retrieveLinkedExtCellCount();
-			table = objRelationToExternalCellMapping.createChunkedRelationToExtCellMappingTable;
-		}
-	}
-	if (type == "assignExtCellTab") {
-		if (mappingType == "ExtCelltoRelation") {
-			objExternalCellToRelationMapping
-					.createChunkedExtCellToRelationMappingTable(json, 0);
-			totalRecordCount = objExternalCellToRelationMapping
-					.retrieveLinkedRelationCount();
-			table = objExternalCellToRelationMapping.createChunkedExtCellToRelationMappingTable;
-		}
-		if (mappingType == "ExtCelltoRole") {
-			objExternalCellToRoleMapping
-					.createChunkedExtCellToRoleMappingTable(json, 0);
-			totalRecordCount = objExternalCellToRoleMapping
-					.retrieveLinkedRoleCount();
-			table = objExternalCellToRoleMapping.createChunkedExtCellToRoleMappingTable;
-		}
-	}
-	
-	if (type == "assignExtRoleTab") {
-		if (mappingType == "ExtRoleToRole") {
-			uExternalRoleToRoleMapping.createChunkedExtRoleToRoleMappingTable(
-					json, 0);
-			totalRecordCount = uExternalRoleToRoleMapping
-					.retrieveLinkedExtRoleCount();
-			table = uExternalRoleToRoleMapping.createChunkedExtRoleToRoleMappingTable;
-		}
-	}
-	if (type == "OdataGrid") { 
-		uDataManagement.createEntityTable(json, uDataManagement.propertyDetailsList, 0);
-		totalRecordCount = uDataManagement.retrieveRecordCount();
-		table = uDataManagement.createEntityTable;
-	}
-	
-	objCommon.createPaginationView(totalRecordCount, objCommon.MAXROWS,
-			tableID, objCellControlElement, json, table, type, '', '',
-			selectedPage, startIndex);
-	objCommon.checkCellContainerVisibility();
+    if (type == "assignRelationTab") {
+        if (mappingType == "RelationToRole") {
+            uRelationToRoleMapping.createChunkedRelationToRoleMappingTable(
+                    json, 0);
+            totalRecordCount = uRelationToRoleMapping.retrieveLinkedRoleCount();
+            table = uRelationToRoleMapping.createChunkedRelationToRoleMappingTable;
+        }
+        if (mappingType == "RelationToExtCell") {
+            objRelationToExternalCellMapping
+                    .createChunkedRelationToExtCellMappingTable(json, 0);
+            totalRecordCount = objRelationToExternalCellMapping
+                    .retrieveLinkedExtCellCount();
+            table = objRelationToExternalCellMapping.createChunkedRelationToExtCellMappingTable;
+        }
+    }
+    if (type == "assignExtCellTab") {
+        if (mappingType == "ExtCelltoRelation") {
+            objExternalCellToRelationMapping
+                    .createChunkedExtCellToRelationMappingTable(json, 0);
+            totalRecordCount = objExternalCellToRelationMapping
+                    .retrieveLinkedRelationCount();
+            table = objExternalCellToRelationMapping.createChunkedExtCellToRelationMappingTable;
+        }
+        if (mappingType == "ExtCelltoRole") {
+            objExternalCellToRoleMapping
+                    .createChunkedExtCellToRoleMappingTable(json, 0);
+            totalRecordCount = objExternalCellToRoleMapping
+                    .retrieveLinkedRoleCount();
+            table = objExternalCellToRoleMapping.createChunkedExtCellToRoleMappingTable;
+        }
+    }
+    
+    if (type == "assignExtRoleTab") {
+        if (mappingType == "ExtRoleToRole") {
+            uExternalRoleToRoleMapping.createChunkedExtRoleToRoleMappingTable(
+                    json, 0);
+            totalRecordCount = uExternalRoleToRoleMapping
+                    .retrieveLinkedExtRoleCount();
+            table = uExternalRoleToRoleMapping.createChunkedExtRoleToRoleMappingTable;
+        }
+    }
+    if (type == "OdataGrid") { 
+        uDataManagement.createEntityTable(json, uDataManagement.propertyDetailsList, 0);
+        totalRecordCount = uDataManagement.retrieveRecordCount();
+        table = uDataManagement.createEntityTable;
+    }
+    
+    objCommon.createPaginationView(totalRecordCount, objCommon.MAXROWS,
+            tableID, objCellControlElement, json, table, type, '', '',
+            selectedPage, startIndex);
+    objCommon.checkCellContainerVisibility();
 };
 
 /**
@@ -3363,9 +3362,9 @@ common.prototype.bindGrid = function(etagValue, type, tableID,
  * @param tableID Table ID.
  */
 common.prototype.setGridStyle = function(tableID) {
-	$(tableID + "thead tr").addClass("mainTableHeaderRow");
-	$(tableID + "tbody").removeClass("emptyBoxTable");
-	$(tableID + "tbody").addClass("mainTableTbody");
+    $(tableID + "thead tr").addClass("mainTableHeaderRow");
+    $(tableID + "tbody").removeClass("emptyBoxTable");
+    $(tableID + "tbody").addClass("mainTableTbody");
 };
 
 
@@ -3380,237 +3379,237 @@ common.prototype.setGridStyle = function(tableID) {
  * @param totalRecordCount Total length of json data.
  */
 common.prototype.bindGridSelectAll = function(startIndex, endIndex,
-		objCellControlElement, type,selectedPage,tableID,totalRecordCount,mappingType,idCheckAllChkBox) {
-	$(idCheckAllChkBox).attr('disabled', false);
-	var table = '';
-	var recordSize = 0;
-	var json = objCellControlElement.retrieveChunkedData(startIndex, endIndex);
-	if (type == "Box") {
-		objCommon.setGridStyle("#mainBoxTable");
-		createChunkedBoxTable(json, recordSize);
-		//totalRecordCount = getBoxTotalRecordCount();
-		table = createChunkedBoxTable;
-	}
-	if (type == "Account") {
-		objCommon.setGridStyle("#mainAccountTable");
-		createChunkedAccountTable(json, recordSize);
-		table = createChunkedAccountTable;
-	} 
-	if (type == "Role") {
-		objCommon.setGridStyle("#mainRoleTable");
-		createChunkedRoleTable(json, recordSize);
-		table = createChunkedRoleTable;
-	} 
-	if (type == "ExtCell") {
-		objCommon.setGridStyle("#mainExternalCellTable");
-		objExtCell.createChunkedExtCellTable(json, recordSize);
-		table = objExtCell.createChunkedExtCellTable;
-	}
-	if (type == "Relation") {
-		objCommon.setGridStyle("#mainRelationTable");
-		createChunkedRelationTable(json, recordSize);
-		table = createChunkedRelationTable;
-	}
-	if (type == "ReceivedMessage") {
-		objCommon.setGridStyle("#receivedMessageTable");
-		uReceivedMessage.createChunkedReceivedMessageTable(json, recordSize);
-		table = uReceivedMessage.createChunkedReceivedMessageTable;
-	}
-	if (type == "SentMessage") {
-		objCommon.setGridStyle("#sentMessageTable");
-		uSentMessage.createChunkedSentMessageTable(json, recordSize);
-		table = uSentMessage.createChunkedSentMessageTable;
-	}
-	if (type == "assignAccountTab") {
-		objCommon.setGridStyle("#mainRoleAccountControlTable");
-		createChunkedAccountToRoleMappingTable(json, recordSize);
-		table = createChunkedAccountToRoleMappingTable;
-	}
-	if (type == "ExtRole") {
-		objCommon.setGridStyle("#externalRoleTable");
-		uExternalRole.createChunkedExtRoleTable(json, recordSize);
-		table = uExternalRole.createChunkedExtRoleTable;
-	}
-	if (type == "assignRoleTab") {
-		if (mappingType == "RoleToAccount") {
-			objCommon.setGridStyle("#mainRoleAccountLinkTable");
-			createRoleToAccountMappingTableChunked(json, recordSize);
-			table = createRoleToAccountMappingTableChunked;
-		}
-		if (mappingType == "RoleToExtCell") {
-			objCommon.setGridStyle("#mainRoleExtCellLinkTable");
-			objRoleToExtCellMapping.createRoleToExtCellMappingTableChunked(json, recordSize); 
-			table = objRoleToExtCellMapping.createRoleToExtCellMappingTableChunked;
-		}
-		
-		if (mappingType == "RoleToRelation"){
-			objCommon.setGridStyle("#mainRoleRelationLinkTable");
-			objRoleToRelationMapping.createRoleToRelationMappingTableChunked(json, recordSize); 
-			table = objRoleToRelationMapping.createRoleToRelationMappingTableChunked;	
-		}
-		if (mappingType == "RoleToExtRole"){
-			objCommon.setGridStyle("#mainRoleExtRoleLinkTable");
-			objRoleToExtRoleMapping.createRoleToExtRoleMappingTableChunked(json, recordSize);
-			table = objRoleToExtRoleMapping.createRoleToExtRoleMappingTableChunked;
-		}
-	}
-	
-	if (type == "assignRelationTab") {
-		if (mappingType == "RelationToRole") {
-			objCommon.setGridStyle("#mainRelationRoleLinkTable");
-			uRelationToRoleMapping.createChunkedRelationToRoleMappingTable(json,recordSize);
-			table = uRelationToRoleMapping.createChunkedRelationToRoleMappingTable;
-		}
-		if (mappingType == "RelationToExtCell") {
-			objCommon.setGridStyle("#mainRelationExtCellLinkTable");
-			objRelationToExternalCellMapping.createChunkedRelationToExtCellMappingTable(json, recordSize);
-			table = objRelationToExternalCellMapping.createChunkedRelationToExtCellMappingTable;
-		}
-	}
-	if (type == "assignExtCellTab") {
-		if (mappingType == "ExtCelltoRelation") {
-			objCommon.setGridStyle("#mainExternalCellRelationLinkTable");
-			objExternalCellToRelationMapping.createChunkedExtCellToRelationMappingTable(json, recordSize);
-			table = objExternalCellToRelationMapping.createChunkedExtCellToRelationMappingTable;
-		}
-		if (mappingType == "ExtCelltoRole") {
-			objCommon.setGridStyle("#mainExternalCellRoleLinkTable");
-			objExternalCellToRoleMapping.createChunkedExtCellToRoleMappingTable(json, recordSize);
-			table = objExternalCellToRoleMapping.createChunkedExtCellToRoleMappingTable;
-		}
-	}
-	
-	if (type == "assignExtRoleTab") {
-		if (mappingType == "ExtRoleToRole") {
-			uExternalRoleToRoleMapping.createTable();
-			objCommon.setGridStyle("#extRoleToRoleMappingTable");
-			uExternalRoleToRoleMapping.createChunkedExtRoleToRoleMappingTable(json, recordSize);
-			table = uExternalRoleToRoleMapping.createChunkedExtRoleToRoleMappingTable;
-		}
-	}
-	if (type == "OdataGrid") { 
-		uDataManagement.getEntityList(uDataManagement.propertyDetailsList,true);
-		uDataManagement.createEntityTable(json, uDataManagement.propertyDetailsList, recordSize);
-		table = uDataManagement.createEntityTable;
-	}
-	// sessionStorage.dataSetProfile = JSON.stringify(json);
-	objCommon.createPaginationView(totalRecordCount, objCommon.MAXROWS,
-			tableID, objCellControlElement, json, table, type,
-			'', '', selectedPage, startIndex);
-	objCommon.checkCellContainerVisibility();
+        objCellControlElement, type,selectedPage,tableID,totalRecordCount,mappingType,idCheckAllChkBox) {
+    $(idCheckAllChkBox).attr('disabled', false);
+    var table = '';
+    var recordSize = 0;
+    var json = objCellControlElement.retrieveChunkedData(startIndex, endIndex);
+    if (type == "Box") {
+        objCommon.setGridStyle("#mainBoxTable");
+        createChunkedBoxTable(json, recordSize);
+        //totalRecordCount = getBoxTotalRecordCount();
+        table = createChunkedBoxTable;
+    }
+    if (type == "Account") {
+        objCommon.setGridStyle("#mainAccountTable");
+        createChunkedAccountTable(json, recordSize);
+        table = createChunkedAccountTable;
+    } 
+    if (type == "Role") {
+        objCommon.setGridStyle("#mainRoleTable");
+        createChunkedRoleTable(json, recordSize);
+        table = createChunkedRoleTable;
+    } 
+    if (type == "ExtCell") {
+        objCommon.setGridStyle("#mainExternalCellTable");
+        objExtCell.createChunkedExtCellTable(json, recordSize);
+        table = objExtCell.createChunkedExtCellTable;
+    }
+    if (type == "Relation") {
+        objCommon.setGridStyle("#mainRelationTable");
+        createChunkedRelationTable(json, recordSize);
+        table = createChunkedRelationTable;
+    }
+    if (type == "ReceivedMessage") {
+        objCommon.setGridStyle("#receivedMessageTable");
+        uReceivedMessage.createChunkedReceivedMessageTable(json, recordSize);
+        table = uReceivedMessage.createChunkedReceivedMessageTable;
+    }
+    if (type == "SentMessage") {
+        objCommon.setGridStyle("#sentMessageTable");
+        uSentMessage.createChunkedSentMessageTable(json, recordSize);
+        table = uSentMessage.createChunkedSentMessageTable;
+    }
+    if (type == "assignAccountTab") {
+        objCommon.setGridStyle("#mainRoleAccountControlTable");
+        createChunkedAccountToRoleMappingTable(json, recordSize);
+        table = createChunkedAccountToRoleMappingTable;
+    }
+    if (type == "ExtRole") {
+        objCommon.setGridStyle("#externalRoleTable");
+        uExternalRole.createChunkedExtRoleTable(json, recordSize);
+        table = uExternalRole.createChunkedExtRoleTable;
+    }
+    if (type == "assignRoleTab") {
+        if (mappingType == "RoleToAccount") {
+            objCommon.setGridStyle("#mainRoleAccountLinkTable");
+            createRoleToAccountMappingTableChunked(json, recordSize);
+            table = createRoleToAccountMappingTableChunked;
+        }
+        if (mappingType == "RoleToExtCell") {
+            objCommon.setGridStyle("#mainRoleExtCellLinkTable");
+            objRoleToExtCellMapping.createRoleToExtCellMappingTableChunked(json, recordSize); 
+            table = objRoleToExtCellMapping.createRoleToExtCellMappingTableChunked;
+        }
+        
+        if (mappingType == "RoleToRelation"){
+            objCommon.setGridStyle("#mainRoleRelationLinkTable");
+            objRoleToRelationMapping.createRoleToRelationMappingTableChunked(json, recordSize); 
+            table = objRoleToRelationMapping.createRoleToRelationMappingTableChunked;   
+        }
+        if (mappingType == "RoleToExtRole"){
+            objCommon.setGridStyle("#mainRoleExtRoleLinkTable");
+            objRoleToExtRoleMapping.createRoleToExtRoleMappingTableChunked(json, recordSize);
+            table = objRoleToExtRoleMapping.createRoleToExtRoleMappingTableChunked;
+        }
+    }
+    
+    if (type == "assignRelationTab") {
+        if (mappingType == "RelationToRole") {
+            objCommon.setGridStyle("#mainRelationRoleLinkTable");
+            uRelationToRoleMapping.createChunkedRelationToRoleMappingTable(json,recordSize);
+            table = uRelationToRoleMapping.createChunkedRelationToRoleMappingTable;
+        }
+        if (mappingType == "RelationToExtCell") {
+            objCommon.setGridStyle("#mainRelationExtCellLinkTable");
+            objRelationToExternalCellMapping.createChunkedRelationToExtCellMappingTable(json, recordSize);
+            table = objRelationToExternalCellMapping.createChunkedRelationToExtCellMappingTable;
+        }
+    }
+    if (type == "assignExtCellTab") {
+        if (mappingType == "ExtCelltoRelation") {
+            objCommon.setGridStyle("#mainExternalCellRelationLinkTable");
+            objExternalCellToRelationMapping.createChunkedExtCellToRelationMappingTable(json, recordSize);
+            table = objExternalCellToRelationMapping.createChunkedExtCellToRelationMappingTable;
+        }
+        if (mappingType == "ExtCelltoRole") {
+            objCommon.setGridStyle("#mainExternalCellRoleLinkTable");
+            objExternalCellToRoleMapping.createChunkedExtCellToRoleMappingTable(json, recordSize);
+            table = objExternalCellToRoleMapping.createChunkedExtCellToRoleMappingTable;
+        }
+    }
+    
+    if (type == "assignExtRoleTab") {
+        if (mappingType == "ExtRoleToRole") {
+            uExternalRoleToRoleMapping.createTable();
+            objCommon.setGridStyle("#extRoleToRoleMappingTable");
+            uExternalRoleToRoleMapping.createChunkedExtRoleToRoleMappingTable(json, recordSize);
+            table = uExternalRoleToRoleMapping.createChunkedExtRoleToRoleMappingTable;
+        }
+    }
+    if (type == "OdataGrid") { 
+        uDataManagement.getEntityList(uDataManagement.propertyDetailsList,true);
+        uDataManagement.createEntityTable(json, uDataManagement.propertyDetailsList, recordSize);
+        table = uDataManagement.createEntityTable;
+    }
+    // sessionStorage.dataSetProfile = JSON.stringify(json);
+    objCommon.createPaginationView(totalRecordCount, objCommon.MAXROWS,
+            tableID, objCellControlElement, json, table, type,
+            '', '', selectedPage, startIndex);
+    objCommon.checkCellContainerVisibility();
 };
 
 /**
  * Following method is used for binding grid when 'check all' checkbox is checked.
  */
 common.prototype.bindGridCheckAll = function(type, cellControlElement, tableID,
-		totalRecordCount,mappingType,idCheckAllChkBox) {
-	if (totalRecordCount <= objCommon.MAXROWS) {	
-		objCommon.populateGridByType(type, mappingType);
-		if (totalRecordCount == 0) {
-			var recordCount = "0 - 0 " +  getUiProps().MSG0323 + " 0";
-			$("#recordCount_"+type).text(recordCount);
-		}
-		return;
-	}
-	var lowerRecordInterval = $("#recordCount_" + type).text().split("-")[0];
-	var selectedPage = objCommon.getActivePage(type);
-	var startIndex = 0;
-	var endIndex = 0;
-	//Total Pages count.
-	var lastPage = objCommon.getLastPage(totalRecordCount);
-	if (selectedPage == lastPage) {
-		// startIndex = (parseInt(lowerRecordInterval) - objCommon.MAXROWS) - 1;
-		startIndex = (parseInt(lowerRecordInterval)) - 1;
-		if (selectedPage == 2) {
-			startIndex = objCommon.MAXROWS;
-		}
-		endIndex = startIndex + objCommon.MAXROWS;
-	} else if (selectedPage > lastPage) {
-		selectedPage = lastPage;
-		startIndex = (parseInt(lowerRecordInterval) - objCommon.MAXROWS) - 1;
-		// startIndex = (parseInt(lowerRecordInterval) ) - 1;
-		endIndex = startIndex + objCommon.MAXROWS;
-		//when total count of pages is 2 and apparently the max record could not exceed 100
-	}  else {
-		startIndex = parseInt(lowerRecordInterval) - 1;
-		endIndex = startIndex + (objCommon.MAXROWS *2);
-	}
-	objCommon.bindGridSelectAll(startIndex, endIndex, cellControlElement, type,
-			selectedPage, tableID, totalRecordCount, mappingType,idCheckAllChkBox);
+        totalRecordCount,mappingType,idCheckAllChkBox) {
+    if (totalRecordCount <= objCommon.MAXROWS) {    
+        objCommon.populateGridByType(type, mappingType);
+        if (totalRecordCount == 0) {
+            var recordCount = "0 - 0 " +  getUiProps().MSG0323 + " 0";
+            $("#recordCount_"+type).text(recordCount);
+        }
+        return;
+    }
+    var lowerRecordInterval = $("#recordCount_" + type).text().split("-")[0];
+    var selectedPage = objCommon.getActivePage(type);
+    var startIndex = 0;
+    var endIndex = 0;
+    //Total Pages count.
+    var lastPage = objCommon.getLastPage(totalRecordCount);
+    if (selectedPage == lastPage) {
+        // startIndex = (parseInt(lowerRecordInterval) - objCommon.MAXROWS) - 1;
+        startIndex = (parseInt(lowerRecordInterval)) - 1;
+        if (selectedPage == 2) {
+            startIndex = objCommon.MAXROWS;
+        }
+        endIndex = startIndex + objCommon.MAXROWS;
+    } else if (selectedPage > lastPage) {
+        selectedPage = lastPage;
+        startIndex = (parseInt(lowerRecordInterval) - objCommon.MAXROWS) - 1;
+        // startIndex = (parseInt(lowerRecordInterval) ) - 1;
+        endIndex = startIndex + objCommon.MAXROWS;
+        //when total count of pages is 2 and apparently the max record could not exceed 100
+    }  else {
+        startIndex = parseInt(lowerRecordInterval) - 1;
+        endIndex = startIndex + (objCommon.MAXROWS *2);
+    }
+    objCommon.bindGridSelectAll(startIndex, endIndex, cellControlElement, type,
+            selectedPage, tableID, totalRecordCount, mappingType,idCheckAllChkBox);
 };
 
 /**
  * Following method populates grid on the basis of type
  */
 common.prototype.populateGridByType = function(type,mappingType) {
-	if (type == "Box") {
-		createBoxTable();
-	}
-	if (type == "Account") {
-		createAccountTable();
-	}
-	if (type == "Role") {
-		createRoleTable();
-	}
-	if (type == "ExtCell") {
-		objExtCell.createExternalCellTable();
-	}
-	if (type == "Relation") {
-		createRelationTable();
-	}
-	if (type == "ReceivedMessage") {
-		uReceivedMessage.createReceivedMessageTable();
-	}
-	if (type == "SentMessage") {
-		uSentMessage.createSentMessageTable();
-	}
-	if (type == "assignAccountTab") {
-		createRoleAccountLinksTable();
-	}
-	if (type == "ExtRole") {
-		uExternalRole.createExternalRoleTable();
-	}
-	if (type == "assignRoleTab") {
-		if (mappingType == "RoleToAccount"){
-		createRoleToAccountMappingTable();
-		}
-		if (mappingType == "RoleToExtCell"){
-			objRoleToExtCellMapping.createExtCellMappedToRole();
-		}
-		if (mappingType == "RoleToRelation"){
-			objRoleToRelationMapping.createRelationMappedToRole();
-		}
-		if (mappingType == "RoleToExtRole"){
-			objRoleToExtRoleMapping.createTable();
-		}
-	}
-	if (type == "assignRelationTab") {
-		if (mappingType == "RelationToRole") {
-			uRelationToRoleMapping.createTable();
-		}
-		if (mappingType == "RelationToExtCell") {
-			objRelationToExternalCellMapping.createTable();
-		}
-	}
-	
-	if (type == "assignExtCellTab") {
-		if (mappingType == "ExtCelltoRelation") {
-			objExternalCellToRelationMapping.createTable();
-		}
-		if (mappingType == "ExtCelltoRole") {
-			objExternalCellToRoleMapping.createTable();
-		}
-	}
-	if (type == "assignExtRoleTab") {
-		if (mappingType == "ExtRoleToRole") {
-			uExternalRoleToRoleMapping.createTable();
-		}
-	}
-	if (type == "OdataGrid") { 
-		uDataManagement.getEntityList(uDataManagement.propertyDetailsList,false);
-		uDataManagement.setDynamicWidthForODataGrid();
-	}
+    if (type == "Box") {
+        createBoxTable();
+    }
+    if (type == "Account") {
+        createAccountTable();
+    }
+    if (type == "Role") {
+        createRoleTable();
+    }
+    if (type == "ExtCell") {
+        objExtCell.createExternalCellTable();
+    }
+    if (type == "Relation") {
+        createRelationTable();
+    }
+    if (type == "ReceivedMessage") {
+        uReceivedMessage.createReceivedMessageTable();
+    }
+    if (type == "SentMessage") {
+        uSentMessage.createSentMessageTable();
+    }
+    if (type == "assignAccountTab") {
+        createRoleAccountLinksTable();
+    }
+    if (type == "ExtRole") {
+        uExternalRole.createExternalRoleTable();
+    }
+    if (type == "assignRoleTab") {
+        if (mappingType == "RoleToAccount"){
+        createRoleToAccountMappingTable();
+        }
+        if (mappingType == "RoleToExtCell"){
+            objRoleToExtCellMapping.createExtCellMappedToRole();
+        }
+        if (mappingType == "RoleToRelation"){
+            objRoleToRelationMapping.createRelationMappedToRole();
+        }
+        if (mappingType == "RoleToExtRole"){
+            objRoleToExtRoleMapping.createTable();
+        }
+    }
+    if (type == "assignRelationTab") {
+        if (mappingType == "RelationToRole") {
+            uRelationToRoleMapping.createTable();
+        }
+        if (mappingType == "RelationToExtCell") {
+            objRelationToExternalCellMapping.createTable();
+        }
+    }
+    
+    if (type == "assignExtCellTab") {
+        if (mappingType == "ExtCelltoRelation") {
+            objExternalCellToRelationMapping.createTable();
+        }
+        if (mappingType == "ExtCelltoRole") {
+            objExternalCellToRoleMapping.createTable();
+        }
+    }
+    if (type == "assignExtRoleTab") {
+        if (mappingType == "ExtRoleToRole") {
+            uExternalRoleToRoleMapping.createTable();
+        }
+    }
+    if (type == "OdataGrid") { 
+        uDataManagement.getEntityList(uDataManagement.propertyDetailsList,false);
+        uDataManagement.setDynamicWidthForODataGrid();
+    }
 };
 
 /**
@@ -3628,32 +3627,32 @@ common.prototype.populateGridByType = function(type,mappingType) {
  * @param isDeleted isDeleted flag
  */
 common.prototype.populateTableAfterDelete = function(etagValue,arrDeletedConflictCount,
-		arrEtag, idCheckAllChkBox, etagIDOfPreviousRecord, 
-		type, tableID, mappingType, recordCount,objControlElement,isDeleted) {
-	if (arrDeletedConflictCount.length > 0
-			&& $(idCheckAllChkBox).is(':checked')) {
-		var count = arrDeletedConflictCount[0];
-		arrEtag = objCommon.getEtagValue(etagIDOfPreviousRecord + count,
-				objCommon.getEtagElementID(etagIDOfPreviousRecord)[1], type);
-		etagValue = arrEtag[0];
-		arrDeletedConflictCount = [];
-		objCommon.bindGrid(etagValue, type, tableID,
-				objControlElement, mappingType);
-	} else if (arrDeletedConflictCount.length == 0
-			&& $(idCheckAllChkBox).is(':checked')) {
-			objCommon.bindGridCheckAll(type, objControlElement, tableID,
-				recordCount,mappingType,idCheckAllChkBox);
-		arrDeletedConflictCount = [];
-	} else if (isDeleted == true && !$(idCheckAllChkBox).is(':checked')) {
-		var selectedPage = objCommon.getActivePage(type);
-		if (selectedPage == 1) {
-			objCommon.populateGridByType(type, mappingType);
-		} else {
-			objCommon.bindGrid(etagValue, type, tableID,
-					objControlElement, mappingType);
-		}
-		isDeleted = false;
-	}
+        arrEtag, idCheckAllChkBox, etagIDOfPreviousRecord, 
+        type, tableID, mappingType, recordCount,objControlElement,isDeleted) {
+    if (arrDeletedConflictCount.length > 0
+            && $(idCheckAllChkBox).is(':checked')) {
+        var count = arrDeletedConflictCount[0];
+        arrEtag = objCommon.getEtagValue(etagIDOfPreviousRecord + count,
+                objCommon.getEtagElementID(etagIDOfPreviousRecord)[1], type);
+        etagValue = arrEtag[0];
+        arrDeletedConflictCount = [];
+        objCommon.bindGrid(etagValue, type, tableID,
+                objControlElement, mappingType);
+    } else if (arrDeletedConflictCount.length == 0
+            && $(idCheckAllChkBox).is(':checked')) {
+            objCommon.bindGridCheckAll(type, objControlElement, tableID,
+                recordCount,mappingType,idCheckAllChkBox);
+        arrDeletedConflictCount = [];
+    } else if (isDeleted == true && !$(idCheckAllChkBox).is(':checked')) {
+        var selectedPage = objCommon.getActivePage(type);
+        if (selectedPage == 1) {
+            objCommon.populateGridByType(type, mappingType);
+        } else {
+            objCommon.bindGrid(etagValue, type, tableID,
+                    objControlElement, mappingType);
+        }
+        isDeleted = false;
+    }
 };
 
 /******************************************** Pagination After Delete - End ********************************************/

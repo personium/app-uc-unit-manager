@@ -11,11 +11,12 @@
 <script type="text/javascript"
 	src="./js/login.js"></script>
 <script type="text/javascript" src="./js/jquery-1.9.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script type="text/javascript" src="./js/commonFunctions.js"></script>
 <script type="text/javascript" src="./js/jquery.modalbox.js"></script>
 <script type="text/javascript"
 	src="./js/main/validation/reg_validation.js"></script>
-<script type="text/javascript" src="./js/jquery.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="./css/loginStylesheet.css" rel="stylesheet" type="text/css">
 
@@ -267,7 +268,7 @@ $(function() {
 					</select>
 							</dt>
 							<dt class="dtLoginBtn">
-								<span class="loginArrow"><input type="button" value="Sign In"
+								<span class="loginArrow"><input type="submit" value="Sign In"
 									value="" class="loginButton"
 									onclick="return uLogin.getEnvDetail();"/></span>
 							</dt>
