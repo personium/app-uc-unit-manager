@@ -5,7 +5,7 @@ Cell Manager is a GUI tool that helps you manage Personium cell(s).
 - Cell belong to a user/organization  
 
 ## Prerequisites  
-In order to use the Unit/Cell Manager, make sure you have the following ready.  
+In order to use the Cell Manager, make sure you have the following ready.  
 
 1. A valid Personium Unit or Cell  
 1. Cell name (Unit Cell or general Cell)  
