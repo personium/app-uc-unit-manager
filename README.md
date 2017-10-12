@@ -1,17 +1,21 @@
-# Cell Manager  
-Cell Manager is a GUI tool that helps you manage Personium cell(s).  
+# Unit/Cell Manager  
+Unit Manager and Cell Manager are GUI tools that helps you manage Personium cell(s).  
 
-- Cells within a Personium Unit  
-- Cell belong to a user/organization  
+- Unit Manager - Cells within a Personium Unit  
+- Cell Manager - Cell belong to a user/organization  
 
 ## Prerequisites  
-In order to use the Cell Manager, make sure you have the following ready.  
+In order to use the Unit/Cell Manager, make sure you have the following ready.  
 
 1. A valid Personium Unit or Cell  
 1. Cell name (Unit Cell or general Cell)  
 1. Login information (ID/passowrd) of the admin user of the above Cell 
 
-## Installation  
+## Installation (for those who own a 1-server unit)  
+If you want to use our Unit/Cell Manager to access your Personium Unit's cell(s), access the following page.  
+
+    https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/login.html
+
 No installation or compilation, you only need to upload the modules to your web server.  
 For example, if you have constructed your own [1-server unit](https://github.com/personium/ansible/blob/master/1-server_unit/1-server_unit.jpg), you can upload the modules to your Nginx's server folder.  
 
@@ -26,7 +30,7 @@ Perform the following procedures to create a folder and upload a file to the fol
 
 [Demo video on YouTube](https://youtu.be/d1_pET0M-YA)  
 
-1. Logon to the Cell Manager.  
+1. Logon to the Unit/Cell Manager.  
 1. Click [main] to show the content of the main box.  
 1. Hover over the "Create" button and select "Folder" from the popup menu.  
 "Create Folder" dialog will be displayed.  

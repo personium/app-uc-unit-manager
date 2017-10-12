@@ -1,8 +1,8 @@
-# Cell Manager  
-Cell ManagerはPersoniumのセル単位での管理を行う事が出来るGUIツールです。  
+# Unit/Cell Manager  
+Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事が出来るGUIツールです。  
 
-- Personium Unit配下のセル（複数）  
-- 一般セル
+- Unit Manager - Personium Unit配下のセル（複数）  
+- Cell Manager - 一般セル
 
 ## 必要な情報  
 
@@ -11,7 +11,12 @@ Cell ManagerはPersoniumのセル単位での管理を行う事が出来るGUI�
 1. 上記のセルの管理者アカウントのログイン情報（ID/パスワード）  
 
 ## セットアップ  
-Cell ManagerはWebサーバーに配置するだけで使用する事が出来ます。   
+Personium Project's Unit/Cell Managerを使いたい場合、下記のURLにアクセスしてください。   
+
+    https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/login.html
+
+Unit/Cell ManagerはWebサーバーに配置するだけで使用する事が出来ます。  
+例： [1-server unit](https://github.com/personium/ansible/blob/master/1-server_unit/1-server_unit.jpg)を構築した方はモジュールをNginxサーバフォルダにuploadしてください。
 
 ## アクセス手順  
 
@@ -25,7 +30,7 @@ Cell ManagerはWebサーバーに配置するだけで使用する事が出来�
 
 [YouTube デモビデオ](https://youtu.be/d1_pET0M-YA)  
 
-1. 必要な情報を入力し、Cell Managerにログイン。  
+1. 必要な情報を入力し、Unit/Cell Managerにログイン。  
 1. [main]をクリックしてmain boxの配下を表示。   
 1. "Create"ボタン上にホバーし、表示されたポップアップメニューの"Folder"を選択。  
 "Create Folder"ダイアログが表示される。  
