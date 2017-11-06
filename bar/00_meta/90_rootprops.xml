@@ -16,7 +16,7 @@
                 <resourcetype>
                     <collection/>
                 </resourcetype>
-                <acl xml:base="https://demo.personium.io/HomeApplication/__role/__/" xmlns:p="urn:x-personium:xmlns">
+                <acl xml:base="https://demo.personium.io/app-uc-unit-manager/__role/__/" xmlns:p="urn:x-personium:xmlns">
                     <ace>
                         <principal>
                             <all/>
