@@ -44,6 +44,50 @@ login.prototype.getEnvDetail = function() {
     return false;
 }
 
+/*
+ * Get cell URL from URL
+ * Parameter:
+ *     "https://demo.personium.io/debug-user1/test/login.html"
+ * Return:
+ *     "https://demo.personium.io/debug-user1/"
+ */
+login.prototype.cellUrlWithEndingSlash = function (tempUrl) {
+    var i = tempUrl.indexOf("/", 8); // search after "http://" or "https://"
+
+    if (tempUrl.slice(-1) != "/") {
+        tempUrl += "/";
+    }
+
+    i = tempUrl.indexOf("/", i + 1);
+
+    var cellUrl = tempUrl.substring(0, i + 1);
+
+    return cellUrl;
+};
+
+/*
+ * Retrieve cell name from cell URL
+ * Parameter:
+ *     1. ended with "/", "https://demo.personium.io/debug-user1/"
+ *     2. ended without "/", "https://demo.personium.io/debug-user1"
+ * Return:
+ *     debug-user1
+ */
+login.prototype.getName = function (path) {
+    if ((typeof path === "undefined") || path == null || path == "") {
+        return "";
+    };
+
+    let name;
+    if (_.contains(path, "\\")) {
+        name = _.last(_.compact(path.split("\\")));
+    } else {
+        name = _.last(_.compact(path.split("/")));
+    }
+
+    return name;
+};
+
 login.determineManagerType = function(unitCellUrl) {
     let cellTokenCredential = {
         grant_type: "password",
@@ -148,11 +192,7 @@ login.setupInfo = function(managerInfo) {
 }
 
 login.openManagerWindow = function() {
-    let url = new URL(location.href);
-    let urlParts = url.href.split("/");
-    let filename = _.last(urlParts);
-    let root = _.without(urlParts, filename).join("/");
-    sessionStorage.setItem("contextRoot", root);
+    sessionStorage.setItem("contextRoot", "https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light");
 
-    window.open('./htmls/'+sessionStorage.selectedLanguage+'/environment.html','_blank');
+    window.open('https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+sessionStorage.selectedLanguage+'/environment.html','_blank');
 }

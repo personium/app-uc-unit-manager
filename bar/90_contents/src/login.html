@@ -91,6 +91,24 @@
             if (browserLanguage != undefined && browserLanguage.toLowerCase() == 'ja') {
                 $("#ddLanguageSelector").val('Japanese(jp)');
             }
+
+            // If it is not a local file, hide unitURL and unitCellName and extract from location.
+            var u = location.href;
+            if (u.indexOf("file:") != 0) {
+                // Hide unitURL and unitCellName
+                $(".dtUnitUrl").toggle(false);
+                $(".dtUnitCellName").toggle(false);
+
+                // Extract unitURL from location
+                var cellURL = uLogin.cellUrlWithEndingSlash(u);
+                var i = cellURL.indexOf("/"); // first slash
+                i = cellURL.indexOf("/", i + 2);  // second slash
+                var rootURL = cellURL.substring(0, i + 1);
+                $("#unitUrl").val(rootURL);
+
+                var cellName = uLogin.getName(cellURL);
+                $("#unitCellName").val(cellName);
+            }
         });
         function clearData() {
             $('#confirm').find('input:text').val('');
@@ -225,7 +243,7 @@
                         </br>
                         <label style="display: table;margin: 0 auto;margin-top: -14px">of Google Chrome.</label>
                     </div>
-                    <form name="login" id="loginForm" style="margin-left: 106px;">
+                    <form name="login" id="loginForm" style="margin-top:90px;margin-left: 106px;">
                         <input type="hidden" name="CSRFTokenLogin" value='<%=application.getInitParameter("TOKEN")%>' id="CSRFTokenLogin">
                         <div style="visibility: visible; height: 15px;margin-top: 5px;" id="logoutDiv">
                             <label id="logoutMsg" class="logoutMessage"></label>
