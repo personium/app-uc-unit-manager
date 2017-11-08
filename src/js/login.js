@@ -194,5 +194,5 @@ login.setupInfo = function(managerInfo) {
 login.openManagerWindow = function() {
     sessionStorage.setItem("contextRoot", "https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light");
 
-    window.open('https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+sessionStorage.selectedLanguage+'/environment.html','_blank');
+    location.href = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+sessionStorage.selectedLanguage+'/environment.html';
 }
