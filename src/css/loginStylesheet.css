@@ -276,3 +276,11 @@ body{background:#fff!important;width:100%;height:auto;font-family:Tahoma}
 /****************** New Login Changes Based on New Theme End*********************/
 .dropDownBig{margin-top: 4.5px;min-width: 63px;border: 1px solid #d1d5db;padding: 1.5px;color: #373f49;font-size: 10pt;font-family: Segoe UI;}
 .dropDownBig option{color:#373f49;font-size:0.75em;height:12px}
+
+#loginForm {
+    margin-left: 106px;
+}
+
+#loginForm.localCellManager {
+    margin-top: 90px;
+}

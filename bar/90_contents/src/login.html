@@ -93,21 +93,18 @@
             }
 
             // If it is not a local file, hide unitURL and unitCellName and extract from location.
-            var u = location.href;
-            if (u.indexOf("file:") != 0) {
+            var cellUrlSplit = _.first(location.href.split("#")).split("/");
+            if (!_.contains(cellUrlSplit, "file:") && !_.contains(cellUrlSplit, "localhost")) {
                 // Hide unitURL and unitCellName
                 $(".dtUnitUrl").toggle(false);
                 $(".dtUnitCellName").toggle(false);
+                $("#loginForm").addClass("localCellManager");
 
-                // Extract unitURL from location
-                var cellURL = uLogin.cellUrlWithEndingSlash(u);
-                var i = cellURL.indexOf("/"); // first slash
-                i = cellURL.indexOf("/", i + 2);  // second slash
-                var rootURL = cellURL.substring(0, i + 1);
-                $("#unitUrl").val(rootURL);
+                // Extract rootURL and cell name from location
+                var cellInfo = uLogin.getCellInfo(cellUrlSplit);
 
-                var cellName = uLogin.getName(cellURL);
-                $("#unitCellName").val(cellName);
+                $("#unitUrl").val(cellInfo.rootURL);
+                $("#unitCellName").val(cellInfo.cellName);
             }
         });
         function clearData() {
@@ -243,7 +240,7 @@
                         </br>
                         <label style="display: table;margin: 0 auto;margin-top: -14px">of Google Chrome.</label>
                     </div>
-                    <form name="login" id="loginForm" style="margin-top:90px;margin-left: 106px;">
+                    <form name="login" id="loginForm">
                         <input type="hidden" name="CSRFTokenLogin" value='<%=application.getInitParameter("TOKEN")%>' id="CSRFTokenLogin">
                         <div style="visibility: visible; height: 15px;margin-top: 5px;" id="logoutDiv">
                             <label id="logoutMsg" class="logoutMessage"></label>

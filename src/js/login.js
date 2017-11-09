@@ -45,25 +45,35 @@ login.prototype.getEnvDetail = function() {
 }
 
 /*
- * Get cell URL from URL
+ * Get cell Info
  * Parameter:
- *     "https://demo.personium.io/debug-user1/test/login.html"
+ *     Information obtained by dividing URL by "/"
+ *     {
+ *       "https:",
+ *       "",
+ *       "demo.personium.io",
+ *       "debug-user1",
+ *       "test",
+ *       "login.html"
+ *     }
  * Return:
- *     "https://demo.personium.io/debug-user1/"
+ *     {
+ *       rootURL: "https://demo.personium.io/",
+ *       cellURL: "https://demo.personium.io/debug-user1/",
+ *       cellName: "debug-user1"
+ *     }
  */
-login.prototype.cellUrlWithEndingSlash = function (tempUrl) {
-    var i = tempUrl.indexOf("/", 8); // search after "http://" or "https://"
+login.prototype.getCellInfo = function (cellUrlSplit) {
+    let rootURL = _.first(cellUrlSplit, 3).join("/") + "/";
+    let cellURL = _.first(cellUrlSplit, 4).join("/") + "/";
+    let cellName = this.getName(cellURL);
 
-    if (tempUrl.slice(-1) != "/") {
-        tempUrl += "/";
-    }
-
-    i = tempUrl.indexOf("/", i + 1);
-
-    var cellUrl = tempUrl.substring(0, i + 1);
-
-    return cellUrl;
-};
+    return {
+        rootURL: rootURL,
+        cellURL: cellURL,
+        cellName: cellName
+    };
+}
 
 /*
  * Retrieve cell name from cell URL
