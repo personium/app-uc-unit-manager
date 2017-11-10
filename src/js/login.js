@@ -44,6 +44,60 @@ login.prototype.getEnvDetail = function() {
     return false;
 }
 
+/*
+ * Get cell Info
+ * Parameter:
+ *     Information obtained by dividing URL by "/"
+ *     {
+ *       "https:",
+ *       "",
+ *       "demo.personium.io",
+ *       "debug-user1",
+ *       "test",
+ *       "login.html"
+ *     }
+ * Return:
+ *     {
+ *       rootURL: "https://demo.personium.io/",
+ *       cellURL: "https://demo.personium.io/debug-user1/",
+ *       cellName: "debug-user1"
+ *     }
+ */
+login.prototype.getCellInfo = function (cellUrlSplit) {
+    let rootURL = _.first(cellUrlSplit, 3).join("/") + "/";
+    let cellURL = _.first(cellUrlSplit, 4).join("/") + "/";
+    let cellName = this.getName(cellURL);
+
+    return {
+        rootURL: rootURL,
+        cellURL: cellURL,
+        cellName: cellName
+    };
+}
+
+/*
+ * Retrieve cell name from cell URL
+ * Parameter:
+ *     1. ended with "/", "https://demo.personium.io/debug-user1/"
+ *     2. ended without "/", "https://demo.personium.io/debug-user1"
+ * Return:
+ *     debug-user1
+ */
+login.prototype.getName = function (path) {
+    if ((typeof path === "undefined") || path == null || path == "") {
+        return "";
+    };
+
+    let name;
+    if (_.contains(path, "\\")) {
+        name = _.last(_.compact(path.split("\\")));
+    } else {
+        name = _.last(_.compact(path.split("/")));
+    }
+
+    return name;
+};
+
 login.determineManagerType = function(unitCellUrl) {
     let cellTokenCredential = {
         grant_type: "password",
@@ -148,11 +202,7 @@ login.setupInfo = function(managerInfo) {
 }
 
 login.openManagerWindow = function() {
-    let url = new URL(location.href);
-    let urlParts = url.href.split("/");
-    let filename = _.last(urlParts);
-    let root = _.without(urlParts, filename).join("/");
-    sessionStorage.setItem("contextRoot", root);
+    sessionStorage.setItem("contextRoot", "https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light");
 
-    window.open('./htmls/'+sessionStorage.selectedLanguage+'/environment.html','_blank');
+    location.href = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+sessionStorage.selectedLanguage+'/environment.html';
 }

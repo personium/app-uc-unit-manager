@@ -56,9 +56,11 @@ cellProfile.prototype.showCellProfileImage = function(imgBinaryFile,imgProfile,f
 cellProfile.prototype.populateCellProfilePopupFieldsWithData = function() {
 	var response = this.getCellProfileInfo();
 	response = response.bodyAsJson();
-	var displayName = objCommon.replaceNullValues(response.DisplayName,
+	var tempDispName = getProfileDisplayName(response);
+	var tempDescription = getProfileDescription(response);
+	var displayName = objCommon.replaceNullValues(tempDispName,
 			getUiProps().MSG0275);
-	var description = objCommon.replaceNullValues(response.Description,
+	var description = objCommon.replaceNullValues(tempDescription,
 			getUiProps().MSG0275);
 	var binaryCellProfileImage = response.Image;
 	imgBinaryFile = response.Image;
@@ -69,6 +71,14 @@ cellProfile.prototype.populateCellProfilePopupFieldsWithData = function() {
 	if (description != undefined && description != null && description != '-') {
 		document.getElementById("editDescription").value = description;
 	}
+
+    // Make the data of dispName have cellType
+    if (response.CellType) {
+    	document.getElementById("editDisplayName").dataset.CellType = response.CellType;
+    } else {
+    	document.getElementById("editDisplayName").dataset.CellType = "";
+    }
+
 	if (binaryCellProfileImage != null) {
 		this.showCellProfileImage(binaryCellProfileImage, '#idImgFile',
 				'#figEditCellProfile', cellProfileImageName,
@@ -252,12 +262,29 @@ cellProfile.prototype.updateCellProfile = function() {
 			$('#popupEditDisplayNameErrorMsg').html('');
 			var validDesciption = objBoxProfile.validateDescription(description,"popupEditDescriptionErrorMsg");
 			if (validDesciption){
-				fileData = {
+                if (document.getElementById("editDisplayName").dataset.CellType == "App") {
+                	// If cellType is App, update en of existing profile.json
+                	var prof = this.getCellProfileInfo();
+					prof = prof.bodyAsJson();
+					$.extend(
+						true,
+                        prof,
+                        {
+                        	"DisplayName": {"en": displayName},
+                        	"Description": {"en": description},
+                        	"Image" : imgBinaryFile,
+  						    "ProfileImageName" : profileBoxImageName
+                        }
+                    );
+                    fileData = prof;
+                } else {
+                	fileData = {
 						"DisplayName" : displayName,
 						"Description" : description,
 						"Image" : imgBinaryFile,
 						"ProfileImageName" : profileBoxImageName
 					};
+                }
 				response = uCellProfile.retrieveCollectionAPIResponse(fileData, "EDIT",sessionStorage.selectedcell);
 				var statusCode = objCommon.getStatusCode(response);
 				if (statusCode === 201 || statusCode === 204) {
@@ -1052,8 +1079,10 @@ cellProfile.prototype.displayCellProfileInfo = function () {
  */
 cellProfile.prototype.retrieveProfileInfoFromResponse1 = function (response) {
 	response = response.bodyAsJson();
-	var resDisplayName = objCommon.replaceNullValues(response.DisplayName,getUiProps().MSG0275);
-	var resDescription = objCommon.replaceNullValues(response.Description,getUiProps().MSG0275);
+    var tempDispName = getProfileDisplayName(response);
+	var tempDescription = getProfileDescription(response);
+	var resDisplayName = objCommon.replaceNullValues(tempDispName,getUiProps().MSG0275);
+	var resDescription = objCommon.replaceNullValues(tempDescription,getUiProps().MSG0275);
 	imgBinaryFile = response.Image;
 	var profileImageName = response.profileImageName;
 	if(resDisplayName == null){
@@ -1130,3 +1159,25 @@ $(function() {
 		
 	});
 });
+
+/*
+ * Acquire DisplayName from the object of profile.json according to existence of multilingual correspondence.
+ */
+function getProfileDisplayName(resJson) {
+	var tempDispName = resJson.DisplayName;
+    if (sessionStorage.selectedLanguage === 'en' && tempDispName.en != undefined) {
+    	tempDispName = resJson.DisplayName.en;
+    }
+    return tempDispName;
+}
+
+/*
+ * Acquire Description from the object of profile.json according to existence of multilingual correspondence.
+ */
+function getProfileDescription(resJson) {
+	var tempDescription = resJson.Description;
+	if (sessionStorage.selectedLanguage === 'en' && tempDescription.en != undefined) {
+    	tempDescription = resJson.Description.en;
+    }
+    return tempDescription;
+}
