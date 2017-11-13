@@ -429,6 +429,8 @@ function setHeaderWidth(){
 			$('#leftHeading').css('min-width', (width-leftPanelWidth-rightHeadingWidth-scrollBarWidth) + "px");
 		}
 	}else{
+		// Re-set min-width and fix leftHeading
+		$('#leftHeading').css('min-width', "1074px");
 		if(height < 650){
 			var scrollBarWidth = 15;
 			$('#leftHeading').css('min-width', (1174-scrollBarWidth) + "px");
