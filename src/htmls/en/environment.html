@@ -193,13 +193,13 @@ $(document).ready(function(){
 						<div id="cellNameHeading" class="cellNameHeading"></div>
 						<div id="cellURLHeading" class="cellURLHeading"></div>
 					</div>
-					<div id="rightHeading" class="rightHeading" title="Display the Access Token">
+					<div id="rightHeading" class="rightHeading">
 						<input type="button" id="tokenBtn" class="tokenBtn"
 							onclick="openCreateEntityModal('#tokenPopUpModalWindow','#tokenDialogBox', 'txtAccessToken');"
-							value="Token" tabindex="-1"/>
+							value="Token" tabindex="-1" title="Display the Access Token"/>
 						<input type="button" id="logoutBtn" class="logoutBtn"
 						    onclick="openCreateEntityModal('#logoutModalWindow','#logoutDialogBox', 'btnCancel');"
-						    value="Logout" tabindex="-1">
+						    value="Logout" tabindex="-1" title="Log out and return to the login screen">
 					</div>
 				</div>
 				<div id="navigationBar">
