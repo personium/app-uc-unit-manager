@@ -279,6 +279,13 @@ function closeEntityModal(modelId) {
     }
 }
 
+function logoutManager() {
+    let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+    var loginUrl = ManagerInfo.loginURL;
+    sessionStorage.clear();
+    location.href = loginUrl;
+}
+
 /**
  * The purpose of this function is to check if records against
  * a particular entity exists or not.

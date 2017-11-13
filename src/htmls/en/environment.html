@@ -197,6 +197,9 @@ $(document).ready(function(){
 						<input type="button" id="tokenBtn" class="tokenBtn"
 							onclick="openCreateEntityModal('#tokenPopUpModalWindow','#tokenDialogBox', 'txtAccessToken');"
 							value="Token" tabindex="-1"/>
+						<input type="button" id="logoutBtn" class="logoutBtn"
+						    onclick="openCreateEntityModal('#logoutModalWindow','#logoutDialogBox', 'btnCancel');"
+						    value="Logout" tabindex="-1">
 					</div>
 				</div>
 				<div id="navigationBar">
@@ -447,7 +450,36 @@ $(document).ready(function(){
 	<!-- End: Cell Create Template and Create Popup UI -->
 
 
-
+    <!-- Logout Pop UP Start -->
+    <div id="logoutModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="logoutDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv">
+					<a style="margin: 0px;" href="#" title="Close" id="modalbox-close"
+						class="popupCloseIcon" onclick="closeEntityModal('#logoutModalWindow');" tabindex="2"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="dvAccessheader">
+					<label class="sessionExpiredPopUpHeading"
+						id="lblHeadingAccessToken"> Log out</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>You will return to the login screen. Is it OK? </label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" id="btnLogout" class="normalButton"
+					onclick="logoutManager();" value="Ok" tabindex="1">
+			</div>
+			<div id="dvCancel" class="dvCreate">
+					<input type="button" id="btnCancel"
+						onclick="closeEntityModal('#logoutModalWindow');"
+						class="cancelBtn" value="Cancel" tabindex="2">
+			</div>
+		</div>
+	</div>
 
 	<!-- Token Pop UP Start -->
 	<div id="tokenPopUpModalWindow" class="modelback"
@@ -494,7 +526,7 @@ $(document).ready(function(){
 			<section class="headerSection">
 				<div id="dvCloseIcon" class="closeIconDiv">
 					<a style="margin: 0px;" href="#" title="Close" id="modalbox-close"
-						class="popupCloseIcon" onclick="window.close();" tabindex="2"></a>
+						class="popupCloseIcon" onclick="logoutManager();" tabindex="2"></a>
 				</div>
 				<div class="sessionExpiryDiv" id="dvAccessheader">
 					<label class="sessionExpiredPopUpHeading"
@@ -506,7 +538,7 @@ $(document).ready(function(){
 			</div>
 			<div id="dvClose" class="sessionPopUpCloseSection">
 				<input type="button" id="btnTimeout" class="normalButton"
-					onclick="window.close();" value="Ok" tabindex="1">
+					onclick="logoutManager();" value="Ok" tabindex="1">
 			</div>
 		</div>
 	</div>

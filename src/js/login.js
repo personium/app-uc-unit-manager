@@ -197,6 +197,8 @@ login.setupInfo = function(managerInfo) {
     localStorage.setItem("clickedEnvironmentUnitCellName", $("#unitCellName").val());
     localStorage.setItem("clickedEnvironmentId", $("#userId").val());
     localStorage.setItem("clickedEnvironmentPass", $("#passwd").val());
+
+    managerInfo.loginURL = location.protocol + "//" + location.hostname + location.pathname;
     localStorage.setItem("ManagerInfo", JSON.stringify(managerInfo));
     sessionStorage.setItem("selectedLanguage", $("#ddLanguageSelector").val());
 }
