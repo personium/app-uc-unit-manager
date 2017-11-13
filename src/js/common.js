@@ -279,6 +279,9 @@ function closeEntityModal(modelId) {
     }
 }
 
+/**
+ * Acquire login URL from session and make transition
+ */
 function logoutManager() {
     let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
     var loginUrl = ManagerInfo.loginURL;
