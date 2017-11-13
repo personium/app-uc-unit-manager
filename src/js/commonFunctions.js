@@ -419,7 +419,7 @@ function getODataWindowSize () {
 function setHeaderWidth(){
 	var width = $(window).width();
 	var leftPanelWidth = Math.ceil((1.328125/100)*width);
-	var rightHeadingWidth = 89;
+	var rightHeadingWidth = 189;
 	var height = $(window).height();
 	if (width>1280) {
 		//$('#leftHeading').css('min-width', (Math.floor((width-leftPanelWidth-rightHeadingWidth)/(width - leftPanelWidth)*100)) + "%");
@@ -442,7 +442,7 @@ function setHeaderWidth(){
 function setCellNameWidth(){
 	var width = $(window).width();
 	var leftPanelWidth = Math.ceil((1.328125/100)*width);
-	var rightHeadingWidth = 89;
+	var rightHeadingWidth = 189;
 	var cellNameWidth = Math.round((width - leftPanelWidth - rightHeadingWidth)/2) - 35;
 	if (width>1280) {
 		$("#cellNameHeading").css('max-width', (cellNameWidth-1) + "px");
@@ -457,7 +457,7 @@ function setCellNameWidth(){
 function setCellURLWidth(){
 	var width = $(window).width();
 	var leftPanelWidth = Math.ceil((1.328125/100)*width);
-	var rightHeadingWidth = 89;
+	var rightHeadingWidth = 189;
 	var cellURLWidth = Math.round((width - leftPanelWidth - rightHeadingWidth)/2) - 20;
 	if (width>1280) {
 		$("#cellURLHeading").css('max-width', cellURLWidth + "px");
