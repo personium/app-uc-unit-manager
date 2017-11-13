@@ -103,7 +103,7 @@ input::-webkit-input-placeholder {
 
 .leftHeading {
     float: left;
-    min-width: 1174px;
+    min-width: 1074px;
     padding-bottom: 20px;
     /* width: 93.1116389%; */
     cursor: default;
@@ -155,6 +155,26 @@ input::-webkit-input-placeholder {
 }
 
 .tokenBtn:hover {
+    background: #e8e8e8;
+}
+
+.logoutBtn {
+    background: #d9d9d9;
+    border: none;
+    cursor: pointer;
+    height: 29px;
+    margin-top: 15px;
+    width: 59px;
+    margin-left: 10px;
+    margin-right: 20px;
+    font-size: 10pt;
+    font-family: Segoe UI;
+    color: #1b1b1b;
+    text-align: center;
+    margin-top: 9px;
+}
+
+.logoutBtn:hover {
     background: #e8e8e8;
 }
 

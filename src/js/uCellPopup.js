@@ -317,8 +317,8 @@ cellUI.popup.prototype.validateInput = function() {
 cellUI.popup.prototype.closePopup = function (force) {
 	if(sessionStorage.totalCellCountForUnit === '0'){
 		if(!force){
-		//close the window
-		window.close();
+		//When cell creation popup is closed with cell not present, it returns to login screen
+		logoutManager();
 		}
 	}else{
 		document.getElementById("textCellPopup").value="";

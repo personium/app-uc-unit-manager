@@ -280,6 +280,16 @@ function closeEntityModal(modelId) {
 }
 
 /**
+ * Acquire login URL from session and make transition
+ */
+function logoutManager() {
+    let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+    var loginUrl = ManagerInfo.loginURL;
+    sessionStorage.clear();
+    location.href = loginUrl;
+}
+
+/**
  * The purpose of this function is to check if records against
  * a particular entity exists or not.
  */
