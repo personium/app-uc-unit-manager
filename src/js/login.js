@@ -102,6 +102,34 @@ login.prototype.initCellManager = function() {
         $("#unitCellName").val(cellInfo.cellName);
     }
 
+    // If there is token in the parameter, log in automatically
+    let hash = location.hash.substring(1);
+    let params = hash.split("&");
+    let arrParam = {};
+    for (var i in params) {
+        var param = params[i].split("=");
+        arrParam[param[0]] = param[1]; 
+    }
+    if (arrParam.ref) {
+        // Update the received token and try login
+        var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
+        let refreshTokenCredential = {
+            grant_type: "refresh_token",
+            refresh_token: arrParam.ref
+        };
+        login.refreshToken(unitCellUrl, refreshTokenCredential).done(function(jsonData){
+            login.getCellInfo(jsonData);
+        });
+    } else if (arrParam.id && arrParam.password) {
+        // Try login with id, pass
+        var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
+        $("#userId").val(arrParam.id);
+        $("#passwd").val(arrParam.password);
+        login.determineManagerType(unitCellUrl);
+    }
+
+    // Clear fragments
+    location.hash = "";
 }
 
 login.prototype.getEnvDetail = function() {
@@ -219,6 +247,22 @@ login.getToken = function(unitCellUrl, loginInfo) {
     });
 }
 
+login.refreshToken = function(unitCellUrl, refreshInfo) {
+    return $.ajax({
+        dataType: 'json',
+        url : unitCellUrl + '__token', //+ tokenUrl
+        data : refreshInfo,
+        type : 'POST',
+        async : false,
+        cache : false,
+        error : function(jsonData) {
+            document.getElementById("logoutDiv").style.visibility = "visible";
+            $("#logoutDiv").addClass("loginErrorMessage");
+            $("#logoutMsg").text("Invalid token");
+        }
+    })
+}
+
 login.isUnitCell = function(jsonData1, jsonData2) {
     $.ajax({
         type: "GET",
@@ -265,7 +309,10 @@ login.getCellInfo = function(jsonData) {
             let epoch = new Date(lastModified).getTime();
             let managerInfo = {
                 isCellManager: true,
-                __published: "/Date(" + epoch + ")/"//need to change to epoch time
+                __published: "/Date(" + epoch + ")/",//need to change to epoch time
+                loginURL: location.protocol + "//" + location.hostname + location.pathname,// Hold the URL of the login screen
+                token: jsonData.access_token,
+                refreshToken: jsonData.refresh_token
             };
             login.setupInfo(managerInfo);
             login.openManagerWindow();
@@ -279,11 +326,6 @@ login.getCellInfo = function(jsonData) {
 login.setupInfo = function(managerInfo) {
     localStorage.setItem("clickedEnvironmentUnitUrl", $("#unitUrl").val());
     localStorage.setItem("clickedEnvironmentUnitCellName", $("#unitCellName").val());
-    localStorage.setItem("clickedEnvironmentId", $("#userId").val());
-    localStorage.setItem("clickedEnvironmentPass", $("#passwd").val());
-
-    // Hold the URL of the login screen
-    managerInfo.loginURL = location.protocol + "//" + location.hostname + location.pathname;
     localStorage.setItem("ManagerInfo", JSON.stringify(managerInfo));
     sessionStorage.setItem("selectedLanguage", $("#ddLanguageSelector").val());
 }

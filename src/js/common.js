@@ -55,7 +55,6 @@ common.prototype.checkIdleTime = function() {
         //if (objCommon.isSessionExist() == null) {
             // If Cell Profile is loaded.
             if (sessionStorage.isResourceMgmt = "true") {
-                // objCommon.removeEnvironmentIDFromLocalStorage(sessionStorage.selectedEnvID);
                 sessionStorage.isResourceMgmt == "false";
                 objCommon.openPopUpWindow("#timeOutCellProfileDialogBox",
                         "#timeOutCellProfileModalWindow");

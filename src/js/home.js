@@ -870,15 +870,12 @@ home.prototype.storeEnvDetails = function() {
  * @param jsonData
  */
 home.prototype.getUserPrivilege = function() {
-    var userPass = sessionStorage.selectedEnvPass;
     var target = sessionStorage.selectedUnitUrl;
-    var envID = sessionStorage.selectedEnvID;
     var targetCellUrl = target + sessionStorage.selectedUnitCellName;
     let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
     let tokenCredential = {
-        grant_type: "password",
-        username: envID,
-        password: userPass
+        grant_type: "refresh_token",
+        refresh_token: ManagerInfo.refreshToken
     };
     if (!ManagerInfo.isCellManager) {
         $.extend(
@@ -1065,19 +1062,13 @@ home.prototype.getPrivilegeByID = function() {
 };
 
 home.prototype.setEnvironmentVariables = function() {
-    if (localStorage.clickedEnvironmentPass != null
-            && localStorage.clickedEnvironmentUnitUrl != null
+    if (localStorage.clickedEnvironmentUnitUrl != null
             && localStorage.clickedEnvironmentUnitCellName != null
-            && localStorage.clickedEnvironmentId != null
             && localStorage.ManagerInfo != null) {
-        sessionStorage.selectedEnvPass = localStorage
-                .getItem("clickedEnvironmentPass");
         sessionStorage.selectedUnitUrl = localStorage
                 .getItem("clickedEnvironmentUnitUrl");
         sessionStorage.selectedUnitCellName = localStorage
                 .getItem("clickedEnvironmentUnitCellName");
-        sessionStorage.selectedEnvID = localStorage
-                .getItem("clickedEnvironmentId");
         sessionStorage.ManagerInfo = localStorage.getItem("ManagerInfo");
         uHome.storeEnvDetails();
     }

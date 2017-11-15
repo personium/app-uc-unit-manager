@@ -605,8 +605,7 @@ cellProfile.prototype.setNewTokenValues = function(data) {
  */
 cellProfile.prototype.getNewTokenValues = function (paramOldRefreshToken, mode) {
 		var paramTargetURL = sessionStorage.selectedUnitUrl;
-                var paramTargetCellUrl = paramTargetURL + sessionStorage.selectedUnitCellName;
-		var paramEnvironmentID = escape(sessionStorage.selectedEnvID);
+        var paramTargetCellUrl = paramTargetURL + sessionStorage.selectedUnitCellName;
 		var refreshtokenURL = paramTargetCellUrl + "/__token";
 			$.ajax({
 			dataType : 'json',
