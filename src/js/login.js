@@ -275,7 +275,13 @@ login.isUnitCell = function(jsonData1, jsonData2) {
         cache : false,
         success: function(res) {
             console.log("Unit Manager");
-            login.setupInfo({ isCellManager: false });
+            let managerInfo = {
+                isCellManager: false,
+                loginURL: location.protocol + "//" + location.hostname + location.pathname,// Hold the URL of the login screen
+                token: jsonData1.access_token,
+                refreshToken: jsonData1.refresh_token
+            };
+            login.setupInfo(managerInfo);
             login.openManagerWindow();
         },
         error: function(res) {
