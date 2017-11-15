@@ -247,10 +247,10 @@ login.getToken = function(unitCellUrl, loginInfo) {
     });
 }
 
-login.refreshToken = function(unitCellUrl, refreshInfo) {
+login.refreshToken = function(cellUrl, refreshInfo) {
     return $.ajax({
         dataType: 'json',
-        url : unitCellUrl + '__token', //+ tokenUrl
+        url : cellUrl + '__token', //+ tokenUrl
         data : refreshInfo,
         type : 'POST',
         async : false,
