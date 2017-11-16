@@ -17,8 +17,120 @@
 function login() {
 }
 
-
 var uLogin = new login();
+
+login.prototype.initCellManager = function() {
+    $("#cpassdid").removeAttr("disabled");
+    $("#useridtext").removeAttr("disabled");
+    $("#useridtext").blur(function () {
+        var uname = $(this).val();
+        var validUserName = userid_validation(uname);
+        if (validUserName) {
+            if (uname.length > 0) {
+                $("#userspanid").html("");
+                //$("#userspanid").html("Checking availability...");
+                $.ajax
+                ({
+                    type: "POST",
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                        xhr.setRequestHeader("Pragma", "no-cache");
+                        xhr.setRequestHeader("Expires", -1);
+                    },
+                    url: "check",
+                    data: "useridtext=" + escape(uname),
+                    cache: false,
+                    success: function (response) {
+                        var msg = "";
+                        if (response['userIdMsg'] == "inUse") {
+                            msg = uname + " is already in use";
+                            $("#userspanid").removeClass('alertSuccessMsg');
+                            $("#userspanid").addClass('alertmsg');
+                            $("#ProceedButton").attr("disabled", "disabled");
+                        } else if (response['userIdMsg'] == "available") {
+                            msg = uname + " is available";
+                            $("#userspanid").removeClass('alertmsg');
+                            $("#userspanid").addClass('alertSuccessMsg');
+                            $("#ProceedButton").removeAttr("disabled");
+                        }
+                        $("#userspanid").html(msg);
+                    }
+                });
+            } else {
+                $("#userspanid").html("");
+            }
+        }
+    });
+
+    var errorFlag = null;
+    var showMessage = '';
+    if (errorFlag == 'null' && showMessage == 'null') {
+        document.getElementById("logoutDiv").style.visibility = "hidden";
+    } else {
+        document.getElementById("logoutDiv").style.visibility = "visible";
+        $("#logoutDiv").addClass("loginErrorMessage");
+        $("#logoutMsg").text(showMessage);
+    }
+
+    var user = localStorage ? localStorage.user : null;
+    if (user) {
+        document.getElementById("logoutDiv").style.visibility = "visible";
+        $("#logoutDiv").addClass("logoutSuccess");
+        //var username = sessionStorage.logoutShorterUName;
+        $("#logoutMsg").text("You have logged out successfully.");
+        $('#logoutMsg').attr('title', user);
+        localStorage.user = '';
+    }
+    var browserLanguage = navigator.language;
+    if (browserLanguage != undefined && browserLanguage.toLowerCase() == 'ja') {
+        $("#ddLanguageSelector").val('Japanese(jp)');
+    }
+
+    // If it is not a local file, hide unitURL and unitCellName and extract from location.
+    var cellUrlSplit = _.first(location.href.split("#")).split("/");
+    if (!_.contains(cellUrlSplit, "file:") && !_.contains(cellUrlSplit, "localhost")) {
+        // Hide unitURL and unitCellName
+        $(".dtUnitUrl").toggle(false);
+        $(".dtUnitCellName").toggle(false);
+        $("#loginForm").addClass("localCellManager");
+
+        // Extract rootURL and cell name from location
+        var cellInfo = uLogin.getCellInfo(cellUrlSplit);
+
+        $("#unitUrl").val(cellInfo.rootURL);
+        $("#unitCellName").val(cellInfo.cellName);
+    }
+
+    // If there is token in the parameter, log in automatically
+    let hash = location.hash.substring(1);
+    let params = hash.split("&");
+    let arrParam = {};
+    for (var i in params) {
+        var param = params[i].split("=");
+        arrParam[param[0]] = param[1]; 
+    }
+    if (arrParam.ref) {
+        // Update the received token and try login
+        var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
+        let refreshTokenCredential = {
+            grant_type: "refresh_token",
+            refresh_token: arrParam.ref
+        };
+        login.refreshToken(unitCellUrl, refreshTokenCredential).done(function(jsonData){
+            login.getCellInfo(jsonData);
+        });
+    } else if (arrParam.id && arrParam.password) {
+        // Try login with id, pass
+        var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
+        $("#userId").val(arrParam.id);
+        $("#passwd").val(arrParam.password);
+        login.determineManagerType(unitCellUrl);
+    }
+
+    // Clear fragments
+    location.hash = "";
+}
 
 login.prototype.getEnvDetail = function() {
     document.getElementById("logoutDiv").style.visibility = "hidden";
@@ -135,6 +247,22 @@ login.getToken = function(unitCellUrl, loginInfo) {
     });
 }
 
+login.refreshToken = function(cellUrl, refreshInfo) {
+    return $.ajax({
+        dataType: 'json',
+        url : cellUrl + '__token', //+ tokenUrl
+        data : refreshInfo,
+        type : 'POST',
+        async : false,
+        cache : false,
+        error : function(jsonData) {
+            document.getElementById("logoutDiv").style.visibility = "visible";
+            $("#logoutDiv").addClass("loginErrorMessage");
+            $("#logoutMsg").text("Invalid token");
+        }
+    })
+}
+
 login.isUnitCell = function(jsonData1, jsonData2) {
     $.ajax({
         type: "GET",
@@ -147,7 +275,13 @@ login.isUnitCell = function(jsonData1, jsonData2) {
         cache : false,
         success: function(res) {
             console.log("Unit Manager");
-            login.setupInfo({ isCellManager: false });
+            let managerInfo = {
+                isCellManager: false,
+                loginURL: location.protocol + "//" + location.hostname + location.pathname,// Hold the URL of the login screen
+                token: jsonData1.access_token,
+                refreshToken: jsonData1.refresh_token
+            };
+            login.setupInfo(managerInfo);
             login.openManagerWindow();
         },
         error: function(res) {
@@ -181,7 +315,10 @@ login.getCellInfo = function(jsonData) {
             let epoch = new Date(lastModified).getTime();
             let managerInfo = {
                 isCellManager: true,
-                __published: "/Date(" + epoch + ")/"//need to change to epoch time
+                __published: "/Date(" + epoch + ")/",//need to change to epoch time
+                loginURL: location.protocol + "//" + location.hostname + location.pathname,// Hold the URL of the login screen
+                token: jsonData.access_token,
+                refreshToken: jsonData.refresh_token
             };
             login.setupInfo(managerInfo);
             login.openManagerWindow();
@@ -195,11 +332,6 @@ login.getCellInfo = function(jsonData) {
 login.setupInfo = function(managerInfo) {
     localStorage.setItem("clickedEnvironmentUnitUrl", $("#unitUrl").val());
     localStorage.setItem("clickedEnvironmentUnitCellName", $("#unitCellName").val());
-    localStorage.setItem("clickedEnvironmentId", $("#userId").val());
-    localStorage.setItem("clickedEnvironmentPass", $("#passwd").val());
-
-    // Hold the URL of the login screen
-    managerInfo.loginURL = location.protocol + "//" + location.hostname + location.pathname;
     localStorage.setItem("ManagerInfo", JSON.stringify(managerInfo));
     sessionStorage.setItem("selectedLanguage", $("#ddLanguageSelector").val());
 }
