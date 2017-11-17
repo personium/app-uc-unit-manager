@@ -126,6 +126,10 @@ login.prototype.initCellManager = function() {
         $("#userId").val(arrParam.id);
         $("#passwd").val(arrParam.password);
         login.determineManagerType(unitCellUrl);
+    } else {
+        // Manual Login
+        $('body > div.mySpinner').hide();
+        $('body > div.myHiddenDiv').show();
     }
 
     // Clear fragments
@@ -136,6 +140,8 @@ login.prototype.getEnvDetail = function() {
     document.getElementById("logoutDiv").style.visibility = "hidden";
 
     if (validateForm()) {
+        $('body > div.mySpinner').show();
+        $('body > div.myHiddenDiv').hide();
         var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
         $.ajax({
             type: "GET",
@@ -243,6 +249,8 @@ login.getToken = function(unitCellUrl, loginInfo) {
             document.getElementById("logoutDiv").style.visibility = "visible";
             $("#logoutDiv").addClass("loginErrorMessage");
             $("#logoutMsg").text("Invalid username or password");
+            $('body > div.mySpinner').hide();
+            $('body > div.myHiddenDiv').show();
         }
     });
 }
@@ -259,6 +267,8 @@ login.refreshToken = function(cellUrl, refreshInfo) {
             document.getElementById("logoutDiv").style.visibility = "visible";
             $("#logoutDiv").addClass("loginErrorMessage");
             $("#logoutMsg").text("Invalid token");
+            $('body > div.mySpinner').hide();
+            $('body > div.myHiddenDiv').show();
         }
     })
 }
