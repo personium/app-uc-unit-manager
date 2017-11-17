@@ -284,3 +284,25 @@ body{background:#fff!important;width:100%;height:auto;font-family:Tahoma}
 #loginForm.localCellManager {
     margin-top: 90px;
 }
+
+div.mySpinner {
+  position: fixed;
+  z-index: 999;
+  height: 5em;
+  width: 5em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+div.mySpinner > i {
+  color: #D3D3D3 !important;
+  font-size: 2.5em;
+}
+
+div.myHiddenDiv {
+  display: none;
+}
