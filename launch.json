@@ -1,0 +1,9 @@
+{
+  "personal": {
+     "web": "../../io_personium_demo_cell-manager/src/login.html",
+     "android": "cellmanager:",
+     "ios": "cellmanager:",
+     "appTokenId": "tokenAcc",
+     "appTokenPw": "personiumtoken"
+  }
+}

@@ -19,6 +19,7 @@
 	src="./js/main/validation/reg_validation.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="./css/loginStylesheet.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
 
 <script>
 //history.pushState({},"","");
@@ -207,9 +208,10 @@ $(function() {
 </head>
 
 <body>
-	<div class="fjIcon">
-	</div>
-	<div id="loginContainer" style="min-width: 530px">
+	<div class="mySpinner">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    </div>
+	<div class="myHiddenDiv" id="loginContainer" style="min-width: 530px">
 		<!-- Login Content Starts -->
 		<div id="loginContentWrapper">
 				<div class="dvloginSection" id = "dvloginSection">
