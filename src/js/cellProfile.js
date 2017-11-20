@@ -79,7 +79,7 @@ cellProfile.prototype.populateCellProfilePopupFieldsWithData = function() {
         document.getElementById("editDisplayName").dataset.CellType = "";
     }
 
-    if (binaryCellProfileImage != null) {
+    if (binaryCellProfileImage!= null && binaryCellProfileImage!= undefined && binaryCellProfileImage != '') {
         this.showCellProfileImage(binaryCellProfileImage, '#idImgFile',
                 '#figEditCellProfile', cellProfileImageName,
                 '#lblEditFileName');
