@@ -25,32 +25,8 @@
         //history.pushState({},"","");
         //On load function called for user id
         $(document).ready(function () {
-            uLogin.initCellManager();
+            uLogin.renderLoginFields(true);
         });
-        function clearData() {
-            $('#confirm').find('input:text').val('');
-            $('#confirm').find('input:password').val('');
-            $("#confirm").find('input:text').css("background-color", "white");
-            $("#confirm").find('input:password').css("background-color", "white");
-            $('#userspanid').html('');
-            $('#passspanid').html('');
-            $('#repassspanid').html('');
-            $('#firstnameid').html('');
-            $('#familynameid').html('');
-            $('#orgspanid').html('');
-            $('#emailspanid').html('');
-        }
-
-        //Closing account registration popup
-        function closeAcctReg() {
-            clearData();
-            $('#modalAcctReg, .window').hide();
-        }
-
-        //Closing the success registration popup
-        function closeSuccessMsg() {
-            $('#successMsgBlock, .window').hide();
-        }
 
         //Validating field values
         function FillBilling(f) {
@@ -84,35 +60,6 @@
             f.rfamilyName.value = trimcfamilyName;
             f.roName.value = trimcoName;
             f.remail.value = f.cemail.value;
-        }
-
-        //Cancel functionality on view screen
-        function back() {
-            if (document.getElementById("register").style.display == "block") {
-                document.getElementById("register").style.display = "none";
-                document.getElementById("confirm").style.display = "block";
-            }
-        }
-
-        //Opening account registration popup
-        function openAcctReg() {
-            //$("#serverErrorMsg").hide();
-            document.getElementById("logoutDiv").style.visibility = "hidden";
-            $('#unitUrl').val('');
-            $('#userId').val('');
-            $('#passwd').val('');
-            $('#unitspan').html('');
-            $('#userspan').html('');
-            $('#paswdspan').html('');
-            var id = '#dialogAcctReg';
-            // transition effect
-            $('#modalAcctReg').fadeIn(1000);
-            // Get the window height and width
-            var winH = $(window).height();
-            var winW = $(window).width();
-            // Set the popup window to center
-            $(id).css('top', winH / 2 - $(id).height() / 2);
-            $(id).css('left', winW / 2 - $(id).width() / 2);
         }
 
         //opening success registration popup.

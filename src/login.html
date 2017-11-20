@@ -25,98 +25,10 @@
 //history.pushState({},"","");
 //On load function called for user id
 $(document).ready(function(){
-	$("#cpassdid").removeAttr("disabled");
-	$("#useridtext").removeAttr("disabled");
-		$("#useridtext").blur(function(){
-		var uname = $(this).val();
-		var validUserName = userid_validation(uname);
-		if(validUserName){
-			if(uname.length > 0) {
-				$("#userspanid").html("");
-				//$("#userspanid").html("Checking availability...");
-				$.ajax
-				({
-				type: "POST",
-				dataType : 'json',
-				beforeSend: function (xhr) {
-					xhr.setRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-						xhr.setRequestHeader("Pragma", "no-cache");
-						xhr.setRequestHeader("Expires", -1);
-					},
-				url: "check",
-				data: "useridtext="+ escape(uname),
-				cache: false,
-				success: function(response) {
-					var msg = "";
-					if(response['userIdMsg'] == "inUse"){
-						msg = uname + " is already in use";
-						$("#userspanid").removeClass('alertSuccessMsg');
-						$("#userspanid").addClass('alertmsg');
-						$("#ProceedButton").attr("disabled","disabled");
-					}else if(response['userIdMsg'] == "available"){
-						msg = uname + " is available";
-						$("#userspanid").removeClass('alertmsg');
-						$("#userspanid").addClass('alertSuccessMsg');
-						$("#ProceedButton").removeAttr("disabled");
-					}
-					$("#userspanid").html(msg);
-				}
-				});
-			}
-			else{
-				$("#userspanid").html("");
-			}
-		}
-	});
-
-		var errorFlag = null;
-		var showMessage = '';
-		if(errorFlag == 'null' && showMessage == 'null') {
-			document.getElementById("logoutDiv").style.visibility = "hidden";
-		} else {
-			document.getElementById("logoutDiv").style.visibility = "visible";
-			$("#logoutDiv").addClass("loginErrorMessage");
-			$("#logoutMsg").text(showMessage);
-		}
-
-		var user=localStorage ? localStorage.user : null;
-		if(user){
-			document.getElementById("logoutDiv").style.visibility = "visible";
-			$("#logoutDiv").addClass("logoutSuccess");
-			//var username = sessionStorage.logoutShorterUName;
-			$("#logoutMsg").text("You have logged out successfully.");
-			$('#logoutMsg').attr('title',user);
-			localStorage.user='';
-		}
-		var browserLanguage = navigator.language;
-		if (browserLanguage != undefined && browserLanguage.toLowerCase() == 'ja') {
-			$("#ddLanguageSelector").val('Japanese(jp)');
-		}
+    uLogin.renderLoginFields();
 });
-function clearData(){
-	$('#confirm').find('input:text').val('');
-	$('#confirm').find('input:password').val('');
-	$("#confirm").find('input:text').css("background-color","white");
-	$("#confirm").find('input:password').css("background-color","white");
-	$('#userspanid').html('');
-	$('#passspanid').html('');
-	$('#repassspanid').html('');
-	$('#firstnameid').html('');
-	$('#familynameid').html('');
-	$('#orgspanid').html('');
-	$('#emailspanid').html('');
-}
 
-//Closing account registration popup
-function closeAcctReg() {
-	clearData();
-	$('#modalAcctReg, .window').hide();
-}
 
-//Closing the success registration popup
-function closeSuccessMsg() {
-	$('#successMsgBlock, .window').hide();
-}
 
 //Validating field values
 function FillBilling(f) {
@@ -150,35 +62,6 @@ function FillBilling(f) {
 	f.rfamilyName.value = trimcfamilyName;
 	f.roName.value = trimcoName;
 	f.remail.value = f.cemail.value;
-}
-
-//Cancel functionality on view screen
-function back() {
-	if (document.getElementById("register").style.display == "block") {
-		document.getElementById("register").style.display = "none";
-		document.getElementById("confirm").style.display = "block";
-	}
-}
-
-//Opening account registration popup
-function openAcctReg() {
-	//$("#serverErrorMsg").hide();
-	document.getElementById("logoutDiv").style.visibility = "hidden";
-        $('#unitUrl').val('');
-	$('#userId').val('');
-	$('#passwd').val('');
-        $('#unitspan').html('');
-	$('#userspan').html('');
-	$('#paswdspan').html('');
-	var id = '#dialogAcctReg';
-	// transition effect
-	$('#modalAcctReg').fadeIn(1000);
-	// Get the window height and width
-	var winH = $(window).height();
-	var winW = $(window).width();
-	// Set the popup window to center
-	$(id).css('top', winH / 2 - $(id).height() / 2);
-	$(id).css('left', winW / 2 - $(id).width() / 2);
 }
 
 //opening success registration popup.
