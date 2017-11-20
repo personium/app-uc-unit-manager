@@ -19,7 +19,7 @@ function login() {
 
 var uLogin = new login();
 
-login.prototype.initCellManager = function() {
+login.prototype.renderLoginFields = function(calledFromCell) {
     $("#cpassdid").removeAttr("disabled");
     $("#useridtext").removeAttr("disabled");
     $("#useridtext").blur(function () {
@@ -87,19 +87,9 @@ login.prototype.initCellManager = function() {
         $("#ddLanguageSelector").val('Japanese(jp)');
     }
 
-    // If it is not a local file, hide unitURL and unitCellName and extract from location.
-    var cellUrlSplit = _.first(location.href.split("#")).split("/");
-    if (!_.contains(cellUrlSplit, "file:") && !_.contains(cellUrlSplit, "localhost")) {
-        // Hide unitURL and unitCellName
-        $(".dtUnitUrl").toggle(false);
-        $(".dtUnitCellName").toggle(false);
-        $("#loginForm").addClass("localCellManager");
-
-        // Extract rootURL and cell name from location
-        var cellInfo = uLogin.getCellInfo(cellUrlSplit);
-
-        $("#unitUrl").val(cellInfo.rootURL);
-        $("#unitCellName").val(cellInfo.cellName);
+    if (calledFromCell) {
+        // When called from Unit Admin Cell and login as Unit Admin, Unit Manager will be displayed.
+        uLogin.initCellManager();
     }
 
     // If there is token in the parameter, log in automatically
@@ -134,6 +124,22 @@ login.prototype.initCellManager = function() {
 
     // Clear fragments
     location.hash = "";
+}
+login.prototype.initCellManager = function() {
+    // If it is not a local file, hide unitURL and unitCellName and extract from location.
+    var cellUrlSplit = _.first(location.href.split("#")).split("/");
+    if (!_.contains(cellUrlSplit, "file:") && !_.contains(cellUrlSplit, "localhost")) {
+        // Hide unitURL and unitCellName
+        $(".dtUnitUrl").toggle(false);
+        $(".dtUnitCellName").toggle(false);
+        $("#loginForm").addClass("localCellManager");
+
+        // Extract rootURL and cell name from location
+        var cellInfo = uLogin.getCellInfo(cellUrlSplit);
+
+        $("#unitUrl").val(cellInfo.rootURL);
+        $("#unitCellName").val(cellInfo.cellName);
+    }
 }
 
 login.prototype.getEnvDetail = function() {
@@ -350,4 +356,58 @@ login.openManagerWindow = function() {
     sessionStorage.setItem("contextRoot", "https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light");
 
     location.href = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+sessionStorage.selectedLanguage+'/environment.html';
+}
+
+//Closing account registration popup
+function closeAcctReg() {
+    clearData();
+    $('#modalAcctReg, .window').hide();
+}
+        
+function clearData() {
+    $('#confirm').find('input:text').val('');
+    $('#confirm').find('input:password').val('');
+    $("#confirm").find('input:text').css("background-color", "white");
+    $("#confirm").find('input:password').css("background-color", "white");
+    $('#userspanid').html('');
+    $('#passspanid').html('');
+    $('#repassspanid').html('');
+    $('#firstnameid').html('');
+    $('#familynameid').html('');
+    $('#orgspanid').html('');
+    $('#emailspanid').html('');
+}        
+
+//Closing the success registration popup
+function closeSuccessMsg() {
+    $('#successMsgBlock, .window').hide();
+}
+
+//Cancel functionality on view screen
+function back() {
+    if (document.getElementById("register").style.display == "block") {
+        document.getElementById("register").style.display = "none";
+        document.getElementById("confirm").style.display = "block";
+    }
+}
+
+//Opening account registration popup
+function openAcctReg() {
+    //$("#serverErrorMsg").hide();
+    document.getElementById("logoutDiv").style.visibility = "hidden";
+        $('#unitUrl').val('');
+    $('#userId').val('');
+    $('#passwd').val('');
+        $('#unitspan').html('');
+    $('#userspan').html('');
+    $('#paswdspan').html('');
+    var id = '#dialogAcctReg';
+    // transition effect
+    $('#modalAcctReg').fadeIn(1000);
+    // Get the window height and width
+    var winH = $(window).height();
+    var winW = $(window).width();
+    // Set the popup window to center
+    $(id).css('top', winH / 2 - $(id).height() / 2);
+    $(id).css('left', winW / 2 - $(id).width() / 2);
 }
