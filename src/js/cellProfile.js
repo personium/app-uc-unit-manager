@@ -26,28 +26,6 @@ var MAXRECORDS = 8;
 var CONSTRECORDS = 8;
 var profileImageName = null;
 var isProfileImage = true;
-/**
- * Following method displays Image.
- * @param imgBinaryFile image binary data.
- * @param imgProfile image profile.
- * @param figureProfileImage figure id.
- */
-cellProfile.prototype.showCellProfileImage = function(imgBinaryFile,imgProfile,figureProfileImage,profileImage,lblFileName) {
-    var minHeight = 71;
-    var minWidth = 70;
-    var imgHeight = 0;
-    var imgWidth = 0;
-    var img = new Image();
-    img.src = imgBinaryFile;
-    imgHeight = img.height;
-    imgWidth = img.width;
-     if (profileImage != undefined) {
-         $(lblFileName).text(profileImage);         
-    }
-    checkImageDimensions(imgProfile, figureProfileImage,
-            minHeight, minWidth, imgHeight, imgWidth,
-            imgBinaryFile);
-};
 
 /**
  * The purpose of this function is to populate edit cell profile popup
@@ -79,11 +57,9 @@ cellProfile.prototype.populateCellProfilePopupFieldsWithData = function() {
         document.getElementById("editDisplayName").dataset.CellType = "";
     }
 
-    if (binaryCellProfileImage!= null && binaryCellProfileImage!= undefined && binaryCellProfileImage != '') {
-        this.showCellProfileImage(binaryCellProfileImage, '#idImgFile',
+    objCommon.showProfileImage(binaryCellProfileImage, '#idImgFile',
                 '#figEditCellProfile', cellProfileImageName,
                 '#lblEditFileName');
-    }
 };
 
 /**
@@ -1095,10 +1071,7 @@ cellProfile.prototype.retrieveProfileInfoFromResponse1 = function (response) {
 
     $("#dvdisplayName").text(resDisplayName);
     $("#dvdisplayDesc").text(resDescription);
-    if (imgBinaryFile!= null && imgBinaryFile!= undefined && imgBinaryFile != '') {
-        //uCellProfile.convertBinaryDataToImage(imgBinaryFile, profileImageName);
-        this.showCellProfileImage(imgBinaryFile,'#imgBoxViewProfile','#figboxProfileImage');
-    }
+    objCommon.showProfileImage(imgBinaryFile,'#imgBoxViewProfile','#figboxProfileImage');
 };
 
 /**

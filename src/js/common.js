@@ -3665,3 +3665,31 @@ common.prototype.populateTableAfterDelete = function(etagValue,arrDeletedConflic
 };
 
 /******************************************** Pagination After Delete - End ********************************************/
+
+/**
+ * Following method displays Image.
+ * @param imgBinaryFile image binary data.
+ * @param imgProfile image profile.
+ * @param figureProfileImage figure id.
+ * @param profileImage profile filename.
+ * @param lblFileName profile filename lbl id.
+ */
+common.prototype.showProfileImage = function(imgBinaryFile,imgProfile,figureProfileImage,profileImage,lblFileName) {
+    //if the image binary data is not null , data would be converted into Image.
+    if (!imgBinaryFile) return;
+
+    var minHeight = 71;
+    var minWidth = 70;
+    var imgHeight = 0;
+    var imgWidth = 0;
+    var img = new Image();
+    img.src = imgBinaryFile;
+    imgHeight = img.height;
+    imgWidth = img.width;
+     if (profileImage != undefined) {
+         $(lblFileName).text(profileImage);         
+    }
+    checkImageDimensions(imgProfile, figureProfileImage,
+            minHeight, minWidth, imgHeight, imgWidth,
+            imgBinaryFile);
+}
