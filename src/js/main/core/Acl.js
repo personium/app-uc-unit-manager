@@ -159,7 +159,7 @@ _pc.Acl.prototype.toXmlString = function() {
   // root element created
   arr.push("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
   var aclStr = "<D:acl xmlns:D=\"DAV:\" xmlns:p=\"urn:x-personium:xmlns\"";
-  if (schemaAuth) {
+  if (schemaAuth && schemaAuth != "null") {
     aclStr += " p:requireSchemaAuthz=\""+ schemaAuth +"\"";
   }
   aclStr += " xml:base=\"";
