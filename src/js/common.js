@@ -194,9 +194,6 @@ function openCreateEntityModal(parentDivId, childDivId, firstElementToBeFocussed
   if (parentDivId == '#editEntityModalWindow' && childDivId == '#editEntityDialogBox') {
     uDataManagement.editEntityPopUp();
   }
-  if (parentDivId == '#createEnvironmentModal' && childDivId == '#createEnvironmentDialog') {
-    uCreateEnvironment.initializeCreateEnvironment();
-  }
   if (parentDivId == '#changePasswordModal' && childDivId == '#changePasswordDialog') {
     uChangePassword.clearPopUpFields();
   }

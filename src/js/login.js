@@ -349,13 +349,13 @@ login.setupInfo = function(managerInfo) {
     localStorage.setItem("clickedEnvironmentUnitUrl", $("#unitUrl").val());
     localStorage.setItem("clickedEnvironmentUnitCellName", $("#unitCellName").val());
     localStorage.setItem("ManagerInfo", JSON.stringify(managerInfo));
-    sessionStorage.setItem("selectedLanguage", $("#ddLanguageSelector").val());
+    localStorage.setItem("selectedLanguage", $("#ddLanguageSelector").val());
 }
 
 login.openManagerWindow = function() {
-    sessionStorage.setItem("contextRoot", "https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light");
+    localStorage.setItem("contextRoot", "https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light");
 
-    location.href = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+sessionStorage.selectedLanguage+'/environment.html';
+    location.href = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+localStorage.selectedLanguage+'/environment.html';
 }
 
 //Closing account registration popup
