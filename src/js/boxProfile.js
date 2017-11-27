@@ -346,9 +346,7 @@ boxProfile.prototype.populateEditBoxProfilePopUp = function(displayName,descript
 	if (description != undefined && description != null && description != '-') {
 		document.getElementById("editBPDescription").value = description;
 	}
-	if (objBoxProfile.imgBinaryFile != null) {
-		this.showBoxProfileImage(binaryImage,'#idBPImgFile','#figEditBoxProfile',profileImage);
-	}
+	objCommon.showProfileImage(binaryImage,'#idBPImgFile','#figEditBoxProfile',profileImage, "#lblEditNoFileSelected");
 };
 
 /**
@@ -583,30 +581,6 @@ boxProfile.prototype.checkDesciptionLength = function(){
 };
 
 /**
- * Following method displays Image.
- * @param imgBinaryFile image binary data.
- * @param imgProfile image profile.
- * @param figureProfileImage figure id.
- */
-boxProfile.prototype.showBoxProfileImage = function(imgBinaryFile,imgProfile,figureProfileImage,profileImage) {
-	var minHeight = 71;
-	var minWidth = 70;
-	var imgHeight = 0;
-	var imgWidth = 0;
-	var img = new Image();
-	img.src = imgBinaryFile;
-	imgHeight = img.height;
-	imgWidth = img.width;
-	 if (profileImage != undefined) {
-		$('#lblEditNoFileSelected').text(profileImage);
-	}
-	checkImageDimensions(imgProfile, figureProfileImage,
-			minHeight, minWidth, imgHeight, imgWidth,
-			objBoxProfile.imgBinaryFile);
-	
-};
-
-/**
  * The purpose of this method is to fetch profile details from response
  * @param response
  */
@@ -617,11 +591,7 @@ boxProfile.prototype.retrieveProfileInfoFromResponse = function (response) {
 	objBoxProfile.imgBinaryFile = response.Image;
 	$("#dvdisplayName").text(resDisplayName);
 	$("#dvdisplayDesc").text(resDescription);
-	//if the image binary data is not null , data would be converted into Image.
-	if (objBoxProfile.imgBinaryFile != null
-			&& objBoxProfile.imgBinaryFile != undefined) {
-		this.showBoxProfileImage(objBoxProfile.imgBinaryFile,'#imgBoxViewProfile','#figboxProfileImage');
-	}
+	objCommon.showProfileImage(objBoxProfile.imgBinaryFile,'#imgBoxViewProfile','#figboxProfileImage');
 };
 
 /**

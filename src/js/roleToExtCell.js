@@ -244,9 +244,10 @@ roleToExtCellMapping.prototype.createHeaderForRoleExtCellLinkTable = function(
 roleToExtCellMapping.prototype.createRowForRoleExtCellLinkTable = function(
 		dynamicRoleExtCellLinkTable, count, extCellName,  extCellURL, roleExtCellLinkCount,etag) {
 	var itemVal = extCellName+ objCommon.startBracket + extCellURL + objCommon.endBracket;
+	var dispExtCellURL = objCommon.changeLocalUnitToUnitUrl(extCellURL);
 	dynamicRoleExtCellLinkTable += '<td style="width:1%"><input id =  "txtRoleToExtRoleMappingEtagId'+roleExtCellLinkCount+'" value='+etag+' type = "hidden" /><input title="'+roleExtCellLinkCount+'" id="chkBoxRoleExtCellAssign'+ roleExtCellLinkCount + '" type="checkbox" class="case regular-checkbox big-checkbox" name="case" value="'+ itemVal + '"'+ '"/><label for="chkBoxRoleExtCellAssign' + roleExtCellLinkCount + '" class="customChkbox checkBoxLabel"></label></td>';
 	dynamicRoleExtCellLinkTable += "<td style='max-width: 172px;width:40%;'><div class = 'mainTableEllipsis'><label title= '"+ extCellName+ "' class='cursorPointer'>" + extCellName+ "</label></div></td>";
-	dynamicRoleExtCellLinkTable += "<td style='max-width: 300px;width:59%;'><div class ='mainTableEllipsis'><label title= '"+ extCellURL+ "' class='cursorPointer'>" + extCellURL+ "</label></div></td>";
+	dynamicRoleExtCellLinkTable += "<td style='max-width: 300px;width:59%;'><div class ='mainTableEllipsis'><label title= '"+ dispExtCellURL+ "' class='cursorPointer'>" + dispExtCellURL + "</label></div></td>";
 	dynamicRoleExtCellLinkTable += "</tr>";
 	return dynamicRoleExtCellLinkTable;
 };

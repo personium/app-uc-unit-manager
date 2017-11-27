@@ -244,7 +244,8 @@ boxDetail.prototype.displayBoxInfoDetails = function() {
 	$("#ccCreatedate").text(sessionStorage.cccreatedat);
 	$("#ccUpatedate").text(sessionStorage.ccupdatedat);
 	$("#ccEtag").text(sessionStorage.ccetag);
-	$("#ccUrl").text(sessionStorage.ccurl);
+	var dispCcURL = objCommon.changeLocalUnitToUnitUrl(sessionStorage.ccurl);
+	$("#ccUrl").text(dispCcURL);
 };
 
 

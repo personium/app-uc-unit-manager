@@ -46,6 +46,7 @@ common.prototype.maxRecordInterval = 50;
 common.prototype.noOfRecordsToBeFetched = 100;
 common.prototype.maxNoOfPages = 10;
 common.prototype.MAXROWS = 50;
+common.prototype.PERSONIUM_LOCALUNIT = "personium-localunit:";
 
 /**
  * This method checks idle time.
@@ -3662,3 +3663,43 @@ common.prototype.populateTableAfterDelete = function(etagValue,arrDeletedConflic
 };
 
 /******************************************** Pagination After Delete - End ********************************************/
+
+/**
+ * Following method displays Image.
+ * @param imgBinaryFile image binary data.
+ * @param imgProfile image profile.
+ * @param figureProfileImage figure id.
+ * @param profileImage profile filename.
+ * @param lblFileName profile filename lbl id.
+ */
+common.prototype.showProfileImage = function(imgBinaryFile,imgProfile,figureProfileImage,profileImage,lblFileName) {
+    //if the image binary data is not null , data would be converted into Image.
+    if (!imgBinaryFile) return;
+
+    var minHeight = 71;
+    var minWidth = 70;
+    var imgHeight = 0;
+    var imgWidth = 0;
+    var img = new Image();
+    img.src = imgBinaryFile;
+    imgHeight = img.height;
+    imgWidth = img.width;
+     if (profileImage != undefined) {
+         $(lblFileName).text(profileImage);         
+    }
+    checkImageDimensions(imgProfile, figureProfileImage,
+            minHeight, minWidth, imgHeight, imgWidth,
+            imgBinaryFile);
+}
+
+/*
+ * Replace personium-localunit with your unit URL
+ */
+common.prototype.changeLocalUnitToUnitUrl = function (cellUrl) {
+    var result = cellUrl;
+    if (cellUrl.startsWith(objCommon.PERSONIUM_LOCALUNIT)) {
+        result = cellUrl.replace(objCommon.PERSONIUM_LOCALUNIT + "/", getClientStore().baseURL);
+    }
+
+    return result;
+}

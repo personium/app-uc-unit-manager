@@ -158,7 +158,12 @@ _pc.Acl.prototype.toXmlString = function() {
   }
   // root element created
   arr.push("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
-  arr.push("<D:acl xmlns:D=\"DAV:\" xmlns:p=\"urn:x-personium:xmlns\"  p:requireSchemaAuthz=\""+ schemaAuth +"\" xml:base=\"");
+  var aclStr = "<D:acl xmlns:D=\"DAV:\" xmlns:p=\"urn:x-personium:xmlns\"";
+  if (schemaAuth && schemaAuth != "null") {
+    aclStr += " p:requireSchemaAuthz=\""+ schemaAuth +"\"";
+  }
+  aclStr += " xml:base=\"";
+  arr.push(aclStr);
   arr.push(roleBaseUrlStr);
 
   arr.push("\">");
