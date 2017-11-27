@@ -108,7 +108,8 @@ cellAcl.prototype.implementCellACL = function (arrCellACLRolePrivilegeList) {
 	var objAce = null;
 	var objJAcl = new _pc.Acl();
 	var objPrincipal = new _pc.Principal();
-	objJAcl.setRequireSchemaAuthz("public");
+	var rolePrivList = this.getCellACLSettings();
+	objJAcl.setRequireSchemaAuthz(rolePrivList.schemaAuthz);
 
 	for ( var i = 0; i < arrCellACLRolePrivilegeList.length; i++) {
 		var roleBoxPair = arrCellACLRolePrivilegeList[i].role;

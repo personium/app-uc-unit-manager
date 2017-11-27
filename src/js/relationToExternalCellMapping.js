@@ -345,11 +345,12 @@ relationToExternalCellMapping.prototype.createChunkedRelationToExtCellMappingTab
 relationToExternalCellMapping.prototype.createRowsForExternalCellTable = function(
 		dynamicRows, externalCell, count,externalCellURL, relationExtCellLinkCount,etag) {
 	var extCellDetails = externalCellURL + objCommon.startBracket + externalCell + objCommon.endBracket;
+	var dispExternalCellURL = objCommon.changeLocalUnitToUnitUrl(externalCellURL);
 	dynamicRows += '<td style="width:1%"><input id = "txtRelationToExtCellMappingEtagId'+relationExtCellLinkCount+'" value='+etag+' type = "hidden" /><input title="'+relationExtCellLinkCount+'" id="chkBoxRelationExtCellAssign' + relationExtCellLinkCount
 				+ '" type="checkbox" class="case regular-checkbox big-checkbox" name="case" value="'+ extCellDetails + '""/><label for="chkBoxRelationExtCellAssign' + relationExtCellLinkCount + '" class="customChkbox checkBoxLabel"></label></td>';
 	dynamicRows += "<td name = 'acc' style='max-width: 172px;width:40%'><div class = 'mainTableEllipsis'><label title='"+externalCell+"' class='cursorPointer'>"
 				+ externalCell + "</label></div></td>";
-	dynamicRows += "<td name = 'acc' style='max-width: 300px;width:59%'><div class = 'mainTableEllipsis'><label title='"+externalCellURL+"' class='cursorPointer'>" + externalCellURL + "</label></div></td>";
+	dynamicRows += "<td name = 'acc' style='max-width: 300px;width:59%'><div class = 'mainTableEllipsis'><label title='"+dispExternalCellURL+"' class='cursorPointer'>" + dispExternalCellURL + "</label></div></td>";
 	dynamicRows += "</tr>";
 	return dynamicRows;
 };

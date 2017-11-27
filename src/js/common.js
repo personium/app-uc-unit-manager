@@ -46,6 +46,7 @@ common.prototype.maxRecordInterval = 50;
 common.prototype.noOfRecordsToBeFetched = 100;
 common.prototype.maxNoOfPages = 10;
 common.prototype.MAXROWS = 50;
+common.prototype.PERSONIUM_LOCALUNIT = "personium-localunit:";
 
 /**
  * This method checks idle time.
@@ -3692,4 +3693,16 @@ common.prototype.showProfileImage = function(imgBinaryFile,imgProfile,figureProf
     checkImageDimensions(imgProfile, figureProfileImage,
             minHeight, minWidth, imgHeight, imgWidth,
             imgBinaryFile);
+}
+
+/*
+ * Replace personium-localunit with your unit URL
+ */
+common.prototype.changeLocalUnitToUnitUrl = function (cellUrl) {
+    var result = cellUrl;
+    if (cellUrl.startsWith(objCommon.PERSONIUM_LOCALUNIT)) {
+        result = cellUrl.replace(objCommon.PERSONIUM_LOCALUNIT + "/", getClientStore().baseURL);
+    }
+
+    return result;
 }

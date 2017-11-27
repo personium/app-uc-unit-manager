@@ -25,6 +25,7 @@ var arrDeletedConflictCount = [];
 var etagValue  = '';
 var objboxMgr = null;
 var isDeleted = false;
+
 /**
  * The purpose of this method is to fetch external name.
  * @param uri
@@ -33,10 +34,19 @@ var isDeleted = false;
 externalCell.prototype.getExternalCellName = function(uri) {
 //function getExternalCellName(uri) {
 	var arrUri = uri.split("/"); 
-	var externalCellName = arrUri[3];
+	var externalCellName = undefined;
+	if (uri.startsWith(objCommon.PERSONIUM_LOCALUNIT)) {
+		// local unit
+		externalCellName = arrUri[1];
+	} else {
+		// url
+		externalCellName = arrUri[3];  
+	}
+
 	if (externalCellName!= undefined && externalCellName.length == 0) {
 		externalCellName = undefined;
 	}
+	
 	return  externalCellName;
 };
 
@@ -443,14 +453,15 @@ function validateExternalCellURL(schemaURL, schemaSpan) {
 externalCell.prototype.createRows = function(dynamicTable, externalCellURI, externalCellName,externalCellDate, count, fullExternalCellName, fullExternalCellURI,externalRoleCount, linkedRelationList, externalCellRowCount, createdDate,parrEtag0, parrEtag1,etag) {
 	var selectedExtCellName = "'"+ fullExternalCellName + "'" ;
 	var selectedExtCellURL = "'"+ fullExternalCellURI + "'" ;
+	var dispExtCellURL = objCommon.changeLocalUnitToUnitUrl(fullExternalCellURI);
 	var pcreatedDate = "'" + createdDate + "'" ;
 	var pexternalCellDate = "'" + externalCellDate+"'" ;
 	
 //function createRows (dynamicTable, externalCellURI, externalCellName,externalCellDate, count, shorterExternalCellName, shorterExternalCellURI,externalRoleCount) {
 	dynamicTable += '<td style="width:1%"><input id =  "txtHiddenEtagId'+externalCellRowCount+'" value='+etag+' type = "hidden" /><input  title="'+externalCellRowCount+'" id="chkBox'+externalCellRowCount+'" type="checkbox" class="case cursorHand regular-checkbox big-checkbox" name="case" value="'+externalCellURI+'"/><label for="chkBox'+externalCellRowCount+'" class="customChkbox checkBoxLabel"></label></td>';
 	dynamicTable += '<td name = "externalCellName" style="max-width: 100px;width:15%"><div class = "mainTableEllipsis"><a href="#" id="extCellNameLink_' + count + '" title= "' + fullExternalCellName + '" onclick="openExternalCellToRoleMapping(' + selectedExtCellName + ',' +selectedExtCellURL+ ',' + parrEtag0 + ',' +parrEtag1+ ',' + pcreatedDate + ',' +pexternalCellDate+ ',' +externalCellURI+ ');" tabindex ="-1" style="outline:none">' + fullExternalCellName + '</a></div></td>';
-	dynamicTable += "<td name = 'externalCellURL' id='extCellURI_" + count + "' style='max-width: 100px;width:24%'><div class = 'mainTableEllipsis'><label title= "+externalCellURI+" class='cursorPointer'>"
-			+ fullExternalCellURI + "</label></div></td>";
+	dynamicTable += "<td name = 'externalCellURL' id='extCellURI_" + count + "' style='max-width: 100px;width:24%'><div class = 'mainTableEllipsis'><label title= "+dispExtCellURL+" class='cursorPointer'>"
+			+ dispExtCellURL + "</label></div></td>";
 	dynamicTable += "<td style='width:15%' name = 'Date' id='extCellCreatedDate_" + count + "'>" + createdDate
 	+ "</td>";
 	dynamicTable += "<td style='width:15%' name = 'Date' id='extCellDate_" + count + "'>" + externalCellDate
