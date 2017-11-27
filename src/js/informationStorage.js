@@ -56,28 +56,3 @@ function loadCellList() {
 	spinner.stop();
 	// Code for Spinner END.
 } 
-
-$.getJSON('../../'+sessionStorage.selectedLanguage+'_uiProperties.json', function(props) {
-	setUiProps(props);
-	applyContents();
-});
-
-/*$.ajax({
-	data : {
-		param : ""
-	},
-	dataType : 'json',
-	url : '../Info',
-	type : 'GET',
-	success : function(jsonData) {
-		setClientStore(jsonData);
-		//loadCellList();
-	},
-	error : function() {
-		//failure case
-	}
-});*/
-
-$(function() {
-	loadCellList();
-});

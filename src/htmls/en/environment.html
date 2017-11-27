@@ -156,6 +156,11 @@ $(document).ready(function(){
 		$("#CSRFTokenDisplayEnvironment").val(requestId);
 		var objHome = new home();
 		objHome.setEnvironmentVariables();
+        $.getJSON('../../'+sessionStorage.selectedLanguage+'_uiProperties.json', function(props) {
+            setUiProps(props);
+            applyContents();
+        });
+        loadCellList();
 		//$("#mainContainer").hide();
 		$(document).attr('title', sessionStorage.selectedEnvName);
 		var unitURL = sessionStorage.selectedUnitUrl;
