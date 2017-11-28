@@ -586,8 +586,10 @@ boxProfile.prototype.checkDesciptionLength = function(){
  */
 boxProfile.prototype.retrieveProfileInfoFromResponse = function (response) {
 	response = response.bodyAsJson();
-	var resDisplayName = objCommon.replaceNullValues(response.DisplayName,getUiProps().MSG0275);
-	var resDescription = objCommon.replaceNullValues(response.Description,getUiProps().MSG0275);
+	var tempDispName = objCommon.getProfileDisplayName(response);
+    var tempDescription = objCommon.getProfileDescription(response);
+	var resDisplayName = objCommon.replaceNullValues(tempDispName,getUiProps().MSG0275);
+	var resDescription = objCommon.replaceNullValues(tempDescription,getUiProps().MSG0275);
 	objBoxProfile.imgBinaryFile = response.Image;
 	$("#dvdisplayName").text(resDisplayName);
 	$("#dvdisplayDesc").text(resDescription);
@@ -619,8 +621,10 @@ boxProfile.prototype.showBoxProfileInformation = function() {
 		objBoxProfile.retrieveProfileInfoFromResponse(response);
 	}
 	response = response.bodyAsJson();
-	var displayName = objCommon.replaceNullValues(response.DisplayName,getUiProps().MSG0275);
-	var description = objCommon.replaceNullValues(response.Description,getUiProps().MSG0275);
+	var tempDispName = objCommon.getProfileDisplayName(response);
+    var tempDescription = objCommon.getProfileDescription(response);
+	var displayName = objCommon.replaceNullValues(tempDispName,getUiProps().MSG0275);
+	var description = objCommon.replaceNullValues(tempDescription,getUiProps().MSG0275);
 	imgBinaryFile = response.Image;
 	var profileImage = response.ProfileImageName;
 	this.populateEditBoxProfilePopUp(displayName,description,imgBinaryFile,profileImage);
