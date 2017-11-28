@@ -297,8 +297,7 @@ login.isUnitCell = function(jsonData1, jsonData2) {
                 token: jsonData1.access_token,
                 refreshToken: jsonData1.refresh_token
             };
-            login.setupInfo(managerInfo);
-            login.openManagerWindow();
+            login.openManagerWindow(managerInfo);
         },
         error: function(res) {
             if (res.status === 403) {
@@ -336,8 +335,7 @@ login.getCellInfo = function(jsonData) {
                 token: jsonData.access_token,
                 refreshToken: jsonData.refresh_token
             };
-            login.setupInfo(managerInfo);
-            login.openManagerWindow();
+            login.openManagerWindow(managerInfo);
         },
         error: function(res) {
             console.log(res.status);
@@ -345,17 +343,22 @@ login.getCellInfo = function(jsonData) {
     });
 }
 
-login.setupInfo = function(managerInfo) {
-    localStorage.setItem("clickedEnvironmentUnitUrl", $("#unitUrl").val());
-    localStorage.setItem("clickedEnvironmentUnitCellName", $("#unitCellName").val());
-    localStorage.setItem("ManagerInfo", JSON.stringify(managerInfo));
-    localStorage.setItem("selectedLanguage", $("#ddLanguageSelector").val());
+login.openManagerWindow = function(managerInfo) {
+    let launchUrl = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+$("#ddLanguageSelector").val()+'/environment.html';
+    location.href = login.prepareHashParams(launchUrl, managerInfo);
 }
 
-login.openManagerWindow = function() {
-    localStorage.setItem("contextRoot", "https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light");
-
-    location.href = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+localStorage.selectedLanguage+'/environment.html';
+login.prepareHashParams = function(launchUrl, managerInfo) {
+    let url = [
+        launchUrl,
+        '?lng=' + $("#ddLanguageSelector").val(),
+        '#ManagerInfo=' + JSON.stringify(managerInfo),
+        '&contextRoot=https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light',
+        '&clickedEnvironmentUnitUrl=' + $("#unitUrl").val(),
+        '&clickedEnvironmentUnitCellName=' + $("#unitCellName").val(),
+        '&selectedLanguage=' + $("#ddLanguageSelector").val()
+    ].join("");
+    return url;
 }
 
 //Closing account registration popup

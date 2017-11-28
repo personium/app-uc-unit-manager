@@ -429,32 +429,35 @@ home.prototype.showDeleteButton = function(jsonData) {
 };
 
 home.prototype.setEnvironmentVariables = function() {
-    let selectedLanguage = localStorage.getItem("selectedLanguage");
-    if (selectedLanguage) {
-        sessionStorage.selectedLanguage = selectedLanguage;
+    let tempParams = uHome.getHashParams();
+    if (tempParams.selectedLanguage) {
+        sessionStorage.selectedLanguage = tempParams.selectedLanguage;
     }
-    let contextRoot = localStorage.getItem("contextRoot");
-    if (contextRoot) {
-        sessionStorage.contextRoot = contextRoot;
+    if (tempParams.contextRoot) {
+        sessionStorage.contextRoot = tempParams.contextRoot;
     }
-    if (localStorage.clickedEnvironmentUnitUrl != null
-            && localStorage.clickedEnvironmentUnitCellName != null
-            && localStorage.ManagerInfo != null) {
-        sessionStorage.selectedUnitUrl = localStorage
-                .getItem("clickedEnvironmentUnitUrl");
-        sessionStorage.selectedUnitCellName = localStorage
-                .getItem("clickedEnvironmentUnitCellName");
-        sessionStorage.ManagerInfo = localStorage.getItem("ManagerInfo");
+    if (tempParams.clickedEnvironmentUnitUrl != null
+            && tempParams.clickedEnvironmentUnitCellName != null
+            && tempParams.ManagerInfo != null) {
+        sessionStorage.selectedUnitUrl = tempParams.clickedEnvironmentUnitUrl;
+        sessionStorage.selectedUnitCellName = tempParams.clickedEnvironmentUnitCellName;
+        sessionStorage.ManagerInfo = tempParams.ManagerInfo;
         uHome.storeEnvDetails();
     }
-    uHome.removeEnvironmentVariablesFromLocalStorage();
 };
 
-home.prototype.removeEnvironmentVariablesFromLocalStorage = function() {
-    localStorage.removeItem("clickedEnvironmentUnitUrl");
-    localStorage.removeItem("ManagerInfo");
-    localStorage.removeItem("selectedLanguage");
-    localStorage.removeItem("contextRoot");
+home.prototype.getHashParams = function() {
+    let hash = location.hash.substring(1);
+    let params = hash.split("&");
+    let arrParam = {};
+    for (var i in params) {
+        var param = params[i].split("=");
+        arrParam[param[0]] = param[1]; 
+    }
+    // Clear fragments
+    location.hash = "";
+    
+    return arrParam;
 };
 
 // DELETE ENVIRONMENT ENDS
