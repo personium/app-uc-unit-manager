@@ -159,6 +159,9 @@ login.prototype.getEnvDetail = function() {
                 login.determineManagerType(unitCellUrl);
             },
             error : function(res) {
+                $('body > div.mySpinner').hide();
+                $('body > div.myHiddenDiv').show();
+                
                 document.getElementById("logoutDiv").style.visibility = "visible";
                 $("#logoutDiv").addClass("loginErrorMessage");
                 $("#logoutMsg").text("The target unitcell does not exist.");
