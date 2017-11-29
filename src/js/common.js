@@ -3703,3 +3703,25 @@ common.prototype.changeLocalUnitToUnitUrl = function (cellUrl) {
 
     return result;
 }
+
+/*
+ * Acquire DisplayName from the object of profile.json according to existence of multilingual correspondence.
+ */
+common.prototype.getProfileDisplayName = function(resJson) {
+    var tempDispName = resJson.DisplayName;
+    if (sessionStorage.selectedLanguage === 'en' && tempDispName.en != undefined) {
+        tempDispName = resJson.DisplayName.en;
+    }
+    return tempDispName;
+}
+
+/*
+ * Acquire Description from the object of profile.json according to existence of multilingual correspondence.
+ */
+common.prototype.getProfileDescription = function(resJson) {
+    var tempDescription = resJson.Description;
+    if (sessionStorage.selectedLanguage === 'en' && tempDescription.en != undefined) {
+        tempDescription = resJson.Description.en;
+    }
+    return tempDescription;
+}

@@ -34,8 +34,8 @@ var isProfileImage = true;
 cellProfile.prototype.populateCellProfilePopupFieldsWithData = function() {
     var response = this.getCellProfileInfo();
     response = response.bodyAsJson();
-    var tempDispName = getProfileDisplayName(response);
-    var tempDescription = getProfileDescription(response);
+    var tempDispName = objCommon.getProfileDisplayName(response);
+    var tempDescription = objCommon.getProfileDescription(response);
     var displayName = objCommon.replaceNullValues(tempDispName,
             getUiProps().MSG0275);
     var description = objCommon.replaceNullValues(tempDescription,
@@ -1055,8 +1055,8 @@ cellProfile.prototype.displayCellProfileInfo = function () {
  */
 cellProfile.prototype.retrieveProfileInfoFromResponse1 = function (response) {
     response = response.bodyAsJson();
-    var tempDispName = getProfileDisplayName(response);
-    var tempDescription = getProfileDescription(response);
+    var tempDispName = objCommon.getProfileDisplayName(response);
+    var tempDescription = objCommon.getProfileDescription(response);
     var resDisplayName = objCommon.replaceNullValues(tempDispName,getUiProps().MSG0275);
     var resDescription = objCommon.replaceNullValues(tempDescription,getUiProps().MSG0275);
     imgBinaryFile = response.Image;
@@ -1133,24 +1133,3 @@ $(function() {
     });
 });
 
-/*
- * Acquire DisplayName from the object of profile.json according to existence of multilingual correspondence.
- */
-function getProfileDisplayName(resJson) {
-    var tempDispName = resJson.DisplayName;
-    if (sessionStorage.selectedLanguage === 'en' && tempDispName.en != undefined) {
-        tempDispName = resJson.DisplayName.en;
-    }
-    return tempDispName;
-}
-
-/*
- * Acquire Description from the object of profile.json according to existence of multilingual correspondence.
- */
-function getProfileDescription(resJson) {
-    var tempDescription = resJson.Description;
-    if (sessionStorage.selectedLanguage === 'en' && tempDescription.en != undefined) {
-        tempDescription = resJson.Description.en;
-    }
-    return tempDescription;
-}
