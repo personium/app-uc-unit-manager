@@ -47,6 +47,10 @@ common.prototype.noOfRecordsToBeFetched = 100;
 common.prototype.maxNoOfPages = 10;
 common.prototype.MAXROWS = 50;
 common.prototype.PERSONIUM_LOCALUNIT = "personium-localunit:";
+common.prototype.DOUBLE_NEGATIVE_MIN_VALUE = -1.79e+308;
+common.prototype.DOUBLE_NEGATIVE_MAX_VALUE = -2.23e-308;
+common.prototype.DOUBLE_POSITIVE_MIN_VALUE = 2.23e-308;
+common.prototype.DOUBLE_POSITIVE_MAX_VALUE = 1.79e+308;
 
 /**
  * This method checks idle time.
@@ -3724,4 +3728,21 @@ common.prototype.getProfileDescription = function(resJson) {
         tempDescription = resJson.Description.en;
     }
     return tempDescription;
+}
+
+/**
+ * The purpose of this function is to validate Edm.Double type.
+ * @param value
+ */
+common.prototype.isTypeDoubleValid = function(value) {
+    if (0 == value
+        || (objCommon.DOUBLE_NEGATIVE_MIN_VALUE <= value
+            && value <= objCommon.DOUBLE_NEGATIVE_MAX_VALUE)
+        || (objCommon.DOUBLE_POSITIVE_MIN_VALUE <= value
+            && value <= objCommon.DOUBLE_POSITIVE_MAX_VALUE)) {
+
+        return true;
+    }
+
+    return false;
 }

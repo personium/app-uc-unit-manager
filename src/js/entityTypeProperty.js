@@ -248,7 +248,7 @@ entityTypeProperty.prototype.validate = function(propertyName, typeSelected, uni
 						'#defaultValuePropErrorMsg', '');
 				uEntityTypeProperty.setErrorMessageSpanVal(
 						'#defaultValuetxtAreaPropErrorMsg', '');
-					if (typeSelected === "Edm.Int32" || typeSelected === "Edm.Single") {
+					if (typeSelected === "Edm.Int32" || typeSelected === "Edm.Single" || typeSelected === "Edm.Double") {
 						uEntityTypeProperty.removeStatusIcons('#txtBoxPropDefaultValue');
 						if (lenDefaultValueText > 0) {
 						cellpopup.showValidValueIcon('#txtBoxPropDefaultValue');
@@ -402,13 +402,28 @@ entityTypeProperty.prototype.validateDefaultValue = function(typeSelected) {
 			cellpopup.showErrorIcon('#txtBoxPropDefaultValue');
 		}
 		isValid = uComplexTypeProperty.isTypeSingleValid(defaultValueText,
-				lenDefaultValueText);
+		   		lenDefaultValueText);
 		if (!isValid) {
+		   	isDefaultValueValid = false;
+		   	uEntityTypeProperty.setErrorMessageSpanVal(
+		   			'#defaultValuePropErrorMsg', getUiProps().MSG0081);
+		  	cellpopup.showErrorIcon('#txtBoxPropDefaultValue');
+		}
+	} else if (typeSelected === "Edm.Double") {
+		var isValid = "";
+		var letters = /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/;
+		if (lenDefaultValueText != 0 && ! (defaultValueText.match(letters))) {
 			isDefaultValueValid = false;
 			uEntityTypeProperty.setErrorMessageSpanVal(
-					'#defaultValuePropErrorMsg', getUiProps().MSG0081);
+					'#defaultValuePropErrorMsg', getUiProps().MSG0080);
 			cellpopup.showErrorIcon('#txtBoxPropDefaultValue');
 		}
+        if (!objCommon.isTypeDoubleValid(defaultValueText)) {
+        	isDefaultValueValid = false;
+		   	uEntityTypeProperty.setErrorMessageSpanVal(
+		   			'#defaultValuePropErrorMsg', getUiProps().MSG0219);
+		  	cellpopup.showErrorIcon('#txtBoxPropDefaultValue');
+        }
 	} else if (typeSelected === "Edm.DateTime") {
 		var defaultValueTime = $("#defaultTime").val();
 		var lenDefaultValueTime ="";
@@ -1038,18 +1053,14 @@ entityTypeProperty.prototype.removeStatusIcons = function(txtID){
  */
 entityTypeProperty.prototype.emptyDefaultValueFieldAsPerType = function() {
 	var selectedType = $("#dropDownPropType").val();
-	if (selectedType === "Edm.DateTime") {
-		$('#txtBoxPropDefaultValue').val('');
-		uEntityTypeProperty.removeStatusIcons('#txtBoxPropDefaultValue');
+	switch (selectedType) {
+		case "Edm.DateTime":
+		case "Edm.Int32":
+		case "Edm.Single":
+		case "Edm.Double":
+		    $('#txtBoxPropDefaultValue').val('');
+		    uEntityTypeProperty.removeStatusIcons('#txtBoxPropDefaultValue');
 	}
-	if(selectedType === "Edm.Int32"){
-		$('#txtBoxPropDefaultValue').val('');
-		uEntityTypeProperty.removeStatusIcons('#txtBoxPropDefaultValue');
-	} 
-	if(selectedType === "Edm.Single"){
-		$('#txtBoxPropDefaultValue').val('');
-		uEntityTypeProperty.removeStatusIcons('#txtBoxPropDefaultValue');
-	} 
 };
 /** ***************** PROPERTY DELETE : END *************** */
 
@@ -1095,7 +1106,8 @@ entityTypeProperty.prototype.defaultValueValidations = function() {
 		uEntityTypeProperty.setErrorMessageSpanVal(
 				'#defaultValuetxtAreaPropErrorMsg', '');
 		if (propSelectedType === "Edm.Int32"
-				|| propSelectedType === "Edm.Single") {
+				|| propSelectedType === "Edm.Single"
+				|| propSelectedType === "Edm.Double") {
 			uEntityTypeProperty.removeStatusIcons('#txtBoxPropDefaultValue');
 			if (lenDefaultValueText > 0) {
 				cellpopup.showValidValueIcon('#txtBoxPropDefaultValue');
