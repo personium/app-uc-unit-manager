@@ -1009,6 +1009,8 @@ dataManagement.prototype.createRowTextAreaNullDefault = function(index, type, pr
         infoMessage = getUiProps().MSG0215;
     }else if(type == "Edm.Single"){
         infoMessage = getUiProps().MSG0216;
+    }else if(type == "Edm.Double"){
+        infoMessage = getUiProps().MSG0409;
     }else if(type == "Edm.Boolean"){
         infoMessage = getUiProps().MSG0217;
     }
@@ -1042,6 +1044,8 @@ dataManagement.prototype.createRowTextAreaNullNoDefault = function(index, type, 
         infoMessage = getUiProps().MSG0215;
     }else if(type == "Edm.Single"){
         infoMessage = getUiProps().MSG0216;
+    }else if(type == "Edm.Double"){
+        infoMessage = getUiProps().MSG0409;
     }else if(type == "Edm.Boolean"){
         infoMessage = getUiProps().MSG0217;
     }
@@ -1075,6 +1079,8 @@ dataManagement.prototype.createRowTextAreaNotNullDefault = function(index, type,
         infoMessage = getUiProps().MSG0215;
     }else if(type == "Edm.Single"){
         infoMessage = getUiProps().MSG0216;
+    }else if(type == "Edm.Double"){
+        infoMessage = getUiProps().MSG0409;
     }else if(type == "Edm.Boolean"){
         infoMessage = getUiProps().MSG0217;
     }
@@ -1108,6 +1114,8 @@ dataManagement.prototype.createRowTextAreaNotNullNoDefault = function(index, typ
         infoMessage = getUiProps().MSG0215;
     }else if(type == "Edm.Single"){
         infoMessage = getUiProps().MSG0216;
+    }else if(type == "Edm.Double"){
+        infoMessage = getUiProps().MSG0409;
     }else if(type == "Edm.Boolean"){
         infoMessage = getUiProps().MSG0217;
     }
@@ -1543,7 +1551,7 @@ dataManagement.prototype.createEditRowTextAreaNull = function(index,
     }else if(type == "Edm.Boolean"){
         infoMessage = getUiProps().MSG0217;
     } else if(type == "Edm.Double"){
-        infoMessage = getUiProps().MSG0220;
+        infoMessage = getUiProps().MSG0409;
     }
     var tabIndexValue = index + 1;
     var row = "<tr><td class='entityColText'><div class='lblElement mainTableEllipsis entityColTextAreaTxt' title='" +
@@ -1580,7 +1588,7 @@ dataManagement.prototype.createEditRowTextAreaNotNull = function(index,
     }else if(type == "Edm.Boolean"){
         infoMessage = getUiProps().MSG0217;
     }else if(type == "Edm.Double"){
-        infoMessage = getUiProps().MSG0220;
+        infoMessage = getUiProps().MSG0409;
     }
     var tabIndexValue = index + 1;
     var row = "<tr><td class='entityColText'><div class='lblElement mainTableEllipsis entityColTextAreaTxt' title='" +
@@ -1879,8 +1887,10 @@ dataManagement.prototype.createEntityPopUp = function(edit, selectedEntity) {
                             index, selectedEntity, type, propDetailsList);
                 }
             }
-        } else if ($.trim(propDetailsList[index][1]) == "Edm.Int32"
-            && $.trim(propDetailsList[index][2]) == "None") {
+        } else if (($.trim(propDetailsList[index][1]) == "Edm.Int32" 
+        	       || $.trim(propDetailsList[index][1]) == "Edm.Single" 
+        	       || $.trim(propDetailsList[index][1]) == "Edm.Double")
+                  && $.trim(propDetailsList[index][2]) == "None") {
             if (propDetailsList[index][3] == true) {// null is allowed
                 if (!edit) {
                     if ($.trim(propDetailsList[index][4]) != "") {
@@ -1914,78 +1924,10 @@ dataManagement.prototype.createEntityPopUp = function(edit, selectedEntity) {
                             index, selectedEntity, type, propDetailsList);
                 }
             }
-        } else if ($.trim(propDetailsList[index][1]) == "Edm.Int32"
-            && $.trim(propDetailsList[index][2]) == "List") {
-            if (propDetailsList[index][3] == true) {// null is allowed
-                if (!edit) {
-                    if ($.trim(propDetailsList[index][4]) != "") {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextAreaNullDefault(index, type, propDetailsList);
-                    } else {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextAreaNullNoDefault(index, type, propDetailsList);
-                    }
-                } else {
-                    dynamicRows = dynamicRows
-                    + uDataManagement.createEditRowTextAreaNull(index,
-                            selectedEntity, type, propDetailsList);
-                }
-            } else {// null is not allowed
-                if (!edit) {
-                    if ($.trim(propDetailsList[index][4]) != "") {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextAreaNotNullDefault(index, type, propDetailsList);
-                    } else {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextAreaNotNullNoDefault(index, type, propDetailsList);
-                    }
-                } else {
-                    dynamicRows = dynamicRows
-                    + uDataManagement.createEditRowTextAreaNotNull(
-                            index, selectedEntity, type, propDetailsList);
-                }
-            }
-        } else if ($.trim(propDetailsList[index][1]) == "Edm.Single"
-            && $.trim(propDetailsList[index][2]) == "None") {
-            if (propDetailsList[index][3] == true) {// null is allowed
-                if (!edit) {
-                    if ($.trim(propDetailsList[index][4]) != "") {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextBoxNullDefault(index, type, propDetailsList);
-                    } else {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextBoxNullNoDefault(index, type, propDetailsList);
-                    }
-                } else {
-                    dynamicRows = dynamicRows
-                    + uDataManagement.createEditRowTextBoxNull(index,
-                            selectedEntity, type, propDetailsList);
-                }
-            } else {// null is not allowed
-                if (!edit) {
-                    if ($.trim(propDetailsList[index][4]) != "") {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextBoxNotNullDefault(index, type, propDetailsList);
-                    } else {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextBoxNotNullNoDefault(index, type, propDetailsList);
-                    }
-                } else {
-                    dynamicRows = dynamicRows
-                    + uDataManagement.createEditRowTextBoxNotNull(
-                            index, selectedEntity, type, propDetailsList);
-                }
-            }
-        } else if ($.trim(propDetailsList[index][1]) == "Edm.Single"
-            && $.trim(propDetailsList[index][2]) == "List") {
+        } else if (($.trim(propDetailsList[index][1]) == "Edm.Int32"
+           	       || $.trim(propDetailsList[index][1]) == "Edm.Single" 
+        	       || $.trim(propDetailsList[index][1]) == "Edm.Double")
+                  && $.trim(propDetailsList[index][2]) == "List") {
             if (propDetailsList[index][3] == true) {// null is allowed
                 if (!edit) {
                     if ($.trim(propDetailsList[index][4]) != "") {
@@ -2160,77 +2102,6 @@ dataManagement.prototype.createEntityPopUp = function(edit, selectedEntity) {
                 }
             }
         }
-        else if ($.trim(propDetailsList[index][1]) == "Edm.Double"
-            && $.trim(propDetailsList[index][2]) == "None") {
-            if (propDetailsList[index][3] == true) {// null is allowed
-                if (!edit) {
-                    if ($.trim(propDetailsList[index][4]) != "") {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextBoxNullDefault(index, type, propDetailsList);
-                    } else {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextBoxNullNoDefault(index, type, propDetailsList);
-                    }
-                } else {
-                    dynamicRows = dynamicRows
-                    + uDataManagement.createEditRowTextBoxNull(index,
-                            selectedEntity, type, propDetailsList);
-                }
-            } else {// null is not allowed
-                if (!edit) {
-                    if ($.trim(propDetailsList[index][4]) != "") {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextBoxNotNullDefault(index, type, propDetailsList);
-                    } else {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextBoxNotNullNoDefault(index, type, propDetailsList);
-                    }
-                } else {
-                    dynamicRows = dynamicRows
-                    + uDataManagement.createEditRowTextBoxNotNull(
-                            index, selectedEntity, type, propDetailsList);
-                }
-            }
-        } else if ($.trim(propDetailsList[index][1]) == "Edm.Double"
-            && $.trim(propDetailsList[index][2]) == "List") {
-            if (propDetailsList[index][3] == true) {// null is allowed
-                if (!edit) {
-                    if ($.trim(propDetailsList[index][4]) != "") {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextAreaNullDefault(index, type, propDetailsList);
-                    } else {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextAreaNullNoDefault(index, type, propDetailsList);
-                    }
-                } else {
-                    dynamicRows = dynamicRows
-                    + uDataManagement.createEditRowTextAreaNull(index,
-                            selectedEntity, type, propDetailsList);
-                }
-            } else {// null is not allowed
-                if (!edit) {
-                    if ($.trim(propDetailsList[index][4]) != "") {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextAreaNotNullDefault(index, type, propDetailsList);
-                    } else {
-                        dynamicRows = dynamicRows
-                        + uDataManagement
-                        .createRowTextAreaNotNullNoDefault(index, type, propDetailsList);
-                    }
-                } else {
-                    dynamicRows = dynamicRows
-                    + uDataManagement.createEditRowTextAreaNotNull(
-                            index, selectedEntity, type, propDetailsList);
-                }
-            }
-        } 
         else if ($.trim(propDetailsList[index][2]) == "List") {
             if (propDetailsList[index][3] == true) {// null is allowed
                 if (!edit) {
@@ -2376,7 +2247,8 @@ dataManagement.prototype.validateEmptyFields = function(edit) {
                     //break;
                     }
                     if (($("#colType_" + index).text() == "Edm.String" || $("#colType_" + index).text() == "Edm.Int32"
-                    	|| $("#colType_" + index).text() == "Edm.Single") && ($("#colCollection_" + index).text() != "List")){
+                    	|| $("#colType_" + index).text() == "Edm.Single" || $("#colType_" + index).text() == "Edm.Double")
+                    	&& ($("#colCollection_" + index).text() != "List")){
                     	uDataManagement.showErrorIcon("#rowVal_"+index);
                     }
                     break;
@@ -3189,10 +3061,20 @@ dataManagement.prototype.validateFieldsPerType = function(edit) {
                     break;
                 }
             }
-            var MAX_VALUE = Number.MAX_VALUE; //1.79e+308
-            var MIN_VALUE = Number(getUiProps().MSG0218);
             if (lenField > 0) {
-            if (valField < MIN_VALUE || valField > MAX_VALUE) {
+            if (!(valField.match(letters))) {
+	            result = false;
+	            if (edit){
+	            	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+	                        getUiProps().MSG0221);
+	            	//break;
+	            }
+	            else {
+		            objCommon.setHTMLValue("rowValErrorMsg_" + index,
+		                        getUiProps().MSG0221);
+		            //break;
+	            }
+            } else if (!objCommon.isTypeDoubleValid(valField)) {
                 result = false;
                 if (edit) {
                 	$("#rowValEdit_"+index).focus();
@@ -3205,18 +3087,6 @@ dataManagement.prototype.validateFieldsPerType = function(edit) {
                    getUiProps().MSG0219);
                   //  break;
                 }
-            } else if (!(valField.match(letters))) {
-	            result = false;
-	            if (edit){
-	            	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
-	                        getUiProps().MSG0221);
-	            	//break;
-	            }
-	            else {
-		            objCommon.setHTMLValue("rowValErrorMsg_" + index,
-		                        getUiProps().MSG0221);
-		            //break;
-	            }
             }
             if(!result){
             if(edit){
@@ -3237,6 +3107,99 @@ dataManagement.prototype.validateFieldsPerType = function(edit) {
             	}
             }
           }
+        }
+        if ($("#colType_" + index).text() == "Edm.Double"
+            && $("#colCollection_" + index).text() == "List") {
+        	if ($("#colNullable_" + index).text() == "false") {
+        		var lenField = $(elem + index).val().length;
+             	if (lenField < MINLENGTH || $(elem + index).val() == ""
+                     || $(elem + index).val() == undefined) {
+                     result = false;
+                     if (edit) {
+                     	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+                                               getUiProps().MSG0115);
+                     } else {
+                     	objCommon.setHTMLValue("rowValErrorMsg_" + index,
+                                               getUiProps().MSG0115);
+                     }
+                 }
+             }
+            if ($.trim($(elem + index).val()) != "") {
+               //Following regex reads value from [0-9], decimal and comma.
+                var listLetters = /^[-+0-9eE\.,、]*$/;
+                //The following reqex ensures that only the double type is accepted
+                var letters = /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/;
+                if (!($(elem + index).val().match(listLetters))) {
+                    result = false;
+                    if (edit) {
+                    	$("#rowValEdit_"+index).focus();
+                    	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+                                               getUiProps().MSG0112);
+                    } else {
+                    	$("#rowValEdit_"+index).focus();
+                        objCommon.setHTMLValue("rowValErrorMsg_" + index,
+                                               getUiProps().MSG0112);
+                    }
+                }
+                var data = $(elem + index).val();
+                if (data.lastIndexOf(',') == (data.length - 1) || data.lastIndexOf('、') == (data.length - 1)) {
+                    result = false;
+                    if (edit) {
+                    	$("#rowValEdit_"+index).focus();
+                        objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+                                               getUiProps().MSG0112);
+                    } else {
+                    	$("#rowValEdit_"+index).focus();
+                        objCommon.setHTMLValue("rowValErrorMsg_" + index,
+                                               getUiProps().MSG0112);
+                    }
+                }
+                var list = $(elem + index).val().split(',');
+                if($(elem + index).val().indexOf('、') != -1){
+                    list = $(elem + index).val().split('、');
+                }
+                var noOfItems = list.length;
+                var flag = false;
+                for ( var ind = 0; ind < noOfItems; ind++) {
+                    var lenField = list[ind].length;
+                    var valField = list[ind];
+                    if (lenField > 0) {
+                    	if (!(valField.match(letters))) {
+	                        result = false;
+	                        flag = true;
+	                        if (edit){
+	                        	$("#rowValEdit_"+index).focus();
+	                        	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+	                                    getUiProps().MSG0080);
+	                        	break;
+	                        }
+	                        else {
+	                        	$("#rowValEdit_"+index).focus();
+		                        objCommon.setHTMLValue("rowValErrorMsg_" + index,
+		                                    getUiProps().MSG0080);
+		                        break;
+	                        }
+                        } else if (!objCommon.isTypeDoubleValid(valField)) {
+                            result = false;
+                            flag = true;
+                            if (edit) {
+                            	$("#rowValEdit_"+index).focus();
+                            	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+                                                       getUiProps().MSG0219);
+                                break;
+                            } else {
+                            	$("#rowValEdit_"+index).focus();
+                                objCommon.setHTMLValue("rowValErrorMsg_" + index,
+                                                       getUiProps().MSG0219);
+                               break;
+                            }
+                        }
+                    }
+                }
+                if (flag) {
+                   // break;
+                }
+            }
         }
     }
     return result;
@@ -3299,33 +3262,10 @@ dataManagement.prototype.createJsonData = function(edit) {
     }
     var json = {};
     for ( var index = 0; index < noOfRows; index++) {
-        if (uDataManagement.propertyDetailsList[index][1] == "Edm.String") {
-            if ($(elem + index).val() != "") {
-                if (uDataManagement.propertyDetailsList[index][2] == "None") {
-                    var propName = uDataManagement.propertyDetailsList[index][0];
-                    var propVal = $(elem + index).val();
-                    json[propName] = propVal;
-                } else if (uDataManagement.propertyDetailsList[index][2] == "List") {
-                    var propName = uDataManagement.propertyDetailsList[index][0];
-                    var propVal = $(elem + index).val();
-                    var propValData = uDataManagement.getListData(propVal);
-                    json[propName] = propValData;
-                }
-            }
-        } else if (uDataManagement.propertyDetailsList[index][1] == "Edm.Int32") {
-            if ($(elem + index).val() != "") {
-                if (uDataManagement.propertyDetailsList[index][2] == "None") {
-                    var propName = uDataManagement.propertyDetailsList[index][0];
-                    var propVal = $(elem + index).val();
-                    json[propName] = propVal;
-                } else if (uDataManagement.propertyDetailsList[index][2] == "List") {
-                    var propName = uDataManagement.propertyDetailsList[index][0];
-                    var propVal = $(elem + index).val();
-                    var propValData = uDataManagement.getListData(propVal);
-                    json[propName] = propValData;
-                }
-            }
-        } else if (uDataManagement.propertyDetailsList[index][1] == "Edm.Single") {
+        if (uDataManagement.propertyDetailsList[index][1] == "Edm.String"
+         || uDataManagement.propertyDetailsList[index][1] == "Edm.Int32"
+         ||uDataManagement.propertyDetailsList[index][1] == "Edm.Single"
+         || uDataManagement.propertyDetailsList[index][1] == "Edm.Double") {
             if ($(elem + index).val() != "") {
                 if (uDataManagement.propertyDetailsList[index][2] == "None") {
                     var propName = uDataManagement.propertyDetailsList[index][0];
@@ -3374,20 +3314,6 @@ dataManagement.prototype.createJsonData = function(edit) {
                  */
             }
         } 
-        else if (uDataManagement.propertyDetailsList[index][1] == "Edm.Double") {
-            if ($(elem + index).val() != "") {
-                if (uDataManagement.propertyDetailsList[index][2] == "None") {
-                    var propName = uDataManagement.propertyDetailsList[index][0];
-                    var propVal = $(elem + index).val();
-                    json[propName] = propVal;
-                } else if (uDataManagement.propertyDetailsList[index][2] == "List") {
-                    var propName = uDataManagement.propertyDetailsList[index][0];
-                    var propVal = $(elem + index).val();
-                    var propValData = uDataManagement.getListData(propVal);
-                    json[propName] = propValData;
-                }
-            }
-        }
         else {
             // for complex type
         }
@@ -6087,10 +6013,20 @@ dataManagement.prototype.validateFieldsPerTypeOnBlur = function(edit,index) {
                  //   break;
                 }
             }
-            var MAX_VALUE = Number.MAX_VALUE; //1.79e+308
-            var MIN_VALUE = Number(getUiProps().MSG0218);
             if (lenField > 0) {
-            if (valField < MIN_VALUE || valField > MAX_VALUE) {
+            if (!(valField.match(letters))) {
+	            result = false;
+	            if (edit){
+	            	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+	                        getUiProps().MSG0221);
+	            	//break;
+	            }
+	            else {
+		            objCommon.setHTMLValue("rowValErrorMsg_" + index,
+		                        getUiProps().MSG0221);
+		            //break;
+	            }
+            } else if (!objCommon.isTypeDoubleValid(valField)) {
                 result = false;
                 if (edit) {
                 	//$("#rowValEdit_"+index).focus();
@@ -6103,18 +6039,6 @@ dataManagement.prototype.validateFieldsPerTypeOnBlur = function(edit,index) {
                    getUiProps().MSG0219);
                   //  break;
                 }
-            } else if (!(valField.match(letters))) {
-	            result = false;
-	            if (edit){
-	            	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
-	                        getUiProps().MSG0221);
-	            	//break;
-	            }
-	            else {
-		            objCommon.setHTMLValue("rowValErrorMsg_" + index,
-		                        getUiProps().MSG0221);
-		            //break;
-	            }
             }
             if(!result){
             if(edit){
@@ -6135,6 +6059,91 @@ dataManagement.prototype.validateFieldsPerTypeOnBlur = function(edit,index) {
             	}
             }
           }
+        }
+        if ($("#colType_" + index).text() == "Edm.Double"
+            && $("#colCollection_" + index).text() == "List") {
+        	if ($("#colNullable_" + index).text() == "false") {
+        		var lenField = $(elem + index).val().length;
+             	if (lenField < MINLENGTH || $(elem + index).val() == ""
+                     || $(elem + index).val() == undefined) {
+                     result = false;
+                     if (edit) {
+                     	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+                                               getUiProps().MSG0115);
+                     } else {
+                     	objCommon.setHTMLValue("rowValErrorMsg_" + index,
+                                               getUiProps().MSG0115);
+                     }
+                 }
+             }
+            if ($.trim($(elem + index).val()) != "") {
+               //Following regex reads value from [0-9], decimal and comma.
+                var listLetters = /^[-+0-9eE\.,、]*$/;
+                //The following reqex ensures that only the double type is accepted
+                var letters = /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/;
+                if (!($(elem + index).val().match(listLetters))) {
+                    result = false;
+                    if (edit) {
+                    	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+                                               getUiProps().MSG0112);
+                    } else {
+                        objCommon.setHTMLValue("rowValErrorMsg_" + index,
+                                               getUiProps().MSG0112);
+                    }
+                }
+                var data = $(elem + index).val();
+                if (data.lastIndexOf(',') == (data.length - 1) || data.lastIndexOf('、') == (data.length - 1)) {
+                    result = false;
+                    if (edit) {
+                        objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+                                               getUiProps().MSG0112);
+                    } else {
+                        objCommon.setHTMLValue("rowValErrorMsg_" + index,
+                                               getUiProps().MSG0112);
+                    }
+                }
+                var list = $(elem + index).val().split(',');
+                if($(elem + index).val().indexOf('、') != -1){
+                    list = $(elem + index).val().split('、');
+                }
+                var noOfItems = list.length;
+                var flag = false;
+                for ( var ind = 0; ind < noOfItems; ind++) {
+                    var lenField = list[ind].length;
+                    var valField = list[ind];
+                    if (lenField > 0) {
+                    	if (!(valField.match(letters))) {
+	                        result = false;
+	                        flag = true;
+	                        if (edit){
+	                        	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+	                                    getUiProps().MSG0080);
+	                        	break;
+	                        }
+	                        else {
+		                        objCommon.setHTMLValue("rowValErrorMsg_" + index,
+		                                    getUiProps().MSG0080);
+		                        break;
+	                        }
+                        } else if (!objCommon.isTypeDoubleValid(valField)) {
+                            result = false;
+                            flag = true;
+                            if (edit) {
+                            	objCommon.setHTMLValue("rowValErrorEditMsg_" + index,
+                                                       getUiProps().MSG0219);
+                                break;
+                            } else {
+                                objCommon.setHTMLValue("rowValErrorMsg_" + index,
+                                                       getUiProps().MSG0219);
+                               break;
+                            }
+                        }
+                    }
+                }
+                if (flag) {
+                   // break;
+                }
+            }
         }
 //    }
     return result;

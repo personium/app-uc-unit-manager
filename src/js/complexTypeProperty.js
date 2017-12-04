@@ -64,18 +64,16 @@ complexTypeProperty.prototype.emptyComplexTypePropPopUpFieldsValues = function (
 
 complexTypeProperty.prototype.emptyComplexTypeDefaultValueFieldAsPerType = function() {
 	var dropdownSelectedValue = $("#dropDownType").val();
-	if (dropdownSelectedValue === "Edm.DateTime") {
-		$('#txtBoxDefaultValue').val('');
-		uEntityTypeProperty.removeStatusIcons('#txtBoxDefaultValue');
-	}
-	if(dropdownSelectedValue === "Edm.Int32"){
-		$('#txtBoxDefaultValue').val('');
-		uEntityTypeProperty.removeStatusIcons('#txtBoxDefaultValue');
-	} 
-	if(dropdownSelectedValue === "Edm.Single"){
-		$('#txtBoxDefaultValue').val('');
-		uEntityTypeProperty.removeStatusIcons('#txtBoxDefaultValue');
-	}
+    switch (dropdownSelectedValue) {
+    	case "Edm.DateTime":
+    	case "Edm.Int32":
+    	case "Edm.Single":
+    	case "Edm.Double":
+    	    $('#txtBoxDefaultValue').val('');
+            uEntityTypeProperty.removeStatusIcons('#txtBoxDefaultValue');
+    	    break;
+    }
+
 	if (uComplexTypeProperty.validateTypeEmptyDropDown() == false) {
 		uEntityTypeProperty.removeStatusIcons('#txtBoxDefaultValue');
 		$("#txtBoxDefaultValue").val('');
@@ -254,6 +252,26 @@ complexTypeProperty.prototype.validateDefaultValue = function (typeSelected) {
 			cellpopup.showErrorIcon('#txtBoxDefaultValue');
 			return false;
 		}
+		
+		uEntityTypeProperty.removeStatusIcons('#txtBoxDefaultValue');
+		if (lenDefaultValueText > 0) {
+			cellpopup.showValidValueIcon('#txtBoxDefaultValue');
+		}
+		return true;
+	} else if (typeSelected === "Edm.Double") {
+		var isValid = "";
+		var letters = /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/;
+		if (lenDefaultValueText != 0 && ! (defaultValueText.match(letters))) {
+			document.getElementById("defaultValueErrorMsg").innerHTML = getUiProps().MSG0080;
+			cellpopup.showErrorIcon('#txtBoxDefaultValue');
+			return false;
+		}
+        if (!objCommon.isTypeDoubleValid(defaultValueText)) {
+        	document.getElementById("defaultValueErrorMsg").innerHTML = getUiProps().MSG0219;
+		   	cellpopup.showErrorIcon('#txtBoxDefaultValue');
+		    return false;
+        }
+		
 		uEntityTypeProperty.removeStatusIcons('#txtBoxDefaultValue');
 		if (lenDefaultValueText > 0) {
 			cellpopup.showValidValueIcon('#txtBoxDefaultValue');
