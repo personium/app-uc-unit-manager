@@ -456,22 +456,7 @@ function persistTabOnCellChange(){
 			uMainNavigation.CellInfoNavigationData();
 		}else{
 			sessionStorage.tabName = "";
-			/* Commented code as in new GUI currenlt there is no option for profile*/
-			//showCellProfile(); 
-			/*$("#mainContent").load(contextRoot+'/htmls/cellProfileData.html', function() {
-				if(navigator.userAgent.indexOf("Firefox") != -1) {
-					uCellProfile.displayProfileDetails();
-				}
-			});
-			$("#headingContent").html('');
-			$("#headingContentBox").html('');
-			$("#headingContent").html('Cell Profile');
-			$('.mainNav ul li').removeClass("selected");
-			$('.mainNav ul li:first').addClass("selected");*/
 		}
-//	} else {
-//		window.location.href = contextRoot;
-//	}
 }
 
 /* The purpose of this function is to close the create cell pop up.
