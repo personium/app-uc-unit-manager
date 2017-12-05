@@ -751,7 +751,6 @@ $("#btnEditBoxIcon").attr("disabled", true);
 		dynamicTable += '<td name = "acc" style="width:29%;max-width: 200px"><div class = "mainTableEllipsis"><a id="boxNameLink" href = "#" onclick = "uBoxDetail.openBoxDetail('+boxname+','+test+','+test2+','+infoCreatedat+', '+infoUpdatedat+','+infoSchema+');" title= "'+boxName[count]+'" tabindex="-1" style="outline: none;">'+boxName[count]+'</a></div></td>';
 		dynamicTable += "<td name = 'acc' style='width:40%;max-width: 200px'><div class = 'mainTableEllipsis'><label title= '"+schema[count]+"' class='cursorPointer'>"+schema[count]+"</label></div></td>";
 		dynamicTable += "<td style='width:15%'>"+date+"</td>";
-		//dynamicTable += '<td><span class = "collectionIcon" title="Open Box" onclick="openBoxDetail('+boxname+');">Collection</span></td>';
 		dynamicTable += '<td  style="width:15%"><label class="showInstallationIcon" onclick="uInstallBox.openInstallationStatusPopUp('+boxname+',true);"></label></td>';//onclick="uInstallBox.openInstallationStatusPopUp('+boxname+');"
 		//<span class = "boxInstallIcon" title="Installation Status"></span> Installation status span
 		dynamicTable += "</tr>";
