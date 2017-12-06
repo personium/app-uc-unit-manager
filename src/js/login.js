@@ -100,12 +100,12 @@ login.prototype.renderLoginFields = function(calledFromCell) {
         var param = params[i].split("=");
         arrParam[param[0]] = param[1]; 
     }
-    if (arrParam.ref) {
+    if (arrParam.refresh_token) {
         // Update the received token and try login
         var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
         let refreshTokenCredential = {
             grant_type: "refresh_token",
-            refresh_token: arrParam.ref
+            refresh_token: arrParam.refresh_token
         };
         login.refreshToken(unitCellUrl, refreshTokenCredential).done(function(jsonData){
             login.getCellInfo(jsonData);
