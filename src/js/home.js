@@ -452,7 +452,7 @@ home.prototype.getHashParams = function() {
     let arrParam = {};
     for (var i in params) {
         var param = params[i].split("=");
-        arrParam[param[0]] = param[1]; 
+        arrParam[param[0]] = decodeURIComponent(param[1]); 
     }
     // Clear fragments
     location.hash = "";
