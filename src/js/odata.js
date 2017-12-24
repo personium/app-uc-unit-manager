@@ -1445,7 +1445,11 @@ odata.prototype.retrieveResponse = function(id) {
 	}
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName, boxName);
 	var objDav = new _pc.DavCollection(accessor, path);
-	var response = objDav.del(id, "*");
+	/** Specify recursive deletion */
+	var options = {};
+	options.headers = {};
+    options.headers["X-Personium-Recursive"] = true;
+	var response = objDav.del(id, options);
 	var statusCode = objCommon.getStatusCode(response);
 	return statusCode;
 };

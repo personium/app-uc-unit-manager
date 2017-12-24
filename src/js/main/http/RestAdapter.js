@@ -287,8 +287,7 @@ _pc.RestAdapter.prototype.del = function(requestUrl, optionsOrEtag, callback) {
   }else{
     options = optionsOrEtag;
   }
-  /** Specify recursive deletion */
-  options.headers["X-Personium-Recursive"] = true;
+  
   /** backward compatibility. */
   if (callback){
     options.success = callback.success;
