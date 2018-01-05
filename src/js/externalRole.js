@@ -109,36 +109,6 @@ externalRole.prototype.getSelectedRelationBoxPair = function () {
 };
 
 /**
- * The purpose of this function is to validate the External Role URL.
- * 
- * @param extRoleURL
- */
-externalRole.prototype.validateExternalRoleURL = function (extRoleURL) {
-	var isHttp = extRoleURL.substring(0,5);
-	var isHttps = extRoleURL.substring(0,6);
-	var validMessage = getUiProps().MSG0052;
-	var lenExternalRoleUrl = extRoleURL.length;
-	var emptyExtRoleURLMessage = getUiProps().MSG0053;
-	var extRoleUrlMaxLengthMessage = getUiProps().MSG0057;
-	if (extRoleURL == "" || extRoleURL == null || extRoleURL == undefined) {
-		document.getElementById("externalRoleURLErrorMsg").innerHTML = emptyExtRoleURLMessage;
-		cellpopup.showErrorIcon('#txtBoxExtRoleURL');
-		return false;
-	} else if (isHttp != "http:" && isHttps != "https:") {
-		document.getElementById("externalRoleURLErrorMsg").innerHTML = validMessage;
-		cellpopup.showErrorIcon('#txtBoxExtRoleURL');
-		return false;
-	} else if (lenExternalRoleUrl > 1024) {
-		document.getElementById("externalRoleURLErrorMsg").innerHTML = extRoleUrlMaxLengthMessage;
-		cellpopup.showErrorIcon('#txtBoxExtRoleURL');
-		return false;
-	} 
-	document.getElementById("externalRoleURLErrorMsg").innerHTML = '';
-	cellpopup.showValidValueIcon('#txtBoxExtRoleURL');
-	return true;
-};
-
-/**
  * The purpose of this function is to check if relation box selected from 
  * drop down is valid
  */
@@ -166,23 +136,44 @@ externalRole.prototype.checkAll = function(cBox) {
 
 /**
  * Following method gets ext role information.
- * @param uri ext uri
- * @returns array having ext role name and domain name.
+ * @param uri in the form of "https://{UnitFQDN}/{CellName}/__role/__/{ExtRoleName}"
+ * @returns hash (isValid/url/domainName/extRoleName)
  */
-externalRole.prototype.getExternalRoleInfo = function(uri) {
-	// function getExternalCellName(uri) {
-	var arrUri = uri.split("/");
-	if (arrUri.length < 6) {
-		var arrExtRoleInfo = new Array();
-		arrExtRoleInfo.push(arrUri[2]);
-		var externalRoleName = arrUri[3];
-		if (externalRoleName != undefined && externalRoleName.length == 0) {
-			externalRoleName = undefined;
-		}
-		arrExtRoleInfo.push(externalRoleName);
-		return arrExtRoleInfo;
-	}
-	return false;
+externalRole.prototype.validateExternalRoleUrl = function(uri) {
+    let isValid = false;
+    let url = jquery1_12_4.url(uri);
+    let tempPath = url.attr('path');
+    let missingKeyword = (tempPath.search("/__role/__/") == -1);
+    let tempPathArray = tempPath.split("/");
+    let invalidPathFormat = (tempPathArray.length != 5); // Must be 5 for "/{CellName}/__role/__/{ExtRoleName}"
+
+    if (missingKeyword || invalidPathFormat) {
+        document.getElementById("externalRoleURLErrorMsg").innerHTML = "Invalid URL";
+        cellpopup.showErrorIcon('#txtBoxExtRoleURL');
+        return false;
+    }
+    
+    isValid = objBox.validateSchemaURL(uri,"externalRoleURLErrorMsg","#txtBoxExtRoleURL");
+    if (!isValid)
+        return false;
+
+    let tempDomainName = url.attr('host');
+    isValid = objCommon.validateURL(tempDomainName, "externalRoleURLErrorMsg", "#txtBoxExtRoleURL");
+    if (!isValid)
+        return false;
+
+    let extRoleName = _.last(tempPathArray);
+    isValid = uExternalRole.validateExternalRoleName(extRoleName);
+    if (!isValid)
+        return false;
+
+    /*
+    isValid = objCommon.doesUrlContainSlash(uri, "externalRoleURLErrorMsg", "#txtBoxExtRoleURL", getUiProps().MSG0297);
+    if (!isValid)
+        return false;
+    */
+
+    return true;
 };
 
 
@@ -197,99 +188,88 @@ externalRole.prototype.createExternalRole = function() {
 	var extRoleURLAlreadyAddedMappedMsg = getUiProps().MSG0058;
 	var validMessage = getUiProps().MSG0052;
 	extRoleURL = document.getElementById("txtBoxExtRoleURL").value;
-	if (uExternalRole.getExternalRoleInfo(extRoleURL) == false) {
-		document.getElementById("externalRoleURLErrorMsg").innerHTML = "Invalid URL";
-		cellpopup.showErrorIcon('#txtBoxExtRoleURL');
-		return false;
-	}
-	var arrExtRole = uExternalRole.getExternalRoleInfo(extRoleURL);
-	var domainName = arrExtRole[0];
-	var extRoleName = arrExtRole[1];
-	if (objBox.validateSchemaURL(extRoleURL,"externalRoleURLErrorMsg","#txtBoxExtRoleURL")) {
-		if (objCommon.validateURL(domainName, "externalRoleURLErrorMsg",
-			"#txtBoxExtRoleURL")) {
-			if (uExternalRole.validateExternalRoleName(extRoleName))
-				if (objCommon.doesUrlContainSlash(extRoleURL,
-						"externalRoleURLErrorMsg", "#txtBoxExtRoleURL",
-						getUiProps().MSG0297)) {
-				if (uExternalRole.validateEmptyDropDown()) {
-					if ($("#chkBoxAssignRoleToExtRole").is(':checked')) {
-						var isValidValue = objCommon.validateDropDownValue(
-								"dropDownRoleAssignToExtRole",
-								"#ddRoleBoxErrorMsgExtRole",
-								getUiProps().MSG0279);
-						if (isValidValue == false) {
-							removeSpinner("modalSpinnerExtRole");
-							return;
-						}
-					}
-					var arrSelectedRelationBox = uExternalRole
-							.getSelectedRelationBoxPair();
-					var selectedRelationName = arrSelectedRelationBox[0].split(
-							' ').join('');
-					selectedRelationName = selectedRelationName.trim();
-					var selectedBoxName = arrSelectedRelationBox[1].split(' ')
-							.join('');
-					selectedBoxName = objCommon
-							.getBoxSubstring(selectedBoxName);
-					if (selectedBoxName == mainBoxValue) {
-						selectedBoxName = null;
-					}
-					var baseUrl = getClientStore().baseURL;
-					var cellName = sessionStorage.selectedcell;
-					var accessor = objCommon.initializeAccessor(baseUrl,
-							cellName);
-					var objExtRoleManager = new _pc.ExtRoleManager(accessor);
-					var body = {
-						"ExtRoleURL" : extRoleURL,
-						"RelationName" : selectedRelationName,
-						"RelationBoxName" : selectedBoxName
-					};
-					var jsonResponse = "";
-					try {
-						jsonResponse = objExtRoleManager.create(body);
-						result = true;
-					} catch (exception) {
-						result = false;
-						jsonResponse = exception;
-					}
-					if (result && jsonResponse.getStatusCode() == 201) {
-						var response = null;
-						if ($("#chkBoxAssignRoleToExtRole").is(':checked')) {
-							var encodedExternalRoleURL = encodeURIComponent(extRoleURL);
-							var multiKey = "(ExtRole='"
-									+ encodedExternalRoleURL
-									+ "',_Relation.Name='"
-									+ selectedRelationName
-									+ "',_Relation._Box.Name='"
-									+ selectedBoxName + "')";
-							response = objCommon.assignEntity(
-									"dropDownRoleAssignToExtRole", "ExtRole",
-									"Role", multiKey, true);
-							if (response.getStatusCode() == 204
-									|| response.getStatusCode() == 404) {
-								// 404 is obtained when Relation and Role both
-								// happens to be main box but even then the role
-								// is getting created.
-								uExternalRole.displayNotificationMessage();
-							}
-						} else {
-							uExternalRole.displayNotificationMessage();
-						}
-					} else if (!result
-							&& jsonResponse.message
-									.indexOf("entity already exists") != -1) {
-						cellpopup.showErrorIcon('#txtBoxExtRoleURL');
-						document.getElementById("externalRoleURLErrorMsg").innerHTML = extRoleURLAlreadyAddedMappedMsg;
-					} else {
-						cellpopup.showErrorIcon('#txtBoxExtRoleURL');
-						document.getElementById("externalRoleURLErrorMsg").innerHTML = validMessage;
-					}
-				}
-			}
-		}
-	}
-	removeSpinner("modalSpinnerExtRole");
+    /*
+     * Validate the value and also return boolean so that additional action can be performed.
+     * true: valid URL
+     * false: invalid URL
+     */
+    if (uExternalRole.validateExternalRoleUrl(extRoleURL)) {
+        if (uExternalRole.validateEmptyDropDown()) {
+            if ($("#chkBoxAssignRoleToExtRole").is(':checked')) {
+                var isValidValue = objCommon.validateDropDownValue(
+                        "dropDownRoleAssignToExtRole",
+                        "#ddRoleBoxErrorMsgExtRole",
+                        getUiProps().MSG0279);
+                if (isValidValue == false) {
+                    removeSpinner("modalSpinnerExtRole");
+                    return;
+                }
+            }
+            var arrSelectedRelationBox = uExternalRole
+                    .getSelectedRelationBoxPair();
+            var selectedRelationName = arrSelectedRelationBox[0].split(
+                    ' ').join('');
+            selectedRelationName = selectedRelationName.trim();
+            var selectedBoxName = arrSelectedRelationBox[1].split(' ')
+                    .join('');
+            selectedBoxName = objCommon
+                    .getBoxSubstring(selectedBoxName);
+            if (selectedBoxName == mainBoxValue) {
+                selectedBoxName = null;
+            }
+            var baseUrl = getClientStore().baseURL;
+            var cellName = sessionStorage.selectedcell;
+            var accessor = objCommon.initializeAccessor(baseUrl,
+                    cellName);
+            var objExtRoleManager = new _pc.ExtRoleManager(accessor);
+            var body = {
+                "ExtRoleURL" : extRoleURL,
+                "RelationName" : selectedRelationName,
+                "RelationBoxName" : selectedBoxName
+            };
+            var jsonResponse = "";
+            try {
+                jsonResponse = objExtRoleManager.create(body);
+                result = true;
+            } catch (exception) {
+                result = false;
+                jsonResponse = exception;
+            }
+            if (result && jsonResponse.getStatusCode() == 201) {
+                var response = null;
+                if ($("#chkBoxAssignRoleToExtRole").is(':checked')) {
+                    var encodedExternalRoleURL = encodeURIComponent(extRoleURL);
+                    var multiKey = "(ExtRole='"
+                            + encodedExternalRoleURL
+                            + "',_Relation.Name='"
+                            + selectedRelationName
+                            + "',_Relation._Box.Name='"
+                            + selectedBoxName + "')";
+                    response = objCommon.assignEntity(
+                            "dropDownRoleAssignToExtRole", "ExtRole",
+                            "Role", multiKey, true);
+                    if (response.getStatusCode() == 204
+                            || response.getStatusCode() == 404) {
+                        // 404 is obtained when Relation and Role both
+                        // happens to be main box but even then the role
+                        // is getting created.
+                        uExternalRole.displayNotificationMessage();
+                    }
+                } else {
+                    uExternalRole.displayNotificationMessage();
+                }
+            } else if (!result
+                    && jsonResponse.message
+                            .indexOf("entity already exists") != -1) {
+                cellpopup.showErrorIcon('#txtBoxExtRoleURL');
+                document.getElementById("externalRoleURLErrorMsg").innerHTML = extRoleURLAlreadyAddedMappedMsg;
+            } else {
+                cellpopup.showErrorIcon('#txtBoxExtRoleURL');
+                document.getElementById("externalRoleURLErrorMsg").innerHTML = validMessage;
+            }
+        }
+    }
+    removeSpinner("modalSpinnerExtRole");
 };
 
 /**
@@ -307,22 +287,6 @@ externalRole.prototype.displayNotificationMessage = function () {
 	uExternalRole.createExternalRoleTable();
 	objCommon.centerAlignRibbonMessage("#extRoleMessageBlock");
 	objCommon.autoHideAssignRibbonMessage("extRoleMessageBlock");
-};
-
-/**
- * The purpose of this function is to extract external role name from external 
- * role URI.
- * 
- * @param uri
- */
-externalRole.prototype.getExternalRoleNameFromURI = function (uri) {
-	var extRoleIndex = uri.lastIndexOf("/");
-	var extRoleFromURI = uri.substring(extRoleIndex, uri.length);
-	var extRoleName = objCommon.getEnityNameAfterRemovingSpecialChar(extRoleFromURI);
-	if (extRoleName.length == 0) {
-		extRoleName = undefined;
-	}
-	return extRoleName;
 };
 
 /**
@@ -844,25 +808,10 @@ externalRole.prototype.validateExternalRoleName = function(roleName) {
  * The purpose of this function is to validate external role URl on blur
  * 
  */
-$("#txtBoxExtRoleURL").blur(
-		function() {
-			var extRoleURL = document.getElementById("txtBoxExtRoleURL").value;
-			var arrExtRole = uExternalRole.getExternalRoleInfo(extRoleURL);
-			if (uExternalRole.getExternalRoleInfo(extRoleURL) == false) {
-				document.getElementById("externalRoleURLErrorMsg").innerHTML = "Invalid URL";
-				cellpopup.showErrorIcon('#txtBoxExtRoleURL');
-				return false;
-			}
-			var domainName = arrExtRole[0];
-			var extRoleName = arrExtRole[1];
-			if (objBox.validateSchemaURL(extRoleURL,"externalRoleURLErrorMsg","#txtBoxExtRoleURL")) {
-				if (objCommon.validateURL(domainName,
-						"externalRoleURLErrorMsg", "#txtBoxExtRoleURL")) {
-					if (uExternalRole.validateExternalRoleName(extRoleName))
-						objCommon.doesUrlContainSlash(extRoleURL, "externalRoleURLErrorMsg","#txtBoxExtRoleURL",getUiProps().MSG0297);
-				}
-			}
- });
+$("#txtBoxExtRoleURL").blur(function() {
+    var extRoleURL = document.getElementById("txtBoxExtRoleURL").value;
+    uExternalRole.validateExternalRoleUrl(extRoleURL);
+});
 
 /**
  * The purpose of this function is to validate dropdown  on blur
