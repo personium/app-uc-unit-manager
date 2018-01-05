@@ -589,24 +589,24 @@ _pc.DavCollection.prototype.put = function(pathValue, contentType, data, etag,
 ///**
 //* 指定PathのデータをDeleteします(ETag指定).
 //* @param {String} pathValue DAVのパス
-//* @param {String} etagValue PUT対象のETag。新規または強制更新の場合は "*" を指定する
+//* @param {String/Object} optionsOrEtag 必須ではないオプション。 文字列が送信された場合、後方互換性のためにIf-Matchヘッダー値として送信されます。
 //* @throws {DaoException} DAO例外
 //*/
 /**
  * This method is used to delete the data in the specified Path (ETag specified).
  * @param {String} pathValue DAV Path
- * @param {String} etagValue ETag of PUT target. Specify "*" for forcing new or updated
+ * @param {String/Object} optionsOrEtag non-mandatory options. If a string is sent it will be sent as If-Match header value for backward compatibility.
  * @throws {_pc.DaoException} DAO exception
  */
-_pc.DavCollection.prototype.del = function(pathValue, etagValue, callback) {
-  if (typeof etagValue === "undefined") {
-    etagValue = "*";
+_pc.DavCollection.prototype.del = function(pathValue, optionsOrEtag, callback) {
+  if (!optionsOrEtag || typeof optionsOrEtag === "undefined") {
+    optionsOrEtag = "*";
   }
   var url = _pc.UrlUtils.append(this.getPath(), pathValue);
   var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
   //var response = "";
   if (callback !== undefined) {
-    restAdapter.del(url, etagValue, function(resp) {
+    restAdapter.del(url, optionsOrEtag, function(resp) {
       if (resp.getStatusCode() >= 300) {
         if (callback.error !== undefined) {
           callback.error(resp);
@@ -621,7 +621,7 @@ _pc.DavCollection.prototype.del = function(pathValue, etagValue, callback) {
       }
     });
   } else {
-    var response = restAdapter.del(url, etagValue);
+    var response = restAdapter.del(url, optionsOrEtag);
     return new _pc.DavResponse(this.accessor, response);
   }
 

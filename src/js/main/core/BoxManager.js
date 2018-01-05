@@ -217,3 +217,21 @@ _pc.BoxManager.prototype.update = function(boxName, body, etag) {
   var response = this.internalUpdate(boxName, body, etag);
   return response;
 };
+
+/**
+ * RECURSIVE DELETE FUNCTION FOR BOX.
+ * @param {String} boxName Name of box to delete.
+ * @param {String} etag: ETag of target.
+ * @returns {Object} response(sync) or promise(async) (TODO not implemented) depending on the sync/async model.
+ */
+_pc.BoxManager.prototype.recursiveDelete = function(boxName, etag) {
+  var url = this.getBaseUrl() + this.accessor.cellName + "/" + boxName;
+console.log(url);
+  var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
+  var options = {};
+  options.headers = {};
+  options.headers["X-Personium-Recursive"] = true;
+  options.headers["If-Match"] = etag;
+  var response = restAdapter.del(url, options);
+  return response;
+};
