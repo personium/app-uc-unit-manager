@@ -464,7 +464,7 @@ function deleteBox(boxName,count) {
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
 	var objBoxManager = new _pc.BoxManager(accessor);
 	var etag = objBoxManager.getEtag(boxName);
-	var response = objBoxManager.del(boxName, etag);
+	var response = objBoxManager.recursiveDelete(boxName, etag);
 	var statusCode = objCommon.getStatusCode(response);
 	if (statusCode === 204) {
 		sbSuccessful += boxName + ",";
