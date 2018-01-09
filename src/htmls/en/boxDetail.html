@@ -675,32 +675,39 @@ limitations under the License.
 				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
 					ACL Settings</label>
 			</div>
-			<div id="dvSchemaAuth" class="folderElement schemaAuthDIV">
+			<div id="dvSchemaAuth" class="folderElement">
 				<div id="dvSchemaAuthOptions"
 					class="lblElement errorMessageSpan schemaAuthOptionsDIV">Schema
 					Auth</div>
-				<div class="radio" style="float: left;">
-					<input id="rdNone" type="radio" name="schemaAuth" value="none"
-						tabindex="1" onfocus="radioBtnFocusOnBoxAcl('#lblNoneBoxAcl');"
-						onblur="radioBtnBlurOnBoxAcl('#lblNoneBoxAcl');"
-						style="display: inline-block; opacity: 0"> <label
-						for="rdNone" class="radioButtonMargin" id="lblNoneBoxAcl"
-						style="margin-left: -17px;height: 17px;padding-right: 2px;">none</label> <input id="rdPublic"
-						type="radio" name="schemaAuth" value="public" tabindex="2"
-						onfocus="radioBtnFocusOnBoxAcl('#lblPublicBoxAcl');"
-						onblur="radioBtnBlurOnBoxAcl('#lblPublicBoxAcl');"
-						style="display: inline-block; opacity: 0"> <label
-						class="radioButtonMargin" for="rdPublic" id="lblPublicBoxAcl"
-						style="margin-left: -17px;height: 17px;padding-right: 2px;">public</label> <input
-						id="rdConfidential" type="radio" name="schemaAuth"
-						value="confidential" tabindex="3"
-						onfocus="radioBtnFocusOnBoxAcl('#lblConfidentialBoxAcl');"
-						onblur="radioBtnBlurOnBoxAcl('#lblConfidentialBoxAcl');"
-						style="display: inline-block; opacity: 0"> <label
-						for="rdConfidential" id="lblConfidentialBoxAcl"
-						style="margin-left: -17px;height: 17px;padding-right: 2px;">confidential</label> <input
-						style="display: none" id="rdHidden" checked="checked" type="radio"
-						name="schemaAuth" value="">
+				<div>
+				    <table id="schemaAuthTbl" style="position: relative;top: -5px;">
+				    	<tr>
+				    		<td style="padding-right: 70px;">
+    							<input  id="chkNone" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="schemaAuth" value="none" onfocus="radioBtnFocusOnBoxAcl('#lblNoneBoxAcl');" onblur="radioBtnBlurOnBoxAcl('#lblNoneBoxAcl');" tabindex="1" style="opacity: 0">
+    							<label id ="lblNoneBoxAcl"  for="chkNone" class="customChkbox checkBoxLabel aclLabelFocus">
+    								<span style="padding-left:15px;position:absolute;top:-5px;">
+    									none
+    								</span>
+    							</label>
+							</td>
+							<td style="padding-right: 70px;">
+    							<input  id="chkPublic" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="schemaAuth" value="public" onfocus="radioBtnFocusOnBoxAcl('#lblPublicBoxAcl');" onblur="radioBtnBlurOnBoxAcl('#lblPublicBoxAcl');" tabindex="2" style="opacity: 0">
+    							<label id ="lblPublicBoxAcl"  for="chkPublic" class="customChkbox checkBoxLabel aclLabelFocus">
+    								<span style="padding-left:15px;position:absolute;top:-5px;">
+    									public
+    								</span>
+    							</label>
+							</td>
+							<td>
+    							<input  id="chkConfidential" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="schemaAuth" value="confidential" onfocus="radioBtnFocusOnBoxAcl('#lblConfidentialBoxAcl');" onblur="radioBtnBlurOnBoxAcl('#lblConfidentialBoxAcl');" tabindex="3" style="opacity: 0">
+    							<label id ="lblConfidentialBoxAcl"  for="chkConfidential" class="customChkbox checkBoxLabel aclLabelFocus">
+    								<span style="padding-left:15px;position:absolute;top:-5px;">
+    									confidential
+    								</span>
+    							</label>
+							</td>
+				    	</tr>
+				    </table>
 				</div>
 			</div>
 			<div id="" class="folderElement">
