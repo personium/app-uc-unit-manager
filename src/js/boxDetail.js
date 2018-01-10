@@ -631,16 +631,7 @@ if (arrCheckedState.length > 0) {
  * @param schemaAuthz
  */
 boxDetail.prototype.showSchemaAuth = function(schemaAuthz) {
-	if (schemaAuthz == 'none') {
-		$('#rdNone').attr('checked', 'true');
-	} else if (schemaAuthz == 'public') {
-		$('#rdPublic').attr('checked', 'true');
-	} else if (schemaAuthz == 'confidential') {
-		$('#rdConfidential').attr('checked', 'true');
-	}
-	else if (schemaAuthz == '') {
-		$('#rdHidden').attr('checked', 'true');
-	}
+	$('input:checkbox[name="schemaAuth"]').val([schemaAuthz]);
 };
 
 /**
@@ -949,6 +940,10 @@ $(document).ready(function(){
 		document.getElementById('btnDeleteCollection').style.pointerEvents = 'none';
 	}*/
 	
+	// Make the operation of the Schema Auth check box of the ACL a single selection
+	$('[name=schemaAuth]').click(function() {
+		$('[name=schemaAuth]:checked').not(this).attr('checked', false);
+    });
 });
 
 $(window).resize(function(){
