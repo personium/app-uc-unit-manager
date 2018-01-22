@@ -3678,7 +3678,11 @@ common.prototype.populateTableAfterDelete = function(etagValue,arrDeletedConflic
  */
 common.prototype.showProfileImage = function(imgBinaryFile,imgProfile,figureProfileImage,profileImage,lblFileName) {
     //if the image binary data is not null , data would be converted into Image.
-    if (!imgBinaryFile) return;
+    if (!imgBinaryFile) {
+      $(figureProfileImage).addClass("boxProfileImage");
+      $(imgProfile).css("display", "none").attr('src', "#");
+      return;
+    };
 
     var minHeight = 71;
     var minWidth = 70;
@@ -3686,14 +3690,18 @@ common.prototype.showProfileImage = function(imgBinaryFile,imgProfile,figureProf
     var imgWidth = 0;
     var img = new Image();
     img.src = imgBinaryFile;
-    imgHeight = img.height;
-    imgWidth = img.width;
-     if (profileImage != undefined) {
+    img.onload = function(){
+      imgHeight = img.height;
+      imgWidth = img.width;
+
+      if (profileImage != undefined) {
          $(lblFileName).text(profileImage);         
-    }
-    checkImageDimensions(imgProfile, figureProfileImage,
+      }
+
+      checkImageDimensions(imgProfile, figureProfileImage,
             minHeight, minWidth, imgHeight, imgWidth,
             imgBinaryFile);
+    }
 }
 
 /*

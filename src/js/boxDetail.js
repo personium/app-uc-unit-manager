@@ -187,6 +187,7 @@ boxDetail.prototype.loadBoxProfileTab = function() {
 					objBoxProfile.displayProfileDetails();
 					$("#dvBoxEditIcon").show();
 					$("#dvCellEditIcon").hide();
+					$("#profileLngArea").hide();
 					$("#webDavProfileArea").show();
 					spinner.stop();
 				});

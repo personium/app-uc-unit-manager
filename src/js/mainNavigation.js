@@ -878,7 +878,7 @@ mainNavigation.prototype.CellInfoNavigationData = function() {
  * The purpose of this method is to open the Info page for the
  * selected Cell.
  */
-mainNavigation.prototype.openCellProfileInfo = function() {
+mainNavigation.prototype.openCellProfileInfo = function(profileLng) {
     var id = objCommon.isSessionExist();
     if (id != null) {
         sessionStorage.tabName = "infoProfile";
@@ -890,10 +890,11 @@ mainNavigation.prototype.openCellProfileInfo = function() {
         $("#cellInfoDetail").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellProfileInfo.html',
                 function() {
                     $("#cellInfoDetail").hide();
-                    uCellProfile.displayCellProfileInfo();
+                    uCellProfile.displayCellProfileInfo(profileLng);
                     $("#cellInfoDetail").show();
                     $("#dvBoxEditIcon").hide();
                     $("#dvCellEditIcon").show();
+                    $("#profileLngArea").show();
                     spinner.stop();
                 });
     } else {

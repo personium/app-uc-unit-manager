@@ -920,41 +920,23 @@ function displaySuccessMessage(modalId,dvMessageID) {
  */
 function validateDisplayName(displayName, displayNameSpan,txtDisplayName) {
 	var MINLENGTH = 1;
-	var MAXLENGTH = 128;
-	var letters = /^[一-龠ぁ-ゔ[ァ-ヴー々〆〤0-9a-zA-Z-_]+$/;
-	var specialchar = /^[-_]*$/;
-	var allowedLetters = /^[0-9a-zA-Z-_]+$/;
-	var lenDisplayName = displayName.length;
-	if(lenDisplayName < MINLENGTH || displayName == undefined || displayName == null || displayName == "") {
-		//showErrorIcon('#txtDisplayNameBox');
-		showErrorIcon(txtDisplayName);
-		document.getElementById(displayNameSpan).innerHTML =  getUiProps().MSG0103;
-		return false;
-	} else if (lenDisplayName > MAXLENGTH) {
-		document.getElementById(displayNameSpan).innerHTML = getUiProps().MSG0104;
-		//showErrorIcon('#txtDisplayNameBox');
-		showErrorIcon(txtDisplayName);
-		return false;
-	} else if (lenDisplayName != 0 && ! (displayName.match(letters))) {
-		document.getElementById(displayNameSpan).innerHTML = getUiProps().MSG0023;
-		//showErrorIcon('#txtDisplayNameBox');
-		showErrorIcon(txtDisplayName);
-		return false;
-	} else if (lenDisplayName != 0 && !(displayName.match(allowedLetters))) {
-		document.getElementById(displayNameSpan).innerHTML = getUiProps().MSG0023;
-		// showErrorIcon('#txtDisplayNameBox');
-		showErrorIcon(txtDisplayName);
-		return false;
-	} else if(lenDisplayName != 0 && (specialchar.toString().indexOf(displayName.substring(0,1)) >= 0)) {
-		document.getElementById(displayNameSpan).innerHTML = getUiProps().MSG0106;
-		//showErrorIcon('#txtDisplayNameBox');
-		showErrorIcon(txtDisplayName);
-		return false;
+        var lenDisplayName = displayName.length;
+        if(lenDisplayName < MINLENGTH || displayName == undefined || displayName == null || displayName == "") {
+        	showErrorIcon(txtDisplayName);
+            $("#" + displayNameSpan).html(getUiProps().MSG0103);
+            return false;
 	}
-	//showValidValueIcon('#txtDisplayNameBox');
+
+	var MAXLENGTH = 128;
+    $("#" + displayNameSpan).html("");
+    if (lenDisplayName > MAXLENGTH) {
+    	showErrorIcon(txtDisplayName);
+        $("#" + displayNameSpan).html(getUiProps().MSG0104);
+        return false;
+    }
 	showValidValueIcon(txtDisplayName);
-	document.getElementById(displayNameSpan).innerHTML = "";
-	return true;
+	$("#" + displayNameSpan).empty();
+    return true;
 }
 
 /**
