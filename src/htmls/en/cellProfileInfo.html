@@ -20,8 +20,12 @@ limitations under the License.
 		<div class="aclSettingsText" style="margin:15px 0px 0px 2px;">Profile</div>
 		<div onclick="openCreateEntityModal('#editBoxProfileModalWindow','#editBoxProfileDialogBox', 'editBPDisplayName');" id ="dvBoxEditIcon" class="editIconACLSettings" style="width:0px;margin:15px 0px 0px 9px;" title="Edit"></div>
 		<div onclick="openCreateEntityModal('#editCellProfileModalWindow','#editCellProfileDialogBox', 'editDisplayName');"  id ="dvCellEditIcon" class="editIconACLSettings" style="width:0px;margin:15px 0px 0px 9px;" title="Edit"></div>
+		<div class="aclSettingsText" style="margin:15px 0px 0px 15px;">Language</div>
+		<select id="profileLngList" onchange="uCellProfile.changeEditProfileLng(this);" style="margin:20px 0px 0px 9px;" >
+			<option value="">default</option>
+		</select>
 	</div>
-	<div style="margin:70px 0px 0px 2px;width:99%;">
+	<div style="margin:40px 0px 0px 2px;width:99%;">
 		<div class='ContentHeadingpt1' style="width:10%;float:left;">Display Name</div>
 		<div id='dvdisplayName' class='ContentTextpt1' style="width:90%;word-wrap: break-word;float:left;">-</div>
 	</div>

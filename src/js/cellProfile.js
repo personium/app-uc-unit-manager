@@ -32,7 +32,9 @@ var isProfileImage = true;
  * with existing data. 
  */
 cellProfile.prototype.populateCellProfilePopupFieldsWithData = function() {
-    var response = this.getCellProfileInfo();
+    // Get profile from selected language
+    var selectedLng = $("#profileLngList").val();
+    var response = this.getCellProfileInfo(selectedLng);
     response = response.bodyAsJson();
     var tempDispName = objCommon.getProfileDisplayName(response);
     var tempDescription = objCommon.getProfileDescription(response);
@@ -173,15 +175,20 @@ cellProfile.prototype.validate = function (displayName, descriptionDetails, disp
  * 
  * @param json
  * @param operationPerformed
+ * @param cellName
+ * @param profileLng
  * @returns
  */
-cellProfile.prototype.retrieveCollectionAPIResponse = function (json, operationPerformed,cellName) {
+cellProfile.prototype.retrieveCollectionAPIResponse = function (json, operationPerformed,cellName, profileLng) {
     var baseUrl = getClientStore().baseURL;
     var response = null;
     if (!baseUrl.endsWith("/")) {
         baseUrl += "/";
     }
     var path = baseUrl+cellName+"/__/";
+    if (profileLng) {
+        path = baseUrl+cellName+"/__/locales/" + profileLng;
+    }
     var accessor = objCommon.initializeAccessor(baseUrl, cellName);
     var objJDavCollection = new _pc.DavCollection(accessor, path);
     if (operationPerformed === "EDIT") {
@@ -262,10 +269,11 @@ cellProfile.prototype.updateCellProfile = function() {
                     latestProf
                 );
                 fileData = prof;
-                response = uCellProfile.retrieveCollectionAPIResponse(fileData, "EDIT",sessionStorage.selectedcell);
+                var selectedLng = $("#profileLngList").val();
+                response = uCellProfile.retrieveCollectionAPIResponse(fileData, "EDIT",sessionStorage.selectedcell, selectedLng);
                 var statusCode = objCommon.getStatusCode(response);
                 if (statusCode === 201 || statusCode === 204) {
-                    uMainNavigation.openCellProfileInfo();
+                    uMainNavigation.openCellProfileInfo(selectedLng);
                     this.closeEditProfilePopUp('#editCellProfileModalWindow');
                 }
             }
@@ -1023,23 +1031,46 @@ cellProfile.prototype.getShorterProfileImageName = function(profileImageName){
  * Following method retrieves cell profile information.
  * @returns reposne.
  */
-cellProfile.prototype.getCellProfileInfo = function() {
+cellProfile.prototype.getCellProfileInfo = function(profileLng) {
     var cellName = sessionStorage.selectedcell;
     var response = uCellProfile.retrieveCollectionAPIResponse(profileFileName,
-            "RETRIEVE", cellName);
+            "RETRIEVE", cellName, profileLng);
     return response;
 };
 
 /**
+ * Specify the language and display the details of the profile.
+ */
+cellProfile.prototype.changeEditProfileLng = function (sel) {
+    uCellProfile.displayCellProfileInfo(sel.value);
+}
+
+/**
  * The purpose of this function is to display profile details.
  */
-cellProfile.prototype.displayCellProfileInfo = function () {
+cellProfile.prototype.displayCellProfileInfo = function (profileLng) {
     var target = document.getElementById('spinner');
     var spinner = new Spinner(objCommon.opts).spin(target);
     var SUCCESSSTATUSCODE = 200;
-    var response = uCellProfile.getCellProfileInfo();
+    var response = uCellProfile.getCellProfileInfo(profileLng);
     spinner.stop();
     if (response.httpClient.status === SUCCESSSTATUSCODE) {
+        // Add locales to the dropdown list
+        var localesPath = getClientStore().baseURL+sessionStorage.selectedcell+"/__/locales";
+        var collectionList = objOdata.getCollectionList(localesPath);
+        var recordSize = collectionList.length;
+        for ( var count = 0; count < recordSize; count++) {
+            var arrayData = collectionList[count];
+            var collectionName = decodeURIComponent(objOdata.getName(arrayData.Name.toString()));
+            if ($("#profileLngList option[value='" + collectionName + "']").length == 0) {
+                let option = $('<option>')
+                            .val(collectionName)
+                            .text(collectionName)
+                $("#profileLngList").append(option);
+            }        
+        }
+
+        $("#profileLngList").val(profileLng);
         uCellProfile.retrieveProfileInfoFromResponse1(response);
     }
     spinner.stop();
