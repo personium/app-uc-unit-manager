@@ -3680,8 +3680,7 @@ common.prototype.showProfileImage = function(imgBinaryFile,imgProfile,figureProf
     //if the image binary data is not null , data would be converted into Image.
     if (!imgBinaryFile) {
       $(figureProfileImage).addClass("boxProfileImage");
-      $(imgProfile).css("display", "none");
-      $(imgProfile).attr('src', "#");
+      $(imgProfile).css("display", "none").attr('src', "#");
       return;
     };
 

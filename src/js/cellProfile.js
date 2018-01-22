@@ -1052,6 +1052,7 @@ cellProfile.prototype.displayCellProfileInfo = function (profileLng) {
     var target = document.getElementById('spinner');
     var spinner = new Spinner(objCommon.opts).spin(target);
     var SUCCESSSTATUSCODE = 200;
+    var FAILEDSTATUSCODE = 404;
     var response = uCellProfile.getCellProfileInfo(profileLng);
     spinner.stop();
     if (response.httpClient.status === SUCCESSSTATUSCODE) {
@@ -1072,6 +1073,11 @@ cellProfile.prototype.displayCellProfileInfo = function (profileLng) {
 
         $("#profileLngList").val(profileLng);
         uCellProfile.retrieveProfileInfoFromResponse1(response);
+    } else if (response.httpClient.status === FAILEDSTATUSCODE) {
+        $("#dvdisplayName").text("-");
+        $("#dvdisplayDesc").text("-");
+        $("#figboxProfileImage").addClass("boxProfileImage");
+        $("#imgBoxViewProfile").css("display", "none").attr('src', "#");
     }
     spinner.stop();
     sessionStorage.readableCellCreatedDate = undefined;
