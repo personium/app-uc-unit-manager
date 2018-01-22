@@ -894,7 +894,7 @@ mainNavigation.prototype.openCellProfileInfo = function(profileLng) {
                     $("#cellInfoDetail").show();
                     $("#dvBoxEditIcon").hide();
                     $("#dvCellEditIcon").show();
-                    $("#profileLngList").show();
+                    $("#profileLngArea").show();
                     spinner.stop();
                 });
     } else {
