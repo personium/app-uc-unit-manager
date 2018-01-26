@@ -88,7 +88,7 @@ dataManagement.prototype.openODataPage = function(collectionURL, collectionName)
 	$("#webDavContentArea").hide();
 	$("#currentDirectoryName").text(collectionName);
 	$("#currentDirectoryName").attr("title",collectionName);
-	$(".currentDirectoryIcon").css("background","url(../../images/newSprite.png) no-repeat 54% -949px");
+	$(".currentDirectoryIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 54% -949px");
 	$(".currentDirectoryIcon").css("margin-left","-3px");
 	$(".currentDirectoryIcon").css("margin-left","-2px");
 	uDataManagement.updateBreadCrumb(collectionName);
@@ -502,12 +502,12 @@ dataManagement.prototype.setDataGridColsWidthOnResize = function(){
 dataManagement.prototype.createEntityHoverEffect = function(){
 	$("#createOdataEntityWrapper").hover(function(){
 		if($("#createOdataEntityWrapper").hasClass("enabled")){
-			$("#createODataEntityIcon").css("background","url(../../images/sprite.png) no-repeat 43% -551px");
+			$("#createODataEntityIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -551px");
 			$("#createODataEntityText").css("color","#c80000");
 		}
 	},function(){
 		if($("#createOdataEntityWrapper").hasClass("enabled")){
-			$("#createODataEntityIcon").css("background","url(../../images/sprite.png) no-repeat 43% -523px");
+			$("#createODataEntityIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -523px");
 			$("#createODataEntityText").css("color","#1b1b1b");
 		}
 	});
@@ -519,10 +519,10 @@ dataManagement.prototype.createEntityHoverEffect = function(){
  */
 dataManagement.prototype.sortByDateHoverEffect = function () {
 	$("#sortWrapperOData").hover(function(){
-		$("#sortdownArrowOData ").css("background","url(../../images/sprite.png) no-repeat 40% -578px");
+		$("#sortdownArrowOData ").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 40% -578px");
 		 $("#sortTextOData ").css("color","#c80000");
 	 },function(){
-		  $("#sortdownArrowOData ").css("background","url(../../images/sprite.png) no-repeat 40% -601px");
+		  $("#sortdownArrowOData ").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 40% -601px");
 		  $("#sortTextOData ").css("color","#1b1b1b");
 	});
 };

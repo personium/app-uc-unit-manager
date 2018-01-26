@@ -55,7 +55,7 @@ boxDetail.prototype.initializePage = function(boxname){
 	$("#backBtnTxt").attr('title',boxname);
 	$("#currentDirectoryName").text(boxname);
 	$("#currentDirectoryName").attr("title",boxname);
-	$("#currentDirectoryIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+	$("#currentDirectoryIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 	$("#currentDirectoryIcon").css("margin-top","-2px");
 	$("#currentDirectoryIcon").css("margin-left","0px");
 	$("#dvemptyTableOdataMessageFile").hide();
@@ -369,10 +369,10 @@ boxDetail.prototype.setDynamicWidth = function(){
  */
 boxDetail.prototype.backBtnHoverEffect = function(){
 	$(".backWrapper").hover(function(){
-		$(".backIcon").css("background","url(../../images/newSprite.png) no-repeat -21px -1556px");
+		$(".backIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -21px -1556px");
 		$(".backBtnTxt").css("color","#e62525");
 	},function(){
-		$(".backIcon").css("background","url(../../images/newSprite.png) no-repeat -20px -1529px");
+		$(".backIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -1529px");
 		$(".backBtnTxt").css("color","#c80000");
 	});
 };
@@ -383,10 +383,10 @@ boxDetail.prototype.backBtnHoverEffect = function(){
  */
 boxDetail.prototype.sortByDateHoverEffect = function () {
 	$("#sortWrapperWebDav").hover(function(){
-		$("#sortdownArrowWebDav ").css("background","url(../../images/sprite.png) no-repeat 40% -578px");
+		$("#sortdownArrowWebDav ").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 40% -578px");
 		 $("#sortTextWebDav ").css("color","#c80000");
 	 },function(){
-		  $("#sortdownArrowWebDav ").css("background","url(../../images/sprite.png) no-repeat 40% -601px");
+		  $("#sortdownArrowWebDav ").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 40% -601px");
 		  $("#sortTextWebDav ").css("color","#1b1b1b");
 	});
 };
@@ -396,20 +396,20 @@ boxDetail.prototype.sortByDateHoverEffect = function () {
  */
 boxDetail.prototype.boxNameHoverEffect = function(){
 	$("#webDavRootIcon").hover(function(){
-		$("#webDavRootIcon").css("background","url(../../images/sprite.png) no-repeat 43% -25px");
+		$("#webDavRootIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -25px");
 		$("#boxNameWebDavRoot").css("color","#c80000");
 		$("#boxNameWebDavRoot").css("text-decoration","underline");
 	},function(){
-		$("#webDavRootIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+		$("#webDavRootIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 		$("#boxNameWebDavRoot").css("color","#3c3c3c");
 		$("#boxNameWebDavRoot").css("text-decoration","none");
 	});
 	$("#boxNameWebDavRoot").hover(function(){
-		$("#webDavRootIcon").css("background","url(../../images/sprite.png) no-repeat 43% -25px");
+		$("#webDavRootIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -25px");
 		$("#boxNameWebDavRoot").css("color","#c80000");
 		$("#boxNameWebDavRoot").css("text-decoration","underline");
 	},function(){
-		$("#webDavRootIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+		$("#webDavRootIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 		$("#boxNameWebDavRoot").css("color","#3c3c3c");
 		$("#boxNameWebDavRoot").css("text-decoration","none");
 	});
@@ -500,21 +500,21 @@ boxDetail.prototype.populatePropertiesList = function(collectionPathName, collec
 			$("#updatedWebDavRoot").text(updated);
 		}
 		if(type == "folder"){
-			$(".propsHeadWebDavIcon").css("background","url(../../images/newSprite.png) no-repeat 54% -918px");
+			$(".propsHeadWebDavIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 54% -918px");
 			$(".propsHeadWebDavIcon").css("margin-left","18px");
 		}else if(type=="p:odata"){
-			$(".propsHeadWebDavIcon").css("background","url(../../images/newSprite.png) no-repeat 54% -949px");
+			$(".propsHeadWebDavIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 54% -949px");
 			$(".propsHeadWebDavIcon").css("margin-left","15px");
 		}else if (type == "file"){
-			$(".propsHeadWebDavIcon").css("background","url(../../images/newSprite.png) no-repeat 47% -1625px");
+			$(".propsHeadWebDavIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 47% -1625px");
 			$(".propsHeadWebDavIcon").css("margin-left","18px");
 		}else if (type == "p:service"){
-			$(".propsHeadWebDavIcon").css("background","url(../../images/sprite3.png) no-repeat 54% -165px");
+			$(".propsHeadWebDavIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite3.png) no-repeat 54% -165px");
 			$(".propsHeadWebDavIcon").css("margin-left","20px");
 			//$("#boxEditAclSettings").removeClass("editIconACLSettings");
 			//$("#boxEditAclSettings").addClass("disabledEditIconACLSettings");
 		}else if (type == "box"){
-			$(".propsHeadWebDavIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+			$(".propsHeadWebDavIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 			$(".propsHeadWebDavIcon").css("margin-left","20px");
 		}
 		uBoxDetail.setDynamicWidth();
@@ -525,10 +525,10 @@ boxDetail.prototype.populatePropertiesList = function(collectionPathName, collec
  */
 boxDetail.prototype.uploadHoverEffect = function(){
 	$("#uploadWebDavWrapper").hover(function(){
-		$("#uploadWebDavIcon").css("background","url(../../images/newSprite.png) no-repeat -15px -756px");
+		$("#uploadWebDavIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -15px -756px");
 		$("#uploadWebDavText").css("color","#c80000");
 	},function(){
-		$("#uploadWebDavIcon").css("background","url(../../images/newSprite.png) no-repeat -16px -663px");
+		$("#uploadWebDavIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -16px -663px");
 		$("#uploadWebDavText").css("color","#1b1b1b");
 	});
 };
@@ -538,11 +538,11 @@ boxDetail.prototype.uploadHoverEffect = function(){
  */
 boxDetail.prototype.downloadHoverEffect = function(){
 	$("#downloadWebDavWrapper").hover(function(){
-		$("#dvDownLoadIcon").css("background","url(../../images/newSprite.png) no-repeat -16px -823px");
+		$("#dvDownLoadIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -16px -823px");
 		$("#dvDownLoadText").css("color","#c80000");
 		$("#downloadWebDavWrapper").css("cursor","pointer");
 	},function(){
-		$("#dvDownLoadIcon").css("background","url(../../images/newSprite.png) no-repeat -16px -790px");
+		$("#dvDownLoadIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -16px -790px");
 		$("#dvDownLoadText").css("color","#1b1b1b");
 	});
 };

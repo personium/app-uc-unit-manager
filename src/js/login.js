@@ -161,7 +161,7 @@ login.prototype.getEnvDetail = function() {
             error : function(res) {
                 $('body > div.mySpinner').hide();
                 $('body > div.myHiddenDiv').show();
-                
+
                 document.getElementById("logoutDiv").style.visibility = "visible";
                 $("#logoutDiv").addClass("loginErrorMessage");
                 $("#logoutMsg").text("The target unitcell does not exist.");
@@ -347,7 +347,7 @@ login.getCellInfo = function(jsonData) {
 }
 
 login.openManagerWindow = function(managerInfo) {
-    let launchUrl = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+$("#ddLanguageSelector").val()+'/environment.html';
+    let launchUrl = './environment.html';
     location.href = login.prepareHashParams(launchUrl, managerInfo);
 }
 
@@ -356,7 +356,7 @@ login.prepareHashParams = function(launchUrl, managerInfo) {
         launchUrl,
         '?lng=' + $("#ddLanguageSelector").val(),
         '#ManagerInfo=' + JSON.stringify(managerInfo),
-        '&contextRoot=https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light',
+        '&contextRoot=https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light-debug',
         '&clickedEnvironmentUnitUrl=' + $("#unitUrl").val(),
         '&clickedEnvironmentUnitCellName=' + $("#unitCellName").val(),
         '&selectedLanguage=' + $("#ddLanguageSelector").val()

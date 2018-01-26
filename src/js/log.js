@@ -215,11 +215,11 @@ log.prototype.disableDownloadButton = function() {
  */
 log.prototype.downloadHoverEffect = function(){
 	$("#downloadWebDavWrapper").hover(function(){
-		$("#dvDownLoadIcon").css("background","url(../../images/newSprite.png) no-repeat -16px -823px");
+		$("#dvDownLoadIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -16px -823px");
 		$("#dvDownLoadText").css("color","#c80000");
 		$("#downloadWebDavWrapper").css("cursor","pointer");
 	},function(){
-		$("#dvDownLoadIcon").css("background","url(../../images/newSprite.png) no-repeat -16px -790px");
+		$("#dvDownLoadIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -16px -790px");
 		$("#dvDownLoadText").css("color","#1b1b1b");
 	});
 };
