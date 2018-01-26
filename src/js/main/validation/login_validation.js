@@ -261,7 +261,7 @@ login_validation.prototype.validateTempPassword = function(tempPasswordSpanID,
 						CSRFTokenFirstTimeResetPassword : CSRFTokenFirstTimeResetPassword
 					},
 
-					url : '../../MailServlet',
+					url : 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/MailServlet',
 					dataType : 'json',
 					type : 'POST',
 					async : false,
@@ -317,7 +317,7 @@ login_validation.prototype.postNewPassword = function(userName,
 			CSRFTokenPassword : CSRFTokenPassword
 		},
 		dataType : 'json',
-		url : '../../AdministratorManagement',
+		url : 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/AdministratorManagement',
 		type : 'POST',
 		/*beforeSend: function (xhr) {
 			xhr.setRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -385,7 +385,7 @@ login_validation.prototype.redirectLoginPage = function() {
 			CSRFTokenResetLastLogin : CSRFTokenResetLastLogin
 		},
 		dataType : 'json',
-		url : '../../MailServlet',
+		url : 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/MailServlet',
 		type : 'POST',
 		async : false,
 		cache : false,
@@ -500,7 +500,7 @@ login_validation.prototype.updateTermsAndCondition = function() {
 			CSRFTokenResetLastLogin : CSRFTokenResetLastLogin
 		},
 		dataType : 'json',
-		url : '../../MailServlet',
+		url : 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/MailServlet',
 		type : 'POST',
 		async : false,
 		cache : false,

@@ -1190,44 +1190,6 @@ common.prototype.showPaginationIcons = function(dynamicTable,totalPageNo) {
 };
 
 /**
- * The purpose of this function is to check the cell count
- * i.e if there are no cells in user account then, 
- * user is directed to the firstCellCreate.html
- */
-common.prototype.cellCountCheck = function(token,flag) {
-  //var id = objCommon.isSessionExist();
-  var totalCellCount = retrieveCellRecordCount();
-  //sessionStorage.totalCellCountForUnit = totalCellCount;
-  sessionStorage.cellCountCheck = totalCellCount;
-  var winH = $(window).height();
-  var winW = $(window).width();
-  //if (id != null) {
-    if (flag == "CLICKRESOURCEMGMNT") {
-      if (totalCellCount === 0) {
-        window.location.href = contextRoot+"/htmls/firstCellCreate.html";
-        return false;
-      } else {
-        window.location.href = contextRoot+"/htmls/environment.jsp";
-        return false;
-      }
-    }
-    if (totalCellCount === 0) {
-      if (flag == "DELETELASTCELL") {
-        window.location.href = contextRoot+"/htmls/firstCellCreate.html";
-        return false;
-      }
-      window.open(contextRoot + '/htmls/firstCellCreate.html','', 'width='+winW+', height='+winH+'');
-    } else if (flag == true && totalCellCount > 0) {
-      flag = false;
-      window.open(contextRoot + '/htmls/environment.jsp','', 'width='+winW+', height='+winH+'');
-      //window.location.href = contextRoot+"/htmls/environment.jsp";
-    }
-  //} else {
-  //  window.location.href = contextRoot;
-  //}
-};
-
-/**
  * The purpose of this function is to set accessor.
  */
 common.prototype.initializeAccessor = function(baseUrl, cellName, schemaURL, boxName) { 
@@ -1452,7 +1414,7 @@ common.prototype.isSessionExist = function() {
   //$.ajax({
   //  async : false,
   //  dataType : 'json',
-  //  url : '../../Info',
+  //  url : 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/Info',
   //  type : 'GET',
   //  success : function(jsonData) {
   //    id = jsonData.id;
@@ -2314,13 +2276,13 @@ common.prototype.createPaginationView = function(totalRecordCount, maxRows,tblMa
  */
 common.prototype.creatEntityHoverEffect = function () {
     $("#createEntityWrapper").hover(function(){
-        $("#createIcon").css("background","url(../../images/sprite.png) no-repeat 43% -551px");
+        $("#createIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -551px");
         $("#createText").css("color","#c80000");
-        $("#arrow").css("background","url(../../images/sprite.png) no-repeat 18% -577px");
+        $("#arrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -577px");
     },function(){
-        $("#createIcon").css("background","url(../../images/sprite.png) no-repeat 43% -523px");
+        $("#createIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -523px");
         $("#createText").css("color","#1b1b1b");
-        $("#arrow").css("background","url(../../images/sprite.png) no-repeat 18% -600px");
+        $("#arrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -600px");
     });
 };
 
@@ -2330,12 +2292,12 @@ common.prototype.creatEntityHoverEffect = function () {
  */
 common.prototype.sortByDateHoverEffect = function () {
     $(".sortWrapper").hover(function(){
-        $(".downArrow").css("background","url(../../images/sprite.png) no-repeat 18% -577px");
+        $(".downArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -577px");
         $(".sortText").css("color","#c80000");
         $(".downArrow").css("cursor","pointer");
         $(".sortText").css("cursor","pointer");
      },function(){
-        $(".downArrow").css("background","url(../../images/sprite.png) no-repeat 18% -600px");
+        $(".downArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -600px");
         $(".sortText").css("color","#1b1b1b");
         $(".downArrow").css("cursor","default");
         $(".sortText").css("cursor","default");
@@ -2348,10 +2310,10 @@ common.prototype.sortByDateHoverEffect = function () {
  */
 common.prototype.assignBackBtnHoverEffect = function(){
     $(".assignBackWrapper").hover(function(){
-        $(".assignBackIcon").css("background","url(../../images/newSprite.png) no-repeat 58% -1552px");
+        $(".assignBackIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 58% -1552px");
         $(".assignEntityText").css("color","#e62525");
     },function(){
-        $(".assignBackIcon").css("background","url(../../images/newSprite.png) no-repeat 57% -1525px");
+        $(".assignBackIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 57% -1525px");
         $(".assignEntityText").css("color","#c80000");
     });
 };

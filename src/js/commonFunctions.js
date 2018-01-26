@@ -27,69 +27,69 @@ $ (document).ready(function() {
 	setMessageNavWidth();
 	setLogNavWidth();
 	$("#boxNav").hover(function(){
-		$("#boxIcon").css("background","url(../../images/sprite.png) no-repeat 43% -25px");
+		$("#boxIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -25px");
 		$("#boxText").css("color","#c80000");
 	},function(){
 		if(!$("#boxNav").hasClass("selected")){
-			$("#boxIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+			$("#boxIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 			$("#boxText").css("color","#1b1b1b");
 		}
 	});
 	$("#roleNav").hover(function(){
-		$("#roleIcon").css("background","url(../../images/sprite.png) no-repeat 43% -94px");
+		$("#roleIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -94px");
 		$("#roleText").css("color","#c80000");
 	},function(){
 		if(!$("#roleNav").hasClass("selected")){
-			$("#roleIcon").css("background","url(../../images/sprite.png) no-repeat 43% -129px");
+			$("#roleIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -129px");
 			$("#roleText").css("color","#1b1b1b");
 		}
 	});
 	$("#accountNav").hover(function(){
-		$("#accountIcon").css("background","url(../../images/sprite.png) no-repeat 43% -165px");
+		$("#accountIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -165px");
 		$("#accountText").css("color","#c80000");
 	},function(){
 		if(!$("#accountNav").hasClass("selected")){
-			$("#accountIcon").css("background","url(../../images/sprite.png) no-repeat 43% -198px");
+			$("#accountIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -198px");
 			$("#accountText").css("color","#1b1b1b");
 		}
 	});
 	$("#socialNav").hover(function(){
-		$("#socialIcon").css("background","url(../../images/sprite.png) no-repeat 43% -235px");
+		$("#socialIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -235px");
 		$("#socialText").css("color","#c80000");
-		$("#socialArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -14px");
+		$("#socialArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -14px");
 	},function(){
 		if(!$("#socialNav").hasClass("selected")){
-			$("#socialIcon").css("background","url(../../images/sprite.png) no-repeat 43% -273px");
+			$("#socialIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -273px");
 			$("#socialText").css("color","#1b1b1b");
-			$("#socialArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
+			$("#socialArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
 		}
 	});
 	$("#messageNav").hover(function(){
-		$("#messageIcon").css("background","url(../../images/sprite.png) no-repeat 43% -318px");
+		$("#messageIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -318px");
 		$("#messageText").css("color","#c80000");
-		$("#messageArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -14px");
+		$("#messageArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -14px");
 	},function(){
 		if(!$("#messageNav").hasClass("selected")){
-			$("#messageIcon").css("background","url(../../images/sprite.png) no-repeat 43% -351px");
+			$("#messageIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -351px");
 			$("#messageText").css("color","#1b1b1b");
-			$("#messageArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
+			$("#messageArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
 		}
 	});
 	$("#logNav").hover(function(){
-		$("#logIcon").css("background","url(../../images/sprite.png) no-repeat 43% -388px");
+		$("#logIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -388px");
 		$("#logText").css("color","#c80000");
 	},function(){
 		if(!$("#logNav").hasClass("selected")){
-			$("#logIcon").css("background","url(../../images/sprite.png) no-repeat 43% -423px");
+			$("#logIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -423px");
 			$("#logText").css("color","#1b1b1b");
 		}
 	});
 	$("#infoNav").hover(function(){
-		$("#infoIcon").css("background","url(../../images/sprite.png) no-repeat 43% -457px");
+		$("#infoIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -457px");
 		$("#infoText").css("color","#c80000");
 	},function(){
 		if(!$("#infoNav").hasClass("selected")){
-			$("#infoIcon").css("background","url(../../images/sprite.png) no-repeat 43% -491px");
+			$("#infoIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -491px");
 			$("#infoText").css("color","#1b1b1b");
 		}
 	});
@@ -227,21 +227,21 @@ $ (document).ready(function() {
  * and removes selected class from other menus.
  */
 function selectBoxInNavigationBar() {
-	$("#roleIcon").css("background","url(../../images/sprite.png) no-repeat 43% -129px");
+	$("#roleIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -129px");
 	$("#roleText").css("color","#1b1b1b");
-	$("#accountIcon").css("background","url(../../images/sprite.png) no-repeat 43% -198px");
+	$("#accountIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -198px");
 	$("#accountText").css("color","#1b1b1b");
-	$("#socialIcon").css("background","url(../../images/sprite.png) no-repeat 43% -273px");
+	$("#socialIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -273px");
 	$("#socialText").css("color","#1b1b1b");
-	$("#socialArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#messageIcon").css("background","url(../../images/sprite.png) no-repeat 43% -351px");
+	$("#socialArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#messageIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
-	$("#messageArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(../../images/sprite.png) no-repeat 43% -423px");
+	$("#messageArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#logIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
-	$("#infoIcon").css("background","url(../../images/sprite.png) no-repeat 43% -491px");
+	$("#infoIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
-	$("#boxIcon").css("background","url(../../images/sprite.png) no-repeat 43% -25px");
+	$("#boxIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -25px");
 	$("#boxText").css("color","#c80000");
 }
 
@@ -250,21 +250,21 @@ function selectBoxInNavigationBar() {
  * and removes selected class from other menus.
  */
 function selectRoleInNavigationBar() {
-	$("#boxIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+	$("#boxIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 	$("#boxText").css("color","#1b1b1b");
-	$("#accountIcon").css("background","url(../../images/sprite.png) no-repeat 43% -198px");
+	$("#accountIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -198px");
 	$("#accountText").css("color","#1b1b1b");
-	$("#socialIcon").css("background","url(../../images/sprite.png) no-repeat 43% -273px");
+	$("#socialIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -273px");
 	$("#socialText").css("color","#1b1b1b");
-	$("#socialArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#messageIcon").css("background","url(../../images/sprite.png) no-repeat 43% -351px");
+	$("#socialArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#messageIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
-	$("#messageArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(../../images/sprite.png) no-repeat 43% -423px");
+	$("#messageArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#logIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
-	$("#infoIcon").css("background","url(../../images/sprite.png) no-repeat 43% -491px");
+	$("#infoIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
-	$("#roleIcon").css("background","url(../../images/sprite.png) no-repeat 43% -94px");
+	$("#roleIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -94px");
 	$("#roleText").css("color","#c80000");
 }
 
@@ -273,21 +273,21 @@ function selectRoleInNavigationBar() {
  * and removes selected class from other menus.
  */
 function selectAccountInNavigationBar() {
-	$("#boxIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+	$("#boxIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 	$("#boxText").css("color","#1b1b1b");
-	$("#roleIcon").css("background","url(../../images/sprite.png) no-repeat 43% -129px");
+	$("#roleIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -129px");
 	$("#roleText").css("color","#1b1b1b");
-	$("#socialIcon").css("background","url(../../images/sprite.png) no-repeat 43% -273px");
+	$("#socialIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -273px");
 	$("#socialText").css("color","#1b1b1b");
-	$("#socialArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#messageIcon").css("background","url(../../images/sprite.png) no-repeat 43% -351px");
+	$("#socialArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#messageIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
-	$("#messageArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(../../images/sprite.png) no-repeat 43% -423px");
+	$("#messageArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#logIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
-	$("#infoIcon").css("background","url(../../images/sprite.png) no-repeat 43% -491px");
+	$("#infoIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
-	$("#accountIcon").css("background","url(../../images/sprite.png) no-repeat 43% -165px");
+	$("#accountIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -165px");
 	$("#accountText").css("color","#c80000");
 }
 
@@ -296,22 +296,22 @@ function selectAccountInNavigationBar() {
  * and removes selected class from other menus.
  */
 function selectSocialInNavigationBar() {
-	$("#boxIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+	$("#boxIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 	$("#boxText").css("color","#1b1b1b");
-	$("#roleIcon").css("background","url(../../images/sprite.png) no-repeat 43% -129px");
+	$("#roleIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -129px");
 	$("#roleText").css("color","#1b1b1b");
-	$("#accountIcon").css("background","url(../../images/sprite.png) no-repeat 43% -198px");
+	$("#accountIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -198px");
 	$("#accountText").css("color","#1b1b1b");
-	$("#messageIcon").css("background","url(../../images/sprite.png) no-repeat 43% -351px");
+	$("#messageIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
-	$("#messageArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(../../images/sprite.png) no-repeat 43% -423px");
+	$("#messageArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#logIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
-	$("#infoIcon").css("background","url(../../images/sprite.png) no-repeat 43% -491px");
+	$("#infoIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
-	$("#socialIcon").css("background","url(../../images/sprite.png) no-repeat 43% -235px");
+	$("#socialIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -235px");
 	$("#socialText").css("color","#c80000");
-	$("#socialArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -14px");
+	$("#socialArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -14px");
 }
 
 /** 
@@ -319,22 +319,22 @@ function selectSocialInNavigationBar() {
  * and removes selected class from other menus.
  */
 function selectMessageInNavigationBar() {
-	$("#boxIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+	$("#boxIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 	$("#boxText").css("color","#1b1b1b");
-	$("#roleIcon").css("background","url(../../images/sprite.png) no-repeat 43% -129px");
+	$("#roleIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -129px");
 	$("#roleText").css("color","#1b1b1b");
-	$("#accountIcon").css("background","url(../../images/sprite.png) no-repeat 43% -198px");
+	$("#accountIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -198px");
 	$("#accountText").css("color","#1b1b1b");
-	$("#socialIcon").css("background","url(../../images/sprite.png) no-repeat 43% -273px");
+	$("#socialIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -273px");
 	$("#socialText").css("color","#1b1b1b");
-	$("#socialArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(../../images/sprite.png) no-repeat 43% -423px");
+	$("#socialArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#logIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
-	$("#infoIcon").css("background","url(../../images/sprite.png) no-repeat 43% -491px");
+	$("#infoIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
-	$("#messageIcon").css("background","url(../../images/sprite.png) no-repeat 43% -318px");
+	$("#messageIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -318px");
 	$("#messageText").css("color","#c80000");
-	$("#messageArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -14px");
+	$("#messageArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -14px");
 }
 
 /** 
@@ -342,21 +342,21 @@ function selectMessageInNavigationBar() {
  * and removes selected class from other menus.
  */
 function selectLogInNavigationBar() {
-	$("#boxIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+	$("#boxIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 	$("#boxText").css("color","#1b1b1b");
-	$("#roleIcon").css("background","url(../../images/sprite.png) no-repeat 43% -129px");
+	$("#roleIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -129px");
 	$("#roleText").css("color","#1b1b1b");
-	$("#accountIcon").css("background","url(../../images/sprite.png) no-repeat 43% -198px");
+	$("#accountIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -198px");
 	$("#accountText").css("color","#1b1b1b");
-	$("#socialIcon").css("background","url(../../images/sprite.png) no-repeat 43% -273px");
+	$("#socialIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -273px");
 	$("#socialText").css("color","#1b1b1b");
-	$("#socialArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#messageIcon").css("background","url(../../images/sprite.png) no-repeat 43% -351px");
+	$("#socialArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#messageIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
-	$("#messageArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#infoIcon").css("background","url(../../images/sprite.png) no-repeat 43% -491px");
+	$("#messageArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#infoIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
-	$("#logIcon").css("background","url(../../images/sprite.png) no-repeat 43% -388px");
+	$("#logIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -388px");
 	$("#logText").css("color","#c80000");
 }
 
@@ -365,21 +365,21 @@ function selectLogInNavigationBar() {
  * and removes selected class from other menus.
  */
 function selectInfoInNavigationBar() {
-	$("#boxIcon").css("background","url(../../images/sprite.png) no-repeat 43% -60px");
+	$("#boxIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
 	$("#boxText").css("color","#1b1b1b");
-	$("#roleIcon").css("background","url(../../images/sprite.png) no-repeat 43% -129px");
+	$("#roleIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -129px");
 	$("#roleText").css("color","#1b1b1b");
-	$("#accountIcon").css("background","url(../../images/sprite.png) no-repeat 43% -198px");
+	$("#accountIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -198px");
 	$("#accountText").css("color","#1b1b1b");
-	$("#socialIcon").css("background","url(../../images/sprite.png) no-repeat 43% -273px");
+	$("#socialIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -273px");
 	$("#socialText").css("color","#1b1b1b");
-	$("#socialArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#messageIcon").css("background","url(../../images/sprite.png) no-repeat 43% -351px");
+	$("#socialArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#messageIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
-	$("#messageArrow").css("background","url(../../images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(../../images/sprite.png) no-repeat 43% -423px");
+	$("#messageArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -20px -33px");
+	$("#logIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
-	$("#infoIcon").css("background","url(../../images/sprite.png) no-repeat 43% -457px");
+	$("#infoIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -457px");
 	$("#infoText").css("color","#c80000");
 }
 
