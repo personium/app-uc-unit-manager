@@ -347,7 +347,7 @@ login.getCellInfo = function(jsonData) {
 }
 
 login.openManagerWindow = function(managerInfo) {
-    let launchUrl = './environment.html';
+    let launchUrl = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+$("#ddLanguageSelector").val()+'/environment.html';
     location.href = login.prepareHashParams(launchUrl, managerInfo);
 }
 
@@ -356,7 +356,7 @@ login.prepareHashParams = function(launchUrl, managerInfo) {
         launchUrl,
         '?lng=' + $("#ddLanguageSelector").val(),
         '#ManagerInfo=' + JSON.stringify(managerInfo),
-        '&contextRoot=https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light-debug',
+        '&contextRoot=https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light',
         '&clickedEnvironmentUnitUrl=' + $("#unitUrl").val(),
         '&clickedEnvironmentUnitCellName=' + $("#unitCellName").val(),
         '&selectedLanguage=' + $("#ddLanguageSelector").val()
