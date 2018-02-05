@@ -1414,7 +1414,7 @@ common.prototype.isSessionExist = function() {
   //$.ajax({
   //  async : false,
   //  dataType : 'json',
-  //  url : 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/Info',
+  //  url : './Info',
   //  type : 'GET',
   //  success : function(jsonData) {
   //    id = jsonData.id;
@@ -2276,13 +2276,13 @@ common.prototype.createPaginationView = function(totalRecordCount, maxRows,tblMa
  */
 common.prototype.creatEntityHoverEffect = function () {
     $("#createEntityWrapper").hover(function(){
-        $("#createIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -551px");
+        $("#createIcon").css("background","url(./images/sprite.png) no-repeat 43% -551px");
         $("#createText").css("color","#c80000");
-        $("#arrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -577px");
+        $("#arrow").css("background","url(./images/sprite.png) no-repeat 18% -577px");
     },function(){
-        $("#createIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -523px");
+        $("#createIcon").css("background","url(./images/sprite.png) no-repeat 43% -523px");
         $("#createText").css("color","#1b1b1b");
-        $("#arrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -600px");
+        $("#arrow").css("background","url(./images/sprite.png) no-repeat 18% -600px");
     });
 };
 
@@ -2292,12 +2292,12 @@ common.prototype.creatEntityHoverEffect = function () {
  */
 common.prototype.sortByDateHoverEffect = function () {
     $(".sortWrapper").hover(function(){
-        $(".downArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -577px");
+        $(".downArrow").css("background","url(./images/sprite.png) no-repeat 18% -577px");
         $(".sortText").css("color","#c80000");
         $(".downArrow").css("cursor","pointer");
         $(".sortText").css("cursor","pointer");
      },function(){
-        $(".downArrow").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -600px");
+        $(".downArrow").css("background","url(./images/sprite.png) no-repeat 18% -600px");
         $(".sortText").css("color","#1b1b1b");
         $(".downArrow").css("cursor","default");
         $(".sortText").css("cursor","default");
@@ -2310,10 +2310,10 @@ common.prototype.sortByDateHoverEffect = function () {
  */
 common.prototype.assignBackBtnHoverEffect = function(){
     $(".assignBackWrapper").hover(function(){
-        $(".assignBackIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 58% -1552px");
+        $(".assignBackIcon").css("background","url(./images/newSprite.png) no-repeat 58% -1552px");
         $(".assignEntityText").css("color","#e62525");
     },function(){
-        $(".assignBackIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 57% -1525px");
+        $(".assignBackIcon").css("background","url(./images/newSprite.png) no-repeat 57% -1525px");
         $(".assignEntityText").css("color","#c80000");
     });
 };

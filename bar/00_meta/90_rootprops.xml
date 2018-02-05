@@ -39,12 +39,4 @@
             </prop>
         </propstat>
     </response>
-    <response>
-        <href>dcbox:/src/environment.html</href>
-        <propstat>
-            <prop>
-                <getcontenttype>text/html</getcontenttype>
-            </prop>
-        </propstat>
-    </response>
 </multistatus>

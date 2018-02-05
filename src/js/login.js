@@ -347,7 +347,7 @@ login.getCellInfo = function(jsonData) {
 }
 
 login.openManagerWindow = function(managerInfo) {
-    let launchUrl = './environment.html';
+    let launchUrl = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/htmls/'+$("#ddLanguageSelector").val()+'/environment.html';
     location.href = login.prepareHashParams(launchUrl, managerInfo);
 }
 

@@ -1427,10 +1427,10 @@ receivedMessage.prototype.applyFixedColumnStyleSheet = function () {
  */
 receivedMessage.prototype.sortByDateHoverEffect = function () {
 	$("#sortWrapperOData").hover(function(){
-		$("#sortdownArrowOData ").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 40% -578px");
+		$("#sortdownArrowOData ").css("background","url(./images/sprite.png) no-repeat 40% -578px");
 		 $("#sortTextOData ").css("color","#c80000");
 	 },function(){
-		  $("#sortdownArrowOData ").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 40% -601px");
+		  $("#sortdownArrowOData ").css("background","url(./images/sprite.png) no-repeat 40% -601px");
 		  $("#sortTextOData ").css("color","#1b1b1b");
 	});
 };

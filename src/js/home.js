@@ -207,7 +207,7 @@ home.prototype.getAPIVersion = function(requestURL){
     var CSRFTokenAPIVersion = sessionStorage.requestId;
     $.ajax({
         dataType    : 'json',
-        url         : 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/home',
+        url         : './home',
         type        : 'POST',
         data        : {
             operation   : 'APIVersion',
@@ -267,7 +267,7 @@ home.prototype.getStatusData = function(requestURL) {
     var CSRFTokenDiscSpace = sessionStorage.requestId;
     $.ajax({
         dataType    : 'json',
-        url         : 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/home',
+        url         : './home',
         type        : 'POST',
         data        : {
             operation   : 'DiscSpace',

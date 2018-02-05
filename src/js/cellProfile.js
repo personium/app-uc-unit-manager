@@ -690,7 +690,7 @@ cellProfile.prototype.displayExternalCellInformation = function (binaryFormatIma
         img.src = binaryFormatImage;    
     }
     else {
-        img.src = "https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/newImages/userImage.jpg";      
+        img.src = "./newImages/userImage.jpg";      
     }
     img.width="114";
     img.height="99";

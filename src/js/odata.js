@@ -600,7 +600,7 @@ odata.prototype.showHideIconsforFilesInPlugin = function(isRefresh) {
 	$("#boxEditAclSettings").addClass("disabledEditIconACLSettings");
 	$("#currentDirectoryName").text(pluginSource);
 	$("#currentDirectoryName").attr("title", pluginSource);
-	$("#currentDirectoryIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 54% -920px");
+	$("#currentDirectoryIcon").css("background","url(./images/newSprite.png) no-repeat 54% -920px");
 	$("#currentDirectoryIcon").css("margin-top", "0px");
 	$('.mainTable').css('cursor', '');
 	$('#aclSettingsData').empty();
@@ -739,7 +739,7 @@ odata.prototype.createEngineServiceDetailsTable = function (selectedCount, colle
 
 odata.prototype.displayPluginSource = function (pluginName) {
 	objOdata.selectedView = 'p:service';
-	$("#dvDownLoadIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -16px -856px");
+	$("#dvDownLoadIcon").css("background","url(./images/newSprite.png) no-repeat -16px -856px");
 	$("#dvDownLoadText").css("color"," #e8e8e8");
 	$("#wdchkSelectall").attr('checked', false);
 	$("#wdchkSelectall").attr('disabled', true);
@@ -758,7 +758,7 @@ odata.prototype.displayPluginSource = function (pluginName) {
 odata.prototype.setCurrentDirectoryIconAndName = function (pluginName) {
 	$("#currentDirectoryName").text(pluginName);
 	$("#currentDirectoryName").attr("title",pluginName);
-	$("#currentDirectoryIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite3.png) 54% -166px no-repeat");
+	$("#currentDirectoryIcon").css("background","url(./images/sprite3.png) 54% -166px no-repeat");
 	$("#currentDirectoryIcon").css("margin-top","0px");
 };
 
@@ -1779,7 +1779,7 @@ odata.prototype.clickFolder = function (collectionName, collectionURL, type) {
 	objCommon.disableDeleteIcon("#btnDeleteCollection");
 	$("#currentDirectoryName").text(collectionName);
 	$("#currentDirectoryName").attr("title",collectionName);
-	$("#currentDirectoryIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 54% -920px");
+	$("#currentDirectoryIcon").css("background","url(./images/newSprite.png) no-repeat 54% -920px");
 	$("#currentDirectoryIcon").css("margin-top","0px");
 	$("#webDavTable").find("tbody tr").remove();
 	var shorterCollectionName = objCommon.getShorterName(collectionName, 13);
@@ -1869,7 +1869,7 @@ odata.prototype.deleteBreadCrum = function (id,title,pcollectionURL, mType) {
 		objOdata.delBreadCrumRows(clickedId);
 		$("#currentDirectoryName").text(title);
 		$("#currentDirectoryName").attr("title",title);
-		$("#currentDirectoryIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat 54% -920px");
+		$("#currentDirectoryIcon").css("background","url(./images/newSprite.png) no-repeat 54% -920px");
 		$("#currentDirectoryIcon").css("margin-top","0px");
 		$("#currentDirectoryIcon").css("margin-left","0px");
 		var type = "folder";
@@ -1877,7 +1877,7 @@ odata.prototype.deleteBreadCrum = function (id,title,pcollectionURL, mType) {
 		if (columnId == '#columnId_0') {
 			//folderClicked = false;
 			pcollectionURL = boxRootpath;
-			$("#currentDirectoryIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -60px");
+			$("#currentDirectoryIcon").css("background","url(./images/sprite.png) no-repeat 43% -60px");
 			$("#currentDirectoryIcon").css("margin-top","-2px");
 			$("#currentDirectoryIcon").css("margin-left","0px");
 			type = "box";
@@ -2113,7 +2113,7 @@ odata.prototype.refreshCollection = function () {
 					objOdata.spinner.stop();
 				});
 	} else if (sessionStorage.resourcetype == 'p:service') {
-		$("#dvDownLoadIcon").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/newSprite.png) no-repeat -16px -856px");
+		$("#dvDownLoadIcon").css("background","url(./images/newSprite.png) no-repeat -16px -856px");
 		$("#dvDownLoadText").css("color"," #e8e8e8");
 		$('#wdchkSelectall').attr('checked', false);
 		var count = 0;
@@ -2250,9 +2250,9 @@ odata.prototype.showDefaultPointer = function(id) {
  * Following method attaches style to the create Icon (collection) on hover.
  */
 odata.prototype.showCreateIconOnHover = function(){
-	$("#createIconCollection").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -551px");
+	$("#createIconCollection").css("background","url(./images/sprite.png) no-repeat 43% -551px");
 	$("#createTextCollection").css("color","#c80000");
-	$("#arrowCollection").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -577px");
+	$("#arrowCollection").css("background","url(./images/sprite.png) no-repeat 18% -577px");
 	$("#createCollectionSubMenu").css("display","block");
 };
 
@@ -2260,9 +2260,9 @@ odata.prototype.showCreateIconOnHover = function(){
  * Following method attaches style to the create Icon (collection) when hover is out.
  */
 odata.prototype.showCreateIconOnHoverOut = function(){
-	$("#createIconCollection").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 43% -523px");
+	$("#createIconCollection").css("background","url(./images/sprite.png) no-repeat 43% -523px");
 	$("#createTextCollection").css("color","#1b1b1b");
-	$("#arrowCollection").css("background","url(https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/images/sprite.png) no-repeat 18% -600px");
+	$("#arrowCollection").css("background","url(./images/sprite.png) no-repeat 18% -600px");
 	$("#createCollectionSubMenu").css("display","none");
 };
 
