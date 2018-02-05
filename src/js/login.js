@@ -356,7 +356,7 @@ login.prepareHashParams = function(launchUrl, managerInfo) {
         launchUrl,
         '?lng=' + $("#ddLanguageSelector").val(),
         '#ManagerInfo=' + JSON.stringify(managerInfo),
-        '&contextRoot=https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light',
+        '&contextRoot=https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light-debug',
         '&clickedEnvironmentUnitUrl=' + $("#unitUrl").val(),
         '&clickedEnvironmentUnitCellName=' + $("#unitCellName").val(),
         '&selectedLanguage=' + $("#ddLanguageSelector").val()
