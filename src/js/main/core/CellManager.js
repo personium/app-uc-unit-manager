@@ -230,3 +230,53 @@ _pc.CellManager.prototype.recursiveDelete = function(cellName, options) {
   var response = restAdapter.del(url, options);
   return response;
 };
+
+/*
+ * IMPORT FUNCTION FOR CELL.
+ * @param {String} cellName Name of cell to import.
+ * @param {Object} body Request body
+ * @returns {Object} response JSON object
+ */
+_pc.CellManager.prototype.cellImport = function(cellName, body) {
+  var url = this.getBaseUrl() + cellName + "/__import";
+  var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
+  var header = {};
+  header.Accept = "application/json";
+  var requestBody = JSON.stringify(body);
+
+  var response = restAdapter.post(url, requestBody, null, header);
+  return response;
+};
+
+/*
+ * EXPORT FUNCTION FOR CELL.
+ * @param {String} cellName Name of cell to export.
+ * @param {Object} body Request body
+ * @returns {Object} response JSON object
+ */
+_pc.CellManager.prototype.cellExport = function(cellName, body) {
+  var url = this.getBaseUrl() + cellName + "/__export";
+  var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
+  var header = {};
+  header.Accept = "application/json";
+  var requestBody = JSON.stringify(body);
+
+  var response = restAdapter.post(url, requestBody, null, header);
+  return response;
+};
+
+/*
+ * ABILITY TO ACQUIRE THE SNAPSHOT FILE SAVED IN THE CELL.
+ * @param {String} cellName Name of the cell from which the snapshot is taken.
+ * @param {String} filename Snapshot file name
+ * @returns {Object} response JSON object
+ */
+_pc.CellManager.prototype.getSnapshotFile = function(cellName, filename) {
+  var url = this.getBaseUrl() + cellName + "/__snapshot/" + filename + ".zip";
+  var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
+  var header = {};
+  header.Accept = "application/json";
+
+  var response = restAdapter.get(url, "application/json");
+  return response;
+};

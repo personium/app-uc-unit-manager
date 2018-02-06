@@ -462,6 +462,48 @@ input::-webkit-input-placeholder {
     color: #c80000;
 }
 
+.snapshotNav {
+    float: left;
+    height: 23px;
+    min-width: 99px;
+}
+
+.snapshotNav:hover {
+    cursor: pointer;
+}
+
+.snapshotTabWrapper {
+    float: left;
+    width: 125px;
+    cursor: pointer;
+}
+
+.snapshotIcon {
+    background: url(../images/sprite.png) no-repeat 43% -423px;
+    float: left;
+    height: 20px;
+    margin-right: 10px;
+    margin-top: 4px;
+    width: 20px;
+}
+
+.snapshotText {
+    font-size: 13pt;
+    color: #1b1b1b;
+    height: 15px;
+    display: inline-block;
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
+.selected .snapshotIcon {
+    background: url(../images/sprite.png) no-repeat 43% -388px;
+}
+
+.selected .snapshotText {
+    color: #c80000;
+}
+
 .infoNav {
     float: left;
     height: 23px;

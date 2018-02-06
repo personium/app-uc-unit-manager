@@ -201,37 +201,6 @@ cellProfile.prototype.retrieveCollectionAPIResponse = function (json, operationP
 };
 
 /**
- * 
- * @param displayName
- * @param descriptionDetails
- * @param newlyCreatedCell
- */
-cellProfile.prototype.createCellProfile = function(displayName,descriptionDetails,newlyCreatedCell, scopeSelection) {
-    var response = null;
-    var fileData = null;
-    var message =null;
-            fileData = {
-            "DisplayName" : displayName,
-            "Description" : descriptionDetails,
-            "Image" : imgBinaryFile,
-            "Scope" : scopeSelection
-        };
-        response = uCellProfile.retrieveCollectionAPIResponse(fileData, "EDIT",newlyCreatedCell);
-        if (response.response.status === 201
-                || response.response.status === 204) { 
-                 sessionStorage.selectedcell = newlyCreatedCell;
-            message = "Profile updated successfully!";
-            objCommon.displaySuccessMessage(message,
-                    "#editCellProfileModalWindow");
-            var contextRoot = sessionStorage.contextRoot;
-            $("#mainContent").load(contextRoot + '/htmls/cellProfileData.html',
-                    function() {
-                            uCellProfile.displayProfileDetails();
-            });
-        }
-};
-
-/**
  * The purpose of this function is to update cell profile.
  */
 cellProfile.prototype.updateCellProfile = function() { 

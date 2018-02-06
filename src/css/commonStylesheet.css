@@ -243,6 +243,7 @@ color: #ffffff;
 .messageNav{background:url(../newImages/sprite_newIcons.png) no-repeat -2% -138px;padding:7px 40px 5px 37px}
 .extRoleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -350px;padding:9px 0 5px 37px}
 .logNav{background:url(../newImages/sprite_newIcons.png) no-repeat 1% -172px;padding:9px 70px 5px 41px}
+.snapshotNav{background:url(../newImages/sprite_newIcons.png) no-repeat 1% -172px;padding:9px 70px 5px 41px}
 .selected .cellProfileNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -392px;padding:9px 0 5px 37px}
 .selected .boxNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -439px;padding:6px 0 5px 37px}
 .selected .roleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -482px;padding:6px 0 5px 37px}
@@ -250,6 +251,7 @@ color: #ffffff;
 .selected .socialNav{background:url(../newImages/sprite_newIcons.png) no-repeat -3% -21px;padding:9px 40px 5px 37px}
 .selected .messageNav{background:url(../newImages/sprite_newIcons.png) no-repeat -2% -101px;padding:7px 40px 5px 37px}
 .selected .logNav{background:url(../newImages/sprite_newIcons.png) no-repeat 1% -209px;padding:9px 70px 5px 41px}
+.selected .snapshotNav{background:url(../newImages/sprite_newIcons.png) no-repeat 1% -209px;padding:9px 70px 5px 41px}
 /* .selected .relationNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -618px;padding:7px 0 5px 37px}
 .selected .extRoleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -666px;padding:9px 0 5px 37px} */
 /**** Main Nav ends here ****/	

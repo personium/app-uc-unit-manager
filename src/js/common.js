@@ -624,6 +624,12 @@ common.prototype.rowSelect = function(objRow, rowID, chkBoxID, colID, delButID,
             this.disableDeleteIcon('#' + delButID);
             uDataManagement.disableEditButton(editButID);
         }
+        if (tableID == "snapshotTable") {
+            // Deactivate download button, import button and delete button
+            uFileDownload.disableDownloadArea();
+            uEventSnapshot.disableImportButton();
+            this.disableDeleteIcon('#' + delButID);
+        }
         //this.checkEditButton(customCheckBoxesChecked, editButID, fileType, isAcl);
         if (customCheckBoxesChecked > 0) {
             this.activateEditIcon(customCheckBoxesChecked, tableID);
@@ -665,6 +671,36 @@ common.prototype.rowSelect = function(objRow, rowID, chkBoxID, colID, delButID,
                 if (tableID == "webDavTable") {
                     this.activateCollectionDeleteIcon("#btnDeleteCollection");
                 }
+            if (tableID == "snapshotTable") { // When the check box of snapshotTable is checked
+                var checkedSnapshotName = "";
+                for ( var index = 0; index < totalRecordsize; index++) {
+                    if ($('#' + chkBoxID + index).is(':checked')) {
+                        // Get the name of the file being checked
+                        checkedSnapshotName = $("#boxDetailLink_"+index).text();
+                        break;
+                    }
+                }
+                // If the number of checks is two or more, the number of selections is displayed instead of the selection information
+                uBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
+                var objSnapshot = new snapshot();
+                this.activateCollectionDeleteIcon('#' + delButID);
+                if(customCheckBoxesChecked === 1) {
+                  // If there is only one check, activate download button and import button
+                  objSnapshot.enableDownloadButton();
+                  objSnapshot.enableImportButton();
+                }
+                var target = document.getElementById('spinner');
+                var spinner = new Spinner(opts).spin(target);
+                setTimeout(function() {
+                    // Display information on the selected file
+                    var currentFolderURL = uEventSnapshot.getSnapshotPath(checkedSnapshotName);
+                    var pathArray = currentFolderURL.split('/');
+                    var currentCollectionName = pathArray[(pathArray.length) - 1];
+                    uBoxDetail.populatePropertiesList(currentFolderURL, currentFolderURL, currentCollectionName, false, fileType);
+                    spinner.stop();
+                }, 1);
+                objOdata.setMarginForSelectedResourcesMessage();
+            }
             if (isAcl != false && isAcl != undefined) {
                 var tableLength = $("#"+tableID+" > tbody > tr").length;
                 if (event.target.tagName.toUpperCase() !== 'LABEL') {
@@ -733,6 +769,19 @@ common.prototype.rowSelect = function(objRow, rowID, chkBoxID, colID, delButID,
             if (tableID == 'logTable' && fileType == 'logFile') {
                 var objLog = new log();
                 objLog.disableDownloadButton();
+            }
+            if (tableID == "snapshotTable") { // When the check box is not selected
+                uBoxAcl.showSelectedResourceCount(customCheckBoxesChecked);
+                var target = document.getElementById('spinner');
+                var spinner = new Spinner(opts).spin(target);
+                setTimeout(function() {
+                    var currentFolderURL = uEventSnapshot.getSnapshotPath();
+                    var pathArray = currentFolderURL.split('/');
+                    var currentCollectionName = pathArray[(pathArray.length) - 1];
+                    uBoxDetail.populatePropertiesList(currentFolderURL, currentFolderURL, currentCollectionName, false, "");
+                    spinner.stop();
+                }, 1);
+                objOdata.setMarginForSelectedResourcesMessage();
             }
             
             objCommon.disableEditButton('#' + editButID);

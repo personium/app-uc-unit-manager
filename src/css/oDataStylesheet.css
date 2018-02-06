@@ -3943,6 +3943,11 @@ margin-top: 10px;
 #logTable .col3{width:14%}
 #logTable .col4{width:25%}
 
+#snapshotTable .col1{width:1%}
+#snapshotTable .col2{width:60%}
+#snapshotTable .col3{width:14%}
+#snapshotTable .col4{width:25%}
+
 .errorIconEntityLink {
 	background: url(../images/newSprite.png) no-repeat 106% -214px;
 }

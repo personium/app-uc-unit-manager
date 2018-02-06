@@ -26,6 +26,7 @@ $ (document).ready(function() {
 	setSocialNavWidth();
 	setMessageNavWidth();
 	setLogNavWidth();
+	setSnapshotNavWidth();
 	$("#boxNav").hover(function(){
 		$("#boxIcon").css("background","url(./images/sprite.png) no-repeat 43% -25px");
 		$("#boxText").css("color","#c80000");
@@ -82,6 +83,15 @@ $ (document).ready(function() {
 		if(!$("#logNav").hasClass("selected")){
 			$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 			$("#logText").css("color","#1b1b1b");
+		}
+	});
+	$("#snapshotNav").hover(function(){
+		$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -388px");
+		$("#snapshotText").css("color","#c80000");
+	},function(){
+		if(!$("#snapshotNav").hasClass("selected")){
+			$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+			$("#snapshotText").css("color","#1b1b1b");
 		}
 	});
 	$("#infoNav").hover(function(){
@@ -158,6 +168,10 @@ $ (document).ready(function() {
 				selectLogInNavigationBar();
 				$(this).siblings().removeClass("selected");
 				$(this).addClass("selected");
+			} else if(this.id == "snapshotNav") {
+				selectSnapshotInNavigationBar();
+				$(this).siblings().removeClass("selected");
+				$(this).addClass("selected");
 			} else if(this.id == "infoNav") {
 				selectInfoInNavigationBar();
 				$(this).siblings().removeClass("selected");
@@ -203,6 +217,7 @@ $ (document).ready(function() {
 		setSocialNavWidth();
 		setMessageNavWidth();
 		setLogNavWidth();
+		setSnapshotNavWidth();
 		getWindowSize();
 		setRightContainerHomeWidth();
 		getODataWindowSize();
@@ -239,6 +254,8 @@ function selectBoxInNavigationBar() {
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
+	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
 	$("#boxIcon").css("background","url(./images/sprite.png) no-repeat 43% -25px");
@@ -262,6 +279,8 @@ function selectRoleInNavigationBar() {
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
+	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
 	$("#roleIcon").css("background","url(./images/sprite.png) no-repeat 43% -94px");
@@ -285,6 +304,8 @@ function selectAccountInNavigationBar() {
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
+	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
 	$("#accountIcon").css("background","url(./images/sprite.png) no-repeat 43% -165px");
@@ -307,6 +328,8 @@ function selectSocialInNavigationBar() {
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
+	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
 	$("#socialIcon").css("background","url(./images/sprite.png) no-repeat 43% -235px");
@@ -330,6 +353,8 @@ function selectMessageInNavigationBar() {
 	$("#socialArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
+	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
 	$("#messageIcon").css("background","url(./images/sprite.png) no-repeat 43% -318px");
@@ -354,10 +379,37 @@ function selectLogInNavigationBar() {
 	$("#messageIcon").css("background","url(./images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
+	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
 	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -388px");
 	$("#logText").css("color","#c80000");
+}
+
+/** 
+ * The purpose of this function is to select log in navigation bar
+ * and removes selected class from other menus.
+ */
+function selectSnapshotInNavigationBar() {
+	$("#boxIcon").css("background","url(./images/sprite.png) no-repeat 43% -60px");
+	$("#boxText").css("color","#1b1b1b");
+	$("#roleIcon").css("background","url(./images/sprite.png) no-repeat 43% -129px");
+	$("#roleText").css("color","#1b1b1b");
+	$("#accountIcon").css("background","url(./images/sprite.png) no-repeat 43% -198px");
+	$("#accountText").css("color","#1b1b1b");
+	$("#socialIcon").css("background","url(./images/sprite.png) no-repeat 43% -273px");
+	$("#socialText").css("color","#1b1b1b");
+	$("#socialArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
+	$("#messageIcon").css("background","url(./images/sprite.png) no-repeat 43% -351px");
+	$("#messageText").css("color","#1b1b1b");
+	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
+	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#logText").css("color","#1b1b1b");
+	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
+	$("#infoText").css("color","#1b1b1b");
+	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -388px");
+	$("#snapshotText").css("color","#c80000");
 }
 
 /** 
@@ -379,6 +431,8 @@ function selectInfoInNavigationBar() {
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#logText").css("color","#1b1b1b");
+	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -457px");
 	$("#infoText").css("color","#c80000");
 }
@@ -583,6 +637,20 @@ function setLogNavWidth(){
 		/*var logNavWidth = Math.round((width - leftPanelWidth - rightGap - navContentsWidthFixed)/6);
 		logNavWidth = logNavWidth + logTabContentWidthFixed;*/
 		$('#logNav').css('min-width', logNavWidth + "%");
+	}
+}
+
+/**
+ * The purpose of this function is to set the Snapshot Tab width
+ * as per screen size on Cell Profile page.
+ */	
+function setSnapshotNavWidth(){
+	var width = $(window).width();
+	var leftPanelWidth = Math.round((1.328125/100)*width);
+	var snapshotTabFixedWidth = 140;
+	var snapshotNavWidth = (snapshotTabFixedWidth/(width - leftPanelWidth))*100;
+	if (width>1280) {
+		$('#snapshotNav').css('min-width', snapshotNavWidth + "%");
 	}
 }
 
@@ -868,6 +936,7 @@ function addSelectedClassMainNavSocial() {
 	$("#accountNav").removeClass("selected");
 	$("#messageNav").removeClass("selected");
 	$("#logNav").removeClass("selected");
+	$("#snapshotNav").removeClass("selected");
 	$("#infoNav").removeClass("selected");
 }
 
@@ -883,6 +952,7 @@ function addSelectedClassMainNavMessage() {
 	$("#accountNav").removeClass("selected");
 	$("#socialNav").removeClass("selected");
 	$("#logNav").removeClass("selected");
+	$("#snapshotNav").removeClass("selected");
 	$("#infoNav").removeClass("selected");
 }
 
@@ -897,5 +967,6 @@ function addSelectedClassMainNavBox() {
 	$("#accountNav").removeClass("selected");
 	$("#messageNav").removeClass("selected");
 	$("#logNav").removeClass("selected");
+	$("#snapshotNav").removeClass("selected");
 	$("#infoNav").removeClass("selected");
 }
