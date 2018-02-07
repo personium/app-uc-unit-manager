@@ -42,6 +42,11 @@ fileDownload.prototype.downloadFile = function () {
 		var logFileName = document.getElementById("defaultLogFileName").title;
 		path = uEventLog.getLogFilePath(baseUrl, cellName, logFolderName, logFileName);
 		collectionName = logFileName;
+	} else if (tab == "Snapshot") {
+		// Get the file name and URL of the selected snapshot
+		var snapshotFileName = uEventSnapshot.getSelectedSnapshotName();
+		path = uEventSnapshot.getSnapshotPath(snapshotFileName);
+		collectionName = snapshotFileName;
 	}
 	var fileType = collectionName.substring(collectionName.lastIndexOf('.') + 1);
 	contentType = this.setFileContentType(fileType);

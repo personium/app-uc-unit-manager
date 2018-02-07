@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light-debug/js/snapshot.js"></script>
+<script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light-debug/js/fileDownload.js"></script>
+<!-- <title>FUJITSU: Event Log - View</title> -->
+</head>
+<body>
+	<div class="backWrapper" style="margin-bottom: 15px;">
+		<!-- <div class="backIcon" onclick="uEventSnapshot.createEventLogFolderTable();"></div> -->
+		<div class="backBtnTxt"><a id="backBtnTxt"></a>Snapshot</div>
+	</div>
+	<div class="tertiaryBar" id="tertiaryBar" style="border-top: 1px solid #b1b1b1;">
+		<div class="leftTertiaryBar">
+			<div id="leftIcons" style="float:left;">
+				<div id="dvRefreshIcon" class="refreshIcon removeBorderOdataRefreshIcon" onclick="uEventSnapshot.refreshEventSnapshotTable();" title="Refresh"></div>
+				<div class="uploadWebDavWrapper" id="uploadWebDavWrapper" onclick="objOdata.toggleMode();" style="border-left: 1px solid #565656;">
+					<div class="uploadWebDavIconEnabled" id="uploadWebDavIcon"></div>
+					<div class="uploadWebDavTextEnabled" id="uploadWebDavText">Upload</div>
+				</div>
+				<div class="downloadWebDavWrapper" onclick="uFileDownload.downloadFile();" id="downloadWebDavWrapper">
+					<div id="dvDownLoadIcon" class="downloadWebDavIconDisabled"></div>
+					<div id="dvDownLoadText" class="downloadWebDavTextDisabled">Download</div>
+				</div>
+				<a id = "downloadBinaryData"></a>
+				<div class="uploadWebDavWrapper" id="importCellWrapper" onclick="uEventSnapshot.openAdminModalWindow('import');">
+					<div class="uploadWebDavIconEnabled" id="importCellIcon"></div>
+					<div class="uploadWebDavTextEnabled" id="importCellText">Import</div>
+				</div>
+				<div class="downloadWebDavWrapper" id="exportCellWrapper" onclick="uEventSnapshot.openAdminModalWindow('export');">
+					<div class="downloadWebDavIconDisabled" id="exportCellIcon"></div>
+					<div class="downloadWebDavTextDisabled" id="exportCellText">Export</div>
+				</div>
+				<div id="btnDeleSnapshot" class="deleteIconWebDav" onclick="uEventSnapshot.openDeleteSnapshotDetailEntityPopUp();" title="Delete"></div>
+				<div id="collectionMessageSuccessBlock"	class="crudOperationSuccessWrapper" style="display: none; position:absolute;">
+					<div class="crudOperationMsgWrapper" style="display: table-cell;white-space: nowrap;padding-right: 34px;">
+						<span class="crudOperationSuccessIcon" id="messageIcon">&nbsp;</span>
+						<div id="collectionSuccessMsg" class="crudOperationSuccessMsg"></div>
+						</div>
+					</div>
+					<div id="collectionMessageErrorBlock" class="crudOperationSuccessWrapper" style="display: none; position:absolute;width: 0px">
+						<div class="crudOperationMsgWrapper" style="display: table-cell;white-space: nowrap;padding-right: 34px;">
+						<span class="crudOperationErrorIcon" id="errorMessageIcon">&nbsp;</span>
+						<div id="collectionErrorMsg" class="crudOperationSuccessMsg"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="webDavContentArea" class="webDavContentArea">
+		<table id="snapshotTable" class="mainTable webDavTable" cellpadding='0' cellspacing='0' border='0'>
+		<thead>
+				<tr>
+					<th class='col1' style="border-top:none;"><input type='checkbox'
+						id='snapshotchkSelectall' class='checkBox cursorHand regular-checkbox big-checkbox' onclick="uEventSnapshot.checkAll(this);"/>
+						<label for="snapshotchkSelectall" class="checkBoxLabel"></label></th>
+					<th class='col2' style="border-top:none;">Name</th>
+					<th class="col3" style="border-top:none;">Size</th>
+					<th class='col4' style="border-top:none;">Updated</th>
+				</tr>
+			</thead>
+			<tbody id="Tbody" class="entityGridTbody"></tbody>
+		</table>
+		<div id="webDavDetails" class="webDavDetails">
+			<div id="webDavDetailBody">
+				<div class="webDavHead">
+					<div class="propsHead">
+						<div class="propsHeadWebDavIcon" id="propsHeadWebDavIcon"></div>
+						<div class="propsHeadWebDavName" id="propsHeadWebDavName" style="line-height: 17px;height: 25px;"></div>
+						<input type="button" style="background-color:#AAA6A6;cursor:default;" class="propsXml" id="btnXmlView" value="XML" title="Display the WebDAV information in XML format" disabled/>
+					</div>
+				</div>
+				<div id="webDavBody" class="webDavBody entityGridTbody">
+					<div class="webDavProperties">
+						<div class="informationLbl">Information</div>
+						<table class="propsInfo" id="propsInfo" cellpadding='0' cellspacing='0' >
+							<tr><td class="col1">URL</td><td class="col2"><div id="propsInfoURL" class="propsInfoURL"></div></td></tr>
+							<tr><td class="col1">Resource Type</td><td class="col2"><div id="propsInfoResourceType" class="mainTableEllipsis"></div></td></tr>
+							<tr><td class="col1">Content Type</td><td class="col2"><div id="propsInfoContentType" class="mainTableEllipsis"></div></td></tr>
+							<tr><td class="col1">Created at</td><td class="col2"><div id="propsInfoCreatedAt" class="mainTableEllipsis"></div></td></tr>
+							<tr><td class="col1">Updated at</td><td class="col2"><div id="propsInfoUpdatedAt" class="mainTableEllipsis"></div></td></tr>
+							<tr><td class="col1">Size</td><td class="col2"><div id="propsInfoSize" class="mainTableEllipsis"></div></td></tr>
+						</table>
+					</div>
+					<div class="webDavAclSettings">
+						<div class="aclSettingsHeader">
+							<div class="aclSettingsText">ACL Settings</div>
+							<div onclick="uBoxDetail.openPopUpWindow('#editAclSettingDialog','#editAclSettingModal');" id="logEditAclSettings" title="Configure the access control settings of the selected files" class="disabledEditIconACLSettings" disabled></div>
+						</div>
+						<div id="staticAclMessage" class="staticAclMessage">Inherited privileges are not displayed</div>
+						<table class="aclSettingsData" cellpadding='0' cellspacing='0' ><tbody id="aclSettingsData"></tbody></table>
+					</div>
+				</div>
+			</div>
+			<div id="webDavDetailMessageBody" class="webDavDetailMessageBody" style="display:none;">
+				<div id="resourceCount" class="resourceCount"></div>
+				<div id="resourceMsg" class="resourceMsg">Resources are selected</div>
+			</div>
+		</div>
+	</div>
+	<div id="dvGreyOut" class="modelback" style="display: none"></div>
+</body>
+
+<div id="snapshotFileDeleteModalWindow" class="modelback" style="display: none;">
+	<div class="modal-window block-border"
+		style="display: block; height: 217px; width: 460px; background: #ffffff"
+		id="snapshotFileDeleteDialogBox">
+		<section class="headerSection">
+			<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+				<a href="#" title="Close" id="modalbox-close"
+					class="popupCloseIcon"
+					onclick="closeEntityModal('#snapshotFileDeleteModalWindow');" tabindex="3"></a>
+			</div>
+			<div class="sessionExpiryDiv" id="">
+				<label class="sessionExpiredPopUpHeading"
+					id="lblHeadingCollection">Delete Snapshot(s)</label>
+			</div>
+		</section>
+		<div class="sessionExpiredLabel">
+			<label id="snapshotDeleteMsg">Do you want to delete selected snapshot(s) ? </label>
+		</div>
+		<div  class="sessionPopUpCloseSection">
+			<input type="button" value="Cancel" class="btnCancelPopup"
+				onclick="closeEntityModal('#snapshotFileDeleteModalWindow');" tabindex="1" id= "btnCancelSnapshotDelete">
+			<input type="button" id="btnMultipleFileDelete" class="btnClose"
+				onclick="uEventSnapshot.deleteMultipleSnapshots();" value="Delete" tabindex="2">
+		</div>
+	</div>
+</div>
+
+<div id="adminModal" class="modelback" style="display: none;">
+	<div class="modal-window block-border" style="display: block; height: 501px; width: 614px; background-color: rgb(255, 255, 255); top: 71px; left: 330px; background-position: initial initial; background-repeat: initial initial;" id="snapshotDialog">
+		<div id="dvCloseIcon" class="closeIconDiv">
+			<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon" onclick="uEventSnapshot.closeAdminModalWindow();" tabindex="4"></a>
+		</div>
+		<div class="accessTokenDiv" style="padding-bottom: 15px" id="dvAccessheader">
+			<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+				Import Cell</label>
+		</div>
+		<div class="popupContent">
+			<section id="snapshotTextFiled" class="popupInnerContent">
+				<aside class="ContentHeadingpt1" style="text-align: left;margin: 15px 0px 0px 160px;">Please enter snapshot file name. (No extension)</aside>
+				<input class="textCapcha" type="text" id="textSnapshot" tabindex="1">
+				<span class="popupAlertArea">
+					<aside class="popupAlertmsg" id="popupErrorMsgSnapshotText" style="margin-left:210px;"></aside>
+				</span>
+			</section>
+			<section id="capchaField" class="popupInnerContent">
+				<span id="importCellWarningText">
+					<aside class="ContentHeadingpt1" style="text-align: left;margin: 15px 0px 0px 160px;">Are you sure you want to import the selected Cell?</aside>
+					<aside class="ContentHeadingpt1" style="text-align: left;margin: 10px 0px 0px 186px;">Once imported, it cannot be recovered.</aside>
+					<aside class="ContentHeadingpt1" style="text-align: left;margin: 10px 0px 0px 120px;">When the import is successful, you will return to the login screen.</aside>
+					<aside class="ContentHeadingpt1" style="text-align: left;margin: 25px 0px 0px 166px;">Please enter the verification text you see below:</aside>
+				</span>
+				<input class="ContentTextpt16 border3 backgroundcolor6 labelCapcha" type="text" id="labelCapcha" onfocus="this.blur()" tabindex="-1"/>
+				<input class="textCapcha" type="text" id="textCapcha" tabindex="2">
+				<span class="popupAlertArea">
+					<aside class="popupAlertmsg" id="popupErrorMsgCapchaText" style="margin-left:210px;"></aside>
+				</span>
+			</section>
+			<!-- Button Section Starts -->
+			<section class="positionButtons" style="margin-top:0px;">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button" id="btnExecute" class="btnClose" value="Import" tabindex="3">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id="btnCancel" onclick="uEventSnapshot.closeAdminModalWindow();" class="cancelBtn" value="Cancel" tabindex="2">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+</div>
+
+<!-- Spinner code - Start -->
+<div id="modalSpinnerLog" class="modelbackSpinner"
+	style="display: none;">
+	<div class="modal-window block-border"
+		style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+		id="dialogSpinner">
+		<div id="spinnerPopUp"></div>
+	</div>
+</div>
+<!-- Spinner code - End -->
+<input type="file" id="fileID" style="visibility: hidden;" onchange="uEventSnapshot.attachFile();"/>
+
+</html>

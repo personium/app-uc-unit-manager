@@ -455,27 +455,6 @@ mainNavigation.prototype.logViewData = function() {
     hideCellListOnCellSelection();
     $('#messageMenuDropDown').addClass('displayNoneCellMenu');
     var id = objCommon.isSessionExist();
-/*  if (id != null) {
-    sessionStorage.tabName = "Log";
-    $("#messageBlock").hide();
-    $("#headingContent").html('');
-    $("#headingContentBox").html('');
-    $("#headingContent").html("Log");
-    $("#mainContent").hide();
-    var target = document.getElementById('spinner');
-    var spinner = new Spinner(opts).spin(target);
-    $("#mainContent").load(contextRoot + '/htmls/log.html',
-            function() {
-                var objLog = new log();
-                objLog.createEventLogFolderTable();
-                $("#mainContent").show();
-                $("#mainContentWebDav").hide();
-                spinner.stop();
-            });
-    } else {
-        window.location.href = contextRoot;
-    }*/
-    
     if (id != null) {
         sessionStorage.tabName = "Log";
         $("#dvemptyTableMessage").hide();
@@ -499,6 +478,40 @@ mainNavigation.prototype.logViewData = function() {
         window.location.href = contextRoot;
     }
 };
+
+/**
+ * The purpose of this function is to display snapshot list
+ * on click of snapshot tab
+ */
+mainNavigation.prototype.snapshotViewData = function() {
+    objCommon.hideListTypePopUp();
+    hideCellListOnCellSelection();
+    $('#messageMenuDropDown').addClass('displayNoneCellMenu');
+    var id = objCommon.isSessionExist();
+    if (id != null) {
+        sessionStorage.tabName = "Snapshot";
+        $("#dvemptyTableMessage").hide();
+        var spinner = "";
+        if(document.getElementById("spinnerEnvt") == null) {
+            var target = document.getElementById('spinner');
+            spinner = new Spinner(opts).spin(target);
+        }
+        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/snapshot.html',
+                function() {
+                    var objSnapshot = new snapshot();
+                    objSnapshot.initSnapshot();
+                    $("#mainContent").show();
+                    $("#mainContentWebDav").hide();
+                    spinner.stop();
+                    if(spinner != ""){
+                        spinner.stop();
+                    }
+                });
+    } else {
+        window.location.href = contextRoot;
+    }
+};
+
 /*
  * The purpose of this function is to display the mapping between role and
  * external cell
