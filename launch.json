@@ -1,9 +1,7 @@
 {
   "personal": {
      "web": "personium-localbox:/src/login.html",
-     "android": "cellmanager:",
-     "ios": "cellmanager:",
-     "appTokenId": "tokenAcc",
-     "appTokenPw": "personiumtoken"
+     "android": "***:",
+     "ios": "***:"
   }
 }
