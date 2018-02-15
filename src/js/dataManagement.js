@@ -5217,8 +5217,7 @@ dataManagement.prototype.applyFixedColumnStyleSheet = function () {
  */
 dataManagement.prototype.deleteEntity = function(entityTypeID,count) {
     var objEntityManager = this.initializeEntityManager();
-    var entityId = encodeURIComponent(entityTypeID);
-    var promise = objEntityManager.del(entityId, "*");
+    var promise = objEntityManager.del(entityTypeID, "*");
     if (promise.resolvedValue != null && promise.resolvedValue.status == 204) {
     	isDeleted = true;
     	this.sbSuccessful += entityTypeID + ",";
