@@ -232,6 +232,7 @@ uRule.prototype.getMultipleRuleNames = function() {
 function closeCreateRule() {
 	document.getElementById("txtRuleName").value='';
 	$("#txtRuleName").removeClass("errorIcon");
+	$("#txtEventSubject").removeClass("errorIcon");
 	document.getElementById("popupRuleErrorMsg").innerHTML = "";
 	$('.popupContent').find('input:text').val('');
 	$('.popupAlertmsg').html('');
@@ -251,7 +252,9 @@ function closeCreateRule() {
 function closeEditRulePopUp() {
 	document.getElementById("txtRuleNameEdit").value='';
 	objCommon.removePopUpStatusIcons('#txtRuleNameEdit');
+	objCommon.removePopUpStatusIcons('#txtEventSubjectEdit');
 	document.getElementById("popupRuleErrorMsgEdit").innerHTML = "";
+	document.getElementById("popupEventSubjectErrorMsgEdit").innerHTML = "";
 	$('#ruleEditModalWindow, .window').hide(0);
 }
 
@@ -583,6 +586,13 @@ function createRule() {
 		removeSpinner("modalSpinnerRule");
 		return;
 	}
+	// Event Subject
+	if (eventSubject) {
+		if (!objBox.validateSchemaURL(eventSubject, "popupEventSubjectErrorMsg", "#txtEventSubject")) {
+			removeSpinner("modalSpinnerRule");
+			return;
+		}
+	}
 	// Event Object
 	if (!eventExternal) {
 		if (boxName) {
@@ -828,10 +838,11 @@ function updateRule() {
 	}
 
 	// Event Subject
-	if (eventSubject && !objCommon.validateURL(eventSubject,
-					"popupEventSubjectErrorMsgEdit", "#txtEventSubjectEdit")) {
-		removeSpinner("modalSpinnerRule");
-		return;
+	if (eventSubject) {
+		if (!objBox.validateSchemaURL(eventSubject, "popupEventSubjectErrorMsgEdit", "#txtEventSubjectEdit")) {
+			removeSpinner("modalSpinnerRule");
+			return;
+		}
 	}
 
 	// Event Object
@@ -976,6 +987,7 @@ function applyScrollCssOnRuleGrid() {
 function refreshCreateRulePopup() {
 	document.getElementById("txtRuleName").value='';
 	objCommon.removePopUpStatusIcons('#txtRuleName');
+	objCommon.removePopUpStatusIcons('#txtEventSubject');
 	$("#dropDownAction").val(0);
 	$("#dropDownEventExternal").val(0);
 	changeTextField(false);
@@ -1095,6 +1107,31 @@ $("#txtRuleNameEdit").blur(function () {
 	} else {
 		$("#txtRuleNameEdit").addClass("errorIcon");
 	}
+});
+
+$("#txtEventSubject").blur(function () {
+	var eventSubject = convInvalidValToUndefined(document.getElementById("txtEventSubject").value);
+	if (eventSubject) {
+		if (!objBox.validateSchemaURL(eventSubject, "popupEventSubjectErrorMsg", "#txtEventSubject")) {
+			removeSpinner("modalSpinnerRule");
+			return;
+		}
+	}
+
+	removeStatusIcons("#txtEventSubject");
+	document.getElementById("popupEventSubjectErrorMsg").innerHTML = "";
+});
+$("#txtEventSubjectEdit").blur(function () {
+	var eventSubject = convInvalidValToUndefined(document.getElementById("txtEventSubjectEdit").value);
+	if (eventSubject) {
+		if (!objBox.validateSchemaURL(eventSubject, "popupEventSubjectErrorMsgEdit", "#txtEventSubjectEdit")) {
+			removeSpinner("modalSpinnerRule");
+			return;
+		}
+	}
+
+	removeStatusIcons("#txtEventSubjectEdit");
+	document.getElementById("popupEventSubjectErrorMsgEdit").innerHTML = "";
 });
 
 /**
