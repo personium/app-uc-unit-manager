@@ -3769,7 +3769,7 @@ common.prototype.getProfileDisplayName = function(resJson) {
  */
 common.prototype.getProfileDescription = function(resJson) {
     var tempDescription = resJson.Description;
-    if (sessionStorage.selectedLanguage === 'en' && tempDescription.en != undefined) {
+    if (sessionStorage.selectedLanguage === 'en' && tempDescription && tempDescription.en != undefined) {
         tempDescription = resJson.Description.en;
     }
     return tempDescription;
