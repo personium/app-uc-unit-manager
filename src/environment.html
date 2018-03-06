@@ -98,6 +98,8 @@ var jquery1_12_4 = jQuery.noConflict();
 <script type="text/javascript" src="./js/main/core/RelationManager.js"></script>
 <script type="text/javascript" src="./js/main/core/Role.js"></script>
 <script type="text/javascript" src="./js/main/core/RoleManager.js"></script>
+<script type="text/javascript" src="./js/main/core/Rule.js"></script>
+<script type="text/javascript" src="./js/main/core/RuleManager.js"></script>
 <script type="text/javascript"
 	src="./js/main/core/ServiceCollection.js"></script>
 <script type="text/javascript" src="./js/main/core/UnitManager.js"></script>
@@ -258,11 +260,16 @@ $(document).ready(function(){
 								</li>
 							</ul>
 						</li>
-						<li id="logNav" class="logNav" onclick="uMainNavigation.logViewData();">
-							<div id="logTabWrapper" class="logTabWrapper">
-								<div id="logIcon" class="logIcon"></div>
-								<label id="logText" class="logText">Log</label>
+						<li id="eventNav" class="eventNav">
+							<div id="eventTabWrapper" class="eventTabWrapper">
+								<div id="eventIcon" class="eventIcon"></div>
+								<label id="eventText" class="eventText">Event</label>
+								<div id="eventArrow" class="eventArrow"></div>
 							</div>
+							<ul class="eventSubMenu">
+								<li class="externalCellWrapper" onclick="uMainNavigation.logViewData();"><a href="#" class="externalCell">Log</a></li>
+								<li class="externalCellWrapper" onclick="uMainNavigation.ruleViewData();"><a href="#" class="externalCell">Rule</a></li>
+							</ul>
 						</li>
 						<li id="snapshotNav" class="snapshotNav" onclick="uMainNavigation.snapshotViewData();">
 							<div id="snapshotTabWrapper" class="snapshotTabWrapper">
