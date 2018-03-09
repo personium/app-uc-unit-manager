@@ -375,7 +375,11 @@ function createChunkedRuleTable(json, recordSize){
 		box[count] = mainBoxValue;
 		}
 		action[count] = obj.Action;
-		eventExternal[count] = obj.EventExternal;
+		if (!obj.EventExternal) {
+			eventExternal[count] = "Internal";
+		} else {
+			eventExternal[count] = "External";
+		}
 		eventType[count] = obj.EventType;
 		eventSubject[count] = obj.EventSubject;
 		eventObject[count] = obj.EventObject;
@@ -384,10 +388,10 @@ function createChunkedRuleTable(json, recordSize){
 		var ruleDate = objCommon.convertEpochDateToReadableFormat(""+ updatedDate[count]+"");
 		var ruleCreatedDate = objCommon.convertEpochDateToReadableFormat(""+ createdDate[count]+"");
 		var ruleName = "'"+ name[count]+"'" ;
-		var	boxName = "'"+ box[count]+"'";
+		var	boxName = "'"+ boxp+"'";
 		boxName = boxName.split(' ').join('');
 		var ruleAction = "'" + action[count] + "'";
-		var ruleEventExternal = "'" + eventExternal[count] + "'";
+		var ruleEventExternal = "'" + obj.EventExternal + "'";
 		var ruleEventType = "'" + eventType[count] + "'";
 		var ruleEventSubject = "'" + eventSubject[count] + "'";
 		var ruleEventObject = "'" + eventObject[count] + "'";
@@ -522,16 +526,13 @@ function isExist(check, accessor, objJRule, objRuleManager) {
 		var specialCharacter = /^[-_]*$/;
 		//The following regex finds characters in the range of 0-9,a-z(lower case) and A-Z(uppercase).
 		var letter = /^[0-9a-zA-Z-_]+$/;
-		var minLengthMessage = getUiProps().MSG0424;
 		var maxLengthMessage = getUiProps().MSG0425;
 		var charMessage =  getUiProps().MSG0023; //getUiProps().MSG0005;
 		var specialCharMessage = getUiProps().MSG0426;
 		var lenRuleName = (ruleName) ? ruleName.length:0;
-		if((lenRuleName < 1)) {
-			document.getElementById(errorSpanID).innerHTML = minLengthMessage;
-			cellpopup.showErrorIcon('#txtRuleName');
-			return false;
-		} else if((lenRuleName > 128)) {
+		if (lenRuleName < 1) {
+			return true;
+		}else if((lenRuleName > 128)) {
 			document.getElementById(errorSpanID).innerHTML = maxLengthMessage;
 			cellpopup.showErrorIcon('#txtRuleName');
 			return false;
@@ -561,13 +562,13 @@ function createRule() {
 	var json = null;
 	var action = convInvalidValToUndefined($("#dropDownAction option:selected").val());
 	var eventExternal = false;
-	var external = document.getElementById("dropDownEventExternal");
-	if (external.selectedIndex > 0) {
+	var external = $('input[name="dropDownEventExternal"]:checked').val();
+	if (external === "true") {
 		eventExternal = true;
 	}
 	var boxName = undefined;
 	var dropDownBox = document.getElementById("dropDownBox");
-	if (dropDownBox.selectedIndex > 0 ) {
+	if ($("#chkBoxBound").attr("checked")) {
 		boxName = convInvalidValToUndefined(dropDownBox.options[dropDownBox.selectedIndex].title);
 	}
 	var ruleName = convInvalidValToUndefined(document.getElementById("txtRuleName").value);
@@ -578,7 +579,7 @@ function createRule() {
 	var targetUrl = convInvalidValToUndefined(document.getElementById("txtTargetUrl").value);
 
 	var isRuleCreationAllowed = false;
-	if (!validateBoxDropDown()) {
+	if ($("#chkBoxBound").attr("checked") && !validateBoxDropDown()) {
 		removeSpinner("modalSpinnerRule");
 		return;
 	}
@@ -678,28 +679,27 @@ function convInvalidValToUndefined(value) {
 function bindBoxDropDown(JSONstring,dropDownId, boxName) {
 	var len = JSONstring.length;
 	var select = document.getElementById(dropDownId);
-	var defaultOption = document.createElement('option');
-	var mainBoxValue = getUiProps().MSG0039;
-	if (dropDownId == 'dropDownBox') {
-		defaultOption.value = 0;
-		defaultOption.innerHTML = getUiProps().MSG0400;
-		select.insertBefore(defaultOption, select.options[0]);
-	}
-	var newOption = document.createElement('option');
-	newOption.value = 0;
-	newOption.innerHTML = mainBoxValue;
-	select.appendChild(newOption);
+	//var defaultOption = document.createElement('option');
+	//if (dropDownId == 'dropDownBox') {
+	//	defaultOption.value = 0;
+	//	defaultOption.innerHTML = getUiProps().MSG0400;
+	//	select.insertBefore(defaultOption, select.options[0]);
+	//}
+	//newOption.value = 0;
+	//newOption.innerHTML = mainBoxValue;
+	//select.appendChild(newOption);
 	if(dropDownId == "dropDownBoxEdit" || dropDownId == "ddlBoxList" ){
-		var defaultOption = document.createElement('option');
-		defaultOption.value = 0;
-		defaultOption.innerHTML = mainBoxValue;
-		defaultOption.title = mainBoxValue;
-		if (boxName != mainBoxValue) {
-			select.insertBefore(defaultOption, select.options[0]);
-		}
-		newOption.innerHTML = objCommon.getShorterName(boxName, 18);
-		newOption.title = boxName;
-		select.insertBefore(newOption, select.options[0]);
+		//var defaultOption = document.createElement('option');
+		//defaultOption.value = 0;
+		//defaultOption.innerHTML = mainBoxValue;
+		//defaultOption.title = mainBoxValue;
+		if (boxName) {
+			var newOption = document.createElement('option');
+			newOption.value = 0;
+			newOption.innerHTML = objCommon.getShorterName(boxName, 18);
+			newOption.title = boxName;
+			select.appendChild(newOption);
+		}		
 	}
 	for(var count=0; count < len; count++) {
 		var option = document.createElement("option");
@@ -803,7 +803,7 @@ function displayEditRuleSuccessMessage() {
  */
 function updateRule() {
 	showSpinner("modalSpinnerRule");
-	var mainBoxValue = getUiProps().MSG0039;
+	var mainBoxValue = "null";
 	var body = null;
 	var newBoxSelected = null;
 	var eventExternal = false;
@@ -815,16 +815,18 @@ function updateRule() {
 	}
 
 	var action = convInvalidValToUndefined($("#dropDownActionEdit option:selected").val());
-	var external = document.getElementById("dropDownEventExternalEdit");
-	if (external.selectedIndex > 0) {
+	var external = $('input[name="dropDownEventExternalEdit"]:checked').val();
+	if (external === "true") {
 		eventExternal = true;
 	}
 	newRuleName = document.getElementById("txtRuleNameEdit").value;
 	var dropDown = document.getElementById("dropDownBoxEdit");
-	if (dropDown.selectedIndex == 0 ) {
-		newBoxSelected = oldBoxName;
-	} else if (dropDown.selectedIndex > 0 ) {
-		newBoxSelected = dropDown.options[dropDown.selectedIndex].title;
+	if ($("#chkBoxBoundEdit").attr("checked")) {
+		if (oldBoxName && dropDown.selectedIndex == 0 ) {
+			newBoxSelected = oldBoxName;
+		} else {
+			newBoxSelected = dropDown.options[dropDown.selectedIndex].title;
+		}
 	}
 	var eventType = convInvalidValToUndefined(document.getElementById("txtEventTypeEdit").value);
 	var eventSubject = convInvalidValToUndefined(document.getElementById("txtEventSubjectEdit").value);
@@ -962,12 +964,20 @@ function getSelectedRuleDetails() {
 	var existingEventObject = convInvalidValToUndefined(arrSelectedRule[13]);
 	var existingEventInfo = convInvalidValToUndefined(arrSelectedRule[15]);
 	var existingTargetUrl = convInvalidValToUndefined(arrSelectedRule[17]);
-	retrieveBox("dropDownBoxEdit", existingBoxName);
+	if (existingBoxName == "null") {
+		$("#chkBoxBoundEdit").attr("checked", false)
+		$("#dropDownBoxEdit").attr("disabled", true);
+		retrieveBox("dropDownBoxEdit");
+	} else {
+		$("#chkBoxBoundEdit").attr("checked", true)
+		$("#dropDownBoxEdit").attr("disabled", false);
+		retrieveBox("dropDownBoxEdit", existingBoxName);
+	}
 	sessionStorage.currentRuleName = existingRuleName;
 	sessionStorage.currentBoxName = existingBoxName;
 	$('#txtRuleNameEdit').val(existingRuleName);
 	$("#dropDownActionEdit").val(existingAction);
-	$("#dropDownEventExternalEdit").val(existingEventExternal);
+	$("input[name=dropDownEventExternalEdit]").val([existingEventExternal]);
 	$("#txtEventTypeEdit").val(existingEventType);
 	$("#txtEventSubjectEdit").val(existingEventSubject);
 	$("#txtEventInfoEdit").val(existingEventInfo);
@@ -989,7 +999,7 @@ function refreshCreateRulePopup() {
 	objCommon.removePopUpStatusIcons('#txtRuleName');
 	objCommon.removePopUpStatusIcons('#txtEventSubject');
 	$("#dropDownAction").val(0);
-	$("#dropDownEventExternal").val(0);
+	$("input[name=dropDownEventExternal]").val(['false']);
 	changeTextField(false);
 	//$("#ruleName").removeClass("errorIcon");
 	document.getElementById("popupRuleErrorMsg").innerHTML = "";
@@ -1027,7 +1037,7 @@ function validateTargetUrl(editFlg) {
 	var action = convInvalidValToUndefined($("#dropDownAction"+editId+" option:selected").val());
 	var boxName = null;
 	var dropDownBox = document.getElementById("dropDownBox"+editId);
-	if (dropDownBox.selectedIndex > 0 ) {
+	if ($("#chkBoxBound"+editId).attr("checked")) {
 		boxName = convInvalidValToUndefined(dropDownBox.options[dropDownBox.selectedIndex].title);
 	}
 	switch(action) {
@@ -1134,17 +1144,34 @@ $("#txtEventSubjectEdit").blur(function () {
 	document.getElementById("popupEventSubjectErrorMsgEdit").innerHTML = "";
 });
 
+$("#chkBoxBound").change(function() {
+	if ($("#chkBoxBound").attr("checked")) {
+		$("#dropDownBox").attr("disabled", false);
+	} else {
+		$("#dropDownBox").attr("disabled", true);
+	}
+	changeTextField(false);
+})
+$("#chkBoxBoundEdit").change(function() {
+	if ($("#chkBoxBoundEdit").attr("checked")) {
+		$("#dropDownBoxEdit").attr("disabled", false);
+	} else {
+		$("#dropDownBoxEdit").attr("disabled", true);
+	}
+	changeTextField(true);
+})
+
 /**
 **The purpose of this function is to validate Box field
 * 
 */
-$("#dropDownBox").blur(function () {
+$("#dropDownBox").change(function () {
 	if (validateBoxDropDown()) {
 		$("#ddlRuleErrorMsg").text('');
 		changeTextField(false);
 	}
 });
-$("#dropDownBoxEdit").blur(function () {
+$("#dropDownBoxEdit").change(function () {
 	changeTextField(true);
 });
 
@@ -1152,10 +1179,10 @@ $("#dropDownBoxEdit").blur(function () {
 **The purpose of this function is to validate Action field
 * 
 */
-$("#dropDownAction").blur(function () {
+$("#dropDownAction").change(function () {
 	changeTextField(false);
 });
-$("#dropDownActionEdit").blur(function () {
+$("#dropDownActionEdit").change(function () {
 	changeTextField(true);
 });
 
@@ -1163,10 +1190,10 @@ $("#dropDownActionEdit").blur(function () {
 **The purpose of this function is to validate Event External field
 * 
 */
-$("#dropDownEventExternal").blur(function () {
+$('input[name="dropDownEventExternal"]:radio').change(function () {
 	changeTextField(false);
 });
-$("#dropDownEventExternalEdit").blur(function () {
+$('input[name="dropDownEventExternalEdit"]:radio').change(function () {
 	changeTextField(true);
 });
 $("#txtTargetUrl, #txtTargetUrlLocalBox, #txtTargetUrlLocalCel").blur(function () {
@@ -1177,12 +1204,12 @@ $("#txtTargetUrlEdit, #txtTargetUrlLocalBoxEdit, #txtTargetUrlLocalCelEdit").blu
 });
 function changeTextField(editFlg, initEventObject, initTargetUrl) {
 	var editId = (editFlg)? "Edit":"";
-	var mainBoxValue = getUiProps().MSG0039;
-	let eventExternal = document.getElementById("dropDownEventExternal"+editId);
+	let eventExternal = $('input[name="dropDownEventExternal'+editId+'"]:checked').val();
 	let dropDownBox = document.getElementById("dropDownBox"+editId);
 	let boxName = convInvalidValToUndefined(dropDownBox.options[dropDownBox.selectedIndex].title);
-	if (eventExternal.selectedIndex === 0) {
-		if (boxName && boxName !== mainBoxValue) {
+	if (eventExternal === "false") {
+		$("#dvEventObject"+editId).addClass("requiredElement");
+		if ($("#chkBoxBound"+editId).attr("checked") && boxName) {
 			// There is a box setting
 			$("#dvTextEventObject"+editId).css("display", "none");
 			$("#dvTextEventObjectLocalBox"+editId).css("display", "block");
@@ -1200,6 +1227,7 @@ function changeTextField(editFlg, initEventObject, initTargetUrl) {
 			}
 		}
 	} else {
+		$("#dvEventObject"+editId).removeClass("requiredElement");
 		$("#dvTextEventObject"+editId).css("display", "block");
 		$("#dvTextEventObjectLocalBox"+editId).css("display", "none");
 		$("#dvTextEventObjectLocalCel"+editId).css("display", "none");
@@ -1209,7 +1237,8 @@ function changeTextField(editFlg, initEventObject, initTargetUrl) {
 	}
 	var action = convInvalidValToUndefined($("#dropDownAction"+editId+" option:selected").val());
 	if (action === "exec") {
-		if (boxName && boxName !== mainBoxValue) {
+		$("#dvTargetUrl"+editId).addClass("requiredElement");
+		if ($("#chkBoxBound"+editId).attr("checked") && boxName) {
 			$("#dvTextTargetUrl"+editId).css("display", "none");
 			$("#dvTextTargetUrlLocalBox"+editId).css("display", "block");
 			$("#dvTextTargetUrlLocalCel"+editId).css("display", "none");
@@ -1225,6 +1254,7 @@ function changeTextField(editFlg, initEventObject, initTargetUrl) {
 			}
 		}
 	} else {
+		$("#dvTargetUrl"+editId).removeClass("requiredElement");
 		$("#dvTextTargetUrl"+editId).css("display", "block");
 		$("#dvTextTargetUrlLocalBox"+editId).css("display", "none");
 		$("#dvTextTargetUrlLocalCel"+editId).css("display", "none");

@@ -530,6 +530,11 @@ common.prototype.deActivateEditIcon = function(tableID) {
         $("#btnEditRoleIcon").addClass('editIconDisabled');
         $("#btnEditRoleIcon").attr("disabled", true);
     }
+    if (tableID == "mainRuleTable") {
+        $("#btnEditRuleIcon").removeClass();
+        $("#btnEditRuleIcon").addClass('editIconDisabled');
+        $("#btnEditRuleIcon").attr("disabled", true);
+    }
     if (tableID == "mainAccountTable") {
         $("#iconEditAccount").removeClass();
         $("#iconEditAccount").addClass('editIconDisabled');

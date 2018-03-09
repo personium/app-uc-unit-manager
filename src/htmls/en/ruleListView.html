@@ -120,41 +120,22 @@ limitations under the License.
 					Create Rule</label>
 			</div>
 			<section  class="popupContent">
-				<!-- LHS Block Start -->
-				<div id="dvLHSElements" class="positionLeftHandElements">
-					<div id="dvAction" class="lblElement">Action</div>
-					<div class="positionTopDiv">
-						<div id="dvSelectAction" class="customSelectIconAssociation"
-										style="background-position-x: 105.5%">
-							<select name="" id="dropDownAction"
-								class="selectMenuPopup" style="width:248px;" tabindex="2">
-								<option value="exec">exec</option>
-								<option value="relay">relay</option>
-								<option value="relay.event">relay.event</option>
-								<option value="log">log</option>
-								<option value="log.info">log.info</option>
-								<option value="log.warn">log.warn</option>
-								<option value="log.error">log.error</option>
-							</select>
+				<!-- THS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvBoxName" class="lblElement" style="padding-bottom:0px;padding-top:5px;">
+							<input  id="chkBoxBound" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="chkBoxBound" tabindex="1" style="display:none;">
+    						<label id ="lblBoxBound"  for="chkBoxBound" class="customChkbox checkBoxLabel aclLabelFocus">
+    							<span style="width:100px;padding-left:20px;position:absolute;">
+    								Bound to Box
+    							</span>
+    						</label>
 						</div>
-					</div>
-					<div id="dvEventExternal" class="lblElement">EventExternal</div>
-					<div class="positionTopDiv">
-						<div id="dvSelectEventExternal" class="customSelectIconAssociation"
-										style="background-position-x: 105.5%">
-							<select name="" id="dropDownEventExternal"
-								class="selectMenuPopup" style="width:248px;" tabindex="2">
-								<option value="false">false</option>
-								<option value="true">true</option>
-							</select>
-						</div>
-					</div>
-					<div id="dvBoxName" class="lblElement">* Box where this Rule is used</div>
 						<div class="positionTopDiv">
 							<div class="customSelectIconAssociation"
 										style="background-position-x: 105.5%">
 										<select name="" id="dropDownBox"
-											class="selectMenuPopup" style="width:248px;" tabindex="2">
+											class="selectMenuPopup" style="width:248px;" tabindex="2" disabled>
 										</select>
 							</div>
 							<span class="spanPopupErrorMessageCommon">
@@ -162,83 +143,125 @@ limitations under the License.
 									id="ddlRuleErrorMsg"></aside>
 							</span>
 						</div>
-					<div id="dvRuleName" class="lblElement">Name</div>
-					<div class="positionTopDiv">
-						<div id="dvTextRuleName" class=" ">
-							<input id="txtRuleName" type="text" class="bigTextBox  " tabindex="1">
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvRuleName" class="lblElement">Rule Name</div>
+						<div class="positionTopDiv">
+							<div id="dvTextRuleName" class=" ">
+								<input id="txtRuleName" type="text" placeholder="Please enter rule name" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupRuleErrorMsg"></aside>
+							</span>
 						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupRuleErrorMsg"></aside>
-						</span>
 					</div>
 				</div>
-				<!-- LHS Block ENDS -->
-				<!-- RHS Block Starts -->
-				<div id="dvRHSElements" class="positionRHSElements RHSElements">
-					<div id="dvEventType" class="lblElement">EventType</div>
-					<div class="positionTopDiv">
-						<div id="dvTextEventType" class=" ">
-							<input id="txtEventType" type="text" class="bigTextBox  " tabindex="1">
+				<!-- THS Block ENDS -->
+				<div class="positionElements separatorElements" style="clear:both;"></div>
+				<!-- MHS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvEventType" class="lblElement" style="float:left">EventType</div>
+						<div id="dvEventExternal" class="lblElement radio">
+							<input id="rdInternal" type="radio" name="dropDownEventExternal" value="false" checked="checked" style="opacity: 0">
+							<label for="rdInternal" style="margin-right: 6px; margin-left: 10px;height: 18px;padding-top: 2px;padding-right: 2px;" id= "lblInternal">Internal</label>
+							<input id="rdExternal" type="radio" name="dropDownEventExternal" value="true" style="opacity: 0" tabindex="2" onfocus="radioBtnOthereFocusOnExternalCell();" onblur="radioBtnOtherBlurOnExternalCell();">
+							<label for="rdExternal" style="margin-right: 6px; margin-left: 10px;height: 18px;padding-top: 2px;padding-right: 2px;" id="lblExternal">External</label>
 						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupEventTypeErrorMsg"></aside>
-						</span>
+						<div class="positionTopDiv">
+							<div id="dvTextEventType" class=" ">
+								<input id="txtEventType" type="text" placeholder="example)davfile.update" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventTypeErrorMsg"></aside>
+							</span>
+						</div>
 					</div>
-					<div id="dvEventSubject" class="lblElement">EventSubject</div>
-					<div class="positionTopDiv">
-						<div id="dvTextEventSubject" class=" ">
-							<input id="txtEventSubject" type="text" class="bigTextBox  " tabindex="1">
+					<div class="positionRHSElements">
+						<div id="dvEventSubject" class="lblElement">EventSubject</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventSubject" class=" ">
+								<input id="txtEventSubject" type="text" placeholder="Please enter cell URL" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventSubjectErrorMsg"></aside>
+							</span>
 						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupEventSubjectErrorMsg"></aside>
-						</span>
 					</div>
-					<div id="dvEventObject" class="lblElement">EventObject</div>
-					<div class="positionTopDiv">
-						<div id="dvTextEventObject" class=" " style="display:none;">
-							<!--<label id="lblEventObject" class="lblElement">personium-localcell:/</label>-->
-							<input id="txtEventObject" type="text" class="bigTextBox  " tabindex="1">
+					<div class="positionLeftHandElements">
+						<div id="dvEventObject" class="lblElement">EventObject</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventObject" class=" " style="display:none;">
+								<!--<label id="lblEventObject" class="lblElement">personium-localcell:/</label>-->
+								<input id="txtEventObject" type="text" placeholder="Any character string" class="bigTextBox  " tabindex="1">
+							</div>
+							<div id="dvTextEventObjectLocalBox" style="display:none;">
+								<lable class="lblElement">personium-localbox:/</lable>
+								<input id="txtEventObjectLocalBox" type="text" placeholder="Any character string" class="bigTextBox" style="width:	103px;" tabindex="1">
+							</div>
+							<div id="dvTextEventObjectLocalCel">
+								<lable class="lblElement">personium-localcell:/</lable>
+								<input id="txtEventObjectLocalCel" type="text" placeholder="Any character string" class="bigTextBox" style="width:	103px;" tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventObjectErrorMsg"></aside>
+							</span>
 						</div>
-						<div id="dvTextEventObjectLocalBox" style="display:none;">
-							<lable class="lblElement">personium-localbox:/</lable>
-							<input id="txtEventObjectLocalBox" type="text" class="bigTextBox" style="width:103px;" tabindex="1">
-						</div>
-						<div id="dvTextEventObjectLocalCel">
-							<lable class="lblElement">personium-localcell:/</lable>
-							<input id="txtEventObjectLocalCel" type="text" class="bigTextBox" style="width:103px;" tabindex="1">
-						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupEventObjectErrorMsg"></aside>
-						</span>
 					</div>
-					<div id="dvEventInfo" class="lblElement">EventInfo</div>
-					<div class="positionTopDiv">
-						<div id="dvTextEventInfo" class=" ">
-							<input id="txtEventInfo" type="text" class="bigTextBox  " tabindex="1">
+					<div class="positionRHSElements">
+						<div id="dvEventInfo" class="lblElement">EventInfo</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventInfo" class=" ">
+								<input id="txtEventInfo" type="text" placeholder="Any character string" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventInfoErrorMsg"></aside>
+							</span>
 						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupEventInfoErrorMsg"></aside>
-						</span>
-					</div>
-					<div id="dvTargetUrl" class="lblElement">TargetUrl</div>
-					<div class="positionTopDiv">
-						<div id="dvTextTargetUrl" class=" " style="display:none;">
-							<input id="txtTargetUrl" type="text" class="bigTextBox  " tabindex="1">
-						</div>
-						<div id="dvTextTargetUrlLocalBox" style="display:none;">
-							<lable class="lblElement">personium-localbox:/</lable>
-							<input id="txtTargetUrlLocalBox" type="text" class="bigTextBox" style="width:103px;" tabindex="1">
-						</div>
-						<div id="dvTextTargetUrlLocalCel">
-							<lable class="lblElement">personium-localcell:/</lable>
-							<input id="txtTargetUrlLocalCel" type="text" class="bigTextBox" style="width:103px;" tabindex="1">
-						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupTargetUrlErrorMsg"></aside>
-						</span>
 					</div>
 				</div>
-				<!-- RHS ENDS -->
+				<!-- MHS Block ENDS -->
+				<div class="positionElements separatorElements" style="clear:both;"></div>
+				<!-- BHS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvAction" class="lblElement">Action</div>
+						<div class="positionTopDiv">
+							<div id="dvSelectAction" class="customSelectIconAssociation"
+											style="background-position-x: 105.5%">
+								<select name="" id="dropDownAction"
+									class="selectMenuPopup" style="width:248px;" tabindex="2">
+									<option value="exec">exec</option>
+									<option value="relay">relay</option>
+									<option value="relay.event">relay.event</option>
+									<option value="log.info">log.info</option>
+									<option value="log.warn">log.warn</option>
+									<option value="log.error">log.error</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvTargetUrl" class="lblElement">TargetUrl</div>
+						<div class="positionTopDiv">
+							<div id="dvTextTargetUrl" class=" " style="display:none;">
+								<input id="txtTargetUrl" type="text" placeholder="Please enter cell URL" class="bigTextBox  " tabindex="1">
+							</div>
+							<div id="dvTextTargetUrlLocalBox" style="display:none;">
+								<lable class="lblElement">personium-localbox:/</lable>
+								<input id="txtTargetUrlLocalBox" type="text" placeholder="{CollectionName}/{ServiceName}" class="bigTextBox" style="	width:103px;" tabindex="1">
+							</div>
+							<div id="dvTextTargetUrlLocalCel">
+								<lable class="lblElement">personium-localcell:/</lable>
+								<input id="txtTargetUrlLocalCel" type="text" placeholder="{BoxName}/{CollectionName}/{ServiceName}" class="	bigTextBox" style="width:103px;" tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupTargetUrlErrorMsg"></aside>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- BHS Block ENDS -->
 			</section>
 		
 			<!-- Button Section Starts -->
@@ -326,121 +349,148 @@ limitations under the License.
 					Edit Rule</label>
 			</div>
 			<section  class="popupContent">
-				<!-- LHS Block Start -->
-				<div id="dvLHSElements" class="positionLeftHandElements">
-					<div id="dvActionEdit" class="lblElement">Action</div>
-					<div class="positionTopDiv">
-						<div id="dvSelectActionEdit" class="customSelectIconAssociation"
-										style="background-position-x: 105.5%">
-							<select name="" id="dropDownActionEdit"
-								class="selectMenuPopup" style="width:248px;" tabindex="2">
-								<option value="exec">exec</option>
-								<option value="relay">relay</option>
-								<option value="relay.event">relay.event</option>
-								<option value="log">log</option>
-								<option value="log.info">log.info</option>
-								<option value="log.warn">log.warn</option>
-								<option value="log.error">log.error</option>
-							</select>
+				<!-- THS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvBoxNameEdit" class="lblElement" style="padding-bottom:0px;padding-top:5px;">
+							<input  id="chkBoxBoundEdit" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="chkBoxBoundEdit" tabindex="1" style="display:none;">
+    						<label id ="lblBoxBoundEdit"  for="chkBoxBoundEdit" class="customChkbox checkBoxLabel aclLabelFocus">
+    							<span style="width:100px;padding-left:20px;position:absolute;">
+    								Bound to Box
+    							</span>
+    						</label>
 						</div>
-					</div>
-					<div id="dvEventExternalEdit" class="lblElement">EventExternal</div>
-					<div class="positionTopDiv">
-						<div id="dvSelectEventExternalEdit" class="customSelectIconAssociation"
-										style="background-position-x: 105.5%">
-							<select name="" id="dropDownEventExternalEdit"
-								class="selectMenuPopup" style="width:248px;" tabindex="2">
-								<option value="false">false</option>
-								<option value="true">true</option>
-							</select>
-						</div>
-					</div>
-					<div id="dvBoxNameEdit" class="lblElement">* Box where this Rule is used</div>
 						<div class="positionTopDiv">
 							<div class="customSelectIconAssociation"
 										style="background-position-x: 105.5%">
 										<select name="" id="dropDownBoxEdit"
-											class="selectMenuPopup" style="width:248px;" tabindex="2">
+											class="selectMenuPopup" style="width:248px;" tabindex="2" disabled>
 										</select>
 							</div>
+							<span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="ddlRuleErrorMsgEdit"></aside>
+							</span>
 						</div>
-					<div id="dvRuleNameEdit" class="lblElement">Name</div>
-					<div class="positionTopDiv">
-						<div id="dvTextRuleNameEdit" class=" ">
-							<input id="txtRuleNameEdit" type="text" class="bigTextBox  " tabindex="1">
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvRuleNameEdit" class="lblElement">Rule Name</div>
+						<div class="positionTopDiv">
+							<div id="dvTextRuleNameEdit" class=" ">
+								<input id="txtRuleNameEdit" type="text" placeholder="Please enter rule name" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupRuleErrorMsgEdit"></aside>
+							</span>
 						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupRuleErrorMsgEdit"></aside>
-						</span>
 					</div>
 				</div>
-				<!-- LHS Block ENDS -->
-				<!-- RHS Block Starts -->
-				<div id="dvRHSElements" class="positionRHSElements RHSElements">
-					<div id="dvEventTypeEdit" class="lblElement">EventType</div>
-					<div class="positionTopDiv">
-						<div id="dvTextEventTypeEdit" class=" ">
-							<input id="txtEventTypeEdit" type="text" class="bigTextBox  " tabindex="1">
+				<!-- THS Block ENDS -->
+				<div class="positionElements separatorElements" style="clear:both;"></div>
+				<!-- MHS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvEventTypeEdit" class="lblElement" style="float:left">EventType</div>
+						<div id="dvEventExternalEdit" class="lblElement radio">
+							<input id="rdInternalEdit" type="radio" name="dropDownEventExternalEdit" value="false" checked="checked" style="opacity: 0">
+							<label for="rdInternalEdit" style="margin-right: 6px; margin-left: 10px;height: 18px;padding-top: 2px;padding-right: 2px;" id= "lblInternalEdit">Internal</label>
+							<input id="rdExternalEdit" type="radio" name="dropDownEventExternalEdit" value="true" style="opacity: 0" tabindex="2" onfocus="radioBtnOthereFocusOnExternalCell();" onblur="radioBtnOtherBlurOnExternalCell();">
+							<label for="rdExternalEdit" style="margin-right: 6px; margin-left: 10px;height: 18px;padding-top: 2px;padding-right: 2px;" id="lblExternalEdit">External</label>
 						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupEventTypeErrorMsgEdit"></aside>
-						</span>
+						<div class="positionTopDiv">
+							<div id="dvTextEventTypeEdit" class=" ">
+								<input id="txtEventTypeEdit" type="text" placeholder="example)davfile.update" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventTypeErrorMsgEdit"></aside>
+							</span>
+						</div>
 					</div>
-					<div id="dvEventSubjectEdit" class="lblElement">EventSubject</div>
-					<div class="positionTopDiv">
-						<div id="dvTextEventSubjectEdit" class=" ">
-							<input id="txtEventSubjectEdit" type="text" class="bigTextBox  " tabindex="1">
+					<div class="positionRHSElements">
+						<div id="dvEventSubjectEdit" class="lblElement">EventSubject</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventSubjectEdit" class=" ">
+								<input id="txtEventSubjectEdit" type="text" placeholder="Please enter cell URL" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventSubjectErrorMsgEdit"></aside>
+							</span>
 						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupEventSubjectErrorMsgEdit"></aside>
-						</span>
 					</div>
-					<div id="dvEventObjectEdit" class="lblElement">EventObject</div>
-					<div class="positionTopDiv">
-						<div id="dvTextEventObjectEdit" class=" ">
-							<!--<label id="lblEventObject" class="lblElement">personium-localcell:/</label>-->
-							<input id="txtEventObjectEdit" type="text" class="bigTextBox  " tabindex="1">
+					<div class="positionLeftHandElements">
+						<div id="dvEventObjectEdit" class="lblElement">EventObject</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventObjectEdit" class=" " style="display:none;">
+								<!--<label id="lblEventObject" class="lblElement">personium-localcell:/</label>-->
+								<input id="txtEventObjectEdit" type="text" placeholder="Any character string" class="bigTextBox  " tabindex="1">
+							</div>
+							<div id="dvTextEventObjectLocalBoxEdit" style="display:none;">
+								<lable class="lblElement">personium-localbox:/</lable>
+								<input id="txtEventObjectLocalBoxEdit" type="text" placeholder="Any character string" class="bigTextBox" style="width:	103px;" tabindex="1">
+							</div>
+							<div id="dvTextEventObjectLocalCelEdit">
+								<lable class="lblElement">personium-localcell:/</lable>
+								<input id="txtEventObjectLocalCelEdit" type="text" placeholder="Any character string" class="bigTextBox" style="width:	103px;" tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventObjectErrorMsgEdit"></aside>
+							</span>
 						</div>
-						<div id="dvTextEventObjectLocalBoxEdit" style="display:none;">
-							<lable class="lblElement">personium-localbox:/</lable>
-							<input id="txtEventObjectLocalBoxEdit" type="text" class="bigTextBox" style="width:103px;" tabindex="1">
-						</div>
-						<div id="dvTextEventObjectLocalCelEdit">
-							<lable class="lblElement">personium-localcell:/</lable>
-							<input id="txtEventObjectLocalCelEdit" type="text" class="bigTextBox" style="width:103px;" tabindex="1">
-						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupEventObjectErrorMsgEdit"></aside>
-						</span>
 					</div>
-					<div id="dvEventInfoEdit" class="lblElement">EventInfo</div>
-					<div class="positionTopDiv">
-						<div id="dvTextEventInfoEdit" class=" ">
-							<input id="txtEventInfoEdit" type="text" class="bigTextBox  " tabindex="1">
+					<div class="positionRHSElements">
+						<div id="dvEventInfoEdit" class="lblElement">EventInfo</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventInfoEdit" class=" ">
+								<input id="txtEventInfoEdit" type="text" placeholder="Any character string" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventInfoErrorMsgEdit"></aside>
+							</span>
 						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupEventInfoErrorMsgEdit"></aside>
-						</span>
-					</div>
-					<div id="dvTargetUrlEdit" class="lblElement">TargetUrl</div>
-					<div class="positionTopDiv">
-						<div id="dvTextTargetUrlEdit" class=" ">
-							<input id="txtTargetUrlEdit" type="text" class="bigTextBox  " tabindex="1">
-						</div>
-						<div id="dvTextTargetUrlLocalBoxEdit" style="display:none;">
-							<lable class="lblElement">personium-localbox:/</lable>
-							<input id="txtTargetUrlLocalBoxEdit" type="text" class="bigTextBox" style="width:103px;" tabindex="1">
-						</div>
-						<div id="dvTextTargetUrlLocalCelEdit">
-							<lable class="lblElement">personium-localcell:/</lable>
-							<input id="txtTargetUrlLocalCelEdit" type="text" class="bigTextBox" style="width:103px;" tabindex="1">
-						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg" id="popupTargetUrlErrorMsgEdit"></aside>
-						</span>
 					</div>
 				</div>
-				<!-- RHS ENDS -->
+				<!-- MHS Block ENDS -->
+				<div class="positionElements separatorElements" style="clear:both;"></div>
+				<!-- BHS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvActionEdit" class="lblElement">Action</div>
+						<div class="positionTopDiv">
+							<div id="dvSelectActionEdit" class="customSelectIconAssociation"
+											style="background-position-x: 105.5%">
+								<select name="" id="dropDownActionEdit"
+									class="selectMenuPopup" style="width:248px;" tabindex="2">
+									<option value="exec">exec</option>
+									<option value="relay">relay</option>
+									<option value="relay.event">relay.event</option>
+									<option value="log.info">log.info</option>
+									<option value="log.warn">log.warn</option>
+									<option value="log.error">log.error</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvTargetUrlEdit" class="lblElement">TargetUrl</div>
+						<div class="positionTopDiv">
+							<div id="dvTextTargetUrlEdit" class=" " style="display:none;">
+								<input id="txtTargetUrlEdit" type="text" placeholder="Please enter cell URL" class="bigTextBox  " tabindex="1">
+							</div>
+							<div id="dvTextTargetUrlLocalBoxEdit" style="display:none;">
+								<lable class="lblElement">personium-localbox:/</lable>
+								<input id="txtTargetUrlLocalBoxEdit" type="text" placeholder="{CollectionName}/{ServiceName}" class="bigTextBox" style="	width:103px;" tabindex="1">
+							</div>
+							<div id="dvTextTargetUrlLocalCelEdit">
+								<lable class="lblElement">personium-localcell:/</lable>
+								<input id="txtTargetUrlLocalCelEdit" type="text" placeholder="{BoxName}/{CollectionName}/{ServiceName}" class="	bigTextBox" style="width:103px;" tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupTargetUrlErrorMsgEdit"></aside>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- BHS Block ENDS -->
 			</section>
 			<section class="positionButtons">
 				<div id="dvCreate" class="dvCreate">
