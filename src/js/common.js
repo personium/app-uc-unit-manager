@@ -47,6 +47,8 @@ common.prototype.noOfRecordsToBeFetched = 100;
 common.prototype.maxNoOfPages = 10;
 common.prototype.MAXROWS = 50;
 common.prototype.PERSONIUM_LOCALUNIT = "personium-localunit:";
+common.prototype.PERSONIUM_LOCALCEL = "personium-localcell:";
+common.prototype.PERSONIUM_LOCALBOX = "personium-localbox:";
 common.prototype.DOUBLE_NEGATIVE_MIN_VALUE = -1.79e+308;
 common.prototype.DOUBLE_NEGATIVE_MAX_VALUE = -2.23e-308;
 common.prototype.DOUBLE_POSITIVE_MIN_VALUE = 2.23e-308;
@@ -239,6 +241,13 @@ function openCreateEntityModal(parentDivId, childDivId, firstElementToBeFocussed
   if (parentDivId == '#boxEditModalWindow' && childDivId == '#boxEditDialogBox') {
       $('.sectionContent').find('input:text').removeClass( "errorIcon validValueIcon" );
      }
+  if (parentDivId == '#createRuleModal' && childDivId == '#createRuleDialog') {
+    refreshCreateRulePopup();
+    retrieveBox("dropDownBox");
+  }
+  if (parentDivId == '#ruleEditModalWindow' && childDivId == '#ruleEditDialogBox') {
+    getSelectedRuleDetails();
+  }
   /*if (parentDivId == '#multipleEntityDeleteModalWindow' && childDivId == '#multipleEntityDeleteDialogBox') {
       $("#createEntityTable tbody").empty();
       $("#editEntityTable tbody").empty();
@@ -500,6 +509,15 @@ common.prototype.activateEditIcon = function(customCheckBoxesChecked,tableID) {
         $("#iconEditRelation").removeClass();
         $("#iconEditRelation").addClass('editIconDisabled');
         $("#iconEditRelation").attr("disabled", true);
+    }
+    if ((customCheckBoxesChecked == 1) && (tableID == "mainRuleTable")) {
+        $("#btnEditRuleIcon").removeClass();
+        $("#btnEditRuleIcon").addClass('editIconEnabled');
+        $('#btnEditRuleIcon').removeAttr("disabled");
+    } else {
+        $("#btnEditRuleIcon").removeClass();
+        $("#btnEditRuleIcon").addClass('editIconDisabled');
+        $("#btnEditRuleIcon").attr("disabled", true);
     }
 };
 
@@ -3266,6 +3284,11 @@ common.prototype.bindGrid = function(etagValue, type, tableID,
         totalRecordCount = retrieveRoleRecordCount();
         table = createChunkedRoleTable;
     }
+    if (type == "Rule") {
+        createChunkedRuleTable(json, 0);
+        totalRecordCount = retrieveRuleRecordCount();
+        table = createChunkedRuleTable;
+    }
     if (type == "ExtCell") {
         objExtCell.createChunkedExtCellTable(json, 0);
         totalRecordCount = objExtCell.retrieveRecordCount();
@@ -3574,6 +3597,9 @@ common.prototype.populateGridByType = function(type,mappingType) {
     if (type == "Role") {
         createRoleTable();
     }
+    if (type == "Rule") {
+        createRuleTable();
+    }
     if (type == "ExtCell") {
         objExtCell.createExternalCellTable();
     }
@@ -3743,7 +3769,7 @@ common.prototype.getProfileDisplayName = function(resJson) {
  */
 common.prototype.getProfileDescription = function(resJson) {
     var tempDescription = resJson.Description;
-    if (sessionStorage.selectedLanguage === 'en' && tempDescription.en != undefined) {
+    if (sessionStorage.selectedLanguage === 'en' && tempDescription && tempDescription.en != undefined) {
         tempDescription = resJson.Description.en;
     }
     return tempDescription;

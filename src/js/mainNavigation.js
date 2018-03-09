@@ -446,17 +446,53 @@ mainNavigation.prototype.openSentMessageList = function() {
     }
 };
 
+mainNavigation.prototype.CellEventNavigationData = function() {
+    objCommon.hideListTypePopUp();
+    var id = objCommon.isSessionExist();
+    hideCellListOnCellSelection();
+    if (id != null) {
+        $("#dvemptyTableMessage").hide();
+        var spinner = "";
+        if(document.getElementById("spinnerEnvt") == null) {
+            var target = document.getElementById('spinner');
+            spinner = new Spinner(opts).spin(target);
+        }
+        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellEventNavigation.html',
+                function() {
+                    if(sessionStorage.tabName==='infoEvent') {
+                        uMainNavigation.ruleViewData();
+                    } else {
+                        uMainNavigation.logViewData();
+                    }
+
+                    $("#mainContainer").show();
+                    $("#mainContent").show();
+                    $("#mainContentWebDav").hide();
+                    if(document.getElementById("spinnerEnvt") != null){
+                        $("#spinnerEnvt").remove();
+                    }
+                    if(spinner != ""){
+                        spinner.stop();
+                    }
+                });
+    } else {
+        window.location.href = contextRoot;
+    }
+}
+
 /**
  * The purpose of this function is to display log list
  * on click of log tab
  */
 mainNavigation.prototype.logViewData = function() {
     objCommon.hideListTypePopUp();
+    addSelectedClassMainNavEvent();
+    $('.eventSubMenu').hide();
     hideCellListOnCellSelection();
-    $('#messageMenuDropDown').addClass('displayNoneCellMenu');
     var id = objCommon.isSessionExist();
     if (id != null) {
         sessionStorage.tabName = "Log";
+
         $("#dvemptyTableMessage").hide();
         var spinner = "";
         if(document.getElementById("spinnerEnvt") == null) {
@@ -467,9 +503,48 @@ mainNavigation.prototype.logViewData = function() {
                 function() {
                     var objLog = new log();
                     objLog.createEventLogFolderTable();
+
+                    $("#mainContainer").show();
                     $("#mainContent").show();
                     $("#mainContentWebDav").hide();
                     spinner.stop();
+                    if(spinner != ""){
+                        spinner.stop();
+                    }
+                });
+    } else {
+        window.location.href = contextRoot;
+    }
+};
+
+/**
+ * The purpose of this function is to display rule list
+ * on click of rule tab
+ */
+mainNavigation.prototype.ruleViewData = function() {
+    objCommon.hideListTypePopUp();
+    addSelectedClassMainNavEvent();
+    $('.eventSubMenu').hide();
+    hideCellListOnCellSelection();
+    var id = objCommon.isSessionExist();
+    if (id != null) {
+        sessionStorage.tabName = "Rule";
+
+        $("#dvemptyTableMessage").hide();
+        var spinner = "";
+        if(document.getElementById("spinnerEnvt") == null) {
+            var target = document.getElementById('spinner');
+            spinner = new Spinner(opts).spin(target);
+        }
+        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/ruleListView.html',
+                function() {
+                    if (navigator.userAgent.indexOf("Firefox") != -1) {
+                        loadRulePage();
+                    }
+
+                    $("#mainContainer").show();
+                    $("#mainContent").show();
+                    $("#mainContentWebDav").hide();
                     if(spinner != ""){
                         spinner.stop();
                     }

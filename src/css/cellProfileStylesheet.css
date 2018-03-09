@@ -420,23 +420,23 @@ input::-webkit-input-placeholder {
         -14px;
 }
 
-.logNav {
+.eventNav {
     float: left;
     height: 23px;
     min-width: 99px;
 }
 
-.logNav:hover {
+.eventNav:hover {
     cursor: pointer;
 }
 
-.logTabWrapper {
+.eventTabWrapper {
     float: left;
-    width: 67px;
+    width: 127px;
     cursor: pointer;
 }
 
-.logIcon {
+.eventIcon {
     background: url(../images/sprite.png) no-repeat 43% -423px;
     float: left;
     height: 20px;
@@ -445,20 +445,29 @@ input::-webkit-input-placeholder {
     width: 20px;
 }
 
-.logText {
+.eventText {
     font-size: 13pt;
+    float: left;
     color: #1b1b1b;
-    height: 15px;
-    display: inline-block;
-    vertical-align: bottom;
+    margin-top: 5px;
     cursor: pointer;
 }
 
-.selected .logIcon {
+.eventArrow {
+    background: url(../images/newSprite.png) no-repeat -20px
+        -33px;
+    float: left;
+    height: 12px;
+    margin-left: 5px;
+    margin-top: 13px;
+    width: 10px;
+}
+
+.selected .eventIcon {
     background: url(../images/sprite.png) no-repeat 43% -388px;
 }
 
-.selected .logText {
+.selected .eventText {
     color: #c80000;
 }
 
@@ -2165,6 +2174,13 @@ div.modal-window {
     top: 113px;
     z-index: 1;
 }
+.eventSubMenu {
+    display: none;
+    list-style: none;
+    position: absolute;
+    top: 113px;
+    z-index: 1;
+}
 .externalCell {
     margin-left: 10px;
     color: #1b1b1b;
@@ -2288,6 +2304,29 @@ div.modal-window {
     width:17%
 }
 #mainRoleTable .col5{
+    width:17%
+}
+
+#mainRuleTable{
+    width:100%
+}
+
+#mainRuleTable .col1{
+    width:1%
+}
+
+#mainRuleTable .col2{
+    width:33%
+}
+
+#mainRuleTable .col3{
+    width:32%
+}
+
+#mainRuleTable .col4{
+    width:17%
+}
+#mainRuleTable .col5{
     width:17%
 }
 /*  Box Pop Up Starts */

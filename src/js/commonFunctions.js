@@ -25,7 +25,7 @@ $ (document).ready(function() {
 	setAccountNavWidth();
 	setSocialNavWidth();
 	setMessageNavWidth();
-	setLogNavWidth();
+	setEventNavWidth();
 	setSnapshotNavWidth();
 	$("#boxNav").hover(function(){
 		$("#boxIcon").css("background","url(./images/sprite.png) no-repeat 43% -25px");
@@ -76,13 +76,15 @@ $ (document).ready(function() {
 			$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 		}
 	});
-	$("#logNav").hover(function(){
-		$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -388px");
-		$("#logText").css("color","#c80000");
+	$("#eventNav").hover(function(){
+		$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -388px");
+		$("#eventText").css("color","#c80000");
+		$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -14px");
 	},function(){
-		if(!$("#logNav").hasClass("selected")){
-			$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
-			$("#logText").css("color","#1b1b1b");
+		if(!$("#eventNav").hasClass("selected")){
+			$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+			$("#eventText").css("color","#1b1b1b");
+			$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 		}
 	});
 	$("#snapshotNav").hover(function(){
@@ -118,6 +120,11 @@ $ (document).ready(function() {
 		$(".messageSubMenu").css("display","block");
 	}, function(){
 		$(".messageSubMenu").css("display","none");
+	});
+	$(".eventNav").hover(function(){
+		$(".eventSubMenu").css("display","block");
+	}, function(){
+		$(".eventSubMenu").css("display","none");
 	});
 	$.ajaxSetup({ cache : false });
 	//$(".header").load(contextRoot+'/htmls/'+sessionStorage.selectedLanguage+'/header.jsp');
@@ -164,8 +171,8 @@ $ (document).ready(function() {
 				//selectSocialInNavigationBar();
 			} else if(this.id == "messageNav") {
 				//selectMessageInNavigationBar();
-			} else if(this.id == "logNav") {
-				selectLogInNavigationBar();
+			} else if(this.id == "eventNav") {
+				selectEventInNavigationBar();
 				$(this).siblings().removeClass("selected");
 				$(this).addClass("selected");
 			} else if(this.id == "snapshotNav") {
@@ -216,7 +223,7 @@ $ (document).ready(function() {
 		setAccountNavWidth();
 		setSocialNavWidth();
 		setMessageNavWidth();
-		setLogNavWidth();
+		setEventNavWidth();
 		setSnapshotNavWidth();
 		getWindowSize();
 		setRightContainerHomeWidth();
@@ -252,8 +259,9 @@ function selectBoxInNavigationBar() {
 	$("#messageIcon").css("background","url(./images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
-	$("#logText").css("color","#1b1b1b");
+	$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#eventText").css("color","#1b1b1b");
+	$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
@@ -277,8 +285,9 @@ function selectRoleInNavigationBar() {
 	$("#messageIcon").css("background","url(./images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
-	$("#logText").css("color","#1b1b1b");
+	$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#eventText").css("color","#1b1b1b");
+	$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
@@ -302,8 +311,9 @@ function selectAccountInNavigationBar() {
 	$("#messageIcon").css("background","url(./images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
-	$("#logText").css("color","#1b1b1b");
+	$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#eventText").css("color","#1b1b1b");
+	$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
@@ -326,8 +336,9 @@ function selectSocialInNavigationBar() {
 	$("#messageIcon").css("background","url(./images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
-	$("#logText").css("color","#1b1b1b");
+	$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#eventText").css("color","#1b1b1b");
+	$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
@@ -351,8 +362,9 @@ function selectMessageInNavigationBar() {
 	$("#socialIcon").css("background","url(./images/sprite.png) no-repeat 43% -273px");
 	$("#socialText").css("color","#1b1b1b");
 	$("#socialArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
-	$("#logText").css("color","#1b1b1b");
+	$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#eventText").css("color","#1b1b1b");
+	$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
@@ -363,10 +375,10 @@ function selectMessageInNavigationBar() {
 }
 
 /** 
- * The purpose of this function is to select log in navigation bar
+ * The purpose of this function is to select event in navigation bar
  * and removes selected class from other menus.
  */
-function selectLogInNavigationBar() {
+function selectEventInNavigationBar() {
 	$("#boxIcon").css("background","url(./images/sprite.png) no-repeat 43% -60px");
 	$("#boxText").css("color","#1b1b1b");
 	$("#roleIcon").css("background","url(./images/sprite.png) no-repeat 43% -129px");
@@ -383,8 +395,9 @@ function selectLogInNavigationBar() {
 	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
-	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -388px");
-	$("#logText").css("color","#c80000");
+	$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -388px");
+	$("#eventText").css("color","#c80000");
+	$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -14px");
 }
 
 /** 
@@ -404,8 +417,9 @@ function selectSnapshotInNavigationBar() {
 	$("#messageIcon").css("background","url(./images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
-	$("#logText").css("color","#1b1b1b");
+	$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#eventText").css("color","#1b1b1b");
+	$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -491px");
 	$("#infoText").css("color","#1b1b1b");
 	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -388px");
@@ -429,8 +443,9 @@ function selectInfoInNavigationBar() {
 	$("#messageIcon").css("background","url(./images/sprite.png) no-repeat 43% -351px");
 	$("#messageText").css("color","#1b1b1b");
 	$("#messageArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
-	$("#logIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
-	$("#logText").css("color","#1b1b1b");
+	$("#eventIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
+	$("#eventText").css("color","#1b1b1b");
+	$("#eventArrow").css("background","url(./images/newSprite.png) no-repeat -20px -33px");
 	$("#snapshotIcon").css("background","url(./images/sprite.png) no-repeat 43% -423px");
 	$("#snapshotText").css("color","#1b1b1b");
 	$("#infoIcon").css("background","url(./images/sprite.png) no-repeat 43% -457px");
@@ -625,18 +640,18 @@ function setMessageNavWidth(){
  * The purpose of this function is to set the Log Tab width
  * as per screen size on Cell Profile page.
  */	
-function setLogNavWidth(){
+function setEventNavWidth(){
 	var width = $(window).width();
 	var leftPanelWidth = Math.round((1.328125/100)*width);
 	/*var rightGap = 354;
 	var navContentsWidthFixed = 608;
 	var logTabContentWidthFixed = 64;*/
-	var logTabFixedWidth = 99;
-	var logNavWidth = (logTabFixedWidth/(width - leftPanelWidth))*100;
+	var eventTabFixedWidth = 129;
+	var eventNavWidth = (eventTabFixedWidth/(width - leftPanelWidth))*100;
 	if (width>1280) {
 		/*var logNavWidth = Math.round((width - leftPanelWidth - rightGap - navContentsWidthFixed)/6);
 		logNavWidth = logNavWidth + logTabContentWidthFixed;*/
-		$('#logNav').css('min-width', logNavWidth + "%");
+		$('#eventNav').css('min-width', eventNavWidth + "%");
 	}
 }
 
@@ -935,7 +950,7 @@ function addSelectedClassMainNavSocial() {
 	$("#roleNav").removeClass("selected");
 	$("#accountNav").removeClass("selected");
 	$("#messageNav").removeClass("selected");
-	$("#logNav").removeClass("selected");
+	$("#eventNav").removeClass("selected");
 	$("#snapshotNav").removeClass("selected");
 	$("#infoNav").removeClass("selected");
 }
@@ -951,7 +966,23 @@ function addSelectedClassMainNavMessage() {
 	$("#roleNav").removeClass("selected");
 	$("#accountNav").removeClass("selected");
 	$("#socialNav").removeClass("selected");
-	$("#logNav").removeClass("selected");
+	$("#eventNav").removeClass("selected");
+	$("#snapshotNav").removeClass("selected");
+	$("#infoNav").removeClass("selected");
+}
+
+/**
+ * The purpose of this function is to add selected class to event tab in navigation bar 
+ * on its sublist selection
+ */
+function addSelectedClassMainNavEvent() {
+	selectMessageInNavigationBar();
+	$("#eventNav").addClass("selected");
+	$("#boxNav").removeClass("selected");
+	$("#roleNav").removeClass("selected");
+	$("#accountNav").removeClass("selected");
+	$("#socialNav").removeClass("selected");
+	$("#messageNav").removeClass("selected");
 	$("#snapshotNav").removeClass("selected");
 	$("#infoNav").removeClass("selected");
 }
@@ -966,7 +997,7 @@ function addSelectedClassMainNavBox() {
 	$("#roleNav").removeClass("selected");
 	$("#accountNav").removeClass("selected");
 	$("#messageNav").removeClass("selected");
-	$("#logNav").removeClass("selected");
+	$("#eventNav").removeClass("selected");
 	$("#snapshotNav").removeClass("selected");
 	$("#infoNav").removeClass("selected");
 }
