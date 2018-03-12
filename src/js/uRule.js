@@ -577,6 +577,9 @@ function createRule() {
 	var eventObject = convInvalidValToUndefined(document.getElementById("txtEventObject").value);
 	var eventInfo = convInvalidValToUndefined(document.getElementById("txtEventInfo").value);
 	var targetUrl = convInvalidValToUndefined(document.getElementById("txtTargetUrl").value);
+	if ($("#txtTargetUrl").attr("disabled")) {
+		targetUrl = null;
+	}
 
 	var isRuleCreationAllowed = false;
 	if ($("#chkBoxBound").attr("checked") && !validateBoxDropDown()) {
@@ -833,6 +836,9 @@ function updateRule() {
 	var eventObject = convInvalidValToUndefined(document.getElementById("txtEventObjectEdit").value);
 	var eventInfo = convInvalidValToUndefined(document.getElementById("txtEventInfoEdit").value);
 	var targetUrl = convInvalidValToUndefined(document.getElementById("txtTargetUrlEdit").value);
+	if ($("#txtTargetUrlEdit").attr("disabled")) {
+		targetUrl = null;
+	}
 	if (!ruleValidation(newRuleName, "popupRuleErrorMsgEdit")) {
 		$("#txtRuleNameEdit").addClass("errorIcon");
 		removeSpinner("modalSpinnerRule");
@@ -1236,31 +1242,38 @@ function changeTextField(editFlg, initEventObject, initTargetUrl) {
 		}
 	}
 	var action = convInvalidValToUndefined($("#dropDownAction"+editId+" option:selected").val());
-	if (action === "exec") {
-		$("#dvTargetUrl"+editId).addClass("requiredElement");
-		if ($("#chkBoxBound"+editId).attr("checked") && boxName) {
-			$("#dvTextTargetUrl"+editId).css("display", "none");
-			$("#dvTextTargetUrlLocalBox"+editId).css("display", "block");
+	$("#txtTargetUrl"+editId).attr("disabled", false);
+	switch (action) {
+		case "exec":
+			$("#dvTargetUrl"+editId).addClass("requiredElement");
+			if ($("#chkBoxBound"+editId).attr("checked") && boxName) {
+				$("#dvTextTargetUrl"+editId).css("display", "none");
+				$("#dvTextTargetUrlLocalBox"+editId).css("display", "block");
+				$("#dvTextTargetUrlLocalCel"+editId).css("display", "none");
+				if (initTargetUrl) {
+					$("#txtTargetUrlLocalBox"+editId).val(initTargetUrl.replace(objCommon.PERSONIUM_LOCALBOX + "/",""));
+				}
+			} else {
+				$("#dvTextTargetUrl"+editId).css("display", "none");
+				$("#dvTextTargetUrlLocalBox"+editId).css("display", "none");
+				$("#dvTextTargetUrlLocalCel"+editId).css("display", "block");
+				if (initTargetUrl) {
+					$("#txtTargetUrlLocalCel"+editId).val(initTargetUrl.replace(objCommon.PERSONIUM_LOCALCEL + "/",""));
+				}
+			}
+			break;
+		case "log.info":
+		case "log.warn":
+		case "log.error":
+			$("#txtTargetUrl"+editId).attr("disabled", true);
+		default:
+			$("#dvTargetUrl"+editId).removeClass("requiredElement");
+			$("#dvTextTargetUrl"+editId).css("display", "block");
+			$("#dvTextTargetUrlLocalBox"+editId).css("display", "none");
 			$("#dvTextTargetUrlLocalCel"+editId).css("display", "none");
 			if (initTargetUrl) {
-				$("#txtTargetUrlLocalBox"+editId).val(initTargetUrl.replace(objCommon.PERSONIUM_LOCALBOX + "/",""));
+				$("#txtTargetUrl"+editId).val(initTargetUrl);
 			}
-		} else {
-			$("#dvTextTargetUrl"+editId).css("display", "none");
-			$("#dvTextTargetUrlLocalBox"+editId).css("display", "none");
-			$("#dvTextTargetUrlLocalCel"+editId).css("display", "block");
-			if (initTargetUrl) {
-				$("#txtTargetUrlLocalCel"+editId).val(initTargetUrl.replace(objCommon.PERSONIUM_LOCALCEL + "/",""));
-			}
-		}
-	} else {
-		$("#dvTargetUrl"+editId).removeClass("requiredElement");
-		$("#dvTextTargetUrl"+editId).css("display", "block");
-		$("#dvTextTargetUrlLocalBox"+editId).css("display", "none");
-		$("#dvTextTargetUrlLocalCel"+editId).css("display", "none");
-		if (initTargetUrl) {
-			$("#txtTargetUrl"+editId).val(initTargetUrl);
-		}
 	}
 
 	document.getElementById("popupEventObjectErrorMsg"+editId).innerHTML = "";
