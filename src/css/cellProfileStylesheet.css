@@ -2386,8 +2386,11 @@ div.modal-window {
     clear:both;
     float:left;
     -webkit-appearance: none;
-    background: transparent;
-    
+    background: transparent;   
+}
+
+.selectMenuPopup:disabled {
+    background-color: #ccc;
 }
 
 .bigTextBox {
@@ -2409,6 +2412,16 @@ div.modal-window {
 .positionRHSElements {
     margin-right: 75px;
     float: right;
+}
+
+.positionElements {
+    margin-right: 55px;
+    margin-left: 75px;
+}
+
+.separatorElements {
+    border-bottom: solid 1px #d2d2d2;
+    margin-bottom: 30px;
 }
 
 .lblElement {
@@ -3437,4 +3450,8 @@ progress::-webkit-progress-value {
 #deleteCell:disabled {
     background-color: #e8e8e8;
     cursor: default;
+}
+
+.requiredElement:before {
+    content: "* ";
 }
