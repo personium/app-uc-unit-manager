@@ -243,7 +243,6 @@ function openCreateEntityModal(parentDivId, childDivId, firstElementToBeFocussed
      }
   if (parentDivId == '#createRuleModal' && childDivId == '#createRuleDialog') {
     refreshCreateRulePopup();
-    retrieveBox("dropDownBox");
   }
   if (parentDivId == '#ruleEditModalWindow' && childDivId == '#ruleEditDialogBox') {
     getSelectedRuleDetails();
