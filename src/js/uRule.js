@@ -388,7 +388,7 @@ function createChunkedRuleTable(json, recordSize){
 		var ruleDate = objCommon.convertEpochDateToReadableFormat(""+ updatedDate[count]+"");
 		var ruleCreatedDate = objCommon.convertEpochDateToReadableFormat(""+ createdDate[count]+"");
 		var ruleName = "'"+ name[count]+"'" ;
-		var	boxName = "'"+ boxp+"'";
+		var	boxName = "'"+ box[count] +"'";
 		boxName = boxName.split(' ').join('');
 		var ruleAction = "'" + action[count] + "'";
 		var ruleEventExternal = "'" + obj.EventExternal + "'";
@@ -569,7 +569,7 @@ function createRule() {
 	var boxName = undefined;
 	var dropDownBox = document.getElementById("dropDownBox");
 	if ($("#chkBoxBound").attr("checked")) {
-		boxName = convInvalidValToUndefined(dropDownBox.options[dropDownBox.selectedIndex].title);
+		boxName = convInvalidValToUndefined(dropDownBox.options[dropDownBox.selectedIndex].title, true);
 	}
 	var ruleName = convInvalidValToUndefined(document.getElementById("txtRuleName").value);
 	var eventType = convInvalidValToUndefined(document.getElementById("txtEventType").value);
@@ -582,10 +582,6 @@ function createRule() {
 	}
 
 	var isRuleCreationAllowed = false;
-	if ($("#chkBoxBound").attr("checked") && !validateBoxDropDown()) {
-		removeSpinner("modalSpinnerRule");
-		return;
-	}
 	if (!ruleValidation(ruleName, "popupRuleErrorMsg")) {
 		removeSpinner("modalSpinnerRule");
 		return;
@@ -664,9 +660,15 @@ function createRule() {
 	removeSpinner("modalSpinnerRule");
 }
 
-function convInvalidValToUndefined(value) {
-	if(value == null || value == "" || value == 0 || value == "null") {
+function convInvalidValToUndefined(value, allowNullStrBool) {
+	if(value == null || value == "" || value == 0 || (!allowNullStrBool && value == "null")) {
 		return  undefined;
+	}
+	return value;
+}
+function convInvalidValToEmpty(value, allowNullStrBool) {
+	if(value == null || value == undefined || value == 0 || (!allowNullStrBool && value == "null")) {
+		return  "";
 	}
 	return value;
 }
@@ -806,7 +808,7 @@ function displayEditRuleSuccessMessage() {
  */
 function updateRule() {
 	showSpinner("modalSpinnerRule");
-	var mainBoxValue = "null";
+	var mainBoxValue = getUiProps().MSG0039;;
 	var body = null;
 	var newBoxSelected = null;
 	var eventExternal = false;
@@ -966,11 +968,12 @@ function getSelectedRuleDetails() {
 	var existingAction = arrSelectedRule[5];
 	var existingEventExternal = arrSelectedRule[7];
 	var existingEventType = convInvalidValToUndefined(arrSelectedRule[9]);
-	var existingEventSubject = convInvalidValToUndefined(arrSelectedRule[11]);
-	var existingEventObject = convInvalidValToUndefined(arrSelectedRule[13]);
-	var existingEventInfo = convInvalidValToUndefined(arrSelectedRule[15]);
-	var existingTargetUrl = convInvalidValToUndefined(arrSelectedRule[17]);
-	if (existingBoxName == "null") {
+	var existingEventSubject = convInvalidValToEmpty(arrSelectedRule[11]);
+	var existingEventObject = convInvalidValToEmpty(arrSelectedRule[13]);
+	var existingEventInfo = convInvalidValToEmpty(arrSelectedRule[15]);
+	var existingTargetUrl = convInvalidValToEmpty(arrSelectedRule[17]);
+	var mainBoxValue = getUiProps().MSG0039;
+	if (existingBoxName == mainBoxValue) {
 		$("#chkBoxBoundEdit").attr("checked", false)
 		$("#dropDownBoxEdit").attr("disabled", true);
 		retrieveBox("dropDownBoxEdit");
@@ -978,6 +981,11 @@ function getSelectedRuleDetails() {
 		$("#chkBoxBoundEdit").attr("checked", true)
 		$("#dropDownBoxEdit").attr("disabled", false);
 		retrieveBox("dropDownBoxEdit", existingBoxName);
+	}
+	if ($("#dropDownBoxEdit").children('option').length > 0) {
+		$("#chkBoxBoundEdit").attr("disabled", false);
+	} else {
+		$("#chkBoxBoundEdit").attr("disabled", true);
 	}
 	sessionStorage.currentRuleName = existingRuleName;
 	sessionStorage.currentBoxName = existingBoxName;
@@ -1013,22 +1021,13 @@ function refreshCreateRulePopup() {
 	$('.popupAlertmsg').html('');
 	$('#dropDownBox').html('');
 	$('#ddlRuleErrorMsg').html('');
-}
-
-/*
-**
-* This method ensures that the first index is never selected.
-* @returns {Boolean}
-*/
-function  validateBoxDropDown () {
-	var dropDown = document.getElementById("dropDownBox");
-	if (dropDown.selectedIndex  == 0) {
-		//$("#popupRuleErrorMsg").text('');
-		$("#ddlRuleErrorMsg").text(getUiProps().MSG0222);
-		return false;
+	retrieveBox("dropDownBox");
+	if ($("#dropDownBox").children('option').length > 0) {
+		$("#chkBoxBound").attr("disabled", false);
+	} else {
+		$("#chkBoxBound").attr("disabled", true);
 	}
-	return true;
-};
+}
 
 /*
 **
@@ -1044,7 +1043,7 @@ function validateTargetUrl(editFlg) {
 	var boxName = null;
 	var dropDownBox = document.getElementById("dropDownBox"+editId);
 	if ($("#chkBoxBound"+editId).attr("checked")) {
-		boxName = convInvalidValToUndefined(dropDownBox.options[dropDownBox.selectedIndex].title);
+		boxName = convInvalidValToUndefined(dropDownBox.options[dropDownBox.selectedIndex].title, true);
 	}
 	switch(action) {
 		case "exec":
@@ -1172,10 +1171,7 @@ $("#chkBoxBoundEdit").change(function() {
 * 
 */
 $("#dropDownBox").change(function () {
-	if (validateBoxDropDown()) {
-		$("#ddlRuleErrorMsg").text('');
-		changeTextField(false);
-	}
+	changeTextField(false);
 });
 $("#dropDownBoxEdit").change(function () {
 	changeTextField(true);
@@ -1211,11 +1207,9 @@ $("#txtTargetUrlEdit, #txtTargetUrlLocalBoxEdit, #txtTargetUrlLocalCelEdit").blu
 function changeTextField(editFlg, initEventObject, initTargetUrl) {
 	var editId = (editFlg)? "Edit":"";
 	let eventExternal = $('input[name="dropDownEventExternal'+editId+'"]:checked').val();
-	let dropDownBox = document.getElementById("dropDownBox"+editId);
-	let boxName = convInvalidValToUndefined(dropDownBox.options[dropDownBox.selectedIndex].title);
 	if (eventExternal === "false") {
 		$("#dvEventObject"+editId).addClass("requiredElement");
-		if ($("#chkBoxBound"+editId).attr("checked") && boxName) {
+		if ($("#chkBoxBound"+editId).attr("checked")) {
 			// There is a box setting
 			$("#dvTextEventObject"+editId).css("display", "none");
 			$("#dvTextEventObjectLocalBox"+editId).css("display", "block");
@@ -1246,7 +1240,7 @@ function changeTextField(editFlg, initEventObject, initTargetUrl) {
 	switch (action) {
 		case "exec":
 			$("#dvTargetUrl"+editId).addClass("requiredElement");
-			if ($("#chkBoxBound"+editId).attr("checked") && boxName) {
+			if ($("#chkBoxBound"+editId).attr("checked")) {
 				$("#dvTextTargetUrl"+editId).css("display", "none");
 				$("#dvTextTargetUrlLocalBox"+editId).css("display", "block");
 				$("#dvTextTargetUrlLocalCel"+editId).css("display", "none");
