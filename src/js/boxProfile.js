@@ -350,34 +350,6 @@ boxProfile.prototype.populateEditBoxProfilePopUp = function(displayName,descript
 };
 
 /**
- * The purpose of this method is to perform validations on display name
- * @param displayName
- * @returns {Boolean}
- */
-boxProfile.prototype.validateDisplayName = function(displayName){
-	var MINLENGTH = 1;
-	var MAXLENGTH = 128;
-	var letters = /^[一-龠ぁ-ゔ[ァ-ヴー々〆〤0-9a-zA-Z-_]+$/;
-	var specialchar = /^[-_]*$/;
-	var lenDisplayName = displayName.length;
-	var isValidDisplayName = true;
-	if(lenDisplayName < MINLENGTH || displayName == undefined || displayName == null || displayName == "") {
-	document.getElementById("popupEditBPDisplayNameErrorMsg").innerHTML =  getUiProps().MSG0103;
-	isValidDisplayName = false;
-	} else if (lenDisplayName > MAXLENGTH) {
-	document.getElementById("popupEditBPDisplayNameErrorMsg").innerHTML = getUiProps().MSG0104;
-	isValidDisplayName = false;
-	} else if (lenDisplayName != 0 && ! (displayName.match(letters))) {
-	document.getElementById("popupEditBPDisplayNameErrorMsg").innerHTML = getUiProps().MSG0105;
-	isValidDisplayName = false;
-	} else if(lenDisplayName != 0 && (specialchar.toString().indexOf(displayName.substring(0,1)) >= 0)) {
-	document.getElementById("popupEditBPDisplayNameErrorMsg").innerHTML = getUiProps().MSG0106;
-	isValidDisplayName = false;
-	}
-	return isValidDisplayName;
-};
-
-/**
  * The purpose of this method is to perform validations on description
  * @param description
  * @returns {Boolean}

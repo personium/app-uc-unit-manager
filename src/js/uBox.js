@@ -919,21 +919,24 @@ function displaySuccessMessage(modalId,dvMessageID) {
  * @returns {Boolean}
  */
 function validateDisplayName(displayName, displayNameSpan,txtDisplayName) {
-	var MINLENGTH = 1;
-        var lenDisplayName = displayName.length;
-        if(lenDisplayName < MINLENGTH || displayName == undefined || displayName == null || displayName == "") {
-        	showErrorIcon(txtDisplayName);
-            $("#" + displayNameSpan).html(getUiProps().MSG0103);
-            return false;
-	}
-
-	var MAXLENGTH = 128;
-    $("#" + displayNameSpan).html("");
-    if (lenDisplayName > MAXLENGTH) {
-    	showErrorIcon(txtDisplayName);
+    var MINLENGTH = 1;
+    var MAXLENGTH = 256;
+    var letters = new RegExp("^[^" + objCommon.getValidateBlackList() + "]+$");
+    var lenDisplayName = displayName.length;
+    if(lenDisplayName < MINLENGTH || displayName == undefined || displayName == null || displayName == "") {
+        showErrorIcon(txtDisplayName);
+        $("#" + displayNameSpan).html(getUiProps().MSG0103);
+        return false;
+    } else if (lenDisplayName >= MAXLENGTH) {
+        showErrorIcon(txtDisplayName);
         $("#" + displayNameSpan).html(getUiProps().MSG0104);
         return false;
+    } else if (lenDisplayName != 0 && !(displayName.match(letters))){
+    	showErrorIcon(txtDisplayName);
+    	$("#" + displayNameSpan).html(getUiProps().MSG0429);
+        return false;
     }
+
 	showValidValueIcon(txtDisplayName);
 	$("#" + displayNameSpan).empty();
     return true;

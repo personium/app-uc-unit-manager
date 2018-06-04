@@ -431,6 +431,7 @@
 "MSG0426":"Rule name can not start with special character",
 "MSG0427":"{collection name}/{service name}",
 "MSG0428":"{box name}/{collection name}/{service name}",
+"MSG0429":"Special characters such as control codes can not be used.",
 "LBL0001": "Domain",
 "LBL0002": "Plan",
 "LBL0003": "API Version",

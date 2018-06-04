@@ -1597,14 +1597,14 @@ odata.prototype.errorHandler = function(evt) {
  * The purpose of this method is to perform file validation
  */
 odata.prototype.validateFileName = function(fileName, fileSize) {
-    var letters = /^[一-龠ぁ-ゔ[ァ-ヴー々〆〤0-9a-zA-Z-_.]+$/;
+    var letters = new RegExp("^[^" + objCommon.getValidateBlackList() + "]+$");
     //var letters = /^[0-9a-zA-Z-_.]+$/;
     if (fileName.indexOf("fakepath") != -1) {
         fileName = fileName.substring(fileName.lastIndexOf("fakepath") + 9);
     }
     var fileLength = fileName.length;
     objOdata.fileType = fileName.substring(fileName.lastIndexOf('.') + 1);
-    if (fileLength > 128) {
+    if (fileLength > 256) {
         objOdata.spinner.stop();
         document.getElementById("dvGreyOut").style.display = 'none';
         alert("File name can not exceed 128 characters");
@@ -1612,7 +1612,7 @@ odata.prototype.validateFileName = function(fileName, fileSize) {
     } else if (fileLength != 0 && !(fileName.match(letters))) {
         objOdata.spinner.stop();
         document.getElementById("dvGreyOut").style.display = 'none';
-        alert('Only "-", "_" and "." are allowed in file name');
+        alert(getUiProps().MSG0429);
         return false;
     } /*else if (fileSize >100) {
 		objOdata.spinner.stop();

@@ -99,11 +99,10 @@ cellProfile.prototype.removeStatusIcons = function (txtID) {
  * @returns {Boolean}
  */
 cellProfile.prototype.validateDisplayName = function (displayName, displayNameSpan,txtID) {
+    console.log("cellProfile de yobareta")
     var MINLENGTH = 1;
-    var MAXLENGTH = 128;
-    var letters = /^[一-龠ぁ-ゔ[ァ-ヴー々〆〤0-9a-zA-Z-_]+$/;
-    var specialchar = /^[-_]*$/;
-    var allowedLetters = /^[0-9a-zA-Z-_]+$/;
+    var MAXLENGTH = 256;
+    var letters = new RegExp("^[^" + objCommon.getValidateBlackList() + "]+$");
     var lenDisplayName = displayName.length;
     this.removeStatusIcons(txtID);
     if(lenDisplayName < MINLENGTH || displayName == undefined || displayName == null || displayName == "") {
@@ -116,20 +115,12 @@ cellProfile.prototype.validateDisplayName = function (displayName, displayNameSp
         //uCellProfile.spinner.stop();
         this.showErrorIcon(txtID);
         return false;
-    } else if (lenDisplayName != 0 && ! (displayName.match(letters))){
-        document.getElementById(displayNameSpan).innerHTML = getUiProps().MSG0023;
+    } else if (lenDisplayName != 0 && !(displayName.match(letters))){
+        document.getElementById(displayNameSpan).innerHTML = getUiProps().MSG0429;
         this.showErrorIcon(txtID);
-        return false;
-    } else if (lenDisplayName != 0 && !(displayName.match(allowedLetters))) {
-        document.getElementById(displayNameSpan).innerHTML = getUiProps().MSG0106;
-        this.showErrorIcon(txtID);
-        return false;
-    } else if(lenDisplayName != 0 && (specialchar.toString().indexOf(displayName.substring(0,1)) >= 0)){
-        document.getElementById(displayNameSpan).innerHTML = getUiProps().MSG0106;
-        this.showErrorIcon(txtID);
-        //uCellProfile.spinner.stop();
         return false;
     }
+
     this.showValidValueIcon(txtID);
     return true;
 };
