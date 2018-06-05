@@ -3830,40 +3830,6 @@ common.prototype.getValidateBlackList = function() {
     "\\uFDD0-\\uFDEF", //noncharacter
     "\\uFFFE", //noncharacter
     "\\uFFFF" //noncharacter
-    /* Not compatible
-    "\\u1FFFE", //noncharacter
-    "\\u1FFFF", //noncharacter
-    "\\u2FFFE", //noncharacter
-    "\\u2FFFF", //noncharacter
-    "\\u3FFFE", //noncharacter
-    "\\u3FFFF", //noncharacter
-    "\\u4FFFE", //noncharacter
-    "\\u4FFFF", //noncharacter
-    "\\u5FFFE", //noncharacter
-    "\\u5FFFF", //noncharacter
-    "\\u6FFFE", //noncharacter
-    "\\u6FFFF", //noncharacter
-    "\\u7FFFE", //noncharacter
-    "\\u7FFFF", //noncharacter
-    "\\u8FFFE", //noncharacter
-    "\\u8FFFF", //noncharacter
-    "\\u9FFFE", //noncharacter
-    "\\u9FFFF", //noncharacter
-    "\\uAFFFE", //noncharacter
-    "\\uAFFFF", //noncharacter
-    "\\uBFFFE", //noncharacter
-    "\\uBFFFF", //noncharacter
-    "\\uCFFFE", //noncharacter
-    "\\uCFFFF", //noncharacter
-    "\\uDFFFE", //noncharacter
-    "\\uDFFFF", //noncharacter
-    "\\uEFFFE", //noncharacter
-    "\\uEFFFF", //noncharacter
-    "\\uFFFFE", //noncharacter
-    "\\uFFFFF", //noncharacter
-    "\\u10FFFE", //noncharacter
-    "\\u10FFFF" //noncharacter
-    */
   ].join("");
 
   return blackList;
