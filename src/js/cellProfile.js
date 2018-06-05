@@ -99,7 +99,6 @@ cellProfile.prototype.removeStatusIcons = function (txtID) {
  * @returns {Boolean}
  */
 cellProfile.prototype.validateDisplayName = function (displayName, displayNameSpan,txtID) {
-    console.log("cellProfile de yobareta")
     var MINLENGTH = 1;
     var MAXLENGTH = 256;
     var letters = new RegExp("^[^" + objCommon.getValidateBlackList() + "]+$");
