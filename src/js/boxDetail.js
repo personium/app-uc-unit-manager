@@ -59,6 +59,11 @@ boxDetail.prototype.initializePage = function(boxname){
 	$("#currentDirectoryIcon").css("margin-top","-2px");
 	$("#currentDirectoryIcon").css("margin-left","0px");
 	$("#dvemptyTableOdataMessageFile").hide();
+	if (boxname == getUiProps().MSG0039) {
+		$("#exportWebDavWrapper").hide();
+	} else {
+		$("#exportWebDavWrapper").show();
+	}
 	//uBoxDetail.createWebDavRootView(boxname);
 	uBoxDetail.showRootPropertyBox(boxname);
 	sessionStorage.boxName = boxname;
@@ -547,6 +552,20 @@ boxDetail.prototype.downloadHoverEffect = function(){
 	});
 };
 
+/**
+ * The purpose of this method is to show hover effect on Export file area.
+ */
+boxDetail.prototype.exportHoverEffect = function(){
+	$("#exportWebDavWrapper").hover(function(){
+		$("#dvExportIcon").css("background","url(./images/newSprite.png) no-repeat -16px -823px");
+		$("#dvExportText").css("color","#c80000");
+		$("#exportWebDavWrapper").css("cursor","pointer");
+	},function(){
+		$("#dvExportIcon").css("background","url(./images/newSprite.png) no-repeat -16px -790px");
+		$("#dvExportText").css("color","#1b1b1b");
+	});
+};
+
 //<input type="checkbox" value="all" class="aclSetPrivChkBox" onclick="uBoxAcl.checkBoxSelect(this);" id = "aclChekBox" name = "roleAclCheckBox">all</td></tr>
 /**
  * Following method create rows for edit row ACL.
@@ -917,6 +936,7 @@ $(document).ready(function(){
 	//uBoxDetail.backBtnHoverEffect();
 	uBoxDetail.sortByDateHoverEffect();
 	uBoxDetail.uploadHoverEffect();
+	uBoxDetail.exportHoverEffect();
 	//uBoxDetail.boxNameHoverEffect();
 	$("#createWebDavWrapper").hover(function() {
 		//if (uBoxDetail.getCreateCollectionMenuEnabled()) {

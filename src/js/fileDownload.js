@@ -69,6 +69,24 @@ fileDownload.prototype.downloadFileOnClick = function (collectionName,path) {
 	this.get(path, contentType, "*", accessor, collectionName);
 };
 
+/**
+ * The purpose of this function is to implement download barfile 
+ * functionality
+ */
+fileDownload.prototype.downloadBarFile = function () {
+	fileDownloadSpinner = objOdata.showSpinnerForUploadFile();
+	document.getElementById("dvGreyOut").style.display = 'block';
+	var fileName = $("#currentDirectoryName").text() + ".bar";
+	var baseUrl = getClientStore().baseURL;
+	var cellName = sessionStorage.selectedcell;
+	var tab = sessionStorage.tabName;
+	path = objOdata.currentCollectionPath;
+
+	contentType = "application/x-personium-bar+zip";
+	var accessor = objCommon.initializeAccessor(baseUrl, cellName, "", "");
+	this.get(path, contentType, "*", accessor, fileName);
+};
+
 
 /**
  * The purpose of this function is to create path 

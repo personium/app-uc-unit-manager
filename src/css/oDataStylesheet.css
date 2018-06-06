@@ -1840,6 +1840,32 @@ margin-top:-5px;
 	cursor:default;
 }
 
+.exportWebDavWrapper{
+	border-left: 1px solid #565656;
+	margin-top: 3px;
+	margin-left: 10px;
+	width: 90px;
+	float: left;
+}
+
+.exportWebDavIconEnabled{
+	background: url(../images/newSprite.png) no-repeat -16px -790px;
+	width: 20px;
+	float: left;
+	height: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.exportWebDavTextEnabled{
+	font-family: Segoe UI;
+	font-size: 10pt;
+	color: #1b1b1b;
+	margin-top: 1px;
+	margin-right:11px;
+	float: left;
+}
+
 .deleteIconWebDav {
 	/*pointer-events: none;*/
 	background: url(../images/sprite.png) no-repeat 43% -737px;
