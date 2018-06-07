@@ -63,24 +63,19 @@ uCollectionOdata.prototype.createFolder = function() {
  */
 uCollectionOdata.prototype.validateFolderName = function(folderName) {
 	//var letters = /^[0-9a-zA-Z-_.]+$/;
-	var letters = /^[一-龠ぁ-ゔ[ァ-ヴー々〆〤0-9a-zA-Z-_.]+$/;
-	var regexInitialHyphenUnderscore = /^[-_.]/;
+	var letters = new RegExp("^[^" + objCommon.getValidateBlackList() + "]+$");
 	var lenFolderName = folderName.length;
 	if (lenFolderName < 1 || folderName == undefined || folderName == null
 			|| folderName == "") {
 		document.getElementById("popupFolderErrorMsg").innerHTML = getUiProps().MSG0063;
 		objCommon.showErrorIcon('#txtFolderName');
 		return false;
-	} else if (lenFolderName > 128) {
+	} else if (lenFolderName > 256) {
 		document.getElementById("popupFolderErrorMsg").innerHTML = getUiProps().MSG0064;
 		objCommon.showErrorIcon('#txtFolderName');
 		return false;
-	} else if (folderName.match(regexInitialHyphenUnderscore)) {
-		document.getElementById("popupFolderErrorMsg").innerHTML = getUiProps().MSG0287;
-		objCommon.showErrorIcon('#txtFolderName');
-		return false;
 	} else if (lenFolderName != 0 && !(folderName.match(letters))) {
-		document.getElementById("popupFolderErrorMsg").innerHTML = getUiProps().MSG0048;
+		document.getElementById("popupFolderErrorMsg").innerHTML = getUiProps().MSG0429;
 		objCommon.showErrorIcon('#txtFolderName');
 		return false;
 	}
@@ -142,22 +137,16 @@ uCollectionOdata.prototype.createOdataCollection = function() {
 uCollectionOdata.prototype.validateOdataName = function(odataName) {
 	var minLengthMessage = getUiProps().MSG0045;
 	var maxLengthMessage = getUiProps().MSG0046;
-	var specialCharacterMessage = getUiProps().MSG0048;
-	//var letters = /^[0-9a-zA-Z-_.]+$/;
-	var letters = /^[一-龠ぁ-ゔ[ァ-ヴー々〆〤0-9a-zA-Z-_.]+$/;
-	var regexInitialHyphenUnderscore = /^[-_.]/;
+	var specialCharacterMessage = getUiProps().MSG0429;
+	var letters = new RegExp("^[^" + objCommon.getValidateBlackList() + "]+$");
 	var lenOdataName = odataName.length;
 	if (lenOdataName < 1 || odataName == undefined || odataName == null
 			|| odataName == "") {
 		document.getElementById("popupOdataErrorMsg").innerHTML = minLengthMessage;
 		objCommon.showErrorIcon('#txtOdataName');
 		return false;
-	} else if (lenOdataName > 128) {
+	} else if (lenOdataName > 256) {
 		document.getElementById("popupOdataErrorMsg").innerHTML = maxLengthMessage;
-		objCommon.showErrorIcon('#txtOdataName');
-		return false;
-	} else if (odataName.match(regexInitialHyphenUnderscore)) {
-		document.getElementById("popupOdataErrorMsg").innerHTML = getUiProps().MSG0288;
 		objCommon.showErrorIcon('#txtOdataName');
 		return false;
 	} else if (lenOdataName != 0 && !(odataName.match(letters))) {
@@ -219,10 +208,8 @@ uCollectionOdata.prototype.createEngineService = function () {
  * @param odataName
  */
 uCollectionOdata.prototype.validateEngineServiceName = function(engineServiceName) {
-    var MAXLENGTH = 128;
-    //var letters = /^[0-9a-zA-Z-_.]+$/;
-    var letters = /^[一-龠ぁ-ゔ[ァ-ヴー々〆〤0-9a-zA-Z-_.]+$/;
-    var regexInitialHyphenUnderscore = /^[-_.]/;
+    var MAXLENGTH = 256;
+    var letters = new RegExp("^[^" + objCommon.getValidateBlackList() + "]+$");
     var lenEngineServiceName = engineServiceName.length;
     if (lenEngineServiceName < 1 || engineServiceName == undefined || engineServiceName == null
             || engineServiceName == "") {
@@ -233,12 +220,8 @@ uCollectionOdata.prototype.validateEngineServiceName = function(engineServiceNam
         document.getElementById("popupEngineServiceErrorMsg").innerHTML = getUiProps().MSG0136;
         objCommon.showErrorIcon('#txtEngineServiceName');
         return false;
-    } else if (engineServiceName.match(regexInitialHyphenUnderscore)) {
-       document.getElementById("popupEngineServiceErrorMsg").innerHTML = getUiProps().MSG0289;
-       objCommon.showErrorIcon('#txtEngineServiceName');
-       return false;
     } else if (lenEngineServiceName != 0 && !(engineServiceName.match(letters))) {
-        document.getElementById("popupEngineServiceErrorMsg").innerHTML = getUiProps().MSG0137;
+        document.getElementById("popupEngineServiceErrorMsg").innerHTML = getUiProps().MSG0429;
         objCommon.showErrorIcon('#txtEngineServiceName');
         return false;
     } 

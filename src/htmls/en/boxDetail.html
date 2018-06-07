@@ -30,13 +30,16 @@ limitations under the License.
 
 </head>
 <body>
-	<div class="backWrapper">
+	<div class="backWrapper" style="overflow: hidden;">
 		<div class="backIcon" onclick="uBoxDetail.clickBackButton();"></div>
-		<div class="backBtnTxt"><a id="backBtnTxt"></a></div>
+		<div class="backBtnTxt" style="float:left;"><a id="backBtnTxt"></a></div>
+		<div class="exportWebDavWrapper" onclick="uFileDownload.downloadBarFile();" id="exportWebDavWrapper">
+			<div id="dvExportIcon" class="exportWebDavIconEnabled"></div>
+			<div id="dvExportText" class="exportWebDavTextEnabled">Export</div>
+		</div>
 	</div>
-	<ul class="secondaryHeaderBar">
+	<ul class="secondaryHeaderBar" style="clear: both;">
 		<li><div class="data selected" id="boxdetailContentsTab">Contents</div></li>
-		<li><div class="profile" id="boxdetailProfileTab">Profile</div></li>
 		<li><div class="info" id="boxdetailInfoTab">Info</div></li>
 		<li>
 			<div id="collectionMessageSuccessBlock"

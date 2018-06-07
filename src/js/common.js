@@ -3795,3 +3795,42 @@ common.prototype.isTypeDoubleValid = function(value) {
 
     return false;
 }
+
+/**
+ * The purpose of this function is to return the BlackList used for the validate check.
+ */
+common.prototype.getValidateBlackList = function() {
+  var blackList = [
+    // ASCII
+    // C0
+    "\\x00-\\x1F", // Control Code
+    // C1
+    "\\x7F-\\x9F", // Control Code
+    // Unicode
+    "\\u061C", //ARABIC LETTER MARK
+    "\\u200B", //ZERO WIDTH SPACE
+    "\\u200C", //ZERO WIDTH NON-JOINER
+    "\\u200D", //ZERO WIDTH JOINER
+    "\\u200E", //LEFT-TO-RIGHT MARK
+    "\\u200F", //RIGHT-TO-LEFT MARK
+    "\\u2028", //LINE SEPARATOR
+    "\\u2029", //PARAGRAPH SEPARATOR
+    "\\u202A-\\u202E", //Bi-directional text
+    "\\u2066", //LEFT-TO-RIGHT ISOLATE
+    "\\u2062", //INVISIBLE TIMES
+    "\\u2063", //INVISIBLE SEPARATOR
+    "\\u2064", //INVISIBLE PLUS
+    "\\u2067", //RIGHT-TO-LEFT ISOLATE
+    "\\u2068", //FIRST STRONG ISOLATE
+    "\\u2069", //POP DIRECTIONAL ISOLATE
+    "\\uFEFF", //ZERO WIDTH NO-BREAK SPACE
+    "\\uFFF9", //INTERLINEAR ANNOTATION ANCHOR
+    "\\uFFFA", //INTERLINEAR ANNOTATION SEPARATOR
+    "\\uFFFB", //INTERLINEAR ANNOTATION SEPARATOR
+    "\\uFDD0-\\uFDEF", //noncharacter
+    "\\uFFFE", //noncharacter
+    "\\uFFFF" //noncharacter
+  ].join("");
+
+  return blackList;
+}

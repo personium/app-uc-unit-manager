@@ -59,6 +59,11 @@ boxDetail.prototype.initializePage = function(boxname){
 	$("#currentDirectoryIcon").css("margin-top","-2px");
 	$("#currentDirectoryIcon").css("margin-left","0px");
 	$("#dvemptyTableOdataMessageFile").hide();
+	if (boxname == getUiProps().MSG0039) {
+		$("#exportWebDavWrapper").hide();
+	} else {
+		$("#exportWebDavWrapper").show();
+	}
 	//uBoxDetail.createWebDavRootView(boxname);
 	uBoxDetail.showRootPropertyBox(boxname);
 	sessionStorage.boxName = boxname;
@@ -104,7 +109,6 @@ boxDetail.prototype.openBoxDetail = function(boxname, etagstart, etagEnd, create
 		$("#mainContentWebDav").hide();
 		sessionStorage.tabName = "Box";
 		objOdata.selectedView = "";
-		$('#boxdetailProfileTab').removeClass("selected");
 		$('#boxdetailContentsTab').addClass("selected");
 
 		var target = document.getElementById('spinner');
@@ -230,7 +234,6 @@ boxDetail.prototype.loadBoxInfoTab = function() {
  */
 boxDetail.prototype.applySelectedClassOnTab = function(divID) {
 	$('#boxdetailContentsTab').removeClass("selected");
-	$('#boxdetailProfileTab').removeClass("selected");
 	$('#boxdetailInfoTab').removeClass("selected");
 	
 	$(divID).addClass("selected");
@@ -544,6 +547,20 @@ boxDetail.prototype.downloadHoverEffect = function(){
 	},function(){
 		$("#dvDownLoadIcon").css("background","url(./images/newSprite.png) no-repeat -16px -790px");
 		$("#dvDownLoadText").css("color","#1b1b1b");
+	});
+};
+
+/**
+ * The purpose of this method is to show hover effect on Export file area.
+ */
+boxDetail.prototype.exportHoverEffect = function(){
+	$("#exportWebDavWrapper").hover(function(){
+		$("#dvExportIcon").css("background","url(./images/newSprite.png) no-repeat -16px -823px");
+		$("#dvExportText").css("color","#c80000");
+		$("#exportWebDavWrapper").css("cursor","pointer");
+	},function(){
+		$("#dvExportIcon").css("background","url(./images/newSprite.png) no-repeat -16px -790px");
+		$("#dvExportText").css("color","#1b1b1b");
 	});
 };
 
@@ -917,6 +934,7 @@ $(document).ready(function(){
 	//uBoxDetail.backBtnHoverEffect();
 	uBoxDetail.sortByDateHoverEffect();
 	uBoxDetail.uploadHoverEffect();
+	uBoxDetail.exportHoverEffect();
 	//uBoxDetail.boxNameHoverEffect();
 	$("#createWebDavWrapper").hover(function() {
 		//if (uBoxDetail.getCreateCollectionMenuEnabled()) {
@@ -977,16 +995,6 @@ $("#boxdetailContentsTab").click(function(){
 	boxHeirarchyPath = boxname;
 	uBoxDetail.loadBoxContentsTab(sessionStorage.boxName);
 	$("#webDavProfileArea").hide();
-});
-
-/**
- * Following is the click event to load the Profile tab.
- */
-
-$("#boxdetailProfileTab").click(function(){
-	$("#webDavProfileArea").show();
-	objCommon.hideListTypePopUp();
-	uBoxDetail.loadBoxProfileTab();
 });
 
 /**
