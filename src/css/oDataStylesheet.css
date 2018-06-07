@@ -2873,10 +2873,12 @@ margin-top:-5px;
 
 .breadrCrumTableTr td:first-child{
 	cursor:pointer;
+	text-decoration:underline;
 }
 
 .breadrCrumTableTr td:last-child{
 	cursor:default;
+	text-decoration:none;
 }
 
 .breadrCrumTableTr td:first-child:hover{
@@ -2886,11 +2888,11 @@ margin-top:-5px;
 
 #tblBoxBreadCrum tr:last-child td:hover{
 	color:#1b1b1b;
-	text-decoration:none;
 }
 
 #tblBoxBreadCrum tr:last-child td{
 	cursor:default;
+	text-decoration:none;
 }
 
 #columnId_Separator:hover{
