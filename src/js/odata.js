@@ -1607,7 +1607,7 @@ odata.prototype.validateFileName = function(fileName, fileSize) {
     if (fileLength > 256) {
         objOdata.spinner.stop();
         document.getElementById("dvGreyOut").style.display = 'none';
-        alert("File name can not exceed 128 characters");
+        alert("File name cannot exceed 256 characters");
         return false;
     } else if (fileLength != 0 && !(fileName.match(letters))) {
         objOdata.spinner.stop();

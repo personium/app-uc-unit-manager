@@ -927,7 +927,7 @@ function validateDisplayName(displayName, displayNameSpan,txtDisplayName) {
         showErrorIcon(txtDisplayName);
         $("#" + displayNameSpan).html(getUiProps().MSG0103);
         return false;
-    } else if (lenDisplayName >= MAXLENGTH) {
+    } else if (lenDisplayName > MAXLENGTH) {
         showErrorIcon(txtDisplayName);
         $("#" + displayNameSpan).html(getUiProps().MSG0104);
         return false;

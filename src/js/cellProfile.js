@@ -109,7 +109,7 @@ cellProfile.prototype.validateDisplayName = function (displayName, displayNameSp
         this.showErrorIcon(txtID);
         //uCellProfile.spinner.stop();
         return false;
-    } else if (lenDisplayName >= MAXLENGTH) {
+    } else if (lenDisplayName > MAXLENGTH) {
         document.getElementById(displayNameSpan).innerHTML = getUiProps().MSG0104;
         //uCellProfile.spinner.stop();
         this.showErrorIcon(txtID);
