@@ -109,7 +109,6 @@ boxDetail.prototype.openBoxDetail = function(boxname, etagstart, etagEnd, create
 		$("#mainContentWebDav").hide();
 		sessionStorage.tabName = "Box";
 		objOdata.selectedView = "";
-		$('#boxdetailProfileTab').removeClass("selected");
 		$('#boxdetailContentsTab').addClass("selected");
 
 		var target = document.getElementById('spinner');
@@ -235,7 +234,6 @@ boxDetail.prototype.loadBoxInfoTab = function() {
  */
 boxDetail.prototype.applySelectedClassOnTab = function(divID) {
 	$('#boxdetailContentsTab').removeClass("selected");
-	$('#boxdetailProfileTab').removeClass("selected");
 	$('#boxdetailInfoTab').removeClass("selected");
 	
 	$(divID).addClass("selected");
@@ -997,16 +995,6 @@ $("#boxdetailContentsTab").click(function(){
 	boxHeirarchyPath = boxname;
 	uBoxDetail.loadBoxContentsTab(sessionStorage.boxName);
 	$("#webDavProfileArea").hide();
-});
-
-/**
- * Following is the click event to load the Profile tab.
- */
-
-$("#boxdetailProfileTab").click(function(){
-	$("#webDavProfileArea").show();
-	objCommon.hideListTypePopUp();
-	uBoxDetail.loadBoxProfileTab();
 });
 
 /**
