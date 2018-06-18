@@ -468,89 +468,6 @@ common.prototype.showSelectedRow = function(chkSelectall,colID,rowIDVal) {
   }
 };
 
-/** Following method activates edit icon.
- * @param customCheckBoxesChecked count of checked check boxes.
- * @param tableID Table ID.
- */
-common.prototype.activateEditIcon = function(customCheckBoxesChecked,tableID) {
-    if ((customCheckBoxesChecked == 1) && (tableID == "mainRoleTable")) {
-        $("#btnEditRoleIcon").removeClass();
-        $("#btnEditRoleIcon").addClass('editIconEnabled');
-        $('#btnEditRoleIcon').removeAttr("disabled");
-    } else {
-        $("#btnEditRoleIcon").removeClass();
-        $("#btnEditRoleIcon").addClass('editIconDisabled');
-        $("#btnEditRoleIcon").attr("disabled", true);
-    }
-    if ((customCheckBoxesChecked == 1) && (tableID == "mainAccountTable")) {
-        $("#iconEditAccount").removeClass();
-        $("#iconEditAccount").addClass('editIconEnabled');
-        $('#iconEditAccount').removeAttr("disabled");
-    } else {
-        $("#iconEditAccount").removeClass();
-        $("#iconEditAccount").addClass('editIconDisabled');
-        $("#iconEditAccount").attr("disabled", true);
-    }
-    if ((customCheckBoxesChecked == 1) && (tableID == "mainBoxTable")) {
-        $("#btnEditBoxIcon").removeClass();
-        $("#btnEditBoxIcon").addClass('editIconEnabled');
-        $('#btnEditBoxIcon').removeAttr("disabled");
-    } else {
-        $("#btnEditBoxIcon").removeClass();
-        $("#btnEditBoxIcon").addClass('editIconDisabled');
-        $("#btnEditBoxIcon").attr("disabled", true);
-    }
-    if ((customCheckBoxesChecked == 1) && (tableID == "mainRelationTable")) {
-        $("#iconEditRelation").removeClass();
-        $("#iconEditRelation").addClass('editIconEnabled');
-        $('#iconEditRelation').removeAttr("disabled");
-    } else {
-        $("#iconEditRelation").removeClass();
-        $("#iconEditRelation").addClass('editIconDisabled');
-        $("#iconEditRelation").attr("disabled", true);
-    }
-    if ((customCheckBoxesChecked == 1) && (tableID == "mainRuleTable")) {
-        $("#btnEditRuleIcon").removeClass();
-        $("#btnEditRuleIcon").addClass('editIconEnabled');
-        $('#btnEditRuleIcon').removeAttr("disabled");
-    } else {
-        $("#btnEditRuleIcon").removeClass();
-        $("#btnEditRuleIcon").addClass('editIconDisabled');
-        $("#btnEditRuleIcon").attr("disabled", true);
-    }
-};
-
-/** Following method disables edit icon.
- * @param tableID
- */
-common.prototype.deActivateEditIcon = function(tableID) {
-    if (tableID == "mainRoleTable") {
-        $("#btnEditRoleIcon").removeClass();
-        $("#btnEditRoleIcon").addClass('editIconDisabled');
-        $("#btnEditRoleIcon").attr("disabled", true);
-    }
-    if (tableID == "mainRuleTable") {
-        $("#btnEditRuleIcon").removeClass();
-        $("#btnEditRuleIcon").addClass('editIconDisabled');
-        $("#btnEditRuleIcon").attr("disabled", true);
-    }
-    if (tableID == "mainAccountTable") {
-        $("#iconEditAccount").removeClass();
-        $("#iconEditAccount").addClass('editIconDisabled');
-        $("#iconEditAccount").attr("disabled", true);
-    }
-    if (tableID == "mainBoxTable") {
-        $("#btnEditBoxIcon").removeClass();
-        $("#btnEditBoxIcon").addClass('editIconDisabled');
-        $("#btnEditBoxIcon").attr("disabled", true);
-    }
-    if (tableID == "mainRelationTable") {
-        $("#iconEditRelation").removeClass();
-        $("#iconEditRelation").addClass('editIconDisabled');
-        $("#iconEditRelation").attr("disabled", true);
-    }
-};
-
 /**
  * The purpose of this method is to highlight rows according to their selection.
  */
@@ -654,7 +571,6 @@ common.prototype.rowSelect = function(objRow, rowID, chkBoxID, colID, delButID,
         }
         //this.checkEditButton(customCheckBoxesChecked, editButID, fileType, isAcl);
         if (customCheckBoxesChecked > 0) {
-            this.activateEditIcon(customCheckBoxesChecked, tableID);
             this.checkEditButton(customCheckBoxesChecked, editButID, fileType, isAcl);
             //commonObj.enableButton('#' + delButID);
             if (customCheckBoxesChecked != 1) {
@@ -782,7 +698,6 @@ common.prototype.rowSelect = function(objRow, rowID, chkBoxID, colID, delButID,
                 var objOdata = new odata();
                 objOdata.hidePluginIcons();
             }
-            this.deActivateEditIcon(tableID);
             if (fileType == 'file') {
                 var objFileDownload = new fileDownload();
                 objFileDownload.disableDownloadArea();

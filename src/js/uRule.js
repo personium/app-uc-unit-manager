@@ -49,6 +49,22 @@ uRule.prototype.retrieveChunkedData = function (lowerLimit, upperLimit) {
 	return dataJson;
 };
 
+uRule.prototype.getRuleData = function(ruleName, boxName) {
+	var baseUrl = getClientStore().baseURL;
+	var cellName = sessionStorage.selectedcell;
+	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
+	var objRuleManager = new _pc.RuleManager(accessor);
+	var ruleUri = objRuleManager.getUrl();
+	var dataUri = ruleUri + "(Name='"+ruleName+"')";
+	if (boxName && boxName !== getUiProps().MSG0039) {
+		dataUri = ruleUri + "(Name='"+ruleName+"',_Box.Name='"+boxName+"')";
+	}
+	var restAdapter =  new _pc.RestAdapterFactory.create(accessor);
+	var dataResponse = restAdapter.get(dataUri + "?$expand=_Box", "application/json");
+	var dataJson = dataResponse.bodyAsJson().d.results;
+	return dataJson;
+}
+
 /**
  * The purpose of this function is to call the createTable function
  * for displaying rule list
@@ -190,17 +206,6 @@ uRule.prototype.checkAll = function(cBox) {
 	$('#btnEditRule').attr('disabled', false);
 	objCommon.showSelectedRow(document.getElementById("chkSelectall"), "row",
 			"rowid");
-	$("#btnEditRuleIcon").removeClass();
-	$("#btnEditRuleIcon").addClass('editIconDisabled');
-	$("#btnEditRuleIcon").attr("disabled", true);
-	var noOfRecords = $("#mainRuleTable > tbody > tr").length;
-	if ($("#chkSelectall").is(':checked')) {
-		if (noOfRecords == 1) {
-			$("#btnEditRuleIcon").removeClass();
-			$("#btnEditRuleIcon").addClass('editIconEnabled');
-			$('#btnEditRuleIcon').removeAttr("disabled");
-		}
-	}
 };
 
 /**
@@ -330,10 +335,6 @@ function createChunkedRuleTable(json, recordSize){
 	$('#chkSelectall').attr('checked', false);
 	$("#chkSelectall").attr('disabled', false);
 	objCommon.disableButton('#btnDeleteRule');
-	$("#btnEditRuleIcon").removeClass('editIconEnabled');
-	$("#btnEditRuleIcon").addClass('editIconDisabled');
-	$("#btnEditRuleIcon").attr("disabled", true);
-	//$("#btnDeleteRule").attr('disabled', true);
 	var baseUrl = getClientStore().baseURL;
 	var accessor = objCommon.initializeAccessor(baseUrl,cellName,"","");
 	var mainBoxValue = getUiProps().MSG0039;
@@ -411,28 +412,17 @@ function createChunkedRuleTable(json, recordSize){
 			dynamicTable += '<tr name = "allrows" id = "rowid'+ruleRowCount+'" onclick="objCommon.rowSelect(this,'+ "'rowid'" +','+ "'chkBox'"+','+ "'row'" +','+ "'btnDeleteRule'" +','+ "'chkSelectall'" +','+ ruleRowCount +',' + totalRecordsize + ','+ "'btnEditRule'" + ','+"''"+','+"''"+','+"''"+','+"'mainRuleTable'"+');">';
 			dynamicTable += '<td style="width:1%"><input id =  "txtHiddenEtagId'+ruleRowCount+'" value='+obj.__metadata.etag+' type = "hidden" /><input title="'+ruleRowCount+'" id = "chkBox'+ruleRowCount+'" type = "checkbox" class = "case cursorHand regular-checkbox big-checkbox" name = "case" value = "'+ruleBoxPair+'" /><label for="chkBox'+ruleRowCount+'" class="customChkbox checkBoxLabel"></label></td>';
 			
-			dynamicTable += '<td name = "acc"><div style="width:280px;" class = "mainTableEllipsis"><lable tile="'+name[count]+'" tabindex ="-1" style="outline:none">'+name[count]+'</a></div></td>';//openRuleAccountLinkMappingPage('+ruleName+','+boxName+','+ruleDate+','+accountCount+');
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+box[count]+"' class='cursorPointer'>"+box[count]+"</label></div></td>";
+			dynamicTable += '<td name = "acc" style="max-width:270px;"><div class = "mainTableEllipsis"><a tile="'+name[count]+'" tabindex ="-1" style="outline:none" onclick="uRuleDetail.openRuleDetail('+ruleName+', '+boxName+')">'+name[count]+'</a></div></td>';//openRuleAccountLinkMappingPage('+ruleName+','+boxName+','+ruleDate+','+accountCount+');
+			dynamicTable += "<td><div class = 'mainTableEllipsis'><label title= '"+box[count]+"' class='cursorPointer'>"+box[count]+"</label></div></td>";
+			dynamicTable += "<td><div class = 'mainTableEllipsis'><label title= '"+action[count]+"' class='cursorPointer'>"+action[count]+"</label></div></td>";
 
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+action[count]+"' class='cursorPointer'>"+action[count]+"</label></div></td>";
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+eventExternal[count]+"' class='cursorPointer'>"+eventExternal[count]+"</label></div></td>";
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+eventType[count]+"' class='cursorPointer'>"+eventType[count]+"</label></div></td>";
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+eventSubject[count]+"' class='cursorPointer'>"+eventSubject[count]+"</label></div></td>";
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+eventObject[count]+"' class='cursorPointer'>"+eventObject[count]+"</label></div></td>";
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+eventInfo[count]+"' class='cursorPointer'>"+eventInfo[count]+"</label></div></td>";
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+targetUrl[count]+"' class='cursorPointer'>"+targetUrl[count]+"</label></div></td>";
-
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+ruleCreatedDate+"' class='cursorPointer'>"+ruleCreatedDate+"</label></div></td>";
-			dynamicTable += "<td><div style='width:150px;' class = 'mainTableEllipsis'><label title= '"+ruleDate+"' class='cursorPointer'>"+ruleDate+"</label></div></td>";
+			dynamicTable += "<td><div class = 'mainTableEllipsis'><label title= '"+ruleCreatedDate+"' class='cursorPointer'>"+ruleCreatedDate+"</label></div></td>";
+			dynamicTable += "<td><div class = 'mainTableEllipsis'><label title= '"+ruleDate+"' class='cursorPointer'>"+ruleDate+"</label></div></td>";
 			ruleDate = "'"+ruleDate+"'";
 			dynamicTable += "</tr>";
 			ruleRowCount++;
 		//Rows End
 	}	
-	if (jsonLength >0) {
-		$("#mainRuleTable thead tr").addClass('mainTableHeaderRow');
-		$("#mainRuleTable tbody").addClass('mainTableTbody');
-	}
 	$("#mainRuleTable tbody").html(dynamicTable);
 	setTimeout(function() {
 		applyScrollCssOnRuleGrid();	
@@ -480,9 +470,6 @@ function createRuleTable() {
 		$("#chkSelectall").attr('disabled', true);
 		$('#mainRuleTable tbody').empty();
 		objCommon.disableButton("#btnDeleteRule");
-		$("#btnEditRuleIcon").removeClass('editIconEnabled');
-		$("#btnEditRuleIcon").addClass('editIconDisabled');
-		$("#btnEditRuleIcon").attr("disabled", true);
 	} else {
 		$("#chkSelectall").attr('disabled', false);
 		document.getElementById("dvemptyTableMessage").style.display = "none";
@@ -762,9 +749,6 @@ function editRule(oldRuleName, oldBoxName, body, objJRuleManager) {
 	var response = objJRuleManager.update(oldRuleName, oldBoxName, body, "*");
 	if(response.getStatusCode() == 204) {
 		displayEditRuleSuccessMessage();
-		$("#btnEditRuleIcon").removeClass();
-		$("#btnEditRuleIcon").addClass('editIconDisabled');
-		$("#btnEditRuleIcon").attr("disabled", true);
 	} else if (response.getStatusCode() == 409) {
 		var existRuleNameMessage = getUiProps().MSG0007;
 		editPopupRuleErrorMsg.innerHTML = existRuleNameMessage;
@@ -794,12 +778,12 @@ function displayRuleCreateMessage (ruleName) {
 function displayEditRuleSuccessMessage() {
 	objCommon.removePopUpStatusIcons('#txtRuleNameEdit');
 	$('#ruleEditModalWindow, .window').hide();
-	$("#ruleMessageBlock").css("display", 'table');
-	document.getElementById("ruleSuccessmsg").innerHTML = getUiProps().MSG0420;
-	addSuccessClass('#ruleMessageIcon');
+	$("#ruleInfoMessageBlock").css("display", 'table');
+	document.getElementById("ruleInfoSuccessmsg").innerHTML = getUiProps().MSG0420;
+	addSuccessClass('#ruleInfoMessageIcon');
 	createRuleTable();
-	objCommon.centerAlignRibbonMessage("#ruleMessageBlock");
-	objCommon.autoHideAssignRibbonMessage('ruleMessageBlock');
+	objCommon.centerAlignRibbonMessage("#ruleInfoMessageBlock");
+	objCommon.autoHideAssignRibbonMessage('ruleInfoMessageBlock');
 }
 
 /**
@@ -900,6 +884,7 @@ function updateRule() {
 	var accessor = objCommon.initializeAccessor(baseUrl,cellName,"","");
 	var objJRuleManager = new _pc.RuleManager(accessor);
 	editRule(oldRuleName, oldBoxName, body, objJRuleManager);
+	uRuleDetail.initializePage(newRuleName, newBoxSelected);
 
 	removeSpinner("modalSpinnerRule");
 }
@@ -1111,19 +1096,6 @@ $("#txtRuleName").blur(function () {
 	ruleValidation(ruleName, "popupRuleErrorMsg");
 });
 
-/**
-**The purpose of this function is to validate rule name field in edit rule popup
-* 
-*/
-$("#txtRuleNameEdit").blur(function () {
-	var newRuleName = document.getElementById("txtRuleNameEdit").value;
-	if(ruleValidation(newRuleName, "popupRuleErrorMsgEdit")) {
-		cellpopup.showValidValueIcon('#txtRuleNameEdit');
-	} else {
-		$("#txtRuleNameEdit").addClass("errorIcon");
-	}
-});
-
 $("#txtEventSubject").blur(function () {
 	var eventSubject = convInvalidValToUndefined(document.getElementById("txtEventSubject").value);
 	if (eventSubject) {
@@ -1136,18 +1108,6 @@ $("#txtEventSubject").blur(function () {
 	removeStatusIcons("#txtEventSubject");
 	document.getElementById("popupEventSubjectErrorMsg").innerHTML = "";
 });
-$("#txtEventSubjectEdit").blur(function () {
-	var eventSubject = convInvalidValToUndefined(document.getElementById("txtEventSubjectEdit").value);
-	if (eventSubject) {
-		if (!objBox.validateSchemaURL(eventSubject, "popupEventSubjectErrorMsgEdit", "#txtEventSubjectEdit")) {
-			removeSpinner("modalSpinnerRule");
-			return;
-		}
-	}
-
-	removeStatusIcons("#txtEventSubjectEdit");
-	document.getElementById("popupEventSubjectErrorMsgEdit").innerHTML = "";
-});
 
 $("#chkBoxBound").change(function() {
 	if ($("#chkBoxBound").attr("checked")) {
@@ -1157,14 +1117,6 @@ $("#chkBoxBound").change(function() {
 	}
 	changeTextField(false);
 })
-$("#chkBoxBoundEdit").change(function() {
-	if ($("#chkBoxBoundEdit").attr("checked")) {
-		$("#dropDownBoxEdit").attr("disabled", false);
-	} else {
-		$("#dropDownBoxEdit").attr("disabled", true);
-	}
-	changeTextField(true);
-})
 
 /**
 **The purpose of this function is to validate Box field
@@ -1172,9 +1124,6 @@ $("#chkBoxBoundEdit").change(function() {
 */
 $("#dropDownBox").change(function () {
 	changeTextField(false);
-});
-$("#dropDownBoxEdit").change(function () {
-	changeTextField(true);
 });
 
 /**
@@ -1184,9 +1133,6 @@ $("#dropDownBoxEdit").change(function () {
 $("#dropDownAction").change(function () {
 	changeTextField(false);
 });
-$("#dropDownActionEdit").change(function () {
-	changeTextField(true);
-});
 
 /**
 **The purpose of this function is to validate Event External field
@@ -1195,14 +1141,8 @@ $("#dropDownActionEdit").change(function () {
 $('input[name="dropDownEventExternal"]:radio').change(function () {
 	changeTextField(false);
 });
-$('input[name="dropDownEventExternalEdit"]:radio').change(function () {
-	changeTextField(true);
-});
 $("#txtTargetUrl, #txtTargetUrlLocalBox, #txtTargetUrlLocalCel").blur(function () {
 		validateTargetUrl(false);
-});
-$("#txtTargetUrlEdit, #txtTargetUrlLocalBoxEdit, #txtTargetUrlLocalCelEdit").blur(function () {
-		validateTargetUrl(true);
 });
 function changeTextField(editFlg, initEventObject, initTargetUrl) {
 	var editId = (editFlg)? "Edit":"";
