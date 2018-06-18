@@ -43,7 +43,7 @@ roleAccountLink.prototype.retrieveRecordCount = function () {
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
 	var objAccountManager = new _pc.AccountManager(accessor);
 	var uri = objAccountManager.getUrl();
-	var accountName = sessionStorage.accountname;
+	var accountName = sessionStorage.accountName;
 	var key="";
 	key = "('"+accountName+"')";
 	uri += key + "/"+"_Role";
@@ -67,7 +67,7 @@ roleAccountLink.prototype.retrieveChunkedData = function (lowerLimit, upperLimit
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
 	var objAccountManager = new _pc.AccountManager(accessor);
 	var uri = objAccountManager.getUrl();
-	var accountName = sessionStorage.accountname;
+	var accountName = sessionStorage.accountName;
 	var key="";
 	key = "('"+accountName+"')";
 	uri += key + "/"+"_Role";
@@ -332,7 +332,7 @@ function isRoleBoxExist () {
 	}
 	var accessor = initializeAccessor();
 	var context	= initializeAbstractDataContext(accessor);
-	var response = objLinkManager.retrieveAccountRoleLinks(context, SOURCE, DESTINATION,sessionStorage.accountname, box, role);
+	var response = objLinkManager.retrieveAccountRoleLinks(context, SOURCE, DESTINATION,sessionStorage.accountName, box, role);
 	if (response.getStatusCode() == 200) {
 		var responseBody = response.bodyAsJson();
 		var json = responseBody.d.results;
@@ -394,7 +394,7 @@ function linkAccountAndRole() {
 			box = null;
 		}
 		response = objLinkManager.establishLink(context, SOURCE, DESTINATION,
-				sessionStorage.accountname, box, role);
+				sessionStorage.accountName, box, role);
 		// 204 is returned when the link has been successfully created.
 		if (response.getStatusCode() == 204) {
 			// Loading grid with updated values.
@@ -587,7 +587,7 @@ function deleteMapping(roleName,count) {
 	}
 	var role = getRoleNameForDelete(roleName);
 	role = role.replace(/'/g, " ").split(' ').join('');
-	accountName = sessionStorage.accountname;
+	accountName = sessionStorage.accountName;
 	var accessor = initializeAccessor();
 	var context = initializeAbstractDataContext(accessor);
 	var objLinkManager = new _pc.LinkManager(accessor);
@@ -683,7 +683,7 @@ function retrieveAllRoleAccountLinkJsonData() {
 	var objAccountManager = new _pc.AccountManager(accessor);
 	var totalRecordCount = objRoleAccountLink.retrieveRecordCount();
 	var uri = objAccountManager.getUrl();
-	var accountName = sessionStorage.accountname;
+	var accountName = sessionStorage.accountName;
 	var key="";
 	key = "('"+accountName+"')";
 	uri += key + "/"+"_Role";
@@ -704,8 +704,8 @@ $(document).ready(function() {
 			objCommon.setDynamicPositionOfAssignEmptyMessage();
 		}
 	});
-	$("#lblAccountName").html(sessionStorage.accountname);
-	$("#lblAccountName").attr('title', sessionStorage.accountname);
+	$("#lblAccountName").html(sessionStorage.accountName);
+	$("#lblAccountName").attr('title', sessionStorage.accountName);
 	$("#txtAssignRoleBoxName").attr("placeholder", getUiProps().MSG0242);
 	loadAccountRoleAssignationPage();
 	objCommon.assignBackBtnHoverEffect();
@@ -723,8 +723,8 @@ $(document).ready(function() {
 			objCommon.setDynamicPositionOfAssignEmptyMessage();
 		}
 	});
-	$("#lblAccountName").html(sessionStorage.accountname);
-	$("#lblAccountName").attr('title', sessionStorage.accountname);
+	$("#lblAccountName").html(sessionStorage.accountName);
+	$("#lblAccountName").attr('title', sessionStorage.accountName);
 	$("#txtAssignRoleBoxName").attr("placeholder", getUiProps().MSG0242);
 	loadAccountRoleAssignationPage();
 	objCommon.assignBackBtnHoverEffect();
