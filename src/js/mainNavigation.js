@@ -180,7 +180,7 @@ function accountListData() {
 function openRoleLinkPage(accountname, accountdate, rolecount, etagstart, etagEnd,createdDate, updatedDate, schema) {
     var id = objCommon.isSessionExist();
     if (id != null) {
-        sessionStorage.accountname = accountname;
+        sessionStorage.accountName = accountname;
         sessionStorage.accountdate = accountdate;
         sessionStorage.rolecount = rolecount;
 
@@ -195,6 +195,8 @@ function openRoleLinkPage(accountname, accountdate, rolecount, etagstart, etagEn
                     /*if (navigator.userAgent.indexOf("Firefox") != -1) {
                         loadAccountRoleAssignationPage();
                     }*/
+                    objCommon.centerAlignRibbonMessage("#accountLinkMessageBlock");
+                    objCommon.autoHideAssignRibbonMessage("accountLinkMessageBlock");
                     $("#mainContentWebDav").show();
                     spinner.stop();
                 });
@@ -209,7 +211,7 @@ function clickAccountRoleLinkMappingPage() {
         $("#mainContent").hide();
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
-        sessionStorage.accountname = $("#lblAccountName").text();
+        sessionStorage.accountName = $("#lblAccountName").text();
         $("#mainContentWebDav").load(
                 contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleAccountLinkControl.html', function() {
                     /*if (navigator.userAgent.indexOf("Firefox") != -1) {
@@ -282,6 +284,8 @@ function relationListData() {
         var spinner = new Spinner(opts).spin(target);
         $("#mainContentWebDav").load(
                 contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/assignRoleNavigation.html', function() {
+                    objCommon.centerAlignRibbonMessage("#roleLinkMessageBlock");
+                    objCommon.autoHideAssignRibbonMessage("roleLinkMessageBlock");
                     $("#roleAccountLinkDiV").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleToAccountMapping.html', function() {
                         if (navigator.userAgent.indexOf("Firefox") != -1) {
                             loadRoleToAccountMappingPage();
