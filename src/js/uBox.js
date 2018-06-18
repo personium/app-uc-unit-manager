@@ -181,21 +181,12 @@ function checkAll(cBox) {
  * @param boxSpan
  * @param schemaSpan
  */
-function validate(boxName,schemaURL,boxSpan,schemaSpan, displayName, descriptionDetails,txtSchemaURLID) {
+function validate(boxName,schemaURL,boxSpan,schemaSpan,txtSchemaURLID) {
 	if(validateBoxName(boxName,boxSpan)) {
 		document.getElementById(boxSpan).innerHTML = "";
 		if(objBox.validateSchemaURL(schemaURL, schemaSpan,txtSchemaURLID)) {
 			document.getElementById(schemaSpan).innerHTML = "";
-			if ($('#chkCreateProfileBox').is(':checked')) {
-					//uCellProfile.spinner = showSpinnerForUploadFile();
-						if (validateBoxProfile(displayName, descriptionDetails,"boxDisplayNameErrorMsg", "boxDescriptionErrorMsg")) {
-							//uCellProfile.spinner.stop();
-							return true;
-						}
-						//uCellProfile.spinner.stop();
-			} else {
-				return true;
-			}
+			return true;
 		}
 	}
 	return false;
@@ -324,16 +315,12 @@ function isBoxExist(check, accessor, objJBox, objJBoxManager, fileData) {
  * The purpose of this function is to create box.
  */
 function createNewBox() {
-	var objBoxProfile = new boxProfile();
 	showSpinner("modalSpinnerBox");
 	document.getElementById("popupBoxErrorMsg").innerHTML = "";
 	var boxName = document.getElementById("txtBoxName").value;
 	var cellName = sessionStorage.selectedcell;
-	var schemaURL = document.getElementById("txtSchemaURL").value;
-	var displayName = $("#txtDisplayNameBox").val();
-	var descriptionDetails = document.getElementById("txtDescriptionBox").value;		
+	var schemaURL = document.getElementById("txtSchemaURL").value;		
 	var baseUrl = getClientStore().baseURL;
-	var fileData = null;
 	var check;
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName, schemaURL, boxName);
 	accessor.setCurrentCell(new _pc.Cell(accessor, cellName));
@@ -354,27 +341,10 @@ function createNewBox() {
 			return false;
 		}
 	}
-	 var profileImageName = $('#lblNoFileSelected').text();
-	if (validate(boxName, schemaURL,"popupBoxErrorMsg","popupSchemaErrorMsg", displayName, descriptionDetails,"#txtSchemaURL")) {
-		var success = isBoxExist(check, accessor, objJBox, objJBoxManager, fileData);
+	if (validate(boxName, schemaURL,"popupBoxErrorMsg","popupSchemaErrorMsg","#txtSchemaURL")) {
+		var success = isBoxExist(check, accessor, objJBox, objJBoxManager);
 		if (success) {
-			if (($('#chkCreateProfileBox').is(':checked'))) {
-				var imageBinaryData = imgBinaryFile;
-				fileData = {
-						"DisplayName" : displayName,
-						"Description" : descriptionDetails,
-						"Image" : imageBinaryData,
-						"ProfileImageName" : profileImageName
-						
-					};
-				var response = objBoxProfile.createBoxProfile(boxName, fileData);
-				var statusCode = objCommon.getStatusCode(response);
-				if (statusCode === 201 || statusCode === 204) {
-					displayBoxCreateMessage (boxName);
-				}
-			} else {
-				displayBoxCreateMessage (boxName);
-			}
+			displayBoxCreateMessage (boxName);
 		}
 	}
 	removeSpinner("modalSpinnerBox");
@@ -1091,17 +1061,11 @@ function calculateAspectRatio(height,width) {
  */
 function closeCreateBoxPopUp(modelId) {
 	$(modelId).hide(0);
-	uCellProfile.resetFileInput('#idImgFileBox', 'popupBoxImageErrorMsg');
 	imgBinaryFile = null;
 	disableBrowseButton("#btnBrowse");
-	$("#figBoxProfile").addClass("boxProfileImage");
-	$('#sectionRHSMainElements :input').attr('disabled', true);
-	$("#imgBoxProfile").css("display", "none");
-	$('#lblNoFileSelected').html('No file selected');
 	$('.popupContent').find('input:text').val('');
 	$('.popupContent').find('textarea').val('');
 	$('.popupAlertmsg').html('');
-	$('#chkCreateProfileBox').attr('checked', false);
 	$('.popupContent').find('input:text').removeClass( "errorIcon validValueIcon" );
 }
 /**

@@ -493,7 +493,7 @@ limitations under the License.
 	<div id="createBoxPopUpModalWindow" class="modelback"
 		style="display: none;">
 		<div class="modal-window block-border"
-			style="display: block; height: 525px; width: 706px; background: #ffffff"
+			style="display: block; height: 300px; width: 474px; background: #ffffff"
 			id="createBoxPopUpDialogBox">
 			<div id="dvCloseIcon" class="closeIconDiv">
 				<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon"
@@ -528,81 +528,6 @@ limitations under the License.
 					</div>
 				</div>
 				<!-- LHS Block ENDS -->
-				<!-- RHS Block Starts -->
-				<div id="dvRHSElements" class="positionRHSElements RHSElements">
-					<section id="checkBoxSection" class="chkBoxCreateProfilePosition">
-						<div class=" chkBoxCreateElement">
-							<input id="chkCreateProfileBox" type="checkbox" onfocus="checkboxFocus();" onblur="checkboxBlur();"
-								class="checkBox cursorHand regular-checkbox big-checkbox" tabindex="3" style="display: inline-block;opacity: 0">
-							<label style="cursor:pointer;margin-left: -16px" for="chkCreateProfileBox"
-								class="customChkbox checkBoxLabel" id="customLblChkBox"></label>
-						</div>
-						<div class="chkBoxCreateElement checkBoxElementLabel">Create
-							Profile</div>
-					</section>
-					<section id="sectionRHSMainElements">
-					<div id="dvDisplayName" class="lblElement ">Display Name</div>
-					<div class="positionTopDiv">
-						<div id="dvTextDisplayName" class=" ">
-							<input id="txtDisplayNameBox" type="text" class="bigTextBox " tabindex="4">
-						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg RHSAlertMsg" id="boxDisplayNameErrorMsg"></aside>
-						</span>
-					</div>
-					<div id="dvDescription" class="lblElement">Description</div>
-					<div class="positionTopDiv">
-						<div id="dvTextDisplayName" class="">
-						<textarea name="" cols="" rows="" class="bigTextBox bigTextBoxHeight entityGridTbody" id="txtDescriptionBox" tabindex="5"></textarea>
-						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg RHSAlertMsg" id="boxDescriptionErrorMsg"></aside>
-						</span>
-					</div>
-					<div id="dvApplicationImage"
-						class="widthApplicationImage lblElement">Application Image</div>
-					<section class="positionImageSection" id="imgSection">
-						<div class="floatLeft" id="dvBoxProfileImage">
-								<table >
-									<tr>
-										<td align="center" valign="middle" class="imgBorder">
-											<figure id="figBoxProfile" class="boxProfileImage">
-													<img style="display: none; margin: auto;"
-														id="imgBoxProfile" src="#" alt="image" />
-											</figure>
-										</td>
-									</tr>
-								</table>
-							</div>
-							<div id="dvBrowseButtonSection" class="browseButtonSection" >
-								<div>
-									<label class="itemInfo positionImageInfo"
-										id="lblNoFileSelected">No file selected </label>
-								</div>
-								<div class="browseButton">
-									<div id="dvBrowse" class="file-input-wrapper">
-										<button title="" id="btnBrowse" style="cursor: pointer" class="btn-file-input btnDisabled">Browse</button>
-										<input style="cursor: default" title=" " onfocus="divOnFocusBrowse();" onblur="divOnBlurBrowse();"
-											onchange="selectFile(this,'popupBoxImageErrorMsg','idImgFileBox','#imgBoxProfile','#lblNoFileSelected','#figBoxProfile');"
-											id="idImgFileBox" type="file" name="file" tabindex="6"/>
-									</div>
-								</div>
-							</div>
-						</section>
-					<section class="positionTopDiv positionApplicationImageSection">
-						<div>
-							<label class="floatLeft itemInfo" id="imageInfo"> You can
-								upload any image of size max. 50 kb, dimension<br> 180px x
-								180 px in JPEG/PNG format
-							</label>
-						</div>
-						<span class="popupAlertArea">
-							<aside class="popupAlertmsg RHSAlertMsg" id="popupBoxImageErrorMsg"></aside>
-						</span>
-					</section>
-						</section>
-				</div>
-				<!-- RHS ENDS -->
 			</section>
 		
 			<!-- Button Section Starts -->
