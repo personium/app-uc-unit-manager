@@ -551,20 +551,31 @@ cellProfile.prototype.getNewTokenValues = function (paramOldRefreshToken, mode) 
         var paramTargetURL = sessionStorage.selectedUnitUrl;
         var paramTargetCellUrl = paramTargetURL + sessionStorage.selectedUnitCellName;
         var refreshtokenURL = paramTargetCellUrl + "/__token";
+        let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+        let tokenCredential = {
+            grant_type: "refresh_token",
+            refresh_token: paramOldRefreshToken
+        };
+        if (!ManagerInfo.isCellManager) {
+        $.extend(
+                true,
+                tokenCredential,
+                {
+                    p_target : paramTargetURL
+                }
+            );
+        } 
             $.ajax({
             dataType : 'json',
             url : refreshtokenURL,
-            data : {
-                grant_type: "refresh_token",
-                p_target : paramTargetURL,
-                refresh_token: paramOldRefreshToken
-            },
+            data : tokenCredential,
             type : 'POST',
             async : false,
             success : function(data) {
                 uCellProfile.setNewTokenValues(data);
             },
-            error : function() {
+            error : function(error) {
+                console.log(error);
             }
         });
 };
@@ -1119,6 +1130,7 @@ $(function() {
     var oldRefreshToken = getClientStore().refreshToken;
     if (oldRefreshToken != undefined) {
         setInterval(function() {
+            oldRefreshToken = getClientStore().refreshToken;
             uCellProfile.getNewTokenValues(oldRefreshToken, "PersistToken");
             uCellProfile.showAccessToken();
         }, 3480000); //58 Minutes.3480000

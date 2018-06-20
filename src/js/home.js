@@ -347,8 +347,8 @@ home.prototype.openResourceManagement = function() {
     sessionStorage.target = target;
     sessionStorage.token = token;
     objCommon.getCellCountAndOpenPage();
-    sessionStorage.isSocialGraph == "false";
-    sessionStorage.isResourceMgmt == "true";
+    sessionStorage.isSocialGraph = "false";
+    sessionStorage.isResourceMgmt = "true";
 };
 
 /**

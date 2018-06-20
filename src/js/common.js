@@ -61,16 +61,10 @@ common.prototype.checkIdleTime = function() {
     if (new Date().getTime() > LASTACTIVITY + IDLE_TIMEOUT) {
         //if (objCommon.isSessionExist() == null) {
             // If Cell Profile is loaded.
-            if (sessionStorage.isResourceMgmt = "true") {
+            if (sessionStorage.isResourceMgmt == "true") {
                 sessionStorage.isResourceMgmt == "false";
                 objCommon.openPopUpWindow("#timeOutCellProfileDialogBox",
                         "#timeOutCellProfileModalWindow");
-            }
-            // If Home is loaded.
-            if (sessionStorage.isHomePage = "true") {
-                sessionStorage.isHomePage = "false";
-                objCommon.openPopUpWindow("#timeOutDialogBox",
-                        "#timeOutModalWindow");
             }
         //}
     }
@@ -90,7 +84,7 @@ common.prototype.openPopUpWindow = function(idDialogBox, idModalWindow,
     var windowWidth = $(window).width();
     $(idDialogBox).css('top', windowHeight / 2 - $(idDialogBox).height() / 2);
     $(idDialogBox).css('left', windowWidth / 2 - $(idDialogBox).width() / 2);
-    if (idDialogBox == '#timeOutDialogBox' || idDialogBox == '#timeOutCellProfileDialogBox') {
+    if (idDialogBox == '#timeOutCellProfileDialogBox') {
         $("#btnTimeout").focus();
     }
 };
