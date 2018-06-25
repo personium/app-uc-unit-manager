@@ -1133,6 +1133,9 @@ $(function() {
             oldRefreshToken = getClientStore().refreshToken;
             uCellProfile.getNewTokenValues(oldRefreshToken, "PersistToken");
             uCellProfile.showAccessToken();
+            let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+            ManagerInfo.refreshToken = getClientStore().refreshToken;
+            sessionStorage.ManagerInfo = JSON.stringify(ManagerInfo);
         }, 3480000); //58 Minutes.3480000
     }
     $("#btnEditCellProfile").click(function() {
