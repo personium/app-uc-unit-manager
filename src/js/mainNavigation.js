@@ -595,23 +595,26 @@ mainNavigation.prototype.snapshotViewData = function() {
  * The purpose of this function is to display the mapping between role and
  * external cell
  */
-function openExternalCellToRoleMapping(externalCellName, extCellURL, etagstart, etagEnd,createdDate, updatedDate, schema) {
+function openExternalCellToRoleMapping(externalCellName, extCellURL) {
     var id = objCommon.isSessionExist();
     if (id != null) {
         sessionStorage.externalCellURI = extCellURL;
         sessionStorage.extCellURL = extCellURL;
-        objCommon.setCellControlsInfoTabValues(externalCellName, etagstart, etagEnd, createdDate, updatedDate, schema);
+        //objCommon.setCellControlsInfoTabValues(externalCellName, etagstart, etagEnd, createdDate, updatedDate, schema);
         $("#mainContent").hide();
         $("#mainContentWebDav").empty();
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
         $("#mainContentWebDav").load(
                 contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/assignExternalCellNavigation.html', function() {
+                    var extData = objExtCell.getExternalCellData(extCellURL);
+                    objExtCell.setCellControlsInfoTabValues(externalCellName, extData.__metadata.etag, objCommon.convertEpochDateToReadableFormat(extData.__published), objCommon.convertEpochDateToReadableFormat(extData.__updated));
+                    objExtCell.initEditExternalCell();
                     $("#extCellTabLinkDiV").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/externalCellToRoleMapping.html', function() {
                         if (navigator.userAgent.indexOf("Firefox") != -1) {
                             var objExternalCellToRoleMapping = new externalCellToRoleMapping();
-                        objExternalCellToRoleMapping.loadExtCellToRolesMappingPage();
-                    }
+                            objExternalCellToRoleMapping.loadExtCellToRolesMappingPage();
+                        }
                         $("#mainContentWebDav").show();
                         $('#assignExtCellName').text(externalCellName);
                         $("#assignExtCellName").attr('title', externalCellName);

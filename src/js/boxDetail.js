@@ -248,8 +248,14 @@ boxDetail.prototype.displayBoxInfoDetails = function() {
 	$("#ccCreatedate").text(sessionStorage.cccreatedat);
 	$("#ccUpatedate").text(sessionStorage.ccupdatedat);
 	$("#ccEtag").text(sessionStorage.ccetag);
-	var dispCcURL = objCommon.changeLocalUnitToUnitUrl(sessionStorage.ccurl);
-	$("#ccUrl").text(dispCcURL);
+	if (sessionStorage.ccurl) {
+		var dispCcURL = objCommon.changeLocalUnitToUnitUrl(sessionStorage.ccurl);
+		$("#ccUrl").text(dispCcURL);
+		$("#ccUrl").css("display", "block");
+	} else {
+		$("#ccUrl").css("display", "none");
+		$("#ccUrl").siblings(".ContentHeadingpt1").css("display", "none");
+	}
 };
 
 

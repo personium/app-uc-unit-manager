@@ -131,6 +131,10 @@ function openCreateEntityModal(parentDivId, childDivId, firstElementToBeFocussed
   if (parentDivId == '#accountEditModalWindow' && childDivId == '#accountEditDialogBox') {
     getSelectedAccountDetails();
     }
+  if (parentDivId == '#externalCellEditModalWindow' && childDivId == '#externalCellEditDialogBox') {
+    objExtCell.bindDropDown(true);
+    objExtCell.getSelectedExternalCellDetails();
+    }
   if (parentDivId == '#multipleExternalCellDeleteModalWindow' && childDivId == '#multipleExternalCellDeleteDialogBox') {
     var objExternalCell = new externalCell();
     objExternalCell.getMultipleExternalCellNames();
@@ -3661,6 +3665,18 @@ common.prototype.changeLocalUnitToUnitUrl = function (cellUrl) {
     var result = cellUrl;
     if (cellUrl.startsWith(objCommon.PERSONIUM_LOCALUNIT)) {
         result = cellUrl.replace(objCommon.PERSONIUM_LOCALUNIT + "/", getClientStore().baseURL);
+    }
+
+    return result;
+}
+
+/*
+ * Replace unit URL with your personium-localunit
+ */
+common.prototype.changeUnitUrlToLocalUnit = function (cellUrl) {
+    var result = cellUrl;
+    if (cellUrl.startsWith(getClientStore().baseURL)) {
+        result = cellUrl.replace(getClientStore().baseURL, objCommon.PERSONIUM_LOCALUNIT + "/");
     }
 
     return result;
