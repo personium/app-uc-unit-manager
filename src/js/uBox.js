@@ -543,9 +543,7 @@ function updateBox() {
 			}
 			if (isBoxNotExist ===  true) {
 				isBoxNotExist = null;
-				if (editBox(boxName, body, etag,objBoxManager)) {
-					updateBoxInfo(newBoxName, newschemaUrl);
-				}
+				editBox(boxName, body, etag,objBoxManager)
 			} else {
 				editPopupSchemaErrorMsg.innerHTML = "";
 				var existMessage = getUiProps().MSG0012;
@@ -579,19 +577,16 @@ function editBox(boxName, body, etag, objBoxManager) {
 
 	if(statusCode == 204) {
 		displayEditSuccessMessage(boxName);
+		updateBoxInfo(body.Name, body.Schema);
 	} else if (statusCode == 409) {
 		editPopupBoxErrorMsg.innerHTML= "";
 		var existSchemaMessage = getUiProps().MSG0026;
 		editPopupSchemaErrorMsg.innerHTML = existSchemaMessage;
-		return false;
 	} else if (statusCode == 400) {
 		editPopupBoxErrorMsg.innerHTML= "";
 		var validMessage = getUiProps().MSG0014;
 		editPopupSchemaErrorMsg.innerHTML = validMessage;
-		return false;
 	}
-
-	return true;
 }
 
 /**
