@@ -31,13 +31,16 @@ var isDeleted = false;
 /**
  *  The purpose of this function is to bind relation box drop down.
  */
-externalRole.prototype.bindRelationBoxDropDown = function () {
+externalRole.prototype.bindRelationBoxDropDown = function (editFlg) {
 	var shorterRelationName = null;
 	var shorterBoxName = null;
 	var mainBoxValue = getUiProps().MSG0039;
-	uExternalRole.refreshRelationBoxDropDown();
+	uExternalRole.refreshRelationBoxDropDown(editFlg);
 	var jsonString = uExternalRole.getAllRelationBoxPair();
 	var select = document.getElementById("idRelationBoxDropDown");
+	if (editFlg) {
+		select = document.getElementById("idEditRelationBoxDropDown");
+	}
 	for (var i = 0; i < jsonString.length; i++) {
 		var option = document.createElement("option");
 		var objRelation = jsonString[i];
@@ -83,8 +86,13 @@ externalRole.prototype.getAllRelationBoxPair = function () {
 /**
  * The purpose of this function is to refresh the relation box drop down.
  */
-externalRole.prototype.refreshRelationBoxDropDown = function () {
+externalRole.prototype.refreshRelationBoxDropDown = function (editFlg) {
 	var select = document.getElementById("idRelationBoxDropDown");
+	if (editFlg) {
+		select = document.getElementById("idEditRelationBoxDropDown");
+		select.options.length = 0;
+		return;
+	}
 	select.options.length = 0;
 	var newOption = document.createElement('option');
 	newOption.value = 0;
@@ -96,14 +104,29 @@ externalRole.prototype.refreshRelationBoxDropDown = function () {
  * The purpose of this function is to get selected relation and box pair from the
  * drop down.
  */
-externalRole.prototype.getSelectedRelationBoxPair = function () {
+externalRole.prototype.getSelectedRelationBoxPair = function (id) {
 	var relationBoxPair = null;
-	var dropDownID = document.getElementById("idRelationBoxDropDown");
+	var dropDownID = document.getElementById(id);
 	if (dropDownID.selectedIndex > 0) {
 		var selectedRelation = dropDownID.value;
 		if (selectedRelation != null) {
 			relationBoxPair = selectedRelation.split(objCommon.startBracket);
 		}
+	} else if (id == "idRelationBoxDropDown") {
+		document.getElementById("relationBoxDDErrorMsg").innerHTML = getUiProps().MSG0222;
+	}
+	return relationBoxPair;
+};
+/**
+ * The purpose of this function is to get selected relation and box pair from the
+ * drop down.
+ */
+externalRole.prototype.getSelectedEditRelationBoxPair = function (id) {
+	var relationBoxPair = null;
+	var dropDownID = document.getElementById(id);
+	var selectedRelation = dropDownID.value;
+	if (selectedRelation != null) {
+		relationBoxPair = selectedRelation.split(objCommon.startBracket);
 	}
 	return relationBoxPair;
 };
@@ -112,9 +135,8 @@ externalRole.prototype.getSelectedRelationBoxPair = function () {
  * The purpose of this function is to check if relation box selected from 
  * drop down is valid
  */
-externalRole.prototype.validateEmptyDropDown = function () {
+externalRole.prototype.validateEmptyDropDown = function (relBox) {
 	//document.getElementById("externalRoleURLErrorMsg").innerHTML = '';
-	var relBox = $("#idRelationBoxDropDown").val();
 	var dropDownEmptyMessage = getUiProps().MSG0050;
 	if(relBox == 0){
 		document.getElementById("relationBoxDDErrorMsg").innerHTML = dropDownEmptyMessage;
@@ -206,7 +228,11 @@ externalRole.prototype.createExternalRole = function() {
                 }
             }
             var arrSelectedRelationBox = uExternalRole
-                    .getSelectedRelationBoxPair();
+                    .getSelectedRelationBoxPair("idRelationBoxDropDown");
+            if (!arrSelectedRelationBox) {
+            	removeSpinner("modalSpinnerExtRole");
+                return;
+            }
             var selectedRelationName = arrSelectedRelationBox[0].split(
                     ' ').join('');
             selectedRelationName = selectedRelationName.trim();
@@ -271,6 +297,87 @@ externalRole.prototype.createExternalRole = function() {
     }
     removeSpinner("modalSpinnerExtRole");
 };
+/**
+ * The purpose of this function is to edit External Role.
+ */
+externalRole.prototype.editExternalRole = function() {
+	debugger;
+	var result = false;
+	showSpinner("modalSpinnerExtRoleToRoleMap");
+	var extRoleURL = null;
+	var mainBoxValue = getUiProps().MSG0039;
+	var extRoleURLAlreadyAddedMappedMsg = getUiProps().MSG0058;
+	var validMessage = getUiProps().MSG0052;
+	extRoleURL = document.getElementById("txtBoxExtRoleEditURL").value;
+    /*
+     * Validate the value and also return boolean so that additional action can be performed.
+     * true: valid URL
+     * false: invalid URL
+     */
+    if (uExternalRole.validateExternalRoleUrl(extRoleURL)) {
+        if (uExternalRole.validateEmptyDropDown()) {
+        	var key = [
+        		"ExtRole='" + encodeURIComponent(sessionStorage.ExtRoleName) + "'",
+        		"_Relation.Name='" + sessionStorage.ExtRoleRelationName + "'"
+        	].join(",");
+        	if (sessionStorage.ExtRoleBoxName != "null") {
+        		key += "_Relation._Box.Name='" + sessionStorage.ExtRoleBoxName + "'";
+        	}
+
+            var arrSelectedRelationBox = uExternalRole.getSelectedEditRelationBoxPair("idEditRelationBoxDropDown");
+            var selectedRelationName = arrSelectedRelationBox[0].split(' ').join('');
+            selectedRelationName = selectedRelationName.trim();
+            var selectedBoxName = arrSelectedRelationBox[1].split(' ').join('');
+            selectedBoxName = objCommon.getBoxSubstring(selectedBoxName);
+            if (selectedBoxName == mainBoxValue) {
+                selectedBoxName = null;
+            }
+            var baseUrl = getClientStore().baseURL;
+            var cellName = sessionStorage.selectedcell;
+            var accessor = objCommon.initializeAccessor(baseUrl,
+                    cellName);
+            var objExtRoleManager = new _pc.ExtRoleManager(accessor);
+            var body = {
+                "ExtRoleURL" : extRoleURL,
+                "RelationName" : selectedRelationName,
+                "RelationBoxName" : selectedBoxName
+            };
+            var jsonResponse = "";
+            try {
+                jsonResponse = objExtRoleManager.update(key, body);
+                result = true;
+            } catch (exception) {
+                result = false;
+                jsonResponse = exception;
+            }
+            if (result && jsonResponse.getStatusCode() == 204) {
+                var response = null;
+                uExternalRole.displayNotificationEditMessage();
+                uExternalRole.updateInfo(extRoleURL, selectedRelationName, selectedBoxName);
+            } else if (jsonResponse.httpClient.responseText
+                            .indexOf("entity already exists") != -1) {
+                cellpopup.showErrorIcon('#txtBoxExtRoleEditURL');
+                document.getElementById("externalRoleEditURLErrorMsg").innerHTML = extRoleURLAlreadyAddedMappedMsg;
+            } else {
+                cellpopup.showErrorIcon('#txtBoxExtRoleEditURL');
+                document.getElementById("externalRoleEditURLErrorMsg").innerHTML = validMessage;
+            }
+        }
+    }
+    removeSpinner("modalSpinnerExtRoleToRoleMap");
+};
+externalRole.prototype.updateInfo = function (extRoleUrl, relationName, boxName) {
+	sessionStorage.ExtRoleName = extRoleUrl;
+    sessionStorage.ExtRoleRelationName = relationName;
+    sessionStorage.ExtRoleBoxName = boxName;
+    $("#lblExtRoleName").html(sessionStorage.ExtRoleName);
+	$("#lblExtRoleName").attr('title', sessionStorage.ExtRoleName);
+	$("#lblExtRoleRelationName").html(sessionStorage.ExtRoleRelationName);
+	$("#lblExtRoleBoxName").html(sessionStorage.ExtRoleBoxName);
+    let extRoleData = uExternalRole.getExternalRoleData(extRoleUrl, relationName, boxName);
+    uExternalRole.setCellControlsInfoTabValues(extRoleUrl, extRoleData.__metadata.etag, objCommon.convertEpochDateToReadableFormat(extRoleData.__published), objCommon.convertEpochDateToReadableFormat(extRoleData.__updated));
+    uBoxDetail.displayBoxInfoDetails();
+}
 
 /**
  * The purpose of this function is to display success message 
@@ -287,6 +394,21 @@ externalRole.prototype.displayNotificationMessage = function () {
 	uExternalRole.createExternalRoleTable();
 	objCommon.centerAlignRibbonMessage("#extRoleMessageBlock");
 	objCommon.autoHideAssignRibbonMessage("extRoleMessageBlock");
+};
+/**
+ * The purpose of this function is to display edit success message 
+ * on notification ribbon.
+ * 
+ * @param extRoleURI
+ */
+externalRole.prototype.displayNotificationEditMessage = function () {
+	$('#externalRoleEditModalWindow, .window').hide();
+	addSuccessClass('#extRoleToRoleMessageIcon');
+	$('#extRoleToRoleMessageBlock').css('width', '');
+	$("#extRoleToRoleMessageBlock").css("display", 'table');
+	document.getElementById("extRoleToRoleSuccessmsg").innerHTML = getUiProps().MSG0430;
+	objCommon.centerAlignRibbonMessage("#extRoleToRoleMessageBlock");
+	objCommon.autoHideAssignRibbonMessage("extRoleToRoleMessageBlock");
 };
 
 /**
@@ -446,7 +568,7 @@ externalRole.prototype.deleteSingleExtRole = function(extRoleName, relationName,
 	var result = false;
 	var etag = "";
 	var mainBoxValue = getUiProps().MSG0039;
-	if (boxName == mainBoxValue) {
+	if (boxName == mainBoxValue || boxName == "null") {
 		key = "ExtRole='" + encodeURIComponent(extRoleName) + "',_Relation.Name='" + relationName + "'";
 	}
 	try {
@@ -579,6 +701,30 @@ externalRole.prototype.getBoxNameFromURI = function(uri) {
 };
 
 /******************************** VIEW EXTERNAL ROLE : END ********************************/
+externalRole.prototype.initEditExternalRole = function () {
+	uExternalRole.bindRelationBoxDropDown(true);
+	var ddValue = "";
+	if (sessionStorage.ExtRoleBoxName == "null") {
+		var mainBoxValue = getUiProps().MSG0039;
+		ddValue = sessionStorage.ExtRoleRelationName + objCommon.startBracket + mainBoxValue + objCommon.endBracket;
+	} else {
+		ddValue = sessionStorage.ExtRoleRelationName + objCommon.startBracket + sessionStorage.ExtRoleBoxName + objCommon.endBracket;
+	}
+	$("#idEditRelationBoxDropDown").val(ddValue);
+	$("#txtBoxExtRoleEditURL").val(sessionStorage.ExtRoleName);
+
+	// The purpose of this function is to validate external role URl on blur
+	$("#txtBoxExtRoleEditURL").blur(function() {
+	    var extRoleURL = document.getElementById("txtBoxExtRoleEditURL").value;
+	    uExternalRole.validateExternalRoleUrl(extRoleURL);
+	});
+	
+	// The purpose of this function is to validate dropdown  on blur
+	$("#idEditRelationBoxDropDown").blur(function() {
+		var relBox = $("#idEditRelationBoxDropDown").val();
+		uExternalRole.validateEmptyDropDown(relBox);
+	});
+};
 externalRole.prototype.loadExternalRolePage = function () {
 	uExternalRole.bindRelationBoxDropDown();
 	uExternalRole.createExternalRoleTable();
@@ -736,6 +882,30 @@ externalRole.prototype.retrieveChunkedData = function (lowerLimit, upperLimit) {
 	var json = response.bodyAsJson().d.results;
 	return json;
 };
+externalRole.prototype.getExternalRoleData = function(externalRoleURI,relationName,relationBoxName) {
+	var encodedExternalRoleURI = encodeURIComponent(externalRoleURI);
+	relationName = "'" + relationName + "'";
+	encodedExternalRoleURI = "'" + encodedExternalRoleURI + "'";
+	var key = [
+    	"ExtRole=" + encodedExternalRoleURI,
+    	"_Relation.Name=" + relationName
+    ].join(",");
+    if (relationBoxName) {
+        key += "_Relation._Box.Name='" + relationBoxName + "'";
+    }
+
+	var baseUrl = getClientStore().baseURL;
+	var cellName = sessionStorage.selectedcell;
+	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
+	var objExtRoleMgr = new _pc.ExtRoleManager(accessor);
+	var uri = objExtRoleMgr.getUrl();	
+	uri = uri + "("+key+")?$extend=_Box";
+
+	var restAdapter = _pc.RestAdapterFactory.create(accessor);
+	var response = restAdapter.get(uri, "application/json");
+	var json = response.bodyAsJson().d.results;
+	return json;
+};
 /**
  * The purpose of this method is to fetch the total count of records.
  * @returns count total number of records
@@ -818,7 +988,8 @@ $("#txtBoxExtRoleURL").blur(function() {
  * 
  */
 $("#idRelationBoxDropDown").blur(function() {
-	uExternalRole.validateEmptyDropDown();
+	var relBox = $("#idRelationBoxDropDown").val();
+	uExternalRole.validateEmptyDropDown(relBox);
 });
 
 /**
@@ -868,3 +1039,16 @@ $(function() {
 		});
 	}
 });
+
+externalRole.prototype.setCellControlsInfoTabValues = function(ccname, etag, cccreatedat, ccupdatedat, ccurl) {   
+    sessionStorage.ccname       = objCommon.replaceNullValues(ccname,getUiProps().MSG0275);
+    sessionStorage.ccetag       = etag;
+    sessionStorage.cccreatedat  = objCommon.replaceNullValues(cccreatedat,getUiProps().MSG0275);
+    sessionStorage.ccupdatedat  = objCommon.replaceNullValues(ccupdatedat,getUiProps().MSG0275);
+    if (ccurl != undefined) {
+    	sessionStorage.ccurl        = objCommon.replaceNullValues(ccurl,getUiProps().MSG0275).replace(/[`]/g,"'");
+    } else {
+    	sessionStorage.removeItem("ccurl");
+    }
+    
+};

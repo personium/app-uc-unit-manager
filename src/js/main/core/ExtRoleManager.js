@@ -105,3 +105,22 @@ _pc.ExtRoleManager.prototype.getEtag = function(key) {
 	var json = this.internalRetrieveMultikey(key);
 	return json.__metadata.etag;
 };
+
+/**
+ * The purpose of this function is to update External Role.
+ * @param {String} extCellName
+ * @param {String} extRoleName
+ * @return {_pc.PersoniumHttpClient} response
+ * @throws {_pc.DaoException} Exception thrown
+ */
+_pc.ExtRoleManager.prototype.update = function(key, obj) {
+  var body = {};
+  body.ExtRole = obj.ExtRoleURL;
+  body["_Relation.Name"] = obj.RelationName;
+  body["_Relation._Box.Name"] = obj.RelationBoxName;
+  var etag = this.getEtag(key);
+  var headers = {};
+  headers["Accept"] = "application/json";
+  var response = this.internalUpdateMultiKey(key, body, etag, headers);
+  return response;
+};
