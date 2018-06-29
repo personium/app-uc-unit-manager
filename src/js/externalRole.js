@@ -112,7 +112,7 @@ externalRole.prototype.getSelectedRelationBoxPair = function (id) {
 		if (selectedRelation != null) {
 			relationBoxPair = selectedRelation.split(objCommon.startBracket);
 		}
-	} else
+	} else {
 		document.getElementById("relationBoxDDErrorMsg").innerHTML = getUiProps().MSG0222;
 	}
 	return relationBoxPair;
@@ -320,7 +320,7 @@ externalRole.prototype.editExternalRole = function() {
         		"_Relation.Name='" + sessionStorage.ExtRoleRelationName + "'"
         	].join(",");
         	if (sessionStorage.ExtRoleBoxName != "null") {
-        		key += "_Relation._Box.Name='" + sessionStorage.ExtRoleBoxName + "'";
+        		key += ",_Relation._Box.Name='" + sessionStorage.ExtRoleBoxName + "'";
         	}
 
             var arrSelectedRelationBox = uExternalRole.getSelectedEditRelationBoxPair("idEditRelationBoxDropDown");
