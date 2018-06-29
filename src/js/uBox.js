@@ -561,6 +561,7 @@ function updateBoxInfo(boxName, schemaUrl) {
 	uBoxDetail.initializePage(boxName);
 	$("#dvBreadCrumBrowse").attr('title', boxName);
 	boxHeirarchyPath = boxName;
+	createBoxTable();
 }
 
 /**

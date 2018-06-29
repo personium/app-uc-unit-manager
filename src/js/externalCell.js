@@ -298,10 +298,10 @@ externalCell.prototype.updateExternalCell = function(key, body) {
 		}
 	} catch (exception) {
 		if (exception.getCode() == "PR409-OD-0003") {
-			document.getElementById('externalCellURLEditErrorMesage').innerHTML = getUiProps().MSG0032;
+			document.getElementById('externalCellURLEditErrorMessage').innerHTML = getUiProps().MSG0032;
 			cellpopup.showErrorIcon('#txtEditUrl');
 		} else if (exception.getCode() == "PR400-OD-0006") {
-			document.getElementById('externalCellURLEditErrorMesage').innerHTML = getUiProps().MSG0034;
+			document.getElementById('externalCellURLEditErrorMessage').innerHTML = getUiProps().MSG0034;
 			cellpopup.showErrorIcon('#txtEditUrl');
 		}
 	}
@@ -917,7 +917,7 @@ externalCell.prototype.initEditExternalCell = function() {
 			var objExternalCell = new externalCell();
 			var schemaURL = $("#txtEditUrl").val();
 			if (objExternalCell.getExternalCellInfo(schemaURL) == false) {
-				document.getElementById("externalCellURLEditErrorMesage").innerHTML = getUiProps().MSG0302;
+				document.getElementById("externalCellURLEditErrorMessage").innerHTML = getUiProps().MSG0302;
 				cellpopup.showErrorIcon('#txtEditUrl');
 				return false;
 			}
@@ -925,11 +925,11 @@ externalCell.prototype.initEditExternalCell = function() {
 			var extCellName = extCellInfo[1];
 			var extCellURL = extCellInfo[0];
 			if (objBox.validateSchemaURL(schemaURL,
-					"externalCellURLEditErrorMesage","#txtEditUrl"))
+					"externalCellURLEditErrorMessage","#txtEditUrl"))
 				if (objCommon.validateURL(extCellURL,
-						"externalCellURLEditErrorMesage", "#txtEditUrl")) 
+						"externalCellURLEditErrorMessage", "#txtEditUrl")) 
 					if (objExternalCell.validateExternalCellName(extCellName))
-						objCommon.doesUrlContainSlash(schemaURL, "externalCellURLEditErrorMesage","#txtEditUrl",getUiProps().MSG0285);
+						objCommon.doesUrlContainSlash(schemaURL, "externalCellURLEditErrorMessage","#txtEditUrl",getUiProps().MSG0285);
 		});
 }
 externalCell.prototype.setCellControlsInfoTabValues = function(ccname, etag, cccreatedat, ccupdatedat, ccurl) {   
