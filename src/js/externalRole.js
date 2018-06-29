@@ -112,7 +112,7 @@ externalRole.prototype.getSelectedRelationBoxPair = function (id) {
 		if (selectedRelation != null) {
 			relationBoxPair = selectedRelation.split(objCommon.startBracket);
 		}
-	} else if (id == "idRelationBoxDropDown") {
+	} else
 		document.getElementById("relationBoxDDErrorMsg").innerHTML = getUiProps().MSG0222;
 	}
 	return relationBoxPair;
@@ -301,7 +301,6 @@ externalRole.prototype.createExternalRole = function() {
  * The purpose of this function is to edit External Role.
  */
 externalRole.prototype.editExternalRole = function() {
-	debugger;
 	var result = false;
 	showSpinner("modalSpinnerExtRoleToRoleMap");
 	var extRoleURL = null;
