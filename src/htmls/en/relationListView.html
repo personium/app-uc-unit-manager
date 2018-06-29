@@ -35,9 +35,7 @@ limitations under the License.
 				<div id="createText" class="createText">Create Relation</div>
 			</div>
 
-			<div class="divEditIcon">
-				<input type="button" id="iconEditRelation"  onclick="openCreateEntityModal('#relationEditModalWindow','#relationEditDialogBox', 'txtEditRelationName');"  class="editIconDisabled" tabindex="-1" title="Edit" disabled="disabled">
-			</div>
+			
 
 			<div class="divDeleteIcon">
 				<input type="button" class="deleteIconDisabled" id="btnDeleteRelation" tabindex="-1" title="Delete">
@@ -221,60 +219,5 @@ limitations under the License.
 		</div>
 	</div>
 	<!-- Relation Multiple Delete Pop Up End -->
-	<!-- Relation EDIT Pop Up Start -->
-	<div id="relationEditModalWindow" class="modelback" style="display: none;">
-		<div class="modal-window block-border"
-			style="display: block; height: 315px; width: 474px; background: #ffffff"
-			id="relationEditDialogBox">
-			<div style="height: 300px; width: 474px;">
-				<div style="height: 34px; width: 474px">
-					<a class="popupCloseIcon"
-						onclick="objRelation.closeEditRelationPopUp();" tabindex="5" title="Close"></a>
-				</div>
-				<div class="divPopupInner">
-					<label class="AccessTokenHeading">Edit Relation</label>
-					<section class="sectionContent"
-						style="height: 170px; width: 320px; margin-left: 58px;">
-						<form onsubmit="return false;">
-							<table>
-								<tr>
-									<td style="padding-bottom: 5px;"><label class="lblElement">Name</label></td>
-								</tr>
-								<tr>
-									<td><input type="text" id="txtEditRelationName"
-										class="bigTextBoxCollection" autocomplete="off"
-										style="width: 205px" tabindex="1"> <span
-										class="spanPopupErrorMessageCommon">
-											<aside class="asidePopupErrorMessageCommon"
-												id="editPopupRelationErrorMsg" style="width: 248px"></aside>
-									</span></td>
-								</tr>
-								<tr>
-									<td id="idselectBox"><div style="margin-bottom: 10px;">
-											<label class="lblElement">Box where this relation is
-												used</label>
-										</div>
-										<div class="customSelectIconAssociation"
-											style="background-position-x: 79.5%">
-											<select name="" id="ddlBoxList" class="selectMenuPopup"
-												style="width: 248px;" tabindex="2">
-												<option value="None"></option>
-											</select>
-										</div></td>
-								</tr>
-							</table>
-						</form>
-					</section>
-					<section style="float: right; margin: 15px 0px 0px 0px;"
-						class="divLogoutBtn">
-						<input type="button" value="Cancel" class="btnCancelPopup"
-							onclick="objRelation.closeEditRelationPopUp();" tabindex="3"> <input type="button"
-							value="Save" class="btnSavePopup" id="btnEditRole" onclick="objRelation.updateRelation();" tabindex="4">
-					</section>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Relation EDIT Pop Up End -->
 </body>
 </html>

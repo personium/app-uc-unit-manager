@@ -158,3 +158,17 @@ _pc.ExtCellManager.prototype.del = function(externalCellUrl, etag) {
   var response = this.internalDel(key, etag);
   return response;
 };
+
+/**
+ * This method updates an External Cell.
+ * @param {Object} body requestBody
+ * @return {_pc.ExtCell}ExtCell object
+ * @throws {_pc.DaoException} DAO exception
+ */
+_pc.ExtCellManager.prototype.update = function(key, body) {
+  var etag = this.getEtag(key);
+  var headers = {};
+  headers["Accept"] = "application/json";
+  var response = this.internalUpdate(key, body, etag, headers);
+  return response;
+};

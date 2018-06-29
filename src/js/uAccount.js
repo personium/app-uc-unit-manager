@@ -131,9 +131,6 @@ function deleteMultipleAccounts() {
  */
 function deleteAccount(accName,count) {
 	var baseUrl = getClientStore().baseURL;
-	$("#iconEditAccount").removeClass();
-	$("#iconEditAccount").addClass('editIconDisabled');
-	$("#iconEditAccount").attr("disabled", true);
 	objCommon.disableButton('#btnDeleteAccount');
 	var cellname = sessionStorage.selectedcell.toString();
 	var accessor = objCommon.initializeAccessor(baseUrl, cellname, "", "");
@@ -302,17 +299,6 @@ uAccount.prototype.checkAllAccountGrid = function (cBox) {
 	objCommon.checkBoxSelect(cBox, buttonId, '#btnEditAccount');
 	objCommon.showSelectedRow(document.getElementById("chkSelectall"), "row",
 			"rowid");
-	$("#iconEditAccount").removeClass();
-	$("#iconEditAccount").addClass('editIconDisabled');
-	$("#iconEditAccount").attr("disabled", true);
-	var noOfRecords = $("#mainAccountTable > tbody > tr").length;
-	if ($("#chkSelectall").is(':checked')) {
-		if (noOfRecords == 1) {
-			$("#iconEditAccount").removeClass();
-			$("#iconEditAccount").addClass('editIconEnabled');
-			$('#iconEditAccount').removeAttr("disabled");
-		}
-	}
 };
 
 /**
@@ -655,6 +641,7 @@ function updateAccount() {
 					isAccountNotExist = null;
 					performEdit(existingAccountName, body, etag,
 							objAccountManager, changedPassword);
+					updateAccountInfo(newAccountName);
 				} else {
 					displayAccountExistMessage(operation);
 					isAccountNotExist = null;
@@ -663,6 +650,19 @@ function updateAccount() {
 		}
 	}
 	removeSpinner("modalSpinnerAcct");
+}
+function updateAccountInfo(accountName) {
+	sessionStorage.ccname = accountName;
+	sessionStorage.accountName = accountName;
+	var baseUrl = getClientStore().baseURL;
+	var cellname = sessionStorage.selectedcell.toString();
+	var accessor = objCommon.initializeAccessor(baseUrl, cellname, "", "");
+	var objAccountManager = new _pc.AccountManager(accessor);
+	var res = objAccountManager.retrieve(accountName);
+	sessionStorage.ccurl = res.rawData.__metadata.uri;
+	$("#lblAccountName").html(accountName);
+	$("#lblAccountName").attr('title', accountName);
+	uBoxDetail.displayBoxInfoDetails();
 }
 
 /***
@@ -683,9 +683,8 @@ function performEdit(existingAccountName, body, etag, objAccountManager,
 	}
 	if (response.getStatusCode() == 204) {
 		$('#accountEditModalWindow, .window').hide(0);
-		objAccount.displaySuccessMessage(getUiProps().MSG0286);
+		objAccount.displayLinkSuccessMessage(getUiProps().MSG0286);
 		objAccount.emptyEditAccountPopUp();
-		objCommon.deActivateEditIcon("mainAccountTable");
 	}
 }
 
@@ -754,9 +753,6 @@ function createChunkedAccountTable(json, recordSize, spinnerCallback) {
 	$('#chkSelectall').attr('checked', false);
 	$("#chkSelectall").attr('disabled', false);
 	objCommon.disableButton('#btnDeleteAccount');
-	$("#iconEditAccount").removeClass();
-	$("#iconEditAccount").addClass('editIconDisabled');
-	$("#iconEditAccount").attr("disabled", true);
 	$("#entityGridTbody").scrollTop(0);
 	var token = getClientStore().token;
 	var accountName = new Array();
@@ -888,8 +884,7 @@ function createAccountTable() {
  * The purpose of this function is to get selected account information.
  */
 function getSelectedAccountDetails() {
-	var selectedAccountName = objCommon.getMultipleSelections(
-			'mainAccountTable', 'input', 'case');
+	var selectedAccountName = $("#lblAccountName").text();
 	$('#txtEditAccountName').val(selectedAccountName);
 	sessionStorage.accountName = null;
 	sessionStorage.accountName = selectedAccountName;
@@ -912,6 +907,14 @@ function applyScrollCssOnAccountGrid() {
  * CRUD operation
  * @param message
  */
+uAccount.prototype.displayLinkSuccessMessage = function (message) {
+	addSuccessClass('#accountLinkMessageIcon');
+	$("#accountLinkMessageBlock").css("display", 'table');
+	document.getElementById("accountLinkSuccessmsg").innerHTML = message;
+	createAccountTable();
+	objCommon.centerAlignRibbonMessage("#accountLinkMessageBlock");
+	objCommon.autoHideAssignRibbonMessage('accountLinkMessageBlock');
+};
 uAccount.prototype.displaySuccessMessage = function (message) {
 	addSuccessClass('#accountMessageIcon');
 	$("#accountMessageBlock").css("display", 'table');

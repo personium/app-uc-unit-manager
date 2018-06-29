@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache" >
+<meta http-equiv="Expires" content="-1">
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/ruleDetail.js"></script>
+
+</head>
+<body>
+	<div class="backWrapper" style="overflow: hidden;">
+		<div class="backIcon" onclick="uRuleDetail.clickBackButton();"></div>
+		<div class="backBtnTxt" style="float:left;"><a id="backBtnTxt"></a></div>
+		<div class="divEditIcon">
+			<input id="btnEditRuleIcon" onclick="openCreateEntityModal('#ruleEditModalWindow','#ruleEditDialogBox', 'dropDownActionEdit');" type="button" class="editIconEnabled" tabindex="-1" title="Edit">
+		</div>
+	</div>
+	<ul class="secondaryHeaderBar" style="clear: both;">
+		<li><div class="info selected" id="ruledetailInfoTab">Info</div></li>
+		<li>
+			<div id="ruleInfoMessageBlock" class="crudOperationSuccessWrapper"
+				style="display:none;float: left;position:absolute;margin-top: 6px;width: 0px;">
+				<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+					<span class="crudOperationSuccessIcon" id="ruleInfoMessageIcon">&nbsp;</span>
+					<div id="ruleInfoSuccessmsg" class="crudOperationSuccessMsg"></div>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<div id="webDavProfileArea" class="webDavContentArea"></div>
+
+	<!-- Rule EDIT Pop Up Start -->
+	<div id="ruleEditModalWindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 540px; width: 706px; background: #ffffff"
+			id="ruleEditDialogBox">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon"
+					onclick="closeEditRulePopUp('#createRuleModal')" tabindex="5"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Edit Rule</label>
+			</div>
+			<section  class="popupContent">
+				<!-- THS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvBoxNameEdit" class="lblElement" style="padding-bottom:0px;padding-top:5px;">
+							<input  id="chkBoxBoundEdit" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="chkBoxBoundEdit" tabindex="1" style="display:none;">
+    						<label id ="lblBoxBoundEdit"  for="chkBoxBoundEdit" class="customChkbox checkBoxLabel aclLabelFocus">
+    							<span style="width:100px;padding-left:20px;position:absolute;">
+    								Bound to Box
+    							</span>
+    						</label>
+						</div>
+						<div class="positionTopDiv">
+							<div class="customSelectIconAssociation"
+										style="background-position-x: 105.5%">
+										<select name="" id="dropDownBoxEdit"
+											class="selectMenuPopup" style="width:248px;" tabindex="2" disabled>
+										</select>
+							</div>
+							<span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="ddlRuleErrorMsgEdit"></aside>
+							</span>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvRuleNameEdit" class="lblElement">Rule Name</div>
+						<div class="positionTopDiv">
+							<div id="dvTextRuleNameEdit" class=" ">
+								<input id="txtRuleNameEdit" type="text" placeholder="Please enter rule name" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupRuleErrorMsgEdit"></aside>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- THS Block ENDS -->
+				<div class="positionElements separatorElements" style="clear:both;"></div>
+				<!-- MHS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvEventTypeEdit" class="lblElement" style="float:left">EventType</div>
+						<div id="dvEventExternalEdit" class="lblElement radio">
+							<input id="rdInternalEdit" type="radio" name="dropDownEventExternalEdit" value="false" checked="checked" style="opacity: 0">
+							<label for="rdInternalEdit" style="margin-right: 6px; margin-left: 10px;height: 18px;padding-top: 2px;padding-right: 2px;" id= "lblInternalEdit">Internal</label>
+							<input id="rdExternalEdit" type="radio" name="dropDownEventExternalEdit" value="true" style="opacity: 0" tabindex="2" onfocus="radioBtnOthereFocusOnExternalCell();" onblur="radioBtnOtherBlurOnExternalCell();">
+							<label for="rdExternalEdit" style="margin-right: 6px; margin-left: 10px;height: 18px;padding-top: 2px;padding-right: 2px;" id="lblExternalEdit">External</label>
+						</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventTypeEdit" class=" ">
+								<input id="txtEventTypeEdit" type="text" placeholder="example)davfile.update" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventTypeErrorMsgEdit"></aside>
+							</span>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvEventSubjectEdit" class="lblElement">EventSubject</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventSubjectEdit" class=" ">
+								<input id="txtEventSubjectEdit" type="text" placeholder="Please enter cell URL" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventSubjectErrorMsgEdit"></aside>
+							</span>
+						</div>
+					</div>
+					<div class="positionLeftHandElements">
+						<div id="dvEventObjectEdit" class="lblElement">EventObject</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventObjectEdit" class=" " style="display:none;">
+								<!--<label id="lblEventObject" class="lblElement">personium-localcell:/</label>-->
+								<input id="txtEventObjectEdit" type="text" placeholder="Any character string" class="bigTextBox  " tabindex="1">
+							</div>
+							<div id="dvTextEventObjectLocalBoxEdit" style="display:none;">
+								<lable class="lblElement">personium-localbox:/</lable>
+								<input id="txtEventObjectLocalBoxEdit" type="text" placeholder="Any character string" class="bigTextBox" style="width:	103px;" tabindex="1">
+							</div>
+							<div id="dvTextEventObjectLocalCelEdit">
+								<lable class="lblElement">personium-localcell:/</lable>
+								<input id="txtEventObjectLocalCelEdit" type="text" placeholder="Any character string" class="bigTextBox" style="width:	103px;" tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventObjectErrorMsgEdit"></aside>
+							</span>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvEventInfoEdit" class="lblElement">EventInfo</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventInfoEdit" class=" ">
+								<input id="txtEventInfoEdit" type="text" placeholder="Any character string" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventInfoErrorMsgEdit"></aside>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- MHS Block ENDS -->
+				<div class="positionElements separatorElements" style="clear:both;"></div>
+				<!-- BHS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvActionEdit" class="lblElement">Action</div>
+						<div class="positionTopDiv">
+							<div id="dvSelectActionEdit" class="customSelectIconAssociation"
+											style="background-position-x: 105.5%">
+								<select name="" id="dropDownActionEdit"
+									class="selectMenuPopup" style="width:248px;" tabindex="2">
+									<option value="exec">exec</option>
+									<option value="relay">relay</option>
+									<option value="relay.event">relay.event</option>
+									<option value="log.info">log.info</option>
+									<option value="log.warn">log.warn</option>
+									<option value="log.error">log.error</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvTargetUrlEdit" class="lblElement">TargetUrl</div>
+						<div class="positionTopDiv">
+							<div id="dvTextTargetUrlEdit" class=" " style="display:none;">
+								<input id="txtTargetUrlEdit" type="text" placeholder="Please enter cell URL" class="bigTextBox  " tabindex="1">
+							</div>
+							<div id="dvTextTargetUrlLocalBoxEdit" style="display:none;">
+								<lable class="lblElement">personium-localbox:/</lable>
+								<input id="txtTargetUrlLocalBoxEdit" type="text" placeholder="{CollectionName}/{ServiceName}" class="bigTextBox" style="	width:103px;" tabindex="1">
+							</div>
+							<div id="dvTextTargetUrlLocalCelEdit">
+								<lable class="lblElement">personium-localcell:/</lable>
+								<input id="txtTargetUrlLocalCelEdit" type="text" placeholder="{BoxName}/{CollectionName}/{ServiceName}" class="	bigTextBox" style="width:103px;" tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupTargetUrlErrorMsgEdit"></aside>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- BHS Block ENDS -->
+			</section>
+			<section class="positionButtons">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button"
+						value="Save" class="btnSavePopup" id="btnEditRule" onclick="updateRule();" tabindex="4">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id="btnCancel"
+						onclick="closeEditRulePopUp('#ruleEditModalWindow')"
+						class="btnCancelPopup" value="Cancel" tabindex="3">
+				</div>
+			</section>
+		</div>
+	</div>
+	<!-- Rule EDIT Pop Up End -->
+
+	<!--  Spinner code - Start -->
+	<div id="modalSpinnerBoxOdata" class="modelbackSpinner" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background:transparent;position:absolute;top:50%;left:50%;border:0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"> 
+			</div>
+		</div>
+	</div>
+	<!--  Spinner code - End -->
+
+	<div id = "dvGreyOut" class = "modelback" style="display: none"></div> 
+</body>
+</html>

@@ -545,26 +545,36 @@ cellProfile.prototype.setNewTokenValues = function(data) {
 
 /**
  * The purpose of the following method is to cell refresh token API and set the new values.
- * @param paramOldRefreshToken
  */
-cellProfile.prototype.getNewTokenValues = function (paramOldRefreshToken, mode) {
+cellProfile.prototype.getNewTokenValues = function () {
         var paramTargetURL = sessionStorage.selectedUnitUrl;
         var paramTargetCellUrl = paramTargetURL + sessionStorage.selectedUnitCellName;
         var refreshtokenURL = paramTargetCellUrl + "/__token";
+        let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+        let tokenCredential = {
+            grant_type: "refresh_token",
+            refresh_token: getClientStore().refreshToken
+        };
+        if (!ManagerInfo.isCellManager) {
+        $.extend(
+                true,
+                tokenCredential,
+                {
+                    p_target : paramTargetURL
+                }
+            );
+        } 
             $.ajax({
             dataType : 'json',
             url : refreshtokenURL,
-            data : {
-                grant_type: "refresh_token",
-                p_target : paramTargetURL,
-                refresh_token: paramOldRefreshToken
-            },
+            data : tokenCredential,
             type : 'POST',
             async : false,
             success : function(data) {
                 uCellProfile.setNewTokenValues(data);
             },
-            error : function() {
+            error : function(error) {
+                console.log(error);
             }
         });
 };
@@ -1119,9 +1129,12 @@ $(function() {
     var oldRefreshToken = getClientStore().refreshToken;
     if (oldRefreshToken != undefined) {
         setInterval(function() {
-            uCellProfile.getNewTokenValues(oldRefreshToken, "PersistToken");
+            uCellProfile.getNewTokenValues();
             uCellProfile.showAccessToken();
-        }, 3480000); //58 Minutes.3480000
+            let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+            ManagerInfo.refreshToken = getClientStore().refreshToken;
+            sessionStorage.ManagerInfo = JSON.stringify(ManagerInfo);
+        }, 1800000); //30 Minutes.1800000
     }
     $("#btnEditCellProfile").click(function() {
         uCellProfile.updateCellProfile();

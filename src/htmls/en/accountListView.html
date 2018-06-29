@@ -36,9 +36,7 @@ limitations under the License.
 				<div id="createText" class="createText">Create Account</div>
 			</div>
 
-			<div class="divEditIcon">
-				<input id="iconEditAccount" type="button" class="editIconDisabled" onclick="openCreateEntityModal('#accountEditModalWindow','#accountEditDialogBox', 'txtEditAccountName');" tabindex="-1" title="Edit" disabled="disabled">
-			</div>
+			
 
 			<div class="divDeleteIcon">
 				<input type="button" class="deleteIconDisabled" id="btnDeleteAccount" onclick="objAccount.openPopUpWindow('#multipleDeleteDialogBox','#multipleDeleteModalWindow');" tabindex="-1" title="Delete">
@@ -187,60 +185,6 @@ limitations under the License.
 	</div>
 <!-- Create Account Popup:END -->
 
-	<!-- Account Single Delete Pop Up Start-->
-	<!-- <div id="singleDeleteModalWindow" class="modelback"
-		style="display: none;">
-		<div class="modal-window block-border"
-			style="display: block; height: 175px; width: 375px; background: #ffffff"
-			id="singleDeleteDialogBox">
-			<div class="popupWrapper" id="deleteAccountpopup">
-				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
-					onclick="closeDeleteAccount();">Close</a>
-				<header class="popupHeader"> Delete Account </header>
-				<div class="popupContent">
-					<section class="popupInnerContent">
-						<aside class="deleteAccount">Do you want to delete
-							selected account ?</aside>
-					</section>
-					<section class="bottomBtn">
-						<input type="button" value="Cancel"
-							onclick="closeEntityModal('#singleDeleteModalWindow');"
-							class="normalButtonGrey" /> <input type="button" value="Ok"
-							onclick="deleteSingleAccount();" class="normalButtonBlue" />
-					</section>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- Account Single Delete Pop Up End -->
-
-	<!-- Account Multiple Delete Pop Up Start
-	<div id="multipleDeleteModalWindow" class="modelback"
-		style="display: none;">
-		<div class="modal-window block-border"
-			style="display: block; height: 175px; width: 375px; background: #ffffff"
-			id="multipleDeleteDialogBox">
-			<div class="popupWrapper" id="deleteAccountpopup">
-				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
-					onclick="closeDeleteAccount();">Close111</a>
-				<header class="popupHeader">Delete Account(s)</header>
-				<div class="popupContent">
-					<section class="popupInnerContent">
-						<aside class="deleteAccount">Do you want to delete
-							selected account(s) ?</aside>
-					</section>
-					<section class="bottomBtn">
-
-						<input type="button" value="Cancel"
-							onclick="closeEntityModal('#multipleDeleteModalWindow');"
-							class="normalButtonGrey" /> <input type="button" value="Ok"
-							onclick="deleteMultipleAccounts();" class="normalButtonBlue" />
-					</section>
-				</div>
-			</div>
-		</div>
-	</div>
-	-->
 	<!-- Account Multiple Delete Pop Up Start-->
 	<div id="multipleDeleteModalWindow" class="modelback"
 		style="display: none;">
@@ -292,82 +236,6 @@ limitations under the License.
 		</div>
 	</div>
 	<!-- Account conflict message Pop Up End -->
-
-<!-- Account EDIT Pop Up Start -->
-<div id="accountEditModalWindow" class="modelback" style="display: none;">
-		<div class="modal-window block-border"
-			style="display: block; height: 382px; width: 474px; background: #ffffff"
-			id="accountEditDialogBox">
-			<div style="height: 300px; width: 474px;">
-				<div style="height: 34px; width: 474px">
-					<a class="popupCloseIcon"
-						onclick="objAccount.closeEditPopUpWindow();" tabindex="6" title="Close"></a>
-				</div>
-				<div class="divPopupInner">
-					<label class="AccessTokenHeading">Edit Account</label>
-					<section class="sectionContent"
-						style="height: 170px; width: 320px; margin-left: 58px;">
-						<form onsubmit="return false;">
-						<div class= 'popUpEditAccountContent'>
-							<table>
-								<tr>
-									<td style="padding-bottom: 5px;"><label class="lblElement">* Name</label></td>
-								</tr>
-								<tr>
-									<td><input type="text" id="txtEditAccountName"
-										class="bigTextBoxCollection" autocomplete="off"
-										style="width: 205px" tabindex="1"> <span
-										class="spanPopupErrorMessageCommon">
-											<aside class="asidePopupErrorMessageCommon"
-												id="popupEditErrorMsg" style="width: 248px"></aside>
-									</span></td>
-								</tr>
-								<tr>
-									<td style="padding-bottom: 5px;"><label class="lblElement">* New Password</label></td>
-								</tr>
-								<tr>
-									<td><input type="password" id="txtEditPassword"
-										class="bigTextBoxCollection" autocomplete="off"
-										style="width: 205px" tabindex="2"> <span
-										class="spanPopupErrorMessageCommon">
-											<aside class="asidePopupErrorMessageCommon"
-												id="editChangedPassword" style="width: 248px"></aside>
-									</span></td>
-								</tr>
-								<tr>
-									<td style="padding-bottom: 5px;"><label class="lblElement">* Retype Password</label></td>
-								</tr>
-								<tr>
-									<td><input type="password" id="txtEditReTypePassword"
-										class="bigTextBoxCollection" autocomplete="off"
-										style="width: 205px" tabindex="3"> <span
-										class="spanPopupErrorMessageCommon">
-											<aside class="asidePopupErrorMessageCommon"
-												id="editReTypePassword" style="width: 248px"></aside>
-									</span></td>
-								</tr>
-							</table>
-							</div>
-						</form>
-					</section>
-			<!-- Button Section Starts -->
-			<section style="margin-top: 82px" class="positionButtons">
-				<div id="dvCreate" class="dvCreate">
-					<input onclick="updateAccount();" type="button" class="btnClose"
-						value="Save" tabindex="5">
-				</div>
-				<div id="dvCancel" class="dvCreate">
-					<input type="button" id="btnCancel"
-						onclick="objAccount.closeEditPopUpWindow();"
-						class="cancelBtn" value="Cancel" tabindex="4">
-				</div>
-			</section>
-			<!-- Button Section Ends -->
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Account EDIT Pop Up End -->
 	<!-- Spinner code - Start -->
 	<div id="modalSpinnerAcct" class="modelbackSpinner"
 		style="display: none;">

@@ -321,9 +321,6 @@ function createChunkedRelationTable(json, recordSize, spinnerCallback){
 	$('#chkSelectall').attr('checked', false);
 	$("#chkSelectall").attr('disabled', false);
 	objCommon.disableButton('#btnDeleteRelation');
-	$("#iconEditRelation").removeClass();
-	$("#iconEditRelation").addClass('editIconDisabled');
-	$("#iconEditRelation").attr("disabled", true);
 	//$("#btnDeleteRelation").attr('disabled', true);
 	$("#entityGridTbody").scrollTop(0);
 	var name = new Array();
@@ -450,17 +447,6 @@ uRelation.prototype.checkAllSelect = function (){
 	var buttonId = '#btnDeleteRelation';
 	objCommon.checkBoxSelect(document.getElementById("chkSelectall"), buttonId);
 	objCommon.showSelectedRow(document.getElementById("chkSelectall"),"row","rowid_");
-	var noOfRecords = $("#mainRelationTable > tbody > tr").length;
-	$("#iconEditRelation").removeClass();
-	$("#iconEditRelation").addClass('editIconDisabled');
-	$("#iconEditRelation").attr("disabled", true);
-	if ($("#chkSelectall").is(':checked')) {
-		if (noOfRecords == 1) {
-			$("#iconEditRelation").removeClass();
-			$("#iconEditRelation").addClass('editIconEnabled');
-			$("#iconEditRelation").removeAttr("disabled");
-		}
-	}
 };
 
 /**
@@ -542,9 +528,6 @@ uRelation.prototype.deleteMultipleRelations = function() {
  */
 uRelation.prototype.removeRelation = function(relationName,boxName,count) { 
 	boxName = boxName.split(' ').join('');
-	$("#iconEditRelation").removeClass();
-	$("#iconEditRelation").addClass('editIconDisabled');
-	$("#iconEditRelation").attr("disabled", true);
 	var accessor = objRelation.initializeAccessor();
 	var objRelationManager = new _pc.RelationManager(accessor);
 	var promise = objRelationManager.del(relationName, boxName);
@@ -594,10 +577,8 @@ uRelation.prototype.displayMultipleRelationConflictMessage = function() {
  * Following method fetches relation details to pre-populate the edit relation pop up.
  */
 function getSelectedRelationDetails() {
-	var selectedRoleDetails = objCommon.getMultipleSelections('mainRelationTable', 'input', 'case');
-	var arrSelectedRole = selectedRoleDetails.split("'");
-	var existingRoleName = arrSelectedRole[1];
-	var existingBoxName = arrSelectedRole[3];
+	var existingRoleName = sessionStorage.relationName;
+	var existingBoxName = sessionStorage.boxName;
 	sessionStorage.currentRelationName = existingRoleName;
 	sessionStorage.currentRelationBoxName = existingBoxName;
 	this.retrieveBox("ddlBoxList", existingBoxName,true);
@@ -623,12 +604,12 @@ uRelation.prototype.closeEditRelationPopUp = function() {
  */
 uRelation.prototype.displayEditRoleSuccessMessage = function() {
 	this.closeEditRelationPopUp();
-	$("#relationMessageBlock").css("display", 'table');
-	document.getElementById("relationSuccessmsg").innerHTML = getUiProps().MSG0386;
-	addSuccessClass('#relationMessageIcon');
+	$("#relationLinkMessageBlock").css("display", 'table');
+	document.getElementById("relationLinkSuccessmsg").innerHTML = getUiProps().MSG0386;
+	addSuccessClass('#relationLinkMessageIcon');
 	createRelationTable();
-	objCommon.centerAlignRibbonMessage("#relationMessageBlock");
-	objCommon.autoHideAssignRibbonMessage('relationMessageBlock');
+	objCommon.centerAlignRibbonMessage("#relationLinkMessageBlock");
+	objCommon.autoHideAssignRibbonMessage('relationLinkMessageBlock');
 };
 
 /**
@@ -642,9 +623,6 @@ uRelation.prototype.editRelation = function(oldRelationName, oldBoxName, body, o
 	var response = objJRelationManager.update(oldRelationName, oldBoxName, body, "*");
 		if(response.getStatusCode() == 204) {
 		this.displayEditRoleSuccessMessage();
-		$("#iconEditRelation").removeClass();
-		$("#iconEditRelation").addClass('editIconDisabled');
-		$("#iconEditRelation").attr("disabled", true);
 	} else if (response.getStatusCode() == 409) {
 		document.getElementById("editPopupRelationErrorMsg").innerHTML = getUiProps().MSG0031;
 		$("#txtEditRelationName").addClass("errorIcon");
@@ -721,12 +699,33 @@ uRelation.prototype.updateRelation = function() {
 		var objJRelationManager = new _pc.RelationManager(accessor);
 		this.editRelation(oldRelationName, oldBoxName, body,
 					objJRelationManager);
-		}
+
+		updateRelationInfo(newRelationName, newBoxSelected);
+	}
 	 else {
 		$("#txtEditRelationName").addClass("errorIcon");
 	}
 	removeSpinner("modalSpinnerRole");
 };
+function updateRelationInfo(relName, boxName) {
+	sessionStorage.ccname = relName;
+	sessionStorage.relationName = relName;
+	sessionStorage.currentRelationName = relName;
+	sessionStorage.boxName = boxName;
+	sessionStorage.currentRelationBoxName = boxName;
+	var accessor = objRelation.initializeAccessor();
+	var objRelationManager = new _pc.RelationManager(accessor);
+	var newBoxName = boxName;
+	if (newBoxName == null || newBoxName == "" || newBoxName == 0 || newBoxName == getUiProps().MSG0039) {
+		newBoxName = undefined;
+	}
+	var res = objRelationManager.retrieve(relName, newBoxName);
+	sessionStorage.ccurl = res.rawData.__metadata.uri;
+	$('#assignRelationName').text(relName);
+    $("#assignRelationName").attr('title', relName);
+    $("#assignBoxName").text(boxName);
+	uBoxDetail.displayBoxInfoDetails();
+}
 
 /**
  * The purpose of this function is to apply scroll css on
