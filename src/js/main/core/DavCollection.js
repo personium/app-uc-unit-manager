@@ -186,43 +186,46 @@ _pc.DavCollection.prototype.getResourceList = function() {
   for ( var i = 1; i < nl.length; i++) {
     var elm = nl[i];
     var href = elm.getElementsByTagName("href")[0];
-    var lastModifiedDate = elm.getElementsByTagName("getlastmodified")[0].textContent;
-    var resourceType = elm.getElementsByTagName("resourcetype")[0];
-    if (resourceType.textContent !== "") {
-      var collectionType = elm.getElementsByTagName("resourcetype")[0].firstElementChild.tagName;
-      var temp = elm.getElementsByTagName("resourcetype")[0].firstElementChild;
-      if (collectionType === "collection") {
-        if (elm.getElementsByTagName("resourcetype")[0].firstElementChild.nextElementSibling !== null) {
-          type = temp.nextElementSibling.nodeName;
-        } else {
-          type = "folder";
+    var lastmodified = elm.getElementsByTagName("getlastmodified")[0];
+    if (lastmodified) {
+      var lastModifiedDate = lastmodified.textContent;
+      var resourceType = elm.getElementsByTagName("resourcetype")[0];
+      if (resourceType.textContent !== "") {
+        var collectionType = elm.getElementsByTagName("resourcetype")[0].firstElementChild.tagName;
+        var temp = elm.getElementsByTagName("resourcetype")[0].firstElementChild;
+        if (collectionType === "collection") {
+          if (elm.getElementsByTagName("resourcetype")[0].firstElementChild.nextElementSibling !== null) {
+            type = temp.nextElementSibling.nodeName;
+          } else {
+            type = "folder";
+          }
         }
+      } else {
+        type = "file";
       }
-    } else {
-      type = "file";
-    }
-    var epochDateTime = new Date(lastModifiedDate).getTime();
-    epochDateTime = "/Date(" + epochDateTime + ")/";
-    name = {
-        "Name" : href.firstChild.nodeValue,
-        "Date" : epochDateTime,
-        "Type" : type
-    };
-    if (type == "file"){
-        var contentLength = elm.getElementsByTagName("getcontentlength")[0].textContent;
-            name = {
-                "Name" : href.firstChild.nodeValue,
-                "Date" : epochDateTime,
-                "Type" : type,
-                "ContentLength" : contentLength
-            };
-    }
-    if (name === this.url) {
-      continue;
-    }
-    var col = elm.getElementsByTagName("collection");
-    if (col.length > 0 || type === "file") {
-      folderList.push(name);
+      var epochDateTime = new Date(lastModifiedDate).getTime();
+      epochDateTime = "/Date(" + epochDateTime + ")/";
+      name = {
+          "Name" : href.firstChild.nodeValue,
+          "Date" : epochDateTime,
+          "Type" : type
+      };
+      if (type == "file"){
+          var contentLength = elm.getElementsByTagName("getcontentlength")[0].textContent;
+              name = {
+                  "Name" : href.firstChild.nodeValue,
+                  "Date" : epochDateTime,
+                  "Type" : type,
+                  "ContentLength" : contentLength
+              };
+      }
+      if (name === this.url) {
+        continue;
+      }
+      var col = elm.getElementsByTagName("collection");
+      if (col.length > 0 || type === "file") {
+        folderList.push(name);
+      }
     }
   }
   return folderList;
