@@ -430,33 +430,39 @@ function getselectedcell(cellname, index, celldate, isSearch) {
 function persistTabOnCellChange(){
 	var tab = sessionStorage.tabName;
 	var contextRoot = sessionStorage.contextRoot;
-//	var id = objCommon.isSessionExist();
-//	if (id != null) {
-		if(tab == "Box"){
-			boxListData();
-		}else if(tab == "Role"){
-			roleListData();
-		}else if(tab == "Account"){
-			accountListData();
-		}else if(tab == "External Cell"){
-			externalCellList();
-		}else if(tab == "Relation"){
-			relationListData();
-		}else if(tab == "External Role"){
-			externalRoleList();
-		}else if(tab == "SentMessage"){
-			uMainNavigation.openSentMessageList();
-		}else if(tab == "Received"){
-			openReceivedMessageList();
-		}else if(tab == "Log"){
-			uMainNavigation.logViewData();
-		}else if(tab == "infoProfile"){
-			uMainNavigation.openCellProfileInfo();
-		}else if(tab == "infoAdmin"){
-			uMainNavigation.CellInfoNavigationData();
-		}else{
-			sessionStorage.tabName = "";
-		}
+	// When switching cells, display the box tab
+	$('#boxNav').trigger("click");
+/*
+	if(tab == "Box"){
+		boxListData();
+	}else if(tab == "Role"){
+		roleListData();
+	}else if(tab == "Account"){
+		accountListData();
+	}else if(tab == "External Cell"){
+		externalCellList();
+	}else if(tab == "Relation"){
+		relationListData();
+	}else if(tab == "External Role"){
+		externalRoleList();
+	}else if(tab == "SentMessage"){
+		uMainNavigation.openSentMessageList();
+	}else if(tab == "Received"){
+		openReceivedMessageList();
+	}else if(tab == "Log"){
+		uMainNavigation.logViewData();
+	}else if(tab == "infoProfile"){
+		uMainNavigation.openCellProfileInfo();
+	}else if(tab == "infoAdmin"){
+		uMainNavigation.CellInfoNavigationData();
+	}else if(tab == "Rule") {
+		uMainNavigation.ruleViewData();
+	}else if(tab == "Snapshot"){
+		uMainNavigation.snapshotViewData();
+	}else{
+		sessionStorage.tabName = "";
+	}
+*/
 }
 
 /* The purpose of this function is to close the create cell pop up.
