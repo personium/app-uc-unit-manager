@@ -83,7 +83,6 @@ snapshot.prototype.createEventSnapshotDetailsTable = function () {
 	this.disableImportButton();
 	this.enableExportButton();
 
-	//createNowExportTable();
 	var snapshotPath = uEventSnapshot.getSnapshotPath();
 	var snapshotList = objOdata.getCollectionList(snapshotPath);
 	var recordSize = snapshotList.length;
@@ -104,11 +103,11 @@ snapshot.prototype.createEventSnapshotDetailsTable = function () {
 		var collectionURLValueTemp = "'" + collectionURL + "'";
 		collectionURLValueTemp = decodeURIComponent(collectionURLValueTemp);
 		var lastModifiedDate = objCommon.convertEpochDateToReadableFormat(arrLastModifiedDate[count]);
-		dynamicTable += '<tr class="dynamicRow" id = "wdrowid'+count+'" onclick="objCommon.rowSelect(this,'+ "'wdrowid'" +','+ "'wdchkBox'"+','+ "'row'" +','+ "'btnDeleSnapshot'" +','+ "'snapshotchkSelectall'" +','+ count +',' + recordSize + ','+"'editBtn'"+','+aclCollectionName+','+false+', '+fileType+','+"'snapshotTable'"+');"><input type="hidden" id = "fileTypeId'+count+'" value="'+fileType+'"/>';
+		dynamicTable += '<tr class="dynamicRow exportedRow" id = "wdrowid'+count+'" onclick="objCommon.rowSelect(this,'+ "'wdrowid'" +','+ "'wdchkBox'"+','+ "'row'" +','+ "'btnDeleSnapshot'" +','+ "'snapshotchkSelectall'" +','+ count +',' + recordSize + ','+"'editBtn'"+','+aclCollectionName+','+false+', '+fileType+','+"'snapshotTable'"+');"><input type="hidden" id = "fileTypeId'+count+'" value="'+fileType+'"/>';
 		dynamicTable = this.createRows(dynamicTable, collectionName,
 			lastModifiedDate, collectionURL, type, count, contentLength);
 	}
-	recordSize += this.createNowExportTable();
+	recordSize += this.createRowForExporting();
 	if (recordSize == 0) {
 		$("#snapshotTable thead tr").addClass('mainTableHeaderRow');
 		var emptyFolderTextMessage = getUiProps().MSG0415;
@@ -150,7 +149,7 @@ snapshot.prototype.createRows = function(dynamicTable, collectionName,
 	return dynamicTable;
 };
 
-snapshot.prototype.createNowExportTable = function(count) {
+snapshot.prototype.createRowForExporting = function(count) {
 	let response = this.getSnapshotStatus();
 	let recordSize = 0;
 	if (response.status != "ready" && response.progress != "100%") {
@@ -158,7 +157,7 @@ snapshot.prototype.createNowExportTable = function(count) {
 		let progressNum = response.progress.replace("%", "");
 		let fileName = response.exportation_name + ".zip";
 		let startDate = moment(response.started_at).format("D-MMM-YYYY hh:mm:ss");
-		let dynamicTable = '<tr class="dynamicRow" id = "wdrowid_progress">';
+		let dynamicTable = '<tr class="dynamicRow exportRow" id = "wdrowid_progress">';
 		dynamicTable += '<td width="1%" class="boxDetailTabCol1"></td>';
 		/*dynamicTable += '<td width="60%" id = "col'+count+'" title= '+ collectionNameModified + ' class="boxDetailTabCol2"><div id="dvServiceCollectionArrow_'+count+'" class="'+ engineServiceArrow +'" onclick="objOdata.toggleArrow('+count+','+collectionNameModified+');"></div><div class="collectionNameLink '+ icon +'"><label id="boxDetailLink_'+ count +'" style="cursor: pointer"  onclick="objOdata.checkCollectionType('*/
 		dynamicTable += '<td style="max-width:320px;" width="40%" id = "col'+count+'" title="'+ fileName + '" class="boxDetailTabCol2"><div id="dvServiceCollectionArrow_'+count+'"></div><div class="collectionNameLink wdFileIcon mainTableEllipsis"><label id="boxDetailLink_'+ count +'"  style="cursor: pointer">'
@@ -250,11 +249,7 @@ snapshot.prototype.checkAll = function (cBox) {
 	objCommon.disableDeleteIcon(buttonId);
 	objOdata.checkBoxSelectOData(cBox, buttonId);
 	objCommon.showSelectedRow(document.getElementById("snapshotchkSelectall"),"row","wdrowid");
-	var noOfRecords = $("#snapshotTable > tbody > tr").length;
-	if ($("#nowExportBar").length) {
-		// Data in Export is not counted
-		noOfRecords = noOfRecords - 1;
-	}
+	var noOfRecords = $("#snapshotTable > tbody > tr.exportedRow").length;
 	if ($("#snapshotchkSelectall").is(':checked')) {
 		if(noOfRecords >= 1) { 
 			objCommon.activateCollectionDeleteIcon(buttonId);
