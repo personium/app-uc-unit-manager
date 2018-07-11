@@ -578,6 +578,8 @@ mainNavigation.prototype.snapshotViewData = function() {
         $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/snapshot.html',
                 function() {
                     var objSnapshot = new snapshot();
+                    let snapshotPath = objSnapshot.getSnapshotPath();
+                    objOdata.setCollectionPath(snapshotPath);
                     objSnapshot.initSnapshot();
                     $("#mainContent").show();
                     $("#mainContentWebDav").hide();
