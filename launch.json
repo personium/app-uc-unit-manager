@@ -2,6 +2,7 @@
   "personal": {
      "web": "personium-localbox:/src/login.html",
      "android": "***:",
-     "ios": "***:"
+     "ios": "***:",
+     "sendRefreshToken": true
   }
 }
