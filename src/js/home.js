@@ -329,6 +329,8 @@ home.prototype.getUserPrivilege = function() {
         cache : false,
         success : function(jsonData) {
             uHome.loadCellDetails(jsonData);
+            ManagerInfo.refreshToken = getClientStore().refreshToken;
+            sessionStorage.ManagerInfo = JSON.stringify(ManagerInfo);
         },
         error : function(jsonData) {
         }
@@ -347,8 +349,8 @@ home.prototype.openResourceManagement = function() {
     sessionStorage.target = target;
     sessionStorage.token = token;
     objCommon.getCellCountAndOpenPage();
-    sessionStorage.isSocialGraph == "false";
-    sessionStorage.isResourceMgmt == "true";
+    sessionStorage.isSocialGraph = "false";
+    sessionStorage.isResourceMgmt = "true";
 };
 
 /**
@@ -442,8 +444,8 @@ home.prototype.setEnvironmentVariables = function() {
         sessionStorage.selectedUnitUrl = tempParams.clickedEnvironmentUnitUrl;
         sessionStorage.selectedUnitCellName = tempParams.clickedEnvironmentUnitCellName;
         sessionStorage.ManagerInfo = tempParams.ManagerInfo;
-        uHome.storeEnvDetails();
     }
+    uHome.storeEnvDetails();
 };
 
 home.prototype.getHashParams = function() {

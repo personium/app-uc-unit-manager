@@ -138,11 +138,18 @@ externalCell.prototype.getCellList = function() {
 /**
 * The purpose of this method is to bind drop down.
 */
-externalCell.prototype.bindDropDown = function() {
+externalCell.prototype.bindDropDown = function(editFlg) {
 	var objExternalCell = new externalCell();
+	let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+	if (ManagerInfo.isCellManager) {
+		return;
+	}
 	var jsonString = objExternalCell.getCellList();
 	//jsonString = sortByKey(jsonString, '__published');
 	var select = document.getElementById("ddlCellList");
+	if (editFlg) {
+		select = document.getElementById("ddlEditCellList");
+	}
 	for ( var count = 0; count < jsonString.length; count++) {
 		var option = document.createElement("option");
 		var objCell = jsonString[count];
@@ -273,6 +280,83 @@ externalCell.prototype.createExternalCell = function() {
 					}
 				
 	}
+	removeSpinner("modalSpinnerExtCell");
+};
+/***
+ * The purpose of this method is to perform update operation for External cell.
+ */
+externalCell.prototype.updateExternalCell = function(key, body) {
+	var objExternalCell = new externalCell();
+	var accessor = objExternalCell.getAccessor();
+	var objExtCellManager = new _pc.ExtCellManager(accessor);
+	try {
+		var idModalWindow = '#externalCellEditModalWindow';
+		var response = objExtCellManager.update(key, body);
+		if (response.getStatusCode() == 204) {
+			objExtCell.showMessage(idModalWindow);
+			updateExternalInfo(body.Url);
+		}
+	} catch (exception) {
+		if (exception.getCode() == "PR409-OD-0003") {
+			document.getElementById('externalCellURLEditErrorMessage').innerHTML = getUiProps().MSG0032;
+			cellpopup.showErrorIcon('#txtEditUrl');
+		} else if (exception.getCode() == "PR400-OD-0006") {
+			document.getElementById('externalCellURLEditErrorMessage').innerHTML = getUiProps().MSG0034;
+			cellpopup.showErrorIcon('#txtEditUrl');
+		}
+	}
+};
+function updateExternalInfo(schemaURL) {
+	var objExternalCell = new externalCell();
+	var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
+	var extCellName = extCellInfo[1];
+	var accessor = objExternalCell.getAccessor();
+	var objExtCellManager = new _pc.ExtCellManager(accessor);
+	$("#assignExtCellName").html(extCellName);
+	$("#assignExtCellName").attr('title', extCellName);
+	$("#assignExtCellURlName").text(schemaURL);
+	var extData = objExtCell.getExternalCellData(schemaURL);
+    objExtCell.setCellControlsInfoTabValues(extCellName, extData.__metadata.etag, objCommon.convertEpochDateToReadableFormat(extData.__published), objCommon.convertEpochDateToReadableFormat(extData.__updated));
+	uBoxDetail.displayBoxInfoDetails();
+}
+
+/**
+ *  The purpose of this method is to change external cell.
+ */
+externalCell.prototype.changeExternalCell = function() {
+	showSpinner("modalSpinnerExtCell");
+	var objExternalCell = new externalCell();
+	var schemaURL = $("#txtEditUrl").val();
+	if (objExternalCell.getExternalCellInfo(schemaURL) == false) {
+		document.getElementById("externalCellURLEditErrorMessage").innerHTML = getUiProps().MSG0302;
+		cellpopup.showErrorIcon('#txtEditUrl');
+		return false;
+	}
+	var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
+	var extCellName = extCellInfo[1];
+	var extCellURL = extCellInfo[0];
+
+	if (!objBox.validateSchemaURL(schemaURL,
+			"externalCellURLEditErrorMessage","#txtEditUrl")) {
+		removeSpinner("modalSpinnerExtCell");
+		return;
+	} else if (!objCommon.validateURL(extCellURL,
+				"externalCellURLEditErrorMessage", "#txtEditUrl")) {
+		removeSpinner("modalSpinnerExtCell");
+		return;	
+	} else if (!objExternalCell.validateExternalCellName(extCellName)) {
+		removeSpinner("modalSpinnerExtCell");
+		return;
+	} else if(!objCommon.doesUrlContainSlash(schemaURL, "externalCellURLEditErrorMessage","#txtEditUrl",getUiProps().MSG0285)) {
+		removeSpinner("modalSpinnerExtCell");
+		return;
+	}
+
+	var body = {
+		"Url" : objCommon.changeUnitUrlToLocalUnit(schemaURL)
+	};
+	var key = $("#assignExtCellURlName").text();
+	objExternalCell.updateExternalCell(key, body);
 	removeSpinner("modalSpinnerExtCell");
 };
 
@@ -459,7 +543,7 @@ externalCell.prototype.createRows = function(dynamicTable, externalCellURI, exte
 	
 //function createRows (dynamicTable, externalCellURI, externalCellName,externalCellDate, count, shorterExternalCellName, shorterExternalCellURI,externalRoleCount) {
 	dynamicTable += '<td style="width:1%"><input id =  "txtHiddenEtagId'+externalCellRowCount+'" value='+etag+' type = "hidden" /><input  title="'+externalCellRowCount+'" id="chkBox'+externalCellRowCount+'" type="checkbox" class="case cursorHand regular-checkbox big-checkbox" name="case" value="'+externalCellURI+'"/><label for="chkBox'+externalCellRowCount+'" class="customChkbox checkBoxLabel"></label></td>';
-	dynamicTable += '<td name = "externalCellName" style="max-width: 100px;width:15%"><div class = "mainTableEllipsis"><a href="#" id="extCellNameLink_' + count + '" title= "' + fullExternalCellName + '" onclick="openExternalCellToRoleMapping(' + selectedExtCellName + ',' +selectedExtCellURL+ ',' + parrEtag0 + ',' +parrEtag1+ ',' + pcreatedDate + ',' +pexternalCellDate+ ',' +externalCellURI+ ');" tabindex ="-1" style="outline:none">' + fullExternalCellName + '</a></div></td>';
+	dynamicTable += '<td name = "externalCellName" style="max-width: 100px;width:15%"><div class = "mainTableEllipsis"><a href="#" id="extCellNameLink_' + count + '" title= "' + fullExternalCellName + '" onclick="openExternalCellToRoleMapping(' + selectedExtCellName + ',' +selectedExtCellURL+ ');" tabindex ="-1" style="outline:none">' + fullExternalCellName + '</a></div></td>';
 	dynamicTable += "<td name = 'externalCellURL' id='extCellURI_" + count + "' style='max-width: 100px;width:24%'><div class = 'mainTableEllipsis'><label title= "+dispExtCellURL+" class='cursorPointer'>"
 			+ dispExtCellURL + "</label></div></td>";
 	dynamicTable += "<td style='width:15%' name = 'Date' id='extCellCreatedDate_" + count + "'>" + createdDate
@@ -579,6 +663,19 @@ externalCell.prototype.retrieveChunkedData = function(lowerLimit, upperLimit) {
 	var json = response.bodyAsJson().d.results;
 	return json;
 };
+externalCell.prototype.getExternalCellData = function(extUrl) {
+	var baseUrl = getClientStore().baseURL;
+	var cellName = sessionStorage.selectedcell;
+	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
+	var objExtCellManager = new _pc.ExtCellManager(accessor);
+	var uri = objExtCellManager.getUrl();
+	uri = uri + "('"+encodeURIComponent(extUrl)+"')";
+	var restAdapter = _pc.RestAdapterFactory.create(accessor);
+	var response = restAdapter.get(uri, "application/json");
+	var json = response.bodyAsJson().d.results;
+	return json;
+};
+
 /**
  * The purpose of this function is to create dynamic tabled on the basis of
  * response returned by API
@@ -601,6 +698,10 @@ externalCell.prototype.createExternalCellTable = function() {
 		objCommon.disableButton('#btnDeleteExternalCell');
 	}
 };
+externalCell.prototype.getSelectedExternalCellDetails = function() {
+	var selectedExternalCell = $("#assignExtCellURlName").text();
+	$("#txtEditUrl").val(objCommon.changeLocalUnitToUnitUrl(selectedExternalCell));
+}
 /********************************************/
 
 /**
@@ -808,6 +909,41 @@ externalCell.prototype.loadExternalCellPage = function() {
 		objExternalCell.createExternalCell();
 	});
 };
+externalCell.prototype.initEditExternalCell = function() {
+	$("#rowEditCellURL").show();
+	$('#ddCellListEditErrorMsg').html('');
+	$("#txtEditUrl").blur(
+		function() {
+			var objExternalCell = new externalCell();
+			var schemaURL = $("#txtEditUrl").val();
+			if (objExternalCell.getExternalCellInfo(schemaURL) == false) {
+				document.getElementById("externalCellURLEditErrorMessage").innerHTML = getUiProps().MSG0302;
+				cellpopup.showErrorIcon('#txtEditUrl');
+				return false;
+			}
+			var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
+			var extCellName = extCellInfo[1];
+			var extCellURL = extCellInfo[0];
+			if (objBox.validateSchemaURL(schemaURL,
+					"externalCellURLEditErrorMessage","#txtEditUrl"))
+				if (objCommon.validateURL(extCellURL,
+						"externalCellURLEditErrorMessage", "#txtEditUrl")) 
+					if (objExternalCell.validateExternalCellName(extCellName))
+						objCommon.doesUrlContainSlash(schemaURL, "externalCellURLEditErrorMessage","#txtEditUrl",getUiProps().MSG0285);
+		});
+}
+externalCell.prototype.setCellControlsInfoTabValues = function(ccname, etag, cccreatedat, ccupdatedat, ccurl) {   
+    sessionStorage.ccname       = objCommon.replaceNullValues(ccname,getUiProps().MSG0275);
+    sessionStorage.ccetag       = etag;
+    sessionStorage.cccreatedat  = objCommon.replaceNullValues(cccreatedat,getUiProps().MSG0275);
+    sessionStorage.ccupdatedat  = objCommon.replaceNullValues(ccupdatedat,getUiProps().MSG0275);
+    if (ccurl != undefined) {
+    	sessionStorage.ccurl        = objCommon.replaceNullValues(ccurl,getUiProps().MSG0275).replace(/[`]/g,"'");
+    } else {
+    	sessionStorage.removeItem("ccurl");
+    }
+    
+};
 
 /**
  * The purpose of this function is to change css dynamicaly after
@@ -884,6 +1020,22 @@ externalCell.prototype.emptyCreateExtCellPopUp = function () {
 	objCommon.removePopUpStatusIcons('#txtUrl');
 	//objCommon.removePopUpStatusIcons('#txtPassword');
 	//objCommon.removePopUpStatusIcons('#txtRePassword');
+};
+
+/**
+ * Following method closes edit pop up window.
+ */
+externalCell.prototype.closeEditPopUpWindow = function () {
+    objExtCell.emptyEditExternalCellPopUp();
+    $('#externalCellEditModalWindow, .window').hide(0);
+ };
+
+ /**
+ * Following function clears edit account pop up elements.
+ */
+externalCell.prototype.emptyEditExternalCellPopUp = function () {
+	$("#rdExternalCell").val("");
+	objCommon.removePopUpStatusIcons('#txtUrl');
 };
 
 /**

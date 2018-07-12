@@ -23,6 +23,19 @@ var arrDeletedConflictCount = [];
 var etagValue  = '';
 var isDeleted = false;
 
+roleToAccountMapping.prototype.setRoleName = function(name) {
+	roleName = name;
+}
+roleToAccountMapping.prototype.getRoleName = function() {
+	return roleName;
+}
+roleToAccountMapping.prototype.setBoxName = function(name) {
+	boxName = name;
+}
+roleToAccountMapping.prototype.getBoxName = function() {
+	return boxName;
+}
+
 /**
  * The purpose of this function is to retrieve chunked data from API.
  * 

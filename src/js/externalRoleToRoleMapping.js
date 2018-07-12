@@ -600,6 +600,7 @@ $(document).ready(function() {
 	$("#lblExtRoleRelationName").html(sessionStorage.ExtRoleRelationName);
 	$("#lblExtRoleBoxName").html(sessionStorage.ExtRoleBoxName);
 	$("#txtAssignExtRoleBoxName").attr("placeholder", getUiProps().MSG0242);
+	uExternalRole.initEditExternalRole();
 	uExternalRoleToRoleMapping.bindRoleBoxDropdown();
 	uExternalRoleToRoleMapping.createTable();
 	objCommon.assignBackBtnHoverEffect();

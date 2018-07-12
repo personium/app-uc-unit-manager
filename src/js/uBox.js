@@ -159,17 +159,6 @@ function checkAll(cBox) {
 	objCommon.checkBoxSelect(cBox, buttonId,'#btnEditBox');
 	objCommon.showSelectedRow(document.getElementById("chkSelectall"),"row","rowid");
 	$('#chkCreateProfileBox').attr('checked', false);
-	$("#btnEditBoxIcon").removeClass();
-	$("#btnEditBoxIcon").addClass('editIconDisabled');
-	$("#btnEditBoxIcon").attr("disabled", true);
-	var noOfRecords = $("#mainBoxTable > tbody > tr").length;
-	if ($("#chkSelectall").is(':checked')) {
-		if (noOfRecords == 2) {
-			$("#btnEditBoxIcon").removeClass();
-			$("#btnEditBoxIcon").addClass('editIconEnabled');
-			$('#btnEditBoxIcon').removeAttr("disabled");
-		}
-	}
 }
 
 /**
@@ -554,7 +543,7 @@ function updateBox() {
 			}
 			if (isBoxNotExist ===  true) {
 				isBoxNotExist = null;
-				editBox(boxName, body, etag,objBoxManager);
+				editBox(boxName, body, etag,objBoxManager)
 			} else {
 				editPopupSchemaErrorMsg.innerHTML = "";
 				var existMessage = getUiProps().MSG0012;
@@ -563,6 +552,16 @@ function updateBox() {
 		}
 	}
 	removeSpinner("modalSpinnerBox");
+}
+
+function updateBoxInfo(boxName, schemaUrl) {
+	sessionStorage.boxName = boxName;
+	sessionStorage.ccname = objCommon.replaceNullValues(boxName,getUiProps().MSG0275);
+	sessionStorage.ccurl = objCommon.replaceNullValues(schemaUrl,getUiProps().MSG0038).replace(/[`]/g,"'");
+	uBoxDetail.initializePage(boxName);
+	$("#dvBreadCrumBrowse").attr('title', boxName);
+	boxHeirarchyPath = boxName;
+	createBoxTable();
 }
 
 /**
@@ -579,6 +578,7 @@ function editBox(boxName, body, etag, objBoxManager) {
 
 	if(statusCode == 204) {
 		displayEditSuccessMessage(boxName);
+		updateBoxInfo(body.Name, body.Schema);
 	} else if (statusCode == 409) {
 		editPopupBoxErrorMsg.innerHTML= "";
 		var existSchemaMessage = getUiProps().MSG0026;
@@ -599,14 +599,13 @@ function displayEditSuccessMessage(boxName) {
 	$("#deleteBoxMessageBlock").hide();
 	addSuccessClass();
 	inlineMessageBlock();
-	createBoxTable();
 	//var shorterBoxName = objCommon.getShorterEntityName(boxName);
-	document.getElementById("boxMessageBlock").style.display = "table";
-	document.getElementById("successmsg").innerHTML = getUiProps().MSG0326;
-	document.getElementById("successmsg").title = boxName;
+	document.getElementById("collectionMessageSuccessBlock").style.display = "table";
+	document.getElementById("collectionSuccessMsg").innerHTML = getUiProps().MSG0326;
+	document.getElementById("collectionSuccessMsg").title = boxName;
 	$('#boxEditModalWindow, .window').hide(0);
-	objCommon.centerAlignRibbonMessage("#boxMessageBlock");
-	objCommon.autoHideAssignRibbonMessage('boxMessageBlock');
+	objCommon.centerAlignRibbonMessage("#collectionMessageSuccessBlock");
+	objCommon.autoHideAssignRibbonMessage('collectionMessageSuccessBlock');
 }
 
 /**
@@ -673,9 +672,6 @@ return dynamicTable;
 function createChunkedBoxTable(json, recordSize){
 $('#chkSelectall').attr('checked', false);
 objCommon.disableButton('#btnDeleteBox');
-$("#btnEditBoxIcon").removeClass('editIconEnabled');
-$("#btnEditBoxIcon").addClass('editIconDisabled');
-$("#btnEditBoxIcon").attr("disabled", true);
 	var dynamicTable = "";
 	var counter = 0;
 	var boxName = new Array();
@@ -762,9 +758,6 @@ function createBoxTable() {
 		objCommon.disableButton("#btnDeleteBox");
 		var recordCount = "1 - 1 " + getUiProps().MSG0323 + " 1";
 		$("#recordCount_Box").text(recordCount);
-		$("#btnEditBoxIcon").removeClass('editIconEnabled');
-		$("#btnEditBoxIcon").addClass('editIconDisabled');
-		$("#btnEditBoxIcon").attr("disabled", true);
 		$("#mainBoxTable thead tr").removeClass("mainTableHeaderRow");
 		$("#mainBoxTable tbody").removeClass("mainTableTbody");
 		$("#mainBoxTable tbody").addClass("emptyBoxTable");
@@ -788,7 +781,7 @@ function createBoxTable() {
 }
 
 function getSelectedBoxDetails() {
-	var selectedBoxName = objCommon.getMultipleSelections('mainBoxTable', 'input', 'case');
+	var selectedBoxName = $("#backBtnTxt").text();
 	var baseUrl = getClientStore().baseURL;
 	var cellName = sessionStorage.selectedcell;
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);

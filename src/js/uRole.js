@@ -190,17 +190,6 @@ uRole.prototype.checkAll = function(cBox) {
 	$('#btnEditRole').attr('disabled', false);
 	objCommon.showSelectedRow(document.getElementById("chkSelectall"), "row",
 			"rowid");
-	$("#btnEditRoleIcon").removeClass();
-	$("#btnEditRoleIcon").addClass('editIconDisabled');
-	$("#btnEditRoleIcon").attr("disabled", true);
-	var noOfRecords = $("#mainRoleTable > tbody > tr").length;
-	if ($("#chkSelectall").is(':checked')) {
-		if (noOfRecords == 1) {
-			$("#btnEditRoleIcon").removeClass();
-			$("#btnEditRoleIcon").addClass('editIconEnabled');
-			$('#btnEditRoleIcon').removeAttr("disabled");
-		}
-	}
 };
 
 /**
@@ -321,9 +310,6 @@ function createChunkedRoleTable(json, recordSize){
 	$('#chkSelectall').attr('checked', false);
 	$("#chkSelectall").attr('disabled', false);
 	objCommon.disableButton('#btnDeleteRole');
-	$("#btnEditRoleIcon").removeClass('editIconEnabled');
-	$("#btnEditRoleIcon").addClass('editIconDisabled');
-	$("#btnEditRoleIcon").attr("disabled", true);
 	//$("#btnDeleteRole").attr('disabled', true);
 	var baseUrl = getClientStore().baseURL;
 	var accessor = objCommon.initializeAccessor(baseUrl,cellName,"","");
@@ -436,9 +422,6 @@ function createRoleTable() {
 		$("#chkSelectall").attr('disabled', true);
 		$('#mainRoleTable tbody').empty();
 		objCommon.disableButton("#btnDeleteRole");
-		$("#btnEditRoleIcon").removeClass('editIconEnabled');
-		$("#btnEditRoleIcon").addClass('editIconDisabled');
-		$("#btnEditRoleIcon").attr("disabled", true);
 	} else {
 		$("#chkSelectall").attr('disabled', false);
 		document.getElementById("dvemptyTableMessage").style.display = "none";
@@ -651,14 +634,14 @@ function editRole(oldRoleName, oldBoxName, body, objJRoleManager) {
 	var response = objJRoleManager.update(oldRoleName, oldBoxName, body, "*");
 	if(response.getStatusCode() == 204) {
 		displayEditRoleSuccessMessage();
-		$("#btnEditRoleIcon").removeClass();
-		$("#btnEditRoleIcon").addClass('editIconDisabled');
-		$("#btnEditRoleIcon").attr("disabled", true);
 	} else if (response.getStatusCode() == 409) {
 		var existRoleNameMessage = getUiProps().MSG0007;
 		editPopupRoleErrorMsg.innerHTML = existRoleNameMessage;
 		$("#txtEditRoleName").addClass("errorIcon");
+		return false;
 	}
+
+	return true;
 }
 
 /**
@@ -683,12 +666,12 @@ function displayRoleCreateMessage (roleName) {
 function displayEditRoleSuccessMessage() {
 	objCommon.removePopUpStatusIcons('#txtEditRoleName');
 	$('#roleEditModalWindow, .window').hide();
-	$("#roleMessageBlock").css("display", 'table');
-	document.getElementById("roleSuccessmsg").innerHTML = getUiProps().MSG0331;
-	addSuccessClass('#roleMessageIcon');
+	$("#roleLinkMessageBlock").css("display", 'table');
+	document.getElementById("roleLinkSuccessmsg").innerHTML = getUiProps().MSG0331;
+	addSuccessClass('#roleLinkMessageIcon');
 	createRoleTable();
-	objCommon.centerAlignRibbonMessage("#roleMessageBlock");
-	objCommon.autoHideAssignRibbonMessage('roleMessageBlock');
+	objCommon.centerAlignRibbonMessage("#roleLinkMessageBlock");
+	objCommon.autoHideAssignRibbonMessage('roleLinkMessageBlock');
 }
 
 /**
@@ -713,6 +696,9 @@ function updateRole() {
 	} else if (dropDown.selectedIndex > 0 ) {
 		newBoxSelected = dropDown.options[dropDown.selectedIndex].title;
 	}
+	if (!newBoxSelected) {
+		newBoxSelected = mainBoxValue
+	}
 	if (roleValidation(newRoleName, "editPopupRoleErrorMsg")) {
 		body = {"Name" : newRoleName, "_Box.Name" : newBoxSelected};
 		if (newBoxSelected == undefined || newBoxSelected == null || newBoxSelected == "" || newBoxSelected == mainBoxValue) {
@@ -721,12 +707,50 @@ function updateRole() {
 		var baseUrl = getClientStore().baseURL;
 		var accessor = objCommon.initializeAccessor(baseUrl,cellName,"","");
 		var objJRoleManager = new _pc.RoleManager(accessor);
-		editRole(oldRoleName, oldBoxName, body, objJRoleManager);
+		if (editRole(oldRoleName, oldBoxName, body, objJRoleManager)) {
+			updateRoleInfo(newRoleName, newBoxSelected);
+		};
 	}
 	 else {
 		$("#txtEditRoleName").addClass("errorIcon");
 	}
 	removeSpinner("modalSpinnerRole");
+}
+
+function updateRoleInfo(roleName, boxName) {
+	sessionStorage.ccname = roleName;
+	sessionStorage.roleName = roleName;
+	sessionStorage.boxName = boxName;
+	var baseUrl = getClientStore().baseURL;
+	var cellName = sessionStorage.selectedcell;
+	var accessor = objCommon.initializeAccessor(baseUrl,cellName,"","");
+	var objRoleManager = new _pc.RoleManager(accessor);
+	var newBoxName = boxName;
+	if(newBoxName == null || newBoxName == "" || newBoxName == 0 || newBoxName == getUiProps().MSG0039) {
+		newBoxName = undefined;
+	}
+	var res = objRoleManager.retrieve(roleName,newBoxName);
+	sessionStorage.ccurl = res.rawData.__metadata.uri
+	if (typeof objRoleToAccountMapping !== 'undefined') {
+		objRoleToAccountMapping.setRoleName(roleName);
+		objRoleToAccountMapping.setBoxName(boxName);
+	}
+	if (typeof uRoleExtCellMapping !== 'undefined') {
+		uRoleExtCellMapping.roleName = roleName;
+		uRoleExtCellMapping.boxName = boxName;
+	}
+	if (typeof uRelRoleMapping !== 'undefined') {
+		uRelRoleMapping.roleName = roleName;
+		uRelRoleMapping.boxName = boxName;
+	}
+	if (typeof uRoleExtRoleMapping !== 'undefined') {
+		uRoleExtRoleMapping.roleName = roleName;
+		uRoleExtRoleMapping.boxName = boxName;
+	}
+	$("#assignRoleName").attr('title',roleName);
+	$('#assignRoleName').text(roleName);
+	$("#assignBoxName").text(sessionStorage.boxName);
+	uBoxDetail.displayBoxInfoDetails();
 }
 
 /** 
@@ -786,10 +810,8 @@ function getExtItemCount(roleName,boxName,accessor,item){
 }
 
 function getSelectedRoleDetails() {
-	var selectedRoleDetails = objCommon.getMultipleSelections('mainRoleTable', 'input', 'case');
-	var arrSelectedRole = selectedRoleDetails.split("'");
-	var existingRoleName = arrSelectedRole[1];
-	var existingBoxName = arrSelectedRole[3];
+	var existingRoleName = sessionStorage.roleName;
+	var existingBoxName = sessionStorage.boxName;
 	retrieveBox("dropDownBoxEdit", existingBoxName);
 	sessionStorage.currentRoleName = existingRoleName;
 	sessionStorage.currentBoxName = existingBoxName;

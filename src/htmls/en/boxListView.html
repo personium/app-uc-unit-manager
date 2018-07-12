@@ -50,9 +50,6 @@ limitations under the License.
 							Import Box</a></li> -->
 				</ul></div>
 			</div>
-			<div class="divEditIcon">
-				<input id="btnEditBoxIcon" onclick="getSelectedBoxDetails();" type="button" class="editIconDisabled" tabindex="-1" title="Edit" disabled="disabled">
-			</div>
 
 			<div class="divDeleteIcon">
 				<input type="button" class="deleteIconDisabled" id="btnDeleteBox" disabled="disabled" onclick="openPopUpWindow('#singleDeleteDialogBox','#deleteModalWindow');" tabindex="-1" title="Delete">
@@ -265,52 +262,6 @@ limitations under the License.
 		</div>
 	</div> -->
 	<!--  Single Delete Pop Up End -->
-	<!-- Box EDIT Pop Up Start -->
-	<div id="boxEditModalWindow" class="modelback" style="display: none;">
-		<div class="modal-window block-border" style="display: block; height: 315px; width: 474px; background: #ffffff" id="boxEditDialogBox">
-			<div style="height: 300px; width: 474px;">
-				<div style="height: 34px; width: 474px">
-					<a class="popupCloseIcon" onclick="closeEntityModal('#boxEditModalWindow');" tabindex="5" title="Close"></a>
-				</div>
-				<div class="divPopupInner">
-					<label class="AccessTokenHeading">Edit Box</label>
-					<section class="sectionContent" style="height: 170px; width: 320px; margin-left: 58px;">
-						<form onsubmit="return false;">
-							<table>
-								<tr>
-									<td style="padding-bottom: 5px;"><label class="lblElement">*Box Name</label></td>
-								</tr>
-								<tr>
-									<td  id="editBoxId">
-										<input type="text" id="txtEditBoxName" class="bigTextBoxCollection" autocomplete="off" style="width: 205px" tabindex="1">
-										<span class="spanPopupErrorMessageCommon">
-											<aside class="asidePopupErrorMessageCommon" id="editPopupBoxErrorMsg" style="width: 248px"></aside>
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td style="padding-bottom: 5px;"><label class="lblElement">Schema URL</label></td>
-								</tr>
-								<tr>
-									<td  id="editSchemaId">
-										<input type="text" id="txtEditBoxSchema" class="bigTextBoxCollection" autocomplete="off" style="width: 205px" tabindex="2">
-										<span class="spanPopupErrorMessageCommon">
-											<aside class="asidePopupErrorMessageCommon" id="editPopupSchemaErrorMsg" style="width: 248px"></aside>
-										</span>
-									</td>
-								</tr>
-							</table>
-						</form>
-					</section>
-					<section style="float: right; margin: 15px 0px 0px 0px;" class="divLogoutBtn">
-						<input type="button" value="Cancel" class="btnCancelPopup" onclick="closeEntityModal('#boxEditModalWindow');" tabindex="3">
-						<input type="button" value="Save" class="btnSavePopup" id="btnEditRole" onclick="updateBox();" tabindex="4">
-					</section>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Box EDIT Pop Up End -->
 	<!-- Box EDIT Pop Up Start -->
 
 <!-- 	<div id="boxEditModalWindow" class="modelback" style="display: block;">

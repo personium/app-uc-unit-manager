@@ -1553,6 +1553,8 @@ margin-top:-5px;
 	white-space:nowrap;
 	overflow:hidden;
 	cursor:default;
+	border-right: 1px solid #4b4b4b;
+	padding-right: 10px;
 }
 
 .secondaryHeaderBar{
@@ -1841,8 +1843,8 @@ margin-top:-5px;
 }
 
 .exportWebDavWrapper{
-	border-left: 1px solid #565656;
-	margin-top: 3px;
+	border-right: 1px solid #565656;
+	height: 23px;
 	margin-left: 10px;
 	width: 90px;
 	float: left;
@@ -3972,9 +3974,10 @@ margin-top: 10px;
 #logTable .col4{width:25%}
 
 #snapshotTable .col1{width:1%}
-#snapshotTable .col2{width:60%}
-#snapshotTable .col3{width:14%}
-#snapshotTable .col4{width:25%}
+#snapshotTable .col2{width:40%}
+#snapshotTable .col3{width:20%}
+#snapshotTable .col4{width:14%}
+#snapshotTable .col5{width:25%}
 
 .errorIconEntityLink {
 	background: url(../images/newSprite.png) no-repeat 106% -214px;
