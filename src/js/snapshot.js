@@ -565,7 +565,8 @@ snapshot.prototype.retrieveResponse = function(id) {
  * multiple delete scenario.
  */
 snapshot.prototype.displayAllMessages = function() {
-	objCommon.disableDeleteIcon("#btnDeleteCollection");
+	var buttonId = '#btnDeleSnapshot';
+	objCommon.disableDeleteIcon(buttonId);
 	sbSuccessful = sbSuccessful.substring(0, sbSuccessful.length - 1);
 	sbConflict = sbConflict.substring(0, sbConflict.length - 1);
 	$('#snapshotFileDeleteModalWindow, .window').hide();
