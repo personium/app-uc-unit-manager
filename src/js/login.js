@@ -296,7 +296,7 @@ login.isUnitCell = function(jsonData1, jsonData2) {
             console.log("Unit Manager");
             let managerInfo = {
                 isCellManager: false,
-                loginURL: location.protocol + "//" + location.hostname + location.pathname,// Hold the URL of the login screen
+                loginURL: location.protocol + "//" + location.host + location.pathname,// Hold the URL of the login screen
                 token: jsonData1.access_token,
                 refreshToken: jsonData1.refresh_token
             };
@@ -334,7 +334,7 @@ login.getCellInfo = function(jsonData) {
             let managerInfo = {
                 isCellManager: true,
                 __published: "/Date(" + epoch + ")/",//need to change to epoch time
-                loginURL: location.protocol + "//" + location.hostname + location.pathname,// Hold the URL of the login screen
+                loginURL: location.protocol + "//" + location.host + location.pathname,// Hold the URL of the login screen
                 token: jsonData.access_token,
                 refreshToken: jsonData.refresh_token
             };
