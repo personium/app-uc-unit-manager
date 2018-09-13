@@ -202,7 +202,7 @@ cellProfile.prototype.updateCellProfile = function() {
         var validDisplayName = validateDisplayName(displayName, "popupEditDisplayNameErrorMsg",'#editDisplayName');
         if(validDisplayName){
             $('#popupEditDisplayNameErrorMsg').html('');
-            var validDesciption = objBoxProfile.validateDescription(description,"popupEditDescriptionErrorMsg");
+            var validDesciption = uCellProfile.validateDescription(description,"popupEditDescriptionErrorMsg");
             if (validDesciption){
                 var prof = this.getCellProfileInfo();
                 prof = prof.bodyAsJson();
