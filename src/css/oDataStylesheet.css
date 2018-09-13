@@ -1756,7 +1756,8 @@ margin-top:-5px;
 	margin-right:10px;
 }
 
-.uploadWebDavWrapper{
+.uploadWebDavWrapper,
+.downloadWebDavWrapper {
 	cursor:pointer;
 	float:left;
 	border-right: 1px solid #565656;
@@ -1798,12 +1799,6 @@ margin-top:-5px;
 	color: #1b1b1b;
 	margin-top: 1px;
 	margin-right:11px;
-}
-
-.downloadWebDavWrapper{
-	float:left;
-	border-right: 1px solid #565656;
-	margin-top: 8px;
 }
 
 .downloadWebDavIconDisabled{
