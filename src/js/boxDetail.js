@@ -248,7 +248,7 @@ boxDetail.prototype.displayBoxInfoDetails = function() {
 	$("#ccCreatedate").text(sessionStorage.cccreatedat);
 	$("#ccUpatedate").text(sessionStorage.ccupdatedat);
 	$("#ccEtag").text(sessionStorage.ccetag);
-	if (sessionStorage.ccurl) {
+	if (sessionStorage.ccurl && sessionStorage.ccurl != getUiProps().MSG0275) {
 		var dispCcURL = objCommon.changeLocalUnitToUnitUrl(sessionStorage.ccurl);
 		$("#ccUrl").text(dispCcURL);
 		$("#ccUrl").css("display", "block");

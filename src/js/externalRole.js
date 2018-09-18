@@ -465,7 +465,6 @@ externalRole.prototype.createChunkedExtRoleTable = function(json, recordSize, sp
 	for (var count = recordSize; count < maxLimit; count++) {
 		var obj = json[count];
 		var extRoleName = obj.ExtRole;
-		var extRoleURI = obj.__metadata.uri;
 		var extRoleETag = obj.__metadata.etag;
 		var arrEtag = extRoleETag.split("/");
 		var test = arrEtag[0];
@@ -473,9 +472,18 @@ externalRole.prototype.createChunkedExtRoleTable = function(json, recordSize, sp
 		//var test2 = "'"+ test1 +"'" ;
 		var relationName = obj["_Relation.Name"];
 		var boxName = obj["_Relation._Box.Name"];
-		if (boxName === 'null') {
+        var infoSchema = "";
+		if (boxName === null) {
 			boxName = mainBoxValue;
-		}
+            infoSchema = "- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)";
+		} else {
+            var boxObj = uExternalRole.retrieveChunkedDataBox(boxName);
+            if (boxObj.Schema) {
+                infoSchema = boxObj.Schema;
+            } else {
+                infoSchema = "- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)";
+            }
+        }
 		var updatedDate = obj.__updated;
 		updatedDate = objCommon.convertEpochDateToReadableFormat(updatedDate);
 		var createdDate = obj.__published;
@@ -485,7 +493,7 @@ externalRole.prototype.createChunkedExtRoleTable = function(json, recordSize, sp
 		var shorterBoxName = objCommon.getShorterEntityName(boxName);
 			dynamicTable += '<tr class="dynamicRoleBoxRow" name="allrows" id="rowid'
 				+ externalRoleRowCount+ '" onclick="objCommon.rowSelect(this,'+ "'rowid'" +','+ "'chkBox'"+','+ "'row'" +','+ "'btnDeleteExtRole'" +','+ "'chkSelectall'" +','+ externalRoleRowCount +',' + totalRecordsize + ','+ "''" + ','+"''"+','+"''"+','+"''"+','+"'externalRoleTable'"+');">';
-			dynamicTable = uExternalRole.createRowsForExtRoleTable(dynamicTable, extRoleName, relationName, boxName, updatedDate, count, shorterExtRole, shorterRelationName, shorterBoxName,createdDate, externalRoleRowCount,test,test1,extRoleURI,extRoleETag);
+			dynamicTable = uExternalRole.createRowsForExtRoleTable(dynamicTable, extRoleName, relationName, boxName, updatedDate, count, shorterExtRole, shorterRelationName, shorterBoxName,createdDate, externalRoleRowCount,test,test1,infoSchema,extRoleETag);
 			externalRoleRowCount++;
 	}
 	if (jsonLength >0) {
@@ -795,7 +803,12 @@ externalRole.prototype.getRoleDetailsLinkedToExternalRole = function(externalRol
 	var encodedExternalRoleURI = encodeURIComponent(externalRoleURI);
 	relationName = "'"+relationName+"'";
 	encodedExternalRoleURI = "'"+encodedExternalRoleURI+"'";
-	relationBoxName = "'"+relationBoxName+"'";
+    if (relationBoxName == getUiProps().MSG0039) {
+        relationBoxName = "'null'";
+    } else {
+        relationBoxName = "'"+relationBoxName+"'";
+    }
+	
 	var key = "(ExtRole="+encodedExternalRoleURI+",_Relation.Name="+relationName+",_Relation._Box.Name="+relationBoxName+")";
 	var accessor = uExternalRole.getAccessor();
 	var context = uExternalRole.initializeAbstractDataContext();
@@ -874,12 +887,31 @@ externalRole.prototype.retrieveChunkedData = function (lowerLimit, upperLimit) {
 	var cellName = sessionStorage.selectedcell;
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
 	var objExtRoleMgr = new _pc.ExtRoleManager(accessor);
-	var uri = objExtRoleMgr.getUrl();	
+	var uri = objExtRoleMgr.getUrl();
 	uri = uri + "?$orderby=__updated desc &$skip="+ lowerLimit +"&$top=" + upperLimit;
 	var restAdapter = _pc.RestAdapterFactory.create(accessor);
 	var response = restAdapter.get(uri, "application/json");
 	var json = response.bodyAsJson().d.results;
 	return json;
+};
+/**
+ * The purpose of this method is to fetch the required records as per pagination. 
+ * @param lowerLimit
+ * @param upperLimit
+ * @returns ExternalRole JSON
+ */
+
+externalRole.prototype.retrieveChunkedDataBox = function (boxName) {
+    var baseUrl = getClientStore().baseURL;
+    var cellName = sessionStorage.selectedcell;
+    var accessor = objCommon.initializeAccessor(baseUrl, cellName);
+    var objboxMgr = createBoxManager();
+    var uri = objboxMgr.getUrl();
+    uri = uri + "('"+boxName+"')?$orderby=__updated desc";
+    var restAdapter = _pc.RestAdapterFactory.create(accessor);
+    var response = restAdapter.get(uri, "application/json");
+    var json = response.bodyAsJson().d.results;
+    return json;
 };
 externalRole.prototype.getExternalRoleData = function(externalRoleURI,relationName,relationBoxName) {
 	var encodedExternalRoleURI = encodeURIComponent(externalRoleURI);

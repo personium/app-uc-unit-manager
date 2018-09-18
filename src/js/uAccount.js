@@ -701,7 +701,7 @@ function createRowsForAccountTable(dynamicTable, count, _accountName,
 			+ '" type="checkbox" class="case cursorHand regular-checkbox big-checkbox" name="case" value="'
 			+ tooltipAccountName + '"/><label for="chkBox' + accountRowCount
 			+ '" class="customChkbox checkBoxLabel"></label></td>';
-	dynamicTable += '<td name = "acc" style="max-width: 120px;width:34%"><div class = "mainTableEllipsis"><a style="outline:none" tabindex="-1" id="accountRoleLink" href ="#" onclick="openRoleLinkPage('+accountname+','+accountdate+','+rolecount+',' + parrEtag0 +',' + parrEtag1 +',' + paccountPublishedDate +',' + accountdate +',' + pinfoSchema +');" class="roleNameLink" title= "'
+	dynamicTable += '<td name = "acc" style="max-width: 120px;width:34%"><div class = "mainTableEllipsis"><a style="outline:none" tabindex="-1" id="accountRoleLink" href ="#" onclick="openRoleLinkPage('+accountname+','+accountdate+','+rolecount+',' + parrEtag0 +',' + parrEtag1 +',' + paccountPublishedDate +',' + accountdate +',\'\');" class="roleNameLink" title= "'
 			+ tooltipAccountName
 			+ '">'
 			+ tooltipAccountName
