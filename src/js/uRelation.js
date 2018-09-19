@@ -70,7 +70,7 @@ uRelation.prototype.retrieveChunkedData = function (lowerLimit, upperLimit) {
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
 	var objRelationManager = new _pc.RelationManager(accessor);
 	var uri = objRelationManager.getUrl();
-	uri = uri + "?$orderby=__updated desc &$skip="+ lowerLimit +"&$top=" + upperLimit;
+	uri = uri + "?$orderby=__updated desc &$skip="+ lowerLimit +"&$top=" + upperLimit + "&$expand=_Box";
 	var restAdapter = _pc.RestAdapterFactory.create(accessor);
 	var response = restAdapter.get(uri, "application/json");
 	var json = response.bodyAsJson().d.results;
@@ -345,15 +345,10 @@ function createChunkedRelationTable(json, recordSize, spinnerCallback){
 		name[count] = obj.Name;
 		updatedDate[count] = obj.__updated;
 		arrPublishedDate[count] = obj.__published;
-		var uri = obj._Box.__deferred.uri;
-		var boxstart = uri.search("_Box.Name");
-		var boxend = uri.search("/_Box");
-		var boxprint = uri.substring(boxstart + 10, boxend - 1);
-		var boxp = boxprint.replace(/'/g, " ");
-		box[count] = boxp;
-		if (boxp == "null") {
-			box[count] = mainBoxValue;
-		}
+		box[count] = obj["_Box.Name"];
+		if (obj["_Box.Name"] == null) {
+		box[count] = mainBoxValue;
+		} 
 		var date			= objCommon.convertEpochDateToReadableFormat("" + updatedDate[count] + "");
 		var publishedDate	= objCommon.convertEpochDateToReadableFormat("" + arrPublishedDate[count]	+ "");
 		var roleName		= "'" + name[count] + "'";
@@ -363,7 +358,8 @@ function createChunkedRelationTable(json, recordSize, spinnerCallback){
 		var arrEtag			= etag[count].split("/");
 		var arrEtag0		= "'"+ arrEtag[0] +"'" ;
 		var arrEtag1		= "'"+ arrEtag[1].replace(/["]/g,"") + "'";
-		var infoSchema		= "'"+ uri.replace(/[']/g,"`") +"'" ;		
+		var boxObj=obj._Box;
+		var infoSchema = objCommon.getObjectSchemaUrl(boxObj);
 		var rolesMappedList	= objRelation.retrieveAssignedRolesListForRelation(name[count],box[count]);
 		relationDate		= "'"+date+"'";
 		// Rows Start

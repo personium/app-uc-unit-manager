@@ -695,7 +695,10 @@ objCommon.disableButton('#btnDeleteBox');
 		boxName[count] = obj.Name;
 		schema[count] = obj.Schema;
 		if(schema[count] == null) {
-			var defaultSchemaURL = getUiProps().MSG0038;
+			var defaultSchemaURL = getClientStore().baseURL + sessionStorage.selectedcell;
+			if (!defaultSchemaURL.endsWith("/")) {
+       			defaultSchemaURL += "/";
+			};
 			schema[count] = defaultSchemaURL;
 		}
 		updatedDate[count] = obj.__updated;

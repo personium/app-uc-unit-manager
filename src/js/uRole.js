@@ -42,7 +42,7 @@ uRole.prototype.retrieveChunkedData = function (lowerLimit, upperLimit) {
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
 	var objRoleManager = new _pc.RoleManager(accessor);
 	var dataUri = objRoleManager.getUrl();
-	dataUri = dataUri + "?$orderby=__updated desc &$skip="+ lowerLimit +"&$top=" + upperLimit;
+	dataUri = dataUri + "?$orderby=__updated desc &$skip="+ lowerLimit +"&$top=" + upperLimit + "&$expand=_Box";
 	var restAdapter =  new _pc.RestAdapterFactory.create(accessor);
 	var dataResponse = restAdapter.get(dataUri, "application/json");
 	var dataJson = dataResponse.bodyAsJson().d.results;
@@ -335,13 +335,8 @@ function createChunkedRoleTable(json, recordSize){
 		name[count] = obj.Name;
 		updatedDate[count] = obj.__updated;
 		createdDate[count] = obj.__published;
-		var uri=obj._Box.__deferred.uri;
-		var boxstart=uri.search("_Box.Name");
-		var boxend=uri.search("/_Box");
-		var boxprint=uri.substring(boxstart+10,boxend-1);
-		var boxp=boxprint.replace(/'/g," ");
-		box[count] = boxp;
-		if (boxp == "null") {
+		box[count] = obj["_Box.Name"];
+		if (obj["_Box.Name"] == null) {
 		box[count] = mainBoxValue;
 		} 
 		var roleDate = objCommon.convertEpochDateToReadableFormat(""+ updatedDate[count]+"");
@@ -356,7 +351,8 @@ function createChunkedRoleTable(json, recordSize){
 		var test2 = "'"+ test1 +"'" ;
 		var infoCreatedat = "'"+ roleCreatedDate +"'" ;
 		var infoUpdatedat = "'"+ roleDate +"'" ;
-		var infoSchema = "'"+ uri.replace(/[']/g,"`") +"'" ;
+		var boxObj=obj._Box;
+		var infoSchema = objCommon.getObjectSchemaUrl(boxObj);
 		
 		//Rows Start
 			dynamicTable += '<tr name = "allrows" id = "rowid'+roleRowCount+'" onclick="objCommon.rowSelect(this,'+ "'rowid'" +','+ "'chkBox'"+','+ "'row'" +','+ "'btnDeleteRole'" +','+ "'chkSelectall'" +','+ roleRowCount +',' + totalRecordsize + ','+ "'btnEditRole'" + ','+"''"+','+"''"+','+"''"+','+"'mainRoleTable'"+');">';
