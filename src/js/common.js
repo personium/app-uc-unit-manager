@@ -3722,6 +3722,19 @@ common.prototype.isTypeDoubleValid = function(value) {
 }
 
 /**
+ * Get SchemaUrl from object. If it does not exist, let URL of its cell be SchemaUrl.
+ * @param obj
+ */
+common.prototype.getObjectSchemaUrl = function(obj) {
+  var infoSchema = "'- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)'";
+  if (obj.length > 0 && obj[0].Schema) {
+    infoSchema = "'" + obj[0].Schema + "'";
+  }
+
+  return infoSchema;
+}
+
+/**
  * The purpose of this function is to return the BlackList used for the validate check.
  */
 common.prototype.getValidateBlackList = function() {

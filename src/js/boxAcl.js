@@ -190,13 +190,10 @@ boxAcl.prototype.getSortedRoleList = function(roleList) {
 	for ( var count = 0; count < noOfRoles; count++) {
 		var obj = roleList[count];
 		if (obj != undefined) {
-				var uri = obj._Box.__deferred.uri;
-				var boxstart = uri.search("_Box.Name");
-				var boxend = uri.search("/_Box");
-				var boxprint = uri.substring(boxstart + 10, boxend - 1);
-				boxNameForRole = boxprint.replace(/'/g, "");
-				if (boxNameForRole == 'null'){
-					boxNameForRole = mainBoxValue;
+				boxNameForRole = mainBoxValue;
+				if (obj._Box.length > 0){
+					// Since _Box is an array of only one data, we use the first data
+					boxNameForRole = obj._Box[0].Name;
 				}
 				if (boxname === boxNameForRole) {
 					//Array - Collection of roles with box names having SIMILAR name as that of the selected box name.

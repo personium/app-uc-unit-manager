@@ -472,18 +472,22 @@ externalRole.prototype.createChunkedExtRoleTable = function(json, recordSize, sp
 		//var test2 = "'"+ test1 +"'" ;
 		var relationName = obj["_Relation.Name"];
 		var boxName = obj["_Relation._Box.Name"];
-        var infoSchema = "";
-		if (boxName === null) {
-			boxName = mainBoxValue;
-            infoSchema = "- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)";
-		} else {
+
+        // Assume it is the Main box.
+        if (boxName === null) {
+            boxName = mainBoxValue;
+        }
+    
+        // Main box or box without schema URL uses "- ({Cell URL string})"
+        var infoSchema = "- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)";
+        // Get schema URL for box
+        if (boxName != getUiProps().MSG0039) {
             var boxObj = uExternalRole.retrieveChunkedDataBox(boxName);
             if (boxObj.Schema) {
                 infoSchema = boxObj.Schema;
-            } else {
-                infoSchema = "- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)";
             }
         }
+
 		var updatedDate = obj.__updated;
 		updatedDate = objCommon.convertEpochDateToReadableFormat(updatedDate);
 		var createdDate = obj.__published;
@@ -657,7 +661,10 @@ externalRole.prototype.deleteMultipleExtRoles = function(){
 externalRole.prototype.createRowsForExtRoleTable = function (dynamicTable, extRoleName, relationName, boxName, updatedDate, count, shorterExtRole, shorterRelationName, shorterBoxName,createdDate,externalRoleRowCount,externalRoleEtagStart,externalRoleEtagEnd,externalRoleUri,etag) {
 	var paramRelationName = "'"+relationName+"'";
 	var paramExtRoleName = "'"+extRoleName+"'";
-	var paramBoxName = "'"+boxName+"'";
+    var paramBoxName = "'"+boxName+"'";
+    if (boxName == getUiProps().MSG0039) {
+        paramBoxName = "'null'";
+    }
 	var paramUpdatedDate = "'"+updatedDate+"'";
 	var paramEtagStart = "'"+externalRoleEtagStart+"'";
 	var paramEtagEnd = "'"+externalRoleEtagEnd+"'";
@@ -922,7 +929,7 @@ externalRole.prototype.getExternalRoleData = function(externalRoleURI,relationNa
     	"_Relation.Name=" + relationName
     ].join(",");
     if (relationBoxName) {
-        key += "_Relation._Box.Name='" + relationBoxName + "'";
+        key += ",_Relation._Box.Name='" + relationBoxName + "'";
     }
 
 	var baseUrl = getClientStore().baseURL;

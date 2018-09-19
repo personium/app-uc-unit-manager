@@ -769,13 +769,10 @@ boxDetail.prototype.populateACLSettings = function(roleList, rolePrivList,
 		var obj = roleList[count];
 		var roleName = obj.Name;
 		if (count != 0) {
-			var uri = obj._Box.__deferred.uri;
-			var boxstart = uri.search("_Box.Name");
-			var boxend = uri.search("/_Box");
-			var boxprint = uri.substring(boxstart + 10, boxend - 1);
-			boxNameForRole = boxprint.replace(/'/g, "");
-			if (boxNameForRole == "null") {
-				boxNameForRole = actualMainBoxValue;
+			boxNameForRole = actualMainBoxValue;
+			if (obj._Box.length > 0){
+				// Since _Box is an array of only one data, we use the first data
+				boxNameForRole = obj._Box[0].Name;
 			}
 		} else {
 			boxNameForRole = boxname;

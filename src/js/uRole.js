@@ -352,12 +352,7 @@ function createChunkedRoleTable(json, recordSize){
 		var infoCreatedat = "'"+ roleCreatedDate +"'" ;
 		var infoUpdatedat = "'"+ roleDate +"'" ;
 		var boxObj=obj._Box;
-		var infoSchema = "";
-		if (boxObj.length > 0 && boxObj[0].Schema) {
-    		infoSchema = "'" + boxObj[0].Schema + "'";
-    	} else {
-    		infoSchema = "'- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)'";
-    	}
+		var infoSchema = objCommon.getObjectSchemaUrl(boxObj);
 		
 		//Rows Start
 			dynamicTable += '<tr name = "allrows" id = "rowid'+roleRowCount+'" onclick="objCommon.rowSelect(this,'+ "'rowid'" +','+ "'chkBox'"+','+ "'row'" +','+ "'btnDeleteRole'" +','+ "'chkSelectall'" +','+ roleRowCount +',' + totalRecordsize + ','+ "'btnEditRole'" + ','+"''"+','+"''"+','+"''"+','+"'mainRoleTable'"+');">';

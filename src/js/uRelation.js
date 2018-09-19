@@ -359,12 +359,7 @@ function createChunkedRelationTable(json, recordSize, spinnerCallback){
 		var arrEtag0		= "'"+ arrEtag[0] +"'" ;
 		var arrEtag1		= "'"+ arrEtag[1].replace(/["]/g,"") + "'";
 		var boxObj=obj._Box;
-		var infoSchema = "";
-		if (boxObj.length > 0 && boxObj[0].Schema) {
-    		infoSchema = "'" + boxObj[0].Schema + "'";
-    	} else {
-    		infoSchema = "'- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)'";
-    	}
+		var infoSchema = objCommon.getObjectSchemaUrl(boxObj);
 		var rolesMappedList	= objRelation.retrieveAssignedRolesListForRelation(name[count],box[count]);
 		relationDate		= "'"+date+"'";
 		// Rows Start
