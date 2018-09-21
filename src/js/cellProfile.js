@@ -568,6 +568,10 @@ cellProfile.prototype.getNewTokenValues = function () {
             dataType : 'json',
             url : refreshtokenURL,
             data : tokenCredential,
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/x-www-form-urlencoded'
+            },
             type : 'POST',
             async : false,
             success : function(data) {

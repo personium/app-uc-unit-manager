@@ -251,6 +251,10 @@ login.getToken = function(unitCellUrl, loginInfo) {
         dataType : 'json',
         url : unitCellUrl + '__token' ,//+ tokenUrl,
         data : loginInfo,
+        headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         type : 'POST',
         async : false,
         cache : false,
@@ -269,6 +273,10 @@ login.refreshToken = function(cellUrl, refreshInfo) {
         dataType: 'json',
         url : cellUrl + '__token', //+ tokenUrl
         data : refreshInfo,
+        headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/x-www-form-urlencoded'
+        },
         type : 'POST',
         async : false,
         cache : false,
