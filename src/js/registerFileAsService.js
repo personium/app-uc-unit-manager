@@ -273,7 +273,7 @@ registerFileAsService.prototype.registerFileAsAService = function () {
 			} else {
 				registeredServiceList.push(serviceSourceFilePair);
 			}
-			var ENGINE = "engine";
+			var ENGINE = this.getEngineSubject();
 			var accessor = objOdata.getAccessor();
 			var path = sessionStorage.selectedCollectionURL;//objOdata.getPath();
 			 /*if (!path.endsWith("/")) {
@@ -287,6 +287,23 @@ registerFileAsService.prototype.registerFileAsAService = function () {
 		}
 	}
 };
+
+registerFileAsService.prototype.getEngineSubject = function() {
+	var path = uBoxProperty.getPath();
+	var cellName = sessionStorage.selectedcell;
+	var boxName = sessionStorage.boxName;
+	var baseUrl = getClientStore().baseURL;
+	var accessor = objCommon.initializeAccessor(baseUrl, cellName, boxName);
+	var restAdapter = _pc.RestAdapterFactory.create(accessor);
+	var response = restAdapter.propfind(path);
+	var xmlContent = response.httpClient.responseText;
+	try {
+		return xmlContent.match(/subject=\"(.+?)\"/)[1];
+	} catch (e) {
+		return "";
+	}
+	
+}
 
 /**
  * The purpose of this function is to check existing service name.
