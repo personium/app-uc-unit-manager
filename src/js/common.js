@@ -53,6 +53,8 @@ common.prototype.DOUBLE_NEGATIVE_MIN_VALUE = -1.79e+308;
 common.prototype.DOUBLE_NEGATIVE_MAX_VALUE = -2.23e-308;
 common.prototype.DOUBLE_POSITIVE_MIN_VALUE = 2.23e-308;
 common.prototype.DOUBLE_POSITIVE_MAX_VALUE = 1.79e+308;
+common.prototype.assignDataSetProfile = "";
+common.prototype.dataSetProfile = "";
 
 /**
  * This method checks idle time.
@@ -1957,17 +1959,17 @@ common.prototype.createPrevButtonTemp = function(tableID, maxRows,
                     json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index-1),objCommon.noOfRecordsToBeFetched);
                     recordCount = (pageNoWithData - 1) * maxRows;//(objCommon.maxNoOfPages - 1) * maxRows;
                     if (!found) {
-                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                        objCommon.dataSetProfile = JSON.stringify(json);
                     } else {
-                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                        objCommon.assignDataSetProfile = JSON.stringify(json);
                     }
                 } else {
                     var cnt = parseInt(lowerRecordInterval)-51;
                     json = manager.retrieveChunkedData(cnt,objCommon.noOfRecordsToBeFetched);
                     if (!found) { 
-                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                        objCommon.dataSetProfile = JSON.stringify(json);
                     } else { 
-                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                        objCommon.assignDataSetProfile = JSON.stringify(json);
                     }
                 }
                 if(type == "OdataGrid"){
@@ -2024,17 +2026,17 @@ common.prototype.createNextButtonTemp = function(tableID, maxRows, totalRecordCo
                     var index = selectedPage/pageNoWithData;
                     json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index),objCommon.noOfRecordsToBeFetched); 
                     if (!found) {
-                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                        objCommon.dataSetProfile = JSON.stringify(json);
                     } else {
-                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                        objCommon.assignDataSetProfile = JSON.stringify(json);
                     }
                     recordCount = 0;
                 }else{
                     if (!found) {
-                    json = sessionStorage.dataSetProfile;
+                    json = objCommon.dataSetProfile;
                     
                     } else {
-                        json = sessionStorage.assignDataSetProfile;
+                        json = objCommon.assignDataSetProfile;
                     }
                 }
                 if(type == "OdataGrid"){
@@ -2092,19 +2094,19 @@ common.prototype.createFirstButtonTemp = function(tableID, maxRows, totalRecordC
                     var index = 1;
                     json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index-1),objCommon.noOfRecordsToBeFetched);
                     if (!found) {
-                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                        objCommon.dataSetProfile = JSON.stringify(json);
                     } else {
-                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                        objCommon.assignDataSetProfile = JSON.stringify(json);
                     }
                 }else{
-                    //json = sessionStorage.dataSetProfile;
+                    //json = objCommon.dataSetProfile;
                     var cnt = parseInt(lowerRecordInterval)-51;
                     json = manager.retrieveChunkedData(cnt,objCommon.noOfRecordsToBeFetched);
                     if (!found) {
                     
-                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                        objCommon.dataSetProfile = JSON.stringify(json);
                     } else {
-                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                        objCommon.assignDataSetProfile = JSON.stringify(json);
                     }
                 }
                 if(type == "OdataGrid"){
@@ -2166,15 +2168,15 @@ common.prototype.createLastButtonTemp = function(tableID, maxRows, totalRecordCo
                     }
                     json = manager.retrieveChunkedData(objCommon.noOfRecordsToBeFetched*(index),objCommon.noOfRecordsToBeFetched);
                     if (!found) {
-                        sessionStorage.dataSetProfile = JSON.stringify(json);
+                        objCommon.dataSetProfile = JSON.stringify(json);
                     } else {
-                        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+                        objCommon.assignDataSetProfile = JSON.stringify(json);
                     }
                 }else{
                     if (!found) {
-                        json = sessionStorage.dataSetProfile;
+                        json = objCommon.dataSetProfile;
                     } else {
-                        json = sessionStorage.assignDataSetProfile;
+                        json = objCommon.assignDataSetProfile;
                     }
                 }
                 
@@ -2228,12 +2230,12 @@ common.prototype.createPaginationView = function(totalRecordCount, maxRows,tblMa
     }else{
         sessionStorage.selectedPageIndexBox = 1;
     }
-    //sessionStorage.dataSetProfile = JSON.stringify(json);
+    //objCommon.dataSetProfile = JSON.stringify(json);
     var found = $.inArray(type, assignTableIDList) > -1;
     if (!found) {
-        sessionStorage.dataSetProfile = JSON.stringify(json);
+        objCommon.dataSetProfile = JSON.stringify(json);
     } else {
-        sessionStorage.assignDataSetProfile = JSON.stringify(json);
+        objCommon.assignDataSetProfile = JSON.stringify(json);
     }
     var tableID = $(tblMain);
     if(type == "OdataGrid"){
@@ -3454,7 +3456,7 @@ common.prototype.bindGridSelectAll = function(startIndex, endIndex,
         uDataManagement.createEntityTable(json, uDataManagement.propertyDetailsList, recordSize);
         table = uDataManagement.createEntityTable;
     }
-    // sessionStorage.dataSetProfile = JSON.stringify(json);
+    // objCommon.dataSetProfile = JSON.stringify(json);
     objCommon.createPaginationView(totalRecordCount, objCommon.MAXROWS,
             tableID, objCellControlElement, json, table, type,
             '', '', selectedPage, startIndex);

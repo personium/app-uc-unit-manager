@@ -456,13 +456,13 @@ sentMessage.prototype.createRowsForSentMessageTable = function(
 	$('#btnDeleteSentMessage').addClass('deleteBtnDisabled');
 	
 	var json = "";
-	if(typeof sessionStorage.dataSetProfile === "string"){
-		json = JSON.parse(sessionStorage.dataSetProfile);
+	if(typeof objCommon.dataSetProfile === "string"){
+		json = JSON.parse(objCommon.dataSetProfile);
 		if(typeof json === "string"){
 			json = JSON.parse(json);
 		}
 	}else{
-		json = sessionStorage.dataSetProfile;
+		json = objCommon.dataSetProfile;
 	}
 	var modCurrent = sessionStorage.selectedPageNoSentMessage % objCommon.maxNoOfPages;
 	if(modCurrent === 0){
@@ -612,14 +612,14 @@ sentMessage.prototype.clickGridTab = function() {
 			modCurrent = objCommon.maxNoOfPages;
 		}
 		var recordCount = (modCurrent-1)*maxRowsForSentMessage;
-		uSentMessage.createChunkedSentMessageTable(sessionStorage.dataSetProfile, recordCount);
+		uSentMessage.createChunkedSentMessageTable(objCommon.dataSetProfile, recordCount);
 		
 		var totalPageNo = Math.ceil(sessionStorage.totalRecordsOnSentMessage / maxRowsForSentMessage);
 		var tableID = $("#sentMessageTable");
 		var selectedPageNo = sessionStorage.selectedPageNoSentMessage;
 		$(".pagination").remove();
 		objCommon.createPaginationView(sessionStorage.totalRecordsOnSentMessage, "", maxRowsForSentMessage,
-				$("#sentMessageTable"), "#resultPaneSentMessage", uSentMessage, sessionStorage.dataSetProfile,
+				$("#sentMessageTable"), "#resultPaneSentMessage", uSentMessage, objCommon.dataSetProfile,
 				uSentMessage.createChunkedSentMessageTable, "sentMessage", sessionStorage.selectedPageIndexBox);
 		uSentMessage.maintainPageState(selectedPageNo, tableID,
 				maxRowsForSentMessage, totalPageNo);
