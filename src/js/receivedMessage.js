@@ -538,13 +538,13 @@ receivedMessage.prototype.getRawJSONViewReceivedMessage = function() {
 	$('#btnDeleteReceivedMessage').attr('disabled', 'disabled');
 	$('#btnDeleteReceivedMessage').addClass('deleteBtnDisabled');
 	var json = "";
-	if(typeof sessionStorage.dataSetProfile === "string"){
-		json = JSON.parse(sessionStorage.dataSetProfile);
+	if(typeof objCommon.dataSetProfile === "string"){
+		json = JSON.parse(objCommon.dataSetProfile);
 		if(typeof json === "string"){
 			json = JSON.parse(json);
 		}
 	}else{
-		json = sessionStorage.dataSetProfile;
+		json = objCommon.dataSetProfile;
 	}
 	var modCurrent = sessionStorage.selectedPageNoReceivedMessage % objCommon.maxNoOfPages;
 	if(modCurrent === 0){
@@ -638,40 +638,6 @@ receivedMessage.prototype.clickRawTabReceivedMessage = function() {
 		this.getRawJSONViewReceivedMessage();
 		var selectedIndex = this.getSelectedRowIndexInGridView();
 		this.highlightRowInRawView(selectedIndex);
-	}
-};
-
-/**
- * The purpose of this function is to hide grid view on click of grid button
- */
-receivedMessage.prototype.clickGridTabReceivedMessage = function() {
-	//jquery1_5_2('#receivedMessageTable').fixedHeaderTable('destroy');
-	document.getElementById("dvReceivedMessageRawTable").style.display = "none";
-	document.getElementById("dvReceivedMessageTable").style.display = "block";
-	this.disableButtonsForGridView();
-	uReceivedMessage.saveSelectedPage("raw");
-	
-	if(sessionStorage.receivedMessageView === "receivedMessageQuery"){
-		uReceivedMessage.checkQueryType(JSON.parse(sessionStorage.queryDataReceivedMessage), true);
-	}else if(sessionStorage.receivedMessageView === "receivedMessageGrid"){
-		var modCurrent = sessionStorage.selectedPageNoReceivedMessage % objCommon.maxNoOfPages;
-		if(modCurrent === 0){
-			modCurrent = objCommon.maxNoOfPages;
-		}
-		var recordCount = (modCurrent-1)*maxRowsForReceivedMessage;
-		uReceivedMessage.createChunkedReceivedMessageTable(sessionStorage.dataSetProfile, recordCount);
-		
-		var totalPageNo = Math.ceil(sessionStorage.totalRecordsOnReceivedMessage / maxRowsForReceivedMessage);
-		var tableID = $("#receivedMessageTable");
-		var selectedPageNo = sessionStorage.selectedPageNoReceivedMessage;
-		$(".pagination").remove();
-		objCommon.createPaginationView(sessionStorage.totalRecordsOnReceivedMessage, "", maxRowsForReceivedMessage,
-				$("#receivedMessageTable"), "#resultPaneReceivedMessage", uReceivedMessage, sessionStorage.dataSetProfile,
-				uReceivedMessage.createChunkedReceivedMessageTable, "receivedMessage", sessionStorage.selectedPageIndexBox);
-		uReceivedMessage.maintainPageState(selectedPageNo, tableID,
-				maxRowsForReceivedMessage, totalPageNo);
-		//jquery1_5_2('#receivedMessageTable').fixedHeaderTable({ fixedColumn: true });
-		uReceivedMessage.applyFixedColumnStyleSheet();
 	}
 };
 
