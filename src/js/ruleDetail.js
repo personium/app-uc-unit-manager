@@ -163,3 +163,6 @@ $("#txtTargetUrlEdit, #txtTargetUrlLocalBoxEdit, #txtTargetUrlLocalCelEdit").blu
 	validateTargetUrl(true);
 });
 
+$("#txtEventTypeEdit").change(function () {
+	changeTextField(true);
+});
