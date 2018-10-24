@@ -29,6 +29,7 @@ var sbConflict = '';
 var arrDeletedConflictCount = [];
 var etagValue  = '';
 var isDeleted = false;
+var timerList = ["timer.oneshot", "timer.periodic"];
 
 /**
  * The purpose of this method is to fetch the required records as per pagination. 
@@ -581,25 +582,40 @@ function createRule() {
 		}
 	}
 	// Event Object
-	if (!eventExternal) {
-		if (boxName) {
-			eventObject = document.getElementById("txtEventObjectLocalBox").value;
-			if (!eventObject) {
-				document.getElementById("popupEventObjectErrorMsg").innerHTML = getUiProps().MSG0080;
-				cellpopup.showErrorIcon("#txtEventObjectLocalBox");
-				removeSpinner("modalSpinnerRule");
-				return;
+	if (_.indexOf(timerList, eventType) < 0) {
+		if (!eventExternal) {
+			if (boxName) {
+				eventObject = document.getElementById("txtEventObjectLocalBox").value;
+				if (!eventObject) {
+					document.getElementById("popupEventObjectErrorMsg").innerHTML = getUiProps().MSG0080;
+					cellpopup.showErrorIcon("#txtEventObjectLocalBox");
+					removeSpinner("modalSpinnerRule");
+					return;
+				}
+				eventObject = objCommon.PERSONIUM_LOCALBOX + "/" + eventObject;
+			} else {
+				eventObject = document.getElementById("txtEventObjectLocalCel").value;
+				if (!eventObject) {
+					document.getElementById("popupEventObjectErrorMsg").innerHTML = getUiProps().MSG0080;
+					cellpopup.showErrorIcon("#txtEventObjectLocalCel");
+					removeSpinner("modalSpinnerRule");
+					return;
+				}
+				eventObject = objCommon.PERSONIUM_LOCALCEL + "/" + eventObject;
 			}
-			eventObject = objCommon.PERSONIUM_LOCALBOX + "/" + eventObject;
-		} else {
-			eventObject = document.getElementById("txtEventObjectLocalCel").value;
-			if (!eventObject) {
-				document.getElementById("popupEventObjectErrorMsg").innerHTML = getUiProps().MSG0080;
-				cellpopup.showErrorIcon("#txtEventObjectLocalCel");
-				removeSpinner("modalSpinnerRule");
-				return;
-			}
-			eventObject = objCommon.PERSONIUM_LOCALCEL + "/" + eventObject;
+		}
+	} else {
+		if (!eventObject) {
+			document.getElementById("popupEventObjectErrorMsg").innerHTML = getUiProps().MSG0080;
+			cellpopup.showErrorIcon("#txtEventObject");
+			removeSpinner("modalSpinnerRule");
+			return;
+		}
+		if (!objCommon.isNumber(eventObject)) {
+			document.getElementById("popupEventObjectErrorMsg").innerHTML = getUiProps().MSG0433;
+			cellpopup.showErrorIcon("#txtEventObject");
+			removeSpinner("modalSpinnerRule");
+			return;
 		}
 	}
 
@@ -840,25 +856,40 @@ function updateRule() {
 	}
 
 	// Event Object
-	if (!eventExternal) {
-		if (newBoxSelected) {
-			eventObject = document.getElementById("txtEventObjectLocalBoxEdit").value;
-			if (!eventObject) {
-				document.getElementById("popupEventObjectErrorMsgEdit").innerHTML = getUiProps().MSG0080;
-				cellpopup.showErrorIcon("#txtEventObjectLocalBoxEdit");
-				removeSpinner("modalSpinnerRule");
-				return;
+	if (_.indexOf(timerList, eventType) < 0) {
+		if (!eventExternal) {
+			if (newBoxSelected) {
+				eventObject = document.getElementById("txtEventObjectLocalBoxEdit").value;
+				if (!eventObject) {
+					document.getElementById("popupEventObjectErrorMsgEdit").innerHTML = getUiProps().MSG0080;
+					cellpopup.showErrorIcon("#txtEventObjectLocalBoxEdit");
+					removeSpinner("modalSpinnerRule");
+					return;
+				}
+				eventObject = objCommon.PERSONIUM_LOCALBOX + "/" + eventObject;
+			} else {
+				eventObject = document.getElementById("txtEventObjectLocalCelEdit").value;
+				if (!eventObject) {
+					document.getElementById("popupEventObjectErrorMsgEdit").innerHTML = getUiProps().MSG0080;
+					cellpopup.showErrorIcon("#txtEventObjectLocalCelEdit");
+					removeSpinner("modalSpinnerRule");
+					return;
+				}
+				eventObject = objCommon.PERSONIUM_LOCALCEL + "/" + eventObject;
 			}
-			eventObject = objCommon.PERSONIUM_LOCALBOX + "/" + eventObject;
-		} else {
-			eventObject = document.getElementById("txtEventObjectLocalCelEdit").value;
-			if (!eventObject) {
-				document.getElementById("popupEventObjectErrorMsgEdit").innerHTML = getUiProps().MSG0080;
-				cellpopup.showErrorIcon("#txtEventObjectLocalCelEdit");
-				removeSpinner("modalSpinnerRule");
-				return;
-			}
-			eventObject = objCommon.PERSONIUM_LOCALCEL + "/" + eventObject;
+		}
+	} else {
+		if (!eventObject) {
+			document.getElementById("popupEventObjectErrorMsgEdit").innerHTML = getUiProps().MSG0080;
+			cellpopup.showErrorIcon("#txtEventObjectEdit");
+			removeSpinner("modalSpinnerRule");
+			return;
+		}
+		if (!objCommon.isNumber(eventObject)) {
+			document.getElementById("popupEventObjectErrorMsgEdit").innerHTML = getUiProps().MSG0433;
+			cellpopup.showErrorIcon("#txtEventObjectEdit");
+			removeSpinner("modalSpinnerRule");
+			return;
 		}
 	}
 
@@ -999,6 +1030,7 @@ function refreshCreateRulePopup() {
 	objCommon.removePopUpStatusIcons('#txtEventSubject');
 	$("#dropDownAction").val(0);
 	$("input[name=dropDownEventExternal]").val(['false']);
+	$("#txtEventType").val("");
 	changeTextField(false);
 	//$("#ruleName").removeClass("errorIcon");
 	document.getElementById("popupRuleErrorMsg").innerHTML = "";
@@ -1062,12 +1094,18 @@ function validateTargetUrl(editFlg) {
 				cellpopup.showErrorIcon("#txtTargetUrl"+editFlg);
 				return false;
 			}
-			let urlParse = $.url(targetUrl);
-			if (urlParse.attr('protocol') !== "http" && urlParse.attr('protocol') !== "https" && urlParse.attr('protocol') !== "personium-localunit") {
+			var urlParse = $.url(targetUrl);
+			var protocol = urlParse.attr('protocol');
+			var checkList = ["http", "https", "personium-localunit", "personium-localcell"];
+			if (boxName) {
+				checkList.push("personium-localbox");
+			}
+			if (_.indexOf(checkList, protocol) < 0) {
 				document.getElementById("popupTargetUrlErrorMsg"+editId).innerHTML = getUiProps().MSG0423;
 				cellpopup.showErrorIcon("#txtTargetUrl"+editFlg);
 				return false;
 			}
+			
 			if (!objBox.validateSchemaURL(targetUrl, "popupTargetUrlErrorMsg"+editId, "#txtTargetUrl"+editFlg)) {
 				return false;
 			}
@@ -1078,8 +1116,30 @@ function validateTargetUrl(editFlg) {
 				cellpopup.showErrorIcon("#txtTargetUrl"+editFlg);
 				return false;
 			}
-			if (!objBox.validateSchemaURL(targetUrl, "popupTargetUrlErrorMsg"+editId, "#txtTargetUrl"+editFlg)) {
-				return false;
+			var urlParse = $.url(targetUrl);
+			var protocol = urlParse.attr('protocol');
+			var checkList = ["personium-localunit", "personium-localcell"];
+			if (_.indexOf(checkList, protocol) < 0) {
+				// cellUrl,http,https
+				if (!objBox.validateSchemaURL(targetUrl, "popupTargetUrlErrorMsg"+editId, "#txtTargetUrl"+editFlg)) {
+					return false;
+				}
+			} else {
+				if (targetUrl.slice(-1) != "/") {
+    				targetUrl += "/";
+    				$("#txtTargetUrl"+editId).val(targetUrl);
+    			}
+    			let targetSplit = targetUrl.split("/");
+    			let splitLength = 2;
+    			let errorMsg = getUiProps().MSG0432;
+				if (protocol == "personium-localunit") {
+					splitLength = 3;
+					errorMsg = getUiProps().MSG0431;
+				}
+				if (targetSplit.length !== splitLength) {
+					document.getElementById("popupTargetUrlErrorMsg"+editId).innerHTML = errorMsg;
+					return false;
+				}
 			}
 			break;
 	}
@@ -1133,6 +1193,12 @@ $("#dropDownBox").change(function () {
 $("#dropDownAction").change(function () {
 	changeTextField(false);
 });
+/**
+ *
+ */
+$("#txtEventType").change(function () {
+	changeTextField(false);
+});
 
 /**
 **The purpose of this function is to validate Event External field
@@ -1146,35 +1212,53 @@ $("#txtTargetUrl, #txtTargetUrlLocalBox, #txtTargetUrlLocalCel").blur(function (
 });
 function changeTextField(editFlg, initEventObject, initTargetUrl) {
 	var editId = (editFlg)? "Edit":"";
+	let eventType = $("#txtEventType"+editId).val();
 	let eventExternal = $('input[name="dropDownEventExternal'+editId+'"]:checked').val();
-	if (eventExternal === "false") {
-		$("#dvEventObject"+editId).addClass("requiredElement");
-		if ($("#chkBoxBound"+editId).attr("checked")) {
-			// There is a box setting
-			$("#dvTextEventObject"+editId).css("display", "none");
-			$("#dvTextEventObjectLocalBox"+editId).css("display", "block");
-			$("#dvTextEventObjectLocalCel"+editId).css("display", "none");
-			if (initEventObject) {
-				$("#txtEventObjectLocalBox"+editId).val(initEventObject.replace(objCommon.PERSONIUM_LOCALBOX + "/",""));
+	if (_.indexOf(timerList, eventType) < 0) {
+		$("#rdExternal").attr('disabled',false);
+		if (eventExternal === "false") {
+			$("#dvEventObject"+editId).addClass("requiredElement");
+			if ($("#chkBoxBound"+editId).attr("checked")) {
+				// There is a box setting
+				$("#dvTextEventObject"+editId).css("display", "none");
+				$("#dvTextEventObjectLocalBox"+editId).css("display", "block");
+				$("#dvTextEventObjectLocalCel"+editId).css("display", "none");
+				if (initEventObject) {
+					$("#txtEventObjectLocalBox"+editId).val(initEventObject.replace(objCommon.PERSONIUM_LOCALBOX + "/",""));
+				}
+			} else {
+				// There is no box setting
+				$("#dvTextEventObject"+editId).css("display", "none");
+				$("#dvTextEventObjectLocalBox"+editId).css("display", "none");
+				$("#dvTextEventObjectLocalCel"+editId).css("display", "block");
+				if (initEventObject) {
+					$("#txtEventObjectLocalCel"+editId).val(initEventObject.replace(objCommon.PERSONIUM_LOCALCEL + "/",""));
+				}
 			}
 		} else {
-			// There is no box setting
-			$("#dvTextEventObject"+editId).css("display", "none");
+			$("#dvEventObject"+editId).removeClass("requiredElement");
+			$("#dvTextEventObject"+editId).css("display", "block");
 			$("#dvTextEventObjectLocalBox"+editId).css("display", "none");
-			$("#dvTextEventObjectLocalCel"+editId).css("display", "block");
+			$("#dvTextEventObjectLocalCel"+editId).css("display", "none");
 			if (initEventObject) {
-				$("#txtEventObjectLocalCel"+editId).val(initEventObject.replace(objCommon.PERSONIUM_LOCALCEL + "/",""));
+				$("#txtEventObject"+editId).val(initEventObject);
 			}
+			$("#txtEventObject"+editId).attr('placeholder', 'Any character string');
 		}
 	} else {
-		$("#dvEventObject"+editId).removeClass("requiredElement");
+
+		$("#dvEventObject"+editId).addClass("requiredElement");
 		$("#dvTextEventObject"+editId).css("display", "block");
 		$("#dvTextEventObjectLocalBox"+editId).css("display", "none");
 		$("#dvTextEventObjectLocalCel"+editId).css("display", "none");
 		if (initEventObject) {
 			$("#txtEventObject"+editId).val(initEventObject);
 		}
+		$("#txtEventObject"+editId).attr('placeholder', 'Numeric only string');
+		$('input[name="dropDownEventExternal'+editId+'"]').val(["false"]);
+		$("#rdExternal").attr('disabled','disabled');
 	}
+	
 	var action = convInvalidValToUndefined($("#dropDownAction"+editId+" option:selected").val());
 	$("#txtTargetUrl"+editId).attr("disabled", false);
 	switch (action) {

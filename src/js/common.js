@@ -3737,6 +3737,14 @@ common.prototype.getObjectSchemaUrl = function(obj) {
 }
 
 /**
+ * Check if the value is an integer value
+ */
+common.prototype.isNumber = function(val){
+  var regex = new RegExp(/^[0-9]+$/);
+  return regex.test(val);
+}
+
+/**
  * The purpose of this function is to return the BlackList used for the validate check.
  */
 common.prototype.getValidateBlackList = function() {
