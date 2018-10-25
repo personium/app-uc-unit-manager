@@ -102,7 +102,7 @@ login.prototype.renderLoginFields = function(calledFromCell) {
     }
     if (arrParam.refresh_token) {
         // Update the received token and try login
-        var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
+        var unitCellUrl = $("#loginUrl").val();
         let refreshTokenCredential = {
             grant_type: "refresh_token",
             refresh_token: arrParam.refresh_token
@@ -112,10 +112,10 @@ login.prototype.renderLoginFields = function(calledFromCell) {
         });
     } else if (arrParam.id && arrParam.password) {
         // Try login with id, pass
-        var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
+        var cellUrl = $("#loginUrl").val();
         $("#userId").val(arrParam.id);
         $("#passwd").val(arrParam.password);
-        login.determineManagerType(unitCellUrl);
+        login.determineManagerType(cellUrl);
     } else {
         // Manual Login
         $('body > div.mySpinner').hide();
@@ -131,75 +131,57 @@ login.prototype.initCellManager = function() {
     if (!_.contains(cellUrlSplit, "file:") && !_.contains(cellUrlSplit, "localhost")) {
         // Hide unitURL and unitCellName
         $(".dtUnitUrl").toggle(false);
-        $(".dtUnitCellName").toggle(false);
         $("#loginForm").addClass("localCellManager");
-
-        // Extract rootURL and cell name from location
-        var cellInfo = uLogin.getCellInfo(cellUrlSplit);
-
-        $("#unitUrl").val(cellInfo.rootURL);
-        $("#unitCellName").val(cellInfo.cellName);
+        let cellUrl = _.first(cellUrlSplit, 4).join("/") + "/";
+        login.getCell(cellUrl).done(function(cellObj) {
+            $("#loginUrl").val(cellUrl);
+        }).fail(function(xmlObj) {
+            if (xmlObj.status == "200") {
+                $("#loginUrl").val(cellUrl);
+            } else {
+                cellUrl = _.first(cellUrlSplit, 3).join("/") + "/";
+                login.getCell(cellUrl).done(function(cellObj) {
+                    if (cellObj.cell) {
+                        $("#loginUrl").val(cellUrl);
+                    }
+                })
+            }
+        })
     }
 }
 
 login.prototype.getEnvDetail = function() {
+    debugger;
     document.getElementById("logoutDiv").style.visibility = "hidden";
 
     if (validateForm()) {
         $('body > div.mySpinner').show();
         $('body > div.myHiddenDiv').hide();
-        var unitCellUrl = $("#unitUrl").val() + $("#unitCellName").val() + "/";
+        var unitCellUrl = $("#loginUrl").val();
         $.ajax({
             type: "GET",
             url: unitCellUrl,
             headers:{
-                'Accept':'application/xml'
+                'Accept':'application/json'
             },
             success : function(res) {
                 login.determineManagerType(unitCellUrl);
             },
             error : function(res) {
-                $('body > div.mySpinner').hide();
-                $('body > div.myHiddenDiv').show();
-
-                document.getElementById("logoutDiv").style.visibility = "visible";
-                $("#logoutDiv").addClass("loginErrorMessage");
-                $("#logoutMsg").text("The target unitcell does not exist.");
+                if (res.status == "200") {
+                    login.determineManagerType(unitCellUrl);
+                } else {
+                    $('body > div.mySpinner').hide();
+                    $('body > div.myHiddenDiv').show();
+    
+                    document.getElementById("logoutDiv").style.visibility = "visible";
+                    $("#logoutDiv").addClass("loginErrorMessage");
+                    $("#logoutMsg").text("The target unitcell does not exist.");
+                }
             }
         });
     }
     return false;
-}
-
-/*
- * Get cell Info
- * Parameter:
- *     Information obtained by dividing URL by "/"
- *     {
- *       "https:",
- *       "",
- *       "demo.personium.io",
- *       "debug-user1",
- *       "test",
- *       "login.html"
- *     }
- * Return:
- *     {
- *       rootURL: "https://demo.personium.io/",
- *       cellURL: "https://demo.personium.io/debug-user1/",
- *       cellName: "debug-user1"
- *     }
- */
-login.prototype.getCellInfo = function (cellUrlSplit) {
-    let rootURL = _.first(cellUrlSplit, 3).join("/") + "/";
-    let cellURL = _.first(cellUrlSplit, 4).join("/") + "/";
-    let cellName = this.getName(cellURL);
-
-    return {
-        rootURL: rootURL,
-        cellURL: cellURL,
-        cellName: cellName
-    };
 }
 
 /*
@@ -231,19 +213,28 @@ login.determineManagerType = function(unitCellUrl) {
         username: $("#userId").val(),
         password: $("#passwd").val()
     };
-    let unitTokenCredential = $.extend(
-        true,
-        _.clone(cellTokenCredential),
-        {
-            p_target : $("#unitUrl").val()
+    login.getCell(unitCellUrl).done(function(cellObj) {
+        uLogin.pTarget = cellObj.unit.url;
+    }).fail(function(xmlObj) {
+        if (xmlObj.status == "200") {
+            let cellSplit = unitCellUrl.split("/");
+            uLogin.pTarget = _.first(cellSplit, 3).join("/") + "/"
         }
-    );
-
-    $.when(
-        login.getToken(unitCellUrl, unitTokenCredential),
-        login.getToken(unitCellUrl, cellTokenCredential)).done(function(json1, json2){
-            login.isUnitCell(json1[0], json2[0]);
-    });
+    }).always(function() {
+        let unitTokenCredential = $.extend(
+            true,
+            _.clone(cellTokenCredential),
+            {
+                p_target : uLogin.pTarget
+            }
+        );
+    
+        $.when(
+            login.getToken(unitCellUrl, unitTokenCredential),
+            login.getToken(unitCellUrl, cellTokenCredential)).done(function(json1, json2){
+                login.isUnitCell(json1[0], json2[0], uLogin.pTarget);
+        });
+    })
 }
 
 login.getToken = function(unitCellUrl, loginInfo) {
@@ -289,11 +280,20 @@ login.refreshToken = function(cellUrl, refreshInfo) {
         }
     })
 }
+login.getCell = function(cellUrl) {
+    return $.ajax({
+        type: "GET",
+        url: cellUrl,
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+}
 
-login.isUnitCell = function(jsonData1, jsonData2) {
+login.isUnitCell = function(jsonData1, jsonData2, unitUrl) {
     $.ajax({
         type: "GET",
-        url: $("#unitUrl").val() + '__ctl/Cell',
+        url: unitUrl + '__ctl/Cell',
         headers: {
             'Accept':'application/json',
             'Authorization':'Bearer ' + jsonData1.access_token
@@ -326,9 +326,10 @@ login.isUnitCell = function(jsonData1, jsonData2) {
  * "Depth" must be set to zero to get only the information about the box.
  */
 login.getCellInfo = function(jsonData) {
+    var cellUrl = $("#loginUrl").val();
     $.ajax({
         type: "PROPFIND",
-        url: $("#unitUrl").val() + $("#unitCellName").val() + "/__",
+        url: cellUrl + "__",
         headers: {
             'Accept':'application/xml',
             'Depth': '0',
@@ -356,17 +357,33 @@ login.getCellInfo = function(jsonData) {
 
 login.openManagerWindow = function(managerInfo) {
     let launchUrl = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/environment.html';
-    location.href = login.prepareHashParams(launchUrl, managerInfo);
+    var cellUrl = $("#loginUrl").val();
+    $.ajax({
+        type: "GET",
+        url: cellUrl,
+        headers: {
+            'Accept': 'application/json'
+        },
+        success: function(cellObj) {
+            location.href = login.prepareHashParams(launchUrl, managerInfo, cellObj.cell.name);
+        },
+        error: function(res) {
+            console.log(res.status);
+            if (res.status == "200") {
+                location.href = login.prepareHashParams(launchUrl, managerInfo, uLogin.getName(cellUrl));
+            }
+        }
+    })
 }
 
-login.prepareHashParams = function(launchUrl, managerInfo) {
+login.prepareHashParams = function(launchUrl, managerInfo, cellName) {
     let url = [
         launchUrl,
         '?lng=' + $("#ddLanguageSelector").val(),
         '#ManagerInfo=' + JSON.stringify(managerInfo),
         '&contextRoot=https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light',
-        '&clickedEnvironmentUnitUrl=' + $("#unitUrl").val(),
-        '&clickedEnvironmentUnitCellName=' + $("#unitCellName").val(),
+        '&clickedEnvironmentUnitUrl=' + uLogin.pTarget,
+        '&clickedEnvironmentUnitCellName=' + cellName,
         '&selectedLanguage=' + $("#ddLanguageSelector").val()
     ].join("");
     return url;
@@ -409,7 +426,7 @@ function back() {
 function openAcctReg() {
     //$("#serverErrorMsg").hide();
     document.getElementById("logoutDiv").style.visibility = "hidden";
-        $('#unitUrl').val('');
+        $('#loginUrl').val('');
     $('#userId').val('');
     $('#passwd').val('');
         $('#unitspan').html('');
@@ -425,3 +442,4 @@ function openAcctReg() {
     $(id).css('top', winH / 2 - $(id).height() / 2);
     $(id).css('left', winW / 2 - $(id).width() / 2);
 }
+

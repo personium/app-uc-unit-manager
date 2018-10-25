@@ -77,32 +77,6 @@ externalCellToRelationMapping.prototype.checkAll = function(cBox) {
 	objCommon.showSelectedRow(document.getElementById("checkAllExtCellRelationAssign"),"row","rowidExtCellRelationLink");
 	};
 
-
-/**
-* The purpose of this method is to fetch the Box name from the uri. 
-*/
-externalCellToRelationMapping.prototype.getBoxName = function(uri) {
-	var arrUri = uri.split("/");
-	var arrRel = arrUri[5].split("=");
-	var arrrBoxName = arrRel[2].split(",");
-	var boxName = arrrBoxName[0].split(")").toString();
-	boxName = boxName.replace(',', '').replace(/'/g, " ");
-	boxName = boxName.split(' ').join('');
-	return boxName;
-};
-
-/**
-* The purpose of this method is to fetch a relation name  from the uri. 
-*/
-externalCellToRelationMapping.prototype.getRelationName = function(uri) {
-	var arrUri = uri.split("/");
-	var arrRel = arrUri[5].split("=");
-	var arrRelname = arrRel[1].split(",");
-	var relName = arrRelname[0].split(",").toString().replace(/'/g, " ");
-	relName = relName.split(' ').join('');
-	return relName;
-};
-
 /**
  * The purpose of this function is to render external cell details on the page.
  */

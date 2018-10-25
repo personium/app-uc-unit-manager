@@ -126,32 +126,36 @@ installBox.prototype.startingInstallationProcess = function(selectedBoxName) {
 installBox.prototype.displayInstallationResponse = function(selectedBoxName) {
 	var responseBody = uInstallBox.getInstallationResponse(selectedBoxName); 
 	if (responseBody != null) {
+		var responseBox = responseBody.box;
+		if (!responseBox) {
+			responseBox = responseBody;
+		}
 		document.getElementById("txtAreaInstallationStatus").style.display = "inline-block";
 		document.getElementById("dvStartingInstallation").style.display = "none";
 		$("#txtAreaInstallationStatus").scrollTop(0);
-		if (responseBody.status.toLowerCase() == getUiProps().MSG0181
+		if (responseBox.status.toLowerCase() == getUiProps().MSG0181
 				.toLowerCase()) {
 			$('#lblProgressBar').html(getUiProps().MSG0317);
 			$('#lblPercentage').html('');
 			$("#installStatusProgress").hide();
-			var installationResponse = JSON.stringify(responseBody, null, '\t');
+			var installationResponse = JSON.stringify(responseBox, null, '\t');
 			$("#txtAreaInstallationStatus").val(installationResponse);
 			$("#sectionProgressBar").css('height', '170px');
 			$("#txtAreaInstallationStatus").css('height', '157px');
 			isPollingNeeded = false;
 			isStateReady = true;
-		} else if (responseBody.status.toLowerCase() == getUiProps().MSG0179
+		} else if (responseBox.status.toLowerCase() == getUiProps().MSG0179
 				.toLowerCase()) {
 			isPollingNeeded = true;
 			isStateReady = false;
 			uInstallBox.showResponse(getUiProps().MSG0318, 'red',
-					responseBody);
-		} else if (responseBody.status.toLowerCase() == getUiProps().MSG0180
+					responseBox);
+		} else if (responseBox.status.toLowerCase() == getUiProps().MSG0180
 				.toLowerCase()) {
 			isStateReady = false;
 			selectedBoxName = '';
 			uInstallBox
-					.showResponse(getUiProps().MSG0319, 'red', responseBody);
+					.showResponse(getUiProps().MSG0319, 'red', responseBox);
 			//createBoxTable();
 			isPollingNeeded = false;
 		}
