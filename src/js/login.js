@@ -151,7 +151,6 @@ login.prototype.initCellManager = function() {
 }
 
 login.prototype.getEnvDetail = function() {
-    debugger;
     document.getElementById("logoutDiv").style.visibility = "hidden";
 
     if (validateForm()) {
