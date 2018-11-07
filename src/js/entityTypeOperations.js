@@ -1029,7 +1029,7 @@ entityTypeOperations.prototype.refreshEntityTypeList = function () {
 entityTypeOperations.prototype.getFolderHeirarchy = function(boxName) {
 	var collectionURL = sessionStorage.selectedCollectionURL;
 	var urlArray = collectionURL.split("/");
-	urlArray.splice(0,5);
+	urlArray.splice(0,urlArray.length - 1);
 	var folderPath = urlArray.join("/");
 	if (folderPath.startsWith("/")) {
 		folderPath = folderPath.substring(1, folderPath.length);

@@ -255,30 +255,40 @@ externalCell.prototype.createExternalCell = function() {
 			return false;
 		}
 		var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
-		var extCellName = extCellInfo[1];
-		var extCellURL = extCellInfo[0];
-		if (objBox.validateSchemaURL(schemaURL,
+		var extCellName = "";
+		var extCellURL = "";
+		objCommon.getCell(schemaURL).done(function(cellObj) {
+			extCellName = cellObj.cell.name;;
+			extCellURL = cellObj.unit.url;
+		}).fail(function(xmlObj) {
+			if (xmlObj.status == "200") {
+				var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
+				extCellName = extCellInfo[1];
+				extCellURL = extCellInfo[0];
+			}
+		}).always(function() {
+			if (objBox.validateSchemaURL(schemaURL,
 				"externalCellURLErrorMesage","#txtUrl"))
 			if (objCommon.validateURL(extCellURL,
 					"externalCellURLErrorMesage", "#txtUrl"))
 			if (objExternalCell.validateExternalCellName(extCellName))
 				if(objCommon.doesUrlContainSlash(schemaURL, "externalCellURLErrorMesage","#txtUrl",getUiProps().MSG0285)) {
-						if (($('#chkBoxCreateExtCell').is(':checked'))) {
-							var isValid = objCommon.validateDropDownValue(
-									'dropDownAssignRelationCreateExtCell',
-									'#selectRelationDropDownError',
-									getUiProps().MSG0083);
-							if (isValid == false) {
-								removeSpinner("modalSpinnerExtCell");
-								return;
-							}
+					if (($('#chkBoxCreateExtCell').is(':checked'))) {
+						var isValid = objCommon.validateDropDownValue(
+								'dropDownAssignRelationCreateExtCell',
+								'#selectRelationDropDownError',
+								getUiProps().MSG0083);
+						if (isValid == false) {
+							removeSpinner("modalSpinnerExtCell");
+							return;
 						}
-						var body = {
-							"Url" : schemaURL
-						};
-						objExternalCell.registerExternalCell(body);
 					}
-				
+					var body = {
+						"Url" : schemaURL
+					};
+					objExternalCell.registerExternalCell(body);
+			}
+		});		
 	}
 	removeSpinner("modalSpinnerExtCell");
 };
@@ -308,16 +318,24 @@ externalCell.prototype.updateExternalCell = function(key, body) {
 };
 function updateExternalInfo(schemaURL) {
 	var objExternalCell = new externalCell();
-	var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
-	var extCellName = extCellInfo[1];
-	var accessor = objExternalCell.getAccessor();
-	var objExtCellManager = new _pc.ExtCellManager(accessor);
-	$("#assignExtCellName").html(extCellName);
-	$("#assignExtCellName").attr('title', extCellName);
-	$("#assignExtCellURlName").text(schemaURL);
-	var extData = objExtCell.getExternalCellData(schemaURL);
-    objExtCell.setCellControlsInfoTabValues(extCellName, extData.__metadata.etag, objCommon.convertEpochDateToReadableFormat(extData.__published), objCommon.convertEpochDateToReadableFormat(extData.__updated));
-	uBoxDetail.displayBoxInfoDetails();
+	var extCellName = "";
+	objCommon.getCell(schemaURL).done(function(cellObj) {
+		extCellName = cellObj.cell.name;
+	}).fail(function(xmlObj) {
+		if (xmlObj.status == "200") {
+			var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
+			extCellName = extCellInfo[1];
+		}
+	}).always(function() {
+		var accessor = objExternalCell.getAccessor();
+		var objExtCellManager = new _pc.ExtCellManager(accessor);
+		$("#assignExtCellName").html(extCellName);
+		$("#assignExtCellName").attr('title', extCellName);
+		$("#assignExtCellURlName").text(schemaURL);
+		var extData = objExtCell.getExternalCellData(schemaURL);
+    	objExtCell.setCellControlsInfoTabValues(extCellName, extData.__metadata.etag, objCommon.convertEpochDateToReadableFormat(extData.__published), objCommon.convertEpochDateToReadableFormat(extData.__updated));
+		uBoxDetail.displayBoxInfoDetails();
+	});
 }
 
 /**
@@ -332,32 +350,54 @@ externalCell.prototype.changeExternalCell = function() {
 		cellpopup.showErrorIcon('#txtEditUrl');
 		return false;
 	}
-	var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
-	var extCellName = extCellInfo[1];
-	var extCellURL = extCellInfo[0];
-
-	if (!objBox.validateSchemaURL(schemaURL,
-			"externalCellURLEditErrorMessage","#txtEditUrl")) {
-		removeSpinner("modalSpinnerExtCell");
-		return;
-	} else if (!objCommon.validateURL(extCellURL,
-				"externalCellURLEditErrorMessage", "#txtEditUrl")) {
-		removeSpinner("modalSpinnerExtCell");
-		return;	
-	} else if (!objExternalCell.validateExternalCellName(extCellName)) {
-		removeSpinner("modalSpinnerExtCell");
-		return;
-	} else if(!objCommon.doesUrlContainSlash(schemaURL, "externalCellURLEditErrorMessage","#txtEditUrl",getUiProps().MSG0285)) {
-		removeSpinner("modalSpinnerExtCell");
-		return;
-	}
-
-	var body = {
-		"Url" : objCommon.changeUnitUrlToLocalUnit(schemaURL)
-	};
-	var key = $("#assignExtCellURlName").text();
-	objExternalCell.updateExternalCell(key, body);
-	removeSpinner("modalSpinnerExtCell");
+	var extCellName = "";
+	var extCellURL = "";
+	objCommon.getCell(schemaURL).done(function(cellObj) {
+		extCellName = cellObj.cell.name;
+		extCellURL = cellObj.unit.url;
+	}).fail(function(xmlObj) {
+		if (xmlObj.status == "200") {
+			var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
+			extCellName = extCellInfo[1];
+			extCellURL = extCellInfo[0];
+		}
+	}).always(function() {
+		if (!objBox.validateSchemaURL(schemaURL,
+				"externalCellURLEditErrorMessage","#txtEditUrl")) {
+			removeSpinner("modalSpinnerExtCell");
+			return;
+		} else if (!objCommon.validateURL(extCellURL,
+					"externalCellURLEditErrorMessage", "#txtEditUrl")) {
+			removeSpinner("modalSpinnerExtCell");
+			return;	
+		} else if (!objExternalCell.validateExternalCellName(extCellName)) {
+			removeSpinner("modalSpinnerExtCell");
+			return;
+		} else if(!objCommon.doesUrlContainSlash(schemaURL, "externalCellURLEditErrorMessage","#txtEditUrl",getUiProps().MSG0285)) {
+			removeSpinner("modalSpinnerExtCell");
+			return;
+		}
+	
+		let cellName = "";
+		let unitUrl = "";
+		objCommon.getCell(schemaURL).done(function(cellObj) {
+			cellName = cellObj.cell.name;
+			unitUrl = cellObj.unit.url;
+		}).fail(function(xmlObj) {
+			if(xmlObj.status == "200") {
+				let cellSplit = schemaURL.split("/");
+	            unitUrl = _.first(cellSplit, 3).join("/") + "/";
+				cellName = objCommon.getName(schemaURL);
+			}
+		}).always(function() {
+			var body = {
+				"Url" : objCommon.changeUnitUrlToLocalUnit(schemaURL, cellName, unitUrl)
+			};
+			var key = $("#assignExtCellURlName").text();
+			objExternalCell.updateExternalCell(key, body);
+			removeSpinner("modalSpinnerExtCell");
+		});
+	});
 };
 
 /**
@@ -575,12 +615,6 @@ externalCell.prototype.createChunkedExtCellTable = function(json, recordSize, sp
 	$('#chkSelectall').attr('checked', false);
 	$("#chkSelectall").attr('disabled', false);
 	objCommon.disableButton('#btnDeleteExternalCell');
-	var externalCellURI = new Array();
-	var objExternalCell = new externalCell();
-	var etag = new Array(); 
-	var externalCellDate = new Array();
-	var createdDate = new Array();
-	var dynamicTable = "";
 	if(typeof json === "string"){
 		json = JSON.parse(json);
 		if(typeof json === "string"){
@@ -592,34 +626,13 @@ externalCell.prototype.createChunkedExtCellTable = function(json, recordSize, sp
 	var externalCellRowCount = 0;
 	for ( var count = recordSize; count < maxLimit; count++) {
 		var arrayData = json[count];
-		//alert('arrayData --->' + JSON.stringify(arrayData));
-		externalCellURI[count] = arrayData.Url;
-		
-		etag[count] = arrayData.__metadata.etag;
-		//alert('arrayData --->' + JSON.stringify( arrayData.__metadata.etag));
-		
-		var arrEtag = etag[count].split("/");
-		var arrEtag0 = "'"+ arrEtag[0] +"'" ;
-		var arrEtag1 = "'"+ arrEtag[1].replace(/["]/g,"") + "'";
-		
-		var externalCellURL = "'"+ externalCellURI[count] + "'";
-		var externalRoleCount = 0;//objExternalCell.getExternalRoleCount(externalCellURI[count]);
-		var linkedRelationList = objExtCell.getRelationDetailsLinkedToExternalCell(externalCellURI[count]);//objExternalCell.getExternalCellToRelationCount(externalCellURI[count]);
-		var externalCellName = objExternalCell.getExternalCellName(arrayData.Url);
-		var fullExternalCellName = externalCellName;
-		var fullExternalCellURI = externalCellURI[count];
-		createdDate[count] = objCommon.convertEpochDateToReadableFormat(arrayData.__published);
-		externalCellDate[count] = objCommon.convertEpochDateToReadableFormat(arrayData.__updated);
-		externalCellName = "'"+externalCellName+"'";
-			dynamicTable += '<tr name="allrows" id="rowid' + externalCellRowCount+ '" onclick="objCommon.rowSelect(this,'+ "'rowid'" +','+ "'chkBox'"+','+ "'row'" +','+ "'btnDeleteExternalCell'" +','+ "'chkSelectall'" +','+ externalCellRowCount +',' + totalRecordsize + ','+ "''" + ','+"''"+','+"''"+','+"''"+','+"'mainExternalCellTable'"+');">';
-			dynamicTable = objExternalCell.createRows(dynamicTable, externalCellURL,externalCellName, externalCellDate[count], count, fullExternalCellName, fullExternalCellURI,externalRoleCount, linkedRelationList, externalCellRowCount, createdDate[count], arrEtag0, arrEtag1,etag[count]);
-			externalCellRowCount++;
+		objExtCell.addExtCellTable(arrayData, count, externalCellRowCount);
+		externalCellRowCount++;
 	}
 	if (jsonLength >0) {
 		$("#mainExternalCellTable thead tr").addClass('mainTableHeaderRow');
 		$("#mainExternalCellTable tbody").addClass('mainTableTbody');
 	}
-	$("#mainExternalCellTable tbody").html(dynamicTable);
 	setTimeout(function() {
 		objExtCell.applyScrollCssOnExtCellGrid();	
 		}, 300);
@@ -627,6 +640,41 @@ externalCell.prototype.createChunkedExtCellTable = function(json, recordSize, sp
 		spinnerCallback();
 	}
 };
+externalCell.prototype.addExtCellTable = function(arrayData, count, externalCellRowCount) {
+	var dynamicTable = "";
+	var objExternalCell = new externalCell();
+	//alert('arrayData --->' + JSON.stringify(arrayData));
+	var externalCellURI = arrayData.Url;
+	
+	var etag = arrayData.__metadata.etag;
+	//alert('arrayData --->' + JSON.stringify( arrayData.__metadata.etag));
+	
+	var arrEtag = etag.split("/");
+	var arrEtag0 = "'"+ arrEtag[0] +"'" ;
+	var arrEtag1 = "'"+ arrEtag[1].replace(/["]/g,"") + "'";
+	
+	var externalCellURL = "'"+ externalCellURI + "'";
+	var externalRoleCount = 0;//objExternalCell.getExternalRoleCount(externalCellURI[count]);
+	var linkedRelationList = objExtCell.getRelationDetailsLinkedToExternalCell(externalCellURI);//objExternalCell.getExternalCellToRelationCount(externalCellURI[count]);
+	var externalCellName = getUiProps().LBL0028;
+	var cellUrl = objCommon.changeLocalUnitToUnitUrl(arrayData.Url)
+	objCommon.getCell(cellUrl).done(function(cellObj) {
+		externalCellName = cellObj.cell.name;
+	}).fail(function(xmlObj) {
+		if (xmlObj.status == "200") {
+			externalCellName = objExternalCell.getExternalCellName(arrayData.Url);
+		}
+	}).always(function() {
+		var fullExternalCellName = externalCellName;
+		var fullExternalCellURI = externalCellURI;
+		var createdDate = objCommon.convertEpochDateToReadableFormat(arrayData.__published);
+		var externalCellDate = objCommon.convertEpochDateToReadableFormat(arrayData.__updated);
+		externalCellName = "'"+externalCellName+"'";
+		dynamicTable = '<tr name="allrows" id="rowid' + externalCellRowCount+ '" onclick="objCommon.rowSelect(this,'+ "'rowid'" +','+ "'chkBox'"+','+ "'row'" +','+ "'btnDeleteExternalCell'" +','+ "'chkSelectall'" +','+ externalCellRowCount +',' + totalRecordsize + ','+ "''" + ','+"''"+','+"''"+','+"''"+','+"'mainExternalCellTable'"+');">';
+		dynamicTable = objExternalCell.createRows(dynamicTable, externalCellURL,externalCellName, externalCellDate, count, fullExternalCellName, fullExternalCellURI,externalRoleCount, linkedRelationList, externalCellRowCount, createdDate, arrEtag0, arrEtag1,etag);
+		$("#mainExternalCellTable tbody").append(dynamicTable);
+	});
+}
 
 /**
  * The purpose of this method is to fetch the total count of records.
@@ -921,15 +969,25 @@ externalCell.prototype.initEditExternalCell = function() {
 				cellpopup.showErrorIcon('#txtEditUrl');
 				return false;
 			}
-			var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
-			var extCellName = extCellInfo[1];
-			var extCellURL = extCellInfo[0];
-			if (objBox.validateSchemaURL(schemaURL,
-					"externalCellURLEditErrorMessage","#txtEditUrl"))
-				if (objCommon.validateURL(extCellURL,
-						"externalCellURLEditErrorMessage", "#txtEditUrl")) 
-					if (objExternalCell.validateExternalCellName(extCellName))
-						objCommon.doesUrlContainSlash(schemaURL, "externalCellURLEditErrorMessage","#txtEditUrl",getUiProps().MSG0285);
+			var extCellName = "";
+			var extCellURL = "";
+			objCommon.getCell(schemaURL).done(function(cellObj) {
+				extCellName = cellObj.cell.name;
+				extCellURL = cellObj.unit.url;
+			}).fail(function(xmlObj) {
+				if (xmlObj.status == "200") {
+					var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
+					extCellName = extCellInfo[1];
+					extCellURL = extCellInfo[0];
+				}
+			}).always(function() {
+				if (objBox.validateSchemaURL(schemaURL,
+						"externalCellURLEditErrorMessage","#txtEditUrl"))
+					if (objCommon.validateURL(extCellURL,
+							"externalCellURLEditErrorMessage", "#txtEditUrl")) 
+						if (objExternalCell.validateExternalCellName(extCellName))
+							objCommon.doesUrlContainSlash(schemaURL, "externalCellURLEditErrorMessage","#txtEditUrl",getUiProps().MSG0285);
+			});
 		});
 }
 externalCell.prototype.setCellControlsInfoTabValues = function(ccname, etag, cccreatedat, ccupdatedat, ccurl) {   
@@ -1103,17 +1161,27 @@ $("#txtUrl")
 						cellpopup.showErrorIcon('#txtUrl');
 						return false;
 					}
-					var extCellInfo = objExternalCell
-							.getExternalCellInfo(schemaURL);
-					var extCellName = extCellInfo[1];
-					var extCellURL = extCellInfo[0];
-					if (objBox.validateSchemaURL(schemaURL,
-							"externalCellURLErrorMesage","#txtUrl"))
-						if (objCommon.validateURL(extCellURL,
-								"externalCellURLErrorMesage", "#txtUrl")) 
-							if (objExternalCell
-									.validateExternalCellName(extCellName))
-								objCommon.doesUrlContainSlash(schemaURL, "externalCellURLErrorMesage","#txtUrl",getUiProps().MSG0285);
+					var extCellName = "";
+					var extCellURL = "";
+					objCommon.getCell(schemaURL).done(function(cellObj) {
+						extCellName = cellObj.cell.name;
+						extCellURL = cellObj.unit.url;
+					}).fail(function(xmlObj) {
+						if (xmlObj.status == "200") {
+							var extCellInfo = objExternalCell
+								.getExternalCellInfo(schemaURL);
+							extCellName = extCellInfo[1];
+							extCellURL = extCellInfo[0];
+						}
+					}).always(function() {
+						if (objBox.validateSchemaURL(schemaURL,
+								"externalCellURLErrorMesage","#txtUrl"))
+							if (objCommon.validateURL(extCellURL,
+									"externalCellURLErrorMesage", "#txtUrl")) 
+								if (objExternalCell
+										.validateExternalCellName(extCellName))
+									objCommon.doesUrlContainSlash(schemaURL, "externalCellURLErrorMesage","#txtUrl",getUiProps().MSG0285);
+					})
 });
 
 

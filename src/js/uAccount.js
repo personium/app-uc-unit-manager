@@ -691,7 +691,7 @@ function performEdit(existingAccountName, body, etag, objAccountManager,
 /**The purpose of this method is to create rows.
  * 
  */
-function createRowsForAccountTable(dynamicTable, count, _accountName,
+function createRowsForAccountTable(dynamicTable, count, _accountName, accountType,
 		accountDateDisplay, rolecount, accountname, accountdate, rolecount,
 		tooltipAccountName, accountRowCount, accountPublishedDate, role, parrEtag0, parrEtag1, pinfoSchema,etag) {
 	
@@ -706,9 +706,10 @@ function createRowsForAccountTable(dynamicTable, count, _accountName,
 			+ '">'
 			+ tooltipAccountName
 			+ ' </a></div></td>';//
+	dynamicTable += "<td style='width:15%'>" + accountType + "</td>";
 	dynamicTable += "<td style='width:15%'>" + accountPublishedDate + "</td>";
 	dynamicTable += "<td style='width:15%'>" + accountDateDisplay + "</td>";
-	dynamicTable += "<td style='width:35%;max-width: 100px;'><div class = 'mainTableEllipsis'><label title= '" + role + "' class='cursorPointer'>" + role + "</label></div></td>";
+	dynamicTable += "<td style='width:20%;max-width: 100px;'><div class = 'mainTableEllipsis'><label title= '" + role + "' class='cursorPointer'>" + role + "</label></div></td>";
 	dynamicTable += "</tr>";
 	return dynamicTable;
 }
@@ -788,6 +789,7 @@ function createChunkedAccountTable(json, recordSize, spinnerCallback) {
 				.convertEpochDateToReadableFormat(arrayData.__published);
 		//changes for role account link control start
 		var accountname = "'" + accountName[count] + "'";
+		var accounttype = arrayData.Type;
 		var accountdate = updatedDate[count];
 		var accountPublishedDate = publishedDate[count];
 		accountdate = "'" + accountdate + "'";
@@ -811,7 +813,7 @@ function createChunkedAccountTable(json, recordSize, spinnerCallback) {
 				+ totalRecordsize + ',' + "'btnEditAccount'" + ',' + "''" + ','
 				+ "''" + ',' + "''" + ',' + "'mainAccountTable'" + ');">';
 		dynamicTable = createRowsForAccountTable(dynamicTable, count,
-				accountName[count], accountDateDisplay, rolecount, accountname,
+				accountName[count], accounttype, accountDateDisplay, rolecount, accountname,
 				accountdate, rolecount, tooltipAccountName, accountRowCount,
 				accountPublishedDate, rolesMappedList, arrEtag0, arrEtag1, infoSchema,etag[count]);
 		accountRowCount++;

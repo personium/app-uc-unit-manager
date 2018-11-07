@@ -648,8 +648,6 @@ cellProfile.prototype.retrieveCollectionResponse = function (json,cellName) {
  */
 cellProfile.prototype.displayExternalCellInformation = function (binaryFormatImage,count,externalCellName,shorterExternalCellName,displayName, unitUrl, scope) { 
     var selectedUnit = sessionStorage.selectedUnitUrl;
-    var arrUri = selectedUnit.split("/");
-    selectedUnit = arrUri[2];
     if (unitUrl != selectedUnit && scope == 'Private') {
         displayName = '';
         binaryFormatImage = null;
@@ -724,14 +722,25 @@ cellProfile.prototype.retrieveCellProfile = function(startIndex,endIndex) {
         document.getElementById("searchMessage").style.display = "none";
     for ( var count = startIndex; count < endIndex; count++) {
         var arrayData = jsonString[count];
-        var externalCellName = uCellProfile.getExternalCellName(arrayData.Url);
-        var unitUrl = uCellProfile.getUnitOfExternalCell(arrayData.Url);
-        var response = uCellProfile.retrieveCollectionResponse(profileFileName,externalCellName);
-        var shorterExternalCellName = objCommon.getShorterName(externalCellName,16);
-        uCellProfile.getImage(response,count,externalCellName,shorterExternalCellName, unitUrl);
+            uCellProfile.setCellProfileData(arrayData.Url, count);
         }
     }
 };
+cellProfile.prototype.setCellProfileData = function(cellUrl, count) {
+    let externalCellName = "";
+    let unitUrl = "";
+    objCommon.getCell(cellUrl).done(function(cellObj) {
+        externalCellName = cellObj.cell.name;
+        unitUrl = cellObj.unit.url;
+    }).fail(function(xmlObj) {
+       externalCellName = uCellProfile.getExternalCellName(arrayData.Url);
+       unitUrl = uCellProfile.getUnitOfExternalCell(arrayData.Url);
+    }).always(function() {
+        var response = uCellProfile.retrieveCollectionResponse(profileFileName,externalCellName);
+        var shorterExternalCellName = objCommon.getShorterName(externalCellName,16);
+        uCellProfile.getImage(response,count,externalCellName,shorterExternalCellName, unitUrl);
+    });
+}
 
 /**
  * The purpose of the following method is to return external cell record size.

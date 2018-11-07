@@ -294,13 +294,12 @@ function initializeLinkManager() {
 * 
 */
 function getBoxName(uri) {
-	var arrUri = uri.split("/");
-	var arrRole = arrUri[5].split("=");
-	var arrrBoxName = arrRole[2].split(",");
-	var boxName = arrrBoxName[0].split(")").toString();
-	boxName = boxName.replace(',', '').replace(/'/g, " ");
-	boxName = boxName.split(' ').join('');
-	return boxName;
+	var matchBoxName = uri.match(/\,_Box\.Name='(.+)'/);
+	if (matchBoxName) {
+		return matchBoxName[1];
+	}
+
+	return null;
 }
 	
 /**
@@ -308,13 +307,12 @@ function getBoxName(uri) {
 * 
 */
 function getRoleName(uri) {
-	var arrUri = uri.split("/");
-	var arrRole = arrUri[5].split("=");
-	var arrRolename = arrRole[1].split(",");
-	var roleName = arrRolename[0].split(",").toString().replace(/'/g, " ");
-	roleName = roleName.split(' ').join('');
-	return roleName;
+	var matchName = uri.match(/\(Name='(.+)',/);
+	if (matchName) {
+		return matchName[1];
+	}
 
+	return null;
 }
 	
 /**
@@ -336,16 +334,16 @@ function isRoleBoxExist () {
 	if (response.getStatusCode() == 200) {
 		var responseBody = response.bodyAsJson();
 		var json = responseBody.d.results;
-	for ( var i = 0; i < json.length; i++) {
-		var jsonBody = json[i];
-		var roleName = getRoleName(jsonBody.uri);
-		var boxName =  getBoxName(jsonBody.uri);
-	if (boxName == "null" ) {
-		boxName = null;
-	}
-	if (role == roleName && box == boxName) {
-		isAvailable = true;
-		return false;
+		for ( var i = 0; i < json.length; i++) {
+			var jsonBody = json[i];
+			var roleName = getRoleName(jsonBody.uri);
+			var boxName =  getBoxName(jsonBody.uri);
+			if (boxName == "null" ) {
+				boxName = null;
+			}
+			if (role == roleName && box == boxName) {
+				isAvailable = true;
+				return false;
 			}
 		}
 	}

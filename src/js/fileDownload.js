@@ -82,7 +82,12 @@ fileDownload.prototype.downloadBarFile = function () {
 	var tab = sessionStorage.tabName;
 	path = objOdata.currentCollectionPath;
 
-	contentType = "application/x-personium-bar+zip";
+	if (objCommon.newApiVersion) {
+		contentType = "application/zip+x-personium-bar";
+	} else {
+		contentType = "application/x-personium-bar+zip";
+	}
+	
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName, "", "");
 	this.get(path, contentType, "*", accessor, fileName);
 };

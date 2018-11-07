@@ -27,13 +27,20 @@ $(document).ready(function() {
     document.onkeypress = function() {
         LASTACTIVITY = new Date().getTime();
     };
-  $.ajaxSetup({ cache : false });
+    $.ajaxSetup({ cache : false });
       if (getUiProps() != undefined) {
         common.prototype.linkIcon = getUiProps().MSG0224;
         common.prototype.linkSymbolHTTPCode = getUiProps().MSG0223;
         common.prototype.startBracket = getUiProps().MSG0290;
         common.prototype.endBracket = getUiProps().MSG0291;
     }
+
+    common.prototype.pathBasedCellUrlEnabled = true;
+    common.prototype.newApiVersion = false;
+    objCommon.getCell(sessionStorage.selectedUnitUrl).done(function(unitObj) {
+      common.prototype.pathBasedCellUrlEnabled = unitObj.unit.path_based_cellurl_enabled;
+      common.prototype.newApiVersion = true;
+    });
 });
 var objCommon = new common();
 var cellList = null;
@@ -1781,7 +1788,7 @@ common.prototype.getCellCountAndOpenPage = function() {
 };
 
 /**
- * This method splits a combination of two entities and split it on the basis of ↔ symbol.
+ * This method splits a combination of two entities and split it on the basis of ↁEsymbol.
  * @param dropdownID
  * @returns {Boolean}
  */
@@ -3666,7 +3673,19 @@ common.prototype.showProfileImage = function(imgBinaryFile,imgProfile,figureProf
 common.prototype.changeLocalUnitToUnitUrl = function (cellUrl) {
     var result = cellUrl;
     if (cellUrl.startsWith(objCommon.PERSONIUM_LOCALUNIT)) {
-        result = cellUrl.replace(objCommon.PERSONIUM_LOCALUNIT + "/", getClientStore().baseURL);
+        if (!objCommon.pathBasedCellUrlEnabled) {
+            // https://cellname.fqdn/
+            let cellname = cellUrl.replace(objCommon.PERSONIUM_LOCALUNIT + "/", "");
+            if (cellname.endsWith("/")) {
+              cellname = cellname.substring(0, cellname.length-1);
+            }
+            let unitSplit = getClientStore().baseURL.split("/");
+            unitSplit[2] = cellname + "." + unitSplit[2];
+            result = unitSplit.join("/");
+        } else {
+            // https://fqdn/cellname/
+            result = cellUrl.replace(objCommon.PERSONIUM_LOCALUNIT + "/", getClientStore().baseURL);
+        }
     }
 
     return result;
@@ -3675,10 +3694,10 @@ common.prototype.changeLocalUnitToUnitUrl = function (cellUrl) {
 /*
  * Replace unit URL with your personium-localunit
  */
-common.prototype.changeUnitUrlToLocalUnit = function (cellUrl) {
+common.prototype.changeUnitUrlToLocalUnit = function (cellUrl, cellName, unitUrl) {
     var result = cellUrl;
-    if (cellUrl.startsWith(getClientStore().baseURL)) {
-        result = cellUrl.replace(getClientStore().baseURL, objCommon.PERSONIUM_LOCALUNIT + "/");
+    if (unitUrl.startsWith(getClientStore().baseURL)) {
+        result = objCommon.PERSONIUM_LOCALUNIT + "/" + cellName;
     }
 
     return result;
@@ -3743,6 +3762,39 @@ common.prototype.isNumber = function(val){
   var regex = new RegExp(/^[0-9]+$/);
   return regex.test(val);
 }
+
+common.prototype.getCell = function(cellUrl) {
+    return jquery1_12_4.ajax({
+        type: "GET",
+        url: cellUrl,
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+}
+
+/*
+ * Retrieve cell name from cell URL
+ * Parameter:
+ *     1. ended with "/", "https://demo.personium.io/debug-user1/"
+ *     2. ended without "/", "https://demo.personium.io/debug-user1"
+ * Return:
+ *     debug-user1
+ */
+common.prototype.getName = function (path) {
+    if ((typeof path === "undefined") || path == null || path == "") {
+        return "";
+    };
+
+    let name;
+    if (_.contains(path, "\\")) {
+        name = _.last(_.compact(path.split("\\")));
+    } else {
+        name = _.last(_.compact(path.split("/")));
+    }
+
+    return name;
+};
 
 /**
  * The purpose of this function is to return the BlackList used for the validate check.
