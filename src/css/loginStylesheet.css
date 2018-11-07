@@ -306,3 +306,7 @@ div.mySpinner > i {
 div.myHiddenDiv {
   display: none;
 }
+
+::placeholder {
+    color: lightgray;
+}
