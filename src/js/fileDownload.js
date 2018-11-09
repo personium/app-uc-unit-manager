@@ -36,7 +36,7 @@ fileDownload.prototype.downloadFile = function () {
 	var cellName = sessionStorage.selectedcell;
 	var tab = sessionStorage.tabName;
 	//this.clearServiceCollectionData();
-	path = this.getFilePath(baseUrl, cellName, collectionName);	//objOdata.currentCollectionPath; //this.getFilePath(baseUrl, cellName, collectionName);
+	path = this.getFilePath(collectionName);
 	if (tab == "Log") {
 		var logFolderName = document.getElementById("dvLogFolder").innerHTML;
 		var logFileName = document.getElementById("defaultLogFileName").title;
@@ -82,7 +82,7 @@ fileDownload.prototype.downloadBarFile = function () {
 	var tab = sessionStorage.tabName;
 	path = objOdata.currentCollectionPath;
 
-	if (objCommon.newApiVersion) {
+	if (sessionStorage.newApiVersion == "true") {
 		contentType = "application/zip+x-personium-bar";
 	} else {
 		contentType = "application/x-personium-bar+zip";
@@ -101,11 +101,7 @@ fileDownload.prototype.downloadBarFile = function () {
  * @param collectionName
  * @returns {Path}
  */
-fileDownload.prototype.getFilePath = function(baseUrl, cellName, collectionName) {
-	if (!baseUrl.endsWith("/")) {
-		baseUrl += "/";
-	}
-	//var path = baseUrl+cellName+"/";
+fileDownload.prototype.getFilePath = function(collectionName) {
 	var path = objOdata.currentCollectionPath +"/";
 	//path += collectionPath;
 	if (!path.endsWith("/")) {

@@ -165,10 +165,11 @@ _pc.LinkManager.prototype.query = function() {
  * @param {Object} cx
  * @return {String} URL
  */_pc.LinkManager.prototype.getLinkUrl = function(cx) {
-   var sb = this.accessor.getBaseUrl();
+   var accessor = objCommon.initializeAccessor(this.accessor.getBaseUrl(), this.accessor.getCurrentCell().getName(),"","");
+   var objCellManager = new _pc.CellManager(accessor);
+   var sb = objCellManager.getCellUrl(this.accessor.getCurrentCell().getName());
    var classNameForURL = null;
-   sb += this.accessor.getCurrentCell().getName();
-   sb += "/__ctl/";
+   sb += "__ctl/";
    sb += this.context.getClassName();
    sb += this.context.getKey();
    sb += "/$links/";
@@ -208,9 +209,10 @@ _pc.LinkManager.prototype.query = function() {
   * @return {String} URL
   */
  _pc.LinkManager.prototype.getLinkUrlWithKey = function(cx, source, destination, key) {
-   var sb = this.accessor.getBaseUrl();
-   sb += this.accessor.cellName;
-   sb += "/__ctl/";
+   var accessor = objCommon.initializeAccessor(this.accessor.getBaseUrl(), this.accessor.cellName,"","");
+   var objCellManager = new _pc.CellManager(accessor);
+   var sb = objCellManager.getCellUrl(this.accessor.cellName);
+   sb += "__ctl/";
    sb += source;
    sb += "('" + key + "')"; // account name
    sb += "/$links/";
@@ -236,9 +238,10 @@ _pc.LinkManager.prototype.query = function() {
    rolename = "'" + rolename + "'";
    var key = "(Name=" + rolename + ",_Box.Name=" + cBoxName + ")";
    key = key.split(" ").join("");
-   var sb = this.accessor.getBaseUrl();
-   sb += this.accessor.cellName;
-   sb += "/__ctl/";
+   var accessor = objCommon.initializeAccessor(this.accessor.getBaseUrl(), this.accessor.cellName,"","");
+   var objCellManager = new _pc.CellManager(accessor);
+   var sb = objCellManager.getCellUrl(this.accessor.cellName);
+   sb += "__ctl/";
    sb += destination;
    if(destination === "ExtCell"){
      key = "("+rolename+ ")";
@@ -332,9 +335,10 @@ _pc.LinkManager.prototype.query = function() {
   * @return {String} link URL
   */
  _pc.LinkManager.prototype.getLinkUrlWithMultiKey = function(cx, source, destination, key) {
-   var sb = this.accessor.getBaseUrl();
-   sb += this.accessor.cellName;
-   sb += "/__ctl/";
+   var accessor = objCommon.initializeAccessor(this.accessor.getBaseUrl(), this.accessor.cellName,"","");
+   var objCellManager = new _pc.CellManager(accessor);
+   var sb = objCellManager.getCellUrl(this.accessor.cellName);
+   sb += "__ctl/";
    sb += source;
    sb += key ; // Combination of role and box name
    sb += "/$links/";
@@ -405,9 +409,10 @@ _pc.LinkManager.prototype.query = function() {
   * @return {String} URL
   */
  _pc.LinkManager.prototype.getLinkUrlForExtCell = function(cx, source, destination, extCellURL) {
-   var sb = this.accessor.getBaseUrl();
-   sb += this.accessor.cellName;
-   sb += "/__ctl/";
+   var accessor = objCommon.initializeAccessor(this.accessor.getBaseUrl(), this.accessor.cellName,"","");
+   var objCellManager = new _pc.CellManager(accessor);
+   var sb = objCellManager.getCellUrl(this.accessor.cellName);
+   sb += "__ctl/";
    sb += source;
    var key = "'"+ extCellURL +"'";
    sb +=  "(" + encodeURIComponent( key) + ")";

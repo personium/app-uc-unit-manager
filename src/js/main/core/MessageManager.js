@@ -71,9 +71,10 @@ _pc.MessageManager.prototype.initializeProperties = function(self, as) {
  */
 _pc.MessageManager.prototype.getUrl = function() {
   var sb = "";
-  sb += this.getBaseUrl();
-  sb += this.accessor.getCurrentCell().getName();
-  sb += "/__message/send";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.getCurrentCell().getName(),"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.getCurrentCell().getName());
+  sb += "__message/send";
   return sb;
 };
 

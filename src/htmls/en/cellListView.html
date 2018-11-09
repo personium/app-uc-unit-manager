@@ -244,6 +244,9 @@ function setStyleSelectedCell(cellName,index) {
     var objCommon = new common();
     var shorterCellName = objCommon.getShorterEntityName(cellName);
     sessionStorage.selectedcell = cellName;
+    var accessor = objCommon.initializeAccessor(getClientStore().baseURL, sessionStorage.selectedcell,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    sessionStorage.selectedcellUrl = objCellManager.getCellUrl(sessionStorage.selectedcell);
     var objFirstCell=$('#cellList'+index);
     objFirstCell.siblings().removeClass('selectedCellInCellList');
     objFirstCell.addClass('selectedCellInCellList');
@@ -465,6 +468,7 @@ function createcelltable() {
         getFirstCellSelected(JSONstring[0].Name, JSONstring[0].__published, 0);
     } else if (lenJSONstring == 0) {
         sessionStorage.selectedcell = '';
+        sessionStorage.selectedcellUrl = '';
         sessionStorage.isCellDeleted = 0;
         var unitURL = sessionStorage.selectedUnitUrl;
         $('#cellURLHeading').html(unitURL);

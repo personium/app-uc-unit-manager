@@ -27,14 +27,14 @@ snapshot.prototype.getSnapshotPath = function(fileName) {
 	if (fileName) {
 		name = "/" + fileName;
 	}
-	return getClientStore().baseURL + sessionStorage.selectedcell + "/__snapshot" + name;
+	return sessionStorage.selectedcellUrl + "__snapshot" + name;
 };
 
 /**
  * The purpose of this function is to get the snapshot state path.
  */
 snapshot.prototype.getExportStatusPath = function() {
-	return getClientStore().baseURL + sessionStorage.selectedcell + "/__export";
+	return sessionStorage.selectedcellUrl + "__export";
 };
 
 /**
@@ -221,7 +221,10 @@ snapshot.prototype.getLogFilePath = function (baseUrl, cellName, logFolderName, 
 	if (!baseUrl.endsWith("/")) {
 		baseUrl += "/";
 	}
-	var path = baseUrl+cellName+"/__log/";
+	var accessor = objCommon.initializeAccessor(baseUrl, cellName,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    var path = objCellManager.getCellUrl(cellName);
+	path += "__log/";
 	path += logFolderName;
 	if (!path.endsWith("/")) {
 		path += "/";

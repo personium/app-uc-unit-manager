@@ -577,10 +577,6 @@ dataManagement.prototype.tertiaryBarSettings = function(){
  */
 dataManagement.prototype.getHeaderList = function(defaultEntityType) {
     var propDetailsList = new Array();
-    var baseUrl  = getClientStore().baseURL;
-	if (!baseUrl.endsWith("/")) {
-		baseUrl += "/";
-	}
 	var entityTypeName = defaultEntityType;
 	if(defaultEntityType == undefined){
 		entityTypeName = uEntityTypeOperations.getSelectedEntityType();
@@ -3435,24 +3431,16 @@ dataManagement.prototype.createEntity = function() {
     showSpinner("modalSpinnerDataManagement");
     uDataManagement.clearErrorMessages(false);
     uDataManagement.clearErrorAndSuccessIcons(false);
-   // var mandatoryCheck = uDataManagement.validateEmptyFields(false);
-  //  if (mandatoryCheck) {
         var idCheck = uDataManagement.validateIDField(false);
         if (idCheck) {
             var fieldCheck = uDataManagement.validateFieldsPerType(false);
             if (fieldCheck) {
-               // var objOdataCommon = new odataCommon();
                 var baseUrl = getClientStore().baseURL;
                 if (!baseUrl.endsWith("/")) {
                     baseUrl += "/";
                 }
                 var cellName = sessionStorage.selectedcell;
-                /*var boxName = sessionStorage.boxName;
-                var colName = sessionStorage.collectionName;*/
-          //      var objEntityType = new entityTypeOperations();
                 var entityTypeName = uEntityTypeOperations.getSelectedEntityType();
-               /* var path = baseUrl + cellName + "/" + boxName + "/" + colName
-                + "/" + entityTypeName;*/
                 var path = sessionStorage.selectedCollectionURL;
                 if(!(path).endsWith("/")){
                 	path += "/";
@@ -3897,9 +3885,6 @@ dataManagement.prototype.initializeEntityManager = function(){
         baseUrl += "/";
     }
     var cellName = sessionStorage.selectedcell;
-  //  var boxName = sessionStorage.boxName;
-    //var colName = sessionStorage.collectionName;
- //   var objEntityType = new entityTypeOperations();
     var collectionURL = sessionStorage.selectedCollectionURL;
     if(!(collectionURL.endsWith('/'))){
     	collectionURL += '/';
@@ -4089,23 +4074,15 @@ dataManagement.prototype.editEntity = function() {
     showSpinner("modalSpinnerDataManagement");
     uDataManagement.clearErrorMessages(true);
     uDataManagement.clearErrorAndSuccessIcons(true);
-  /*  var mandatoryCheck = uDataManagement.validateEmptyFields(true);
-    if (mandatoryCheck) {*/
         var fieldCheck = uDataManagement.validateFieldsPerType(true);
         if (fieldCheck) {
-           // var objOdataCommon = new odataCommon();
             var baseUrl = getClientStore().baseURL;
             if (!baseUrl.endsWith("/")) {
                 baseUrl += "/";
             }
             var cellName = sessionStorage.selectedcell;
-         //   var boxName = sessionStorage.boxName;
-         //   var colName = sessionStorage.collectionName;
-     //       var objEntityType = new entityTypeOperations();
             var entityTypeName = uEntityTypeOperations.getSelectedEntityType();
             var entityId = uDataManagement.entityID;
-          /*  var path = baseUrl + cellName + "/" + boxName + "/" + colName + "/"
-            + entityTypeName;*/
             var path = sessionStorage.selectedCollectionURL;
             if(!(path).endsWith("/")){
             	path += "/";
@@ -4239,25 +4216,6 @@ dataManagement.prototype.createTableForRawView = function(totalRecordCount, call
  * The purpose of this method is fetch data for Raw view
  */
 dataManagement.prototype.getRawJSONView = function(callback) {
-   /* var objCommon = new odataCommon();
-    var baseUrl = getClientStore().baseURL;
-    if (!baseUrl.endsWith("/")) {
-        baseUrl += "/";
-    }
-    var json = "";
-    if(typeof sessionStorage.dataSet === "string"){
-        json = JSON.parse(sessionStorage.dataSet);
-        if(typeof json === "string"){
-            json = JSON.parse(json);
-        }
-    }else{
-        json = sessionStorage.dataSet;
-    }
-    var modCurrent = sessionStorage.selectedPageNo % objCommon.maxNoOfPages;
-    if(modCurrent === 0){
-        modCurrent = objCommon.maxNoOfPages;
-    }
-    var recordCount = (modCurrent-1)*uDataManagement.MAXROWS;*/
 	if(uDataManagement.propertyDetailsList.length > 0){
 		$("#dvNoPropertyMsg").css("display","none");
 		$("#odataGrid").css("display","none");
@@ -4287,31 +4245,12 @@ dataManagement.prototype.getRawJSONView = function(callback) {
 			callback();
 		}
 	}
-    /*if (sessionStorage.totalRecordsOnDataGrid > 0) {
-        uDataManagement.createTableForRawView(json, "", recordCount);
-        $(".pagination").remove();
-        objCommon.createPagination(sessionStorage.totalRecordsOnDataGrid, "",
-                uDataManagement.MAXROWS, $("#entityRawTable"), "#resultPane", uDataManagement, uDataManagement.propertyDetailsList, json, 
-                uDataManagement.createTableForRawView, sessionStorage.selectedPageIndexDataManagement, "dataManagement");
-        var tableID = $("#entityRawTable");
-        var totalPageNo = Math.ceil(sessionStorage.totalRecordsOnDataGrid / uDataManagement.MAXROWS);
-        var selectedPageNo = sessionStorage.selectedPageNo;
-        uDataManagement.maintainPageState(selectedPageNo, tableID,
-                uDataManagement.MAXROWS, totalPageNo);
-    } else if (parseInt(sessionStorage.totalRecordsOnDataGrid) === 0) {
-        var noDataRawView = "<tr><td style='border:none;'><div id='dvNoEntityCreated' class='dvNoDataJsonView'>No Data created yet</div></td></tr>";
-        $("#entityRawTable tbody").html(noDataRawView);
-    }*/
 };
 
 /**
  * The purpose of this method is to disable buttons as per Raw view
  */
 dataManagement.prototype.disableButtonsForRawView = function() {
-  /*  $("#btnGrid").removeClass("odataNormalButtonBlue");
-    $("#btnGrid").addClass("odataNormalButtonGrey");
-    $("#btnRaw").removeClass("odataNormalButtonGrey");
-    $("#btnRaw").addClass("odataNormalButtonBlue");*/
 	$("#rawBtn").addClass("odataRawIconSelected");
 	$("#rawBtn").removeClass("odataRawIconUnselected");
     $("#gridBtn").removeClass("odataGridIconSelected");
@@ -4323,13 +4262,6 @@ dataManagement.prototype.disableButtonsForRawView = function() {
     objCommon.disableDeleteIcon("#deleteOdata");
     $("#sortWrapperOData").hide();
     $(".paginationWrapperOData").hide();
-   /* $("#btnCreateEntity").removeClass("createBtn");
-    $("#btnCreateEntity").addClass("createBtnDisabled");
-    $("#btnCreateEntity").attr("disabled", true);
-    $("#btnDeleteEntity").removeClass("deleteBtn");
-    $("#btnDeleteEntity").addClass("deleteBtnDisabled");
-    $("#btnDeleteEntity").attr("disabled", true);
-    uDataManagement.disableEditButton();*/
 };
 
 /**
@@ -4537,89 +4469,7 @@ dataManagement.prototype.clickGridTab = function() {
 				spinner.stop();
 			});
 		 }
-   /* document.getElementById("dvEntityTable").style.display = "block";
-    document.getElementById("dvEntityRawTable").style.display = "none";
-    $("#btnGrid").removeClass("odataNormalButtonGrey");
-    $("#btnGrid").addClass("odataNormalButtonBlue");
-    uDataManagement.enableButtonsForGridView();
-    uDataManagement.saveSelectedPage("raw");
-    if(sessionStorage.odataView === "odataquery"){
-        uOdataQuery.checkQueryType(JSON.parse(sessionStorage.queryData), true);
-    }else if(sessionStorage.odataView === "odataset"){
-        var modCurrent = sessionStorage.selectedPageNo % objCommon.maxNoOfPages;
-        if(modCurrent === 0){
-            modCurrent = objCommon.maxNoOfPages;
-        }
-        var recordCount = (modCurrent-1)*uDataManagement.MAXROWS;
-        uDataManagement.createEntityTable(sessionStorage.dataSet, uDataManagement.propertyDetailsList, recordCount);
-
-        var totalPageNo = Math.ceil(sessionStorage.totalRecordsOnDataGrid / uDataManagement.MAXROWS);
-        var tableID = $("#entityTable");
-        var selectedPageNo = sessionStorage.selectedPageNo;
-        $(".pagination").remove();
-        var objOdataCommon = new odataCommon();
-        objOdataCommon.createPagination(sessionStorage.totalRecordsOnDataGrid, "", uDataManagement.MAXROWS,
-                $("#entityTable"), "#resultPane", uDataManagement, uDataManagement.propertyDetailsList, sessionStorage.dataSet,
-                uDataManagement.createEntityTable, sessionStorage.selectedPageIndexDataManagement, "dataManagement");
-        uDataManagement.maintainPageState(selectedPageNo, tableID,
-                uDataManagement.MAXROWS, totalPageNo);
-    }*/
 };
-
-/**
- * The purpose of the following method is to delete Entity.
- * 
- * @param entityTypeID
- *//*
-dataManagement.prototype.deleteEntity = function(entityTypeID) {
-   // var objOdataCommon = new odataCommon();
-    var baseUrl = getClientStore().baseURL;
-    if (!baseUrl.endsWith("/")) {
-        baseUrl += "/";
-    }
-    var cellName = sessionStorage.selectedcell;
-    var boxName = sessionStorage.boxName;
-    var colName = sessionStorage.collectionName;
- //   var objEntityType = new entityTypeOperations();
-    var entityTypeName = uEntityTypeOperations.getSelectedEntityType();
-    var entityId = encodeURIComponent(entityTypeID);
-    var path = baseUrl + cellName + "/" + boxName + "/" + colName + "/"
-    + entityTypeName;
-    var accessor = objCommon.initializeAccessor(baseUrl, cellName);
-    var objjEntity = new _pc.Entity(accessor, path);
-    var objEntityManager = new _pc.EntityManager(accessor, objjEntity);
-    var promise = objEntityManager.del(entityId, "*");
-    if (promise.resolvedValue.status == 204) {
-        uDataManagement.sbSuccessful += entityId + ",";
-    } else if (promise.resolvedValue.status == 409) {
-        dataManagement.prototype.sbConflict += entityId + ",";
-        uDataManagement.sbConflict.replace(/, $/, "");
-    }
-};
-*//**
- * The purpose of the following method is to delete multiple records.
- *//*
-dataManagement.prototype.deleteMultipleRecords = function() {
-    // showSpinner("modalSpinnerAcct");
-    // uDataManagement.clearErrorMessages(false);
-    var selectedRecords = objCommon.getMultipleSelections('entityTable',
-            'input', 'case');
-    var arrEntity = selectedRecords.split(',');
-    for ( var count = 0; count < arrEntity.length; count++) {
-        uDataManagement.deleteEntity(arrEntity[count]);
-    }
-
-    $('input:checkbox').removeAttr('checked');
-    uDataManagement.resetButtonsAndCheckBox();
-    uDataManagement.getEntityList(uDataManagement.propertyDetailsList);
-    var successCount = entityCount(uDataManagement.sbSuccessful);
-    var message = successCount - 1 + " Entity(s) deleted successfully!";
-    objCommon.displaySuccessMessage("#multipleEntityDeleteModalWindow",
-            message, "");
-    objCommon.disableButton("#btnDeleteEntity");
-    uDataManagement.sbSuccessful = '';
-
-};*/
 
 /** **************************************** */
 /** ** Start - Entity Link - View/Create *** */

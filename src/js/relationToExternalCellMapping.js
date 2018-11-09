@@ -109,20 +109,29 @@ relationToExternalCellMapping.prototype.bindExternalCellDropDown = function() {
 	var objRelationToExternalCellMapping = new relationToExternalCellMapping();
 	objRelationToExternalCellMapping.refreshDropDown();
 	var jsonString = objRelationToExternalCellMapping.getExternalCellList();
-	var select = document.getElementById("externalCellDropDown");
 	for ( var count = 0; count < jsonString.length; count++) {
-		var option = document.createElement("option");
 		var objExterrnalCell = jsonString[count];
 		var externalCellURI = objExterrnalCell.Url;
-		var externalCellName = objExtCell.getExternalCellName(externalCellURI);/*objRelationToExternalCellMapping
-				.getExternalCellNameFromURI(externalCellURI);*/
-		var tooltipExternalCellName = objCommon.getShorterName(externalCellName, 17);//objCommon.getShorterEntityName(externalCellName);
-		option.innerHTML = externalCellURI;
-		option.text = tooltipExternalCellName;
-		option.title = externalCellURI;
-		select.appendChild(option);
+		this.appendChildDropDown(externalCellURI);
 	}
 };
+
+relationToExternalCellMapping.prototype.appendChildDropDown = function(url) {
+	var externalCellName = ""
+	objCommon.getCell(url).done(function(cellObj) {
+        externalCellName = cellObj.cell.name;
+    }).fail(function(xmlObj) {
+       externalCellName = objExtCell.getExternalCellName(url);
+    }).always(function() {
+		var tooltipExternalCellName = objCommon.getShorterName(externalCellName, 17);
+		var option = document.createElement("option");
+		option.innerHTML = url;
+		option.text = tooltipExternalCellName;
+		option.title = url;
+		var select = document.getElementById("externalCellDropDown");
+		select.appendChild(option);
+    });
+}
 
 /**
  * The purpose of this function to get external cell detail against selected
@@ -306,6 +315,7 @@ relationToExternalCellMapping.prototype.createTable = function() {
 relationToExternalCellMapping.prototype.createChunkedRelationToExtCellMappingTable = function(json, recordSize) {
 	$('#checkAllRelationExtCellAssign').attr('checked', false);
 	objCommon.disableButton('#btnDeleteRelationToExtCellMapping');
+	$("#mainRelationExtCellLinkTable tbody").empty();
 	var dynamicRelationExtCellLinkTable = "";
 	if(typeof json === "string"){
 		json = JSON.parse(json);
@@ -320,16 +330,13 @@ relationToExternalCellMapping.prototype.createChunkedRelationToExtCellMappingTab
 	var totalRecordsize = jsonLength;
 	var relationExtCellLinkCount = 0;
 	for ( var count = recordSize; count < maxLimit; count++) {
-	var obj = json[count];
-	var extCellURI = obj["Url"];
-	var extCellURL = extCellURI;
-	var etag = obj.__metadata.etag;
-	var externalCell = objExtCell.getExternalCellName(extCellURI);//objRelationToExternalCellMapping	.getExternalCellNameFromURI(extCellURI);
-	dynamicRelationExtCellLinkTable += '<tr class="dynamicRelationToExtCellMappingRow" name="allrows" id="rowidRelationExtCellLink'+relationExtCellLinkCount+'" onclick="objCommon.rowSelect(this,'+ "'rowidRelationExtCellLink'" +','+ "'chkBoxRelationExtCellAssign'"+','+ "'row'" +','+ "'btnDeleteRelationToExtCellMapping'" +','+ "'checkAllRelationExtCellAssign'" +','+ relationExtCellLinkCount +',' + totalRecordsize +  ',' + "''" + ',' + "''" + ',' + "''" + ',' + "''" + ',' + "'mainRelationExtCellLinkTable'" + ');">';
-	dynamicRelationExtCellLinkTable = objRelationToExternalCellMapping.createRowsForExternalCellTable(dynamicRelationExtCellLinkTable, externalCell,count,extCellURL, relationExtCellLinkCount,etag);
-	relationExtCellLinkCount++;
+		var obj = json[count];
+		var extCellURI = obj["Url"];
+		var extCellURL = extCellURI;
+		var etag = obj.__metadata.etag;
+		dynamicRelationExtCellLinkTable = objRelationToExternalCellMapping.createRowsForExternalCellTable(dynamicRelationExtCellLinkTable, count,extCellURL, relationExtCellLinkCount, etag, totalRecordsize);
+		relationExtCellLinkCount++;
 	}
-	$("#mainRelationExtCellLinkTable tbody").html(dynamicRelationExtCellLinkTable);
 	if (jsonLength > 0) {
 		$("#mainRelationExtCellLinkTable thead tr").addClass('mainTableHeaderRow');
 		$("#mainRelationExtCellLinkTable tbody").addClass('mainTableTbody');
@@ -343,16 +350,24 @@ relationToExternalCellMapping.prototype.createChunkedRelationToExtCellMappingTab
  * The purpose of this function is to create rows for mapped external cell table
  */
 relationToExternalCellMapping.prototype.createRowsForExternalCellTable = function(
-		dynamicRows, externalCell, count,externalCellURL, relationExtCellLinkCount,etag) {
-	var extCellDetails = externalCellURL + objCommon.startBracket + externalCell + objCommon.endBracket;
-	var dispExternalCellURL = objCommon.changeLocalUnitToUnitUrl(externalCellURL);
-	dynamicRows += '<td style="width:1%"><input id = "txtRelationToExtCellMappingEtagId'+relationExtCellLinkCount+'" value='+etag+' type = "hidden" /><input title="'+relationExtCellLinkCount+'" id="chkBoxRelationExtCellAssign' + relationExtCellLinkCount
-				+ '" type="checkbox" class="case regular-checkbox big-checkbox" name="case" value="'+ extCellDetails + '""/><label for="chkBoxRelationExtCellAssign' + relationExtCellLinkCount + '" class="customChkbox checkBoxLabel"></label></td>';
-	dynamicRows += "<td name = 'acc' style='max-width: 172px;width:40%'><div class = 'mainTableEllipsis'><label title='"+externalCell+"' class='cursorPointer'>"
-				+ externalCell + "</label></div></td>";
-	dynamicRows += "<td name = 'acc' style='max-width: 300px;width:59%'><div class = 'mainTableEllipsis'><label title='"+dispExternalCellURL+"' class='cursorPointer'>" + dispExternalCellURL + "</label></div></td>";
-	dynamicRows += "</tr>";
-	return dynamicRows;
+		dynamicRows, count,externalCellURL, relationExtCellLinkCount, etag, totalRecordsize) {
+	var externalCell = "";
+	objCommon.getCell(externalCellURL).done(function(cellObj) {
+        externalCell = cellObj.cell.name;
+    }).fail(function(xmlObj) {
+    	externalCell = objExtCell.getExternalCellName(externalCellURL);
+    }).always(function() {
+    	var extCellDetails = externalCellURL + objCommon.startBracket + externalCell + objCommon.endBracket;
+		var dispExternalCellURL = objCommon.changeLocalUnitToUnitUrl(externalCellURL);
+		var dynamicRows = '<tr class="dynamicRelationToExtCellMappingRow" name="allrows" id="rowidRelationExtCellLink'+relationExtCellLinkCount+'" onclick="objCommon.rowSelect(this,'+ "'rowidRelationExtCellLink'" +','+ "'chkBoxRelationExtCellAssign'"+','+ "'row'" +','+ "'btnDeleteRelationToExtCellMapping'" +','+ "'checkAllRelationExtCellAssign'" +','+ relationExtCellLinkCount +',' + totalRecordsize +  ',' + "''" + ',' + "''" + ',' + "''" + ',' + "''" + ',' + "'mainRelationExtCellLinkTable'" + ');">';
+		dynamicRows += '<td style="width:1%"><input id = "txtRelationToExtCellMappingEtagId'+relationExtCellLinkCount+'" value='+etag+' type = "hidden" /><input title="'+relationExtCellLinkCount+'" id="chkBoxRelationExtCellAssign' + relationExtCellLinkCount
+					+ '" type="checkbox" class="case regular-checkbox big-checkbox" name="case" value="'+ extCellDetails + '""/><label for="chkBoxRelationExtCellAssign' + relationExtCellLinkCount + '" class="customChkbox checkBoxLabel"></label></td>';
+		dynamicRows += "<td name = 'acc' style='max-width: 172px;width:40%'><div class = 'mainTableEllipsis'><label title='"+externalCell+"' class='cursorPointer'>"
+					+ externalCell + "</label></div></td>";
+		dynamicRows += "<td name = 'acc' style='max-width: 300px;width:59%'><div class = 'mainTableEllipsis'><label title='"+dispExternalCellURL+"' class='cursorPointer'>" + dispExternalCellURL + "</label></div></td>";
+		dynamicRows += "</tr>";
+		$("#mainRelationExtCellLinkTable tbody").append(dynamicRows);
+    });
 };
 
 relationToExternalCellMapping.prototype.openPopUpWindow = function() {

@@ -514,8 +514,6 @@ entityTypeProperty.prototype.retrieveMaxPropertyList = function (entityTypeName)
 		if (entityTypeName.length > 0) {
 			var uri = uEntityTypeProperty.getPropertyUri(entityTypeName);
 			uri = uri + "?$top=400";
-			/*var baseUrl = getOdataClientStore().baseURL;
-			var cellName = sessionStorage.selectedcell;*/
 			 var boxName = sessionStorage.boxName;
 			 var baseUrl  = getClientStore().baseURL;
 			 if (!baseUrl.endsWith("/")) {

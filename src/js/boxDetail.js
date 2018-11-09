@@ -35,11 +35,7 @@ boxDetail.prototype.setCollectionLocation  = function(path) {
  * @returns {String}
  */
 boxDetail.prototype.getCollectionURL  = function(collectionName) {
-    var baseUrl  = getClientStore().baseURL;
-    var path = baseUrl +  sessionStorage.selectedcell + "/";
-    if (!path.endsWith("/")) {
-        path += "/";
-    }
+    var path = sessionStorage.selectedcellUrl;
     if (collectionName.length > 0 ) {
         path += collectionName;
     }
@@ -76,12 +72,8 @@ boxDetail.prototype.showRootPropertyBox = function(boxname) {
 	var mainBoxValue = getUiProps().MSG0039;
 	var collectionPathValue = "";
 	if(boxname == mainBoxValue){
-		 var baseUrl  = getClientStore().baseURL;
-	     collectionPathValue = baseUrl +  sessionStorage.selectedcell + "/";
-	     if (!collectionPathValue.endsWith("/")) {
-	    	 collectionPathValue += "/";
-	     }
-	     collectionPathValue += getUiProps().MSG0293;
+		collectionPathValue = sessionStorage.selectedcellUrl;
+	    collectionPathValue += getUiProps().MSG0293;
 	}else{
 		collectionPathValue = uBoxDetail.getCollectionURL(boxname);
 	}

@@ -436,6 +436,7 @@
 "MSG0431": "personium-localunit://{CellName}/",
 "MSG0432": "personium-localcell:/",
 "MSG0433": "Numeric only string",
+"MSG0434": "The cell does not exist.",
 "LBL0001": "Domain",
 "LBL0002": "Plan",
 "LBL0003": "API Version",

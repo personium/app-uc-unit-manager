@@ -46,9 +46,11 @@ _pc.ExtRoleManager.prototype.initializeProperties = function(self, as) {
  * @return {String} URL
  */
 _pc.ExtRoleManager.prototype.getUrl = function() {
-  var sb = this.getBaseUrl();
-  sb += this.accessor.cellName;
-  sb += "/__ctl/ExtRole";
+  var sb = "";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
+  sb += "__ctl/ExtRole";
   return sb;
 };
 

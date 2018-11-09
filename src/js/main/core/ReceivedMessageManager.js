@@ -94,9 +94,10 @@ _pc.ReceivedMessageManager.prototype.initializeProperties = function(self, as, m
  */
 _pc.ReceivedMessageManager.prototype.getUrl = function() {
   var sb = "";
-  sb += this.getBaseUrl();
-  sb += this.accessor.getCurrentCell().getName();
-  sb += "/__ctl/ReceivedMessage";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.getCurrentCell().getName(),"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.getCurrentCell().getName());
+  sb += "__ctl/ReceivedMessage";
   return sb;
 };
 

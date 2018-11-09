@@ -34,13 +34,6 @@ $(document).ready(function() {
         common.prototype.startBracket = getUiProps().MSG0290;
         common.prototype.endBracket = getUiProps().MSG0291;
     }
-
-    common.prototype.pathBasedCellUrlEnabled = true;
-    common.prototype.newApiVersion = false;
-    objCommon.getCell(sessionStorage.selectedUnitUrl).done(function(unitObj) {
-      common.prototype.pathBasedCellUrlEnabled = unitObj.unit.path_based_cellurl_enabled;
-      common.prototype.newApiVersion = true;
-    });
 });
 var objCommon = new common();
 var cellList = null;
@@ -2808,8 +2801,8 @@ common.prototype.centerAlignRibbonMessage = function(errorSuccessdivId) {
  * @returns {Boolean} True/False.
  */
 common.prototype.validateURL = function(domainName,errorSpan,txtID) {
-    var letters = /^[0-9a-zA-Z-_.]+$/;
-    var startHyphenUnderscore = /^[-_!@#$%^&*()=+]/;
+    var letters = /^[0-9a-zA-Z\-\_\.]+/;
+    var startHyphenUnderscore = /^[\-_!@#$%^&*()=+]/;
     if (domainName == undefined){
         document.getElementById(errorSpan).innerHTML = getUiProps().MSG0302;
         cellpopup.showErrorIcon(txtID);
@@ -3747,7 +3740,7 @@ common.prototype.isTypeDoubleValid = function(value) {
  * @param obj
  */
 common.prototype.getObjectSchemaUrl = function(obj) {
-  var infoSchema = "'- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)'";
+  var infoSchema = "'- (" + sessionStorage.selectedcellUrl + "/)'";
   if (obj.length > 0 && obj[0].Schema) {
     infoSchema = "'" + obj[0].Schema + "'";
   }

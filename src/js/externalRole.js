@@ -167,9 +167,8 @@ externalRole.prototype.validateExternalRoleUrl = function(uri) {
     let tempPath = url.attr('path');
     let missingKeyword = (tempPath.search("/__role/__/") == -1);
     let tempPathArray = tempPath.split("/");
-    let invalidPathFormat = (tempPathArray.length != 5); // Must be 5 for "/{CellName}/__role/__/{ExtRoleName}"
 
-    if (missingKeyword || invalidPathFormat) {
+    if (missingKeyword) {
         document.getElementById("externalRoleURLErrorMsg").innerHTML = "Invalid URL";
         cellpopup.showErrorIcon('#txtBoxExtRoleURL');
         return false;
@@ -479,7 +478,7 @@ externalRole.prototype.createChunkedExtRoleTable = function(json, recordSize, sp
         }
     
         // Main box or box without schema URL uses "- ({Cell URL string})"
-        var infoSchema = "- (" + getClientStore().baseURL + sessionStorage.selectedcell + "/)";
+        var infoSchema = "- (" + sessionStorage.selectedcellUrl + "/)";
         // Get schema URL for box
         if (boxName != getUiProps().MSG0039) {
             var boxObj = uExternalRole.retrieveChunkedDataBox(boxName);

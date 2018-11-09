@@ -63,10 +63,10 @@ _pc.AccountManager.prototype.initializeProperties = function(self, as) {
  */
 _pc.AccountManager.prototype.getUrl = function() {
   var sb = "";
-  sb += this.getBaseUrl();
-  sb += this.accessor.cellName;
-  // sb += this.accessor.getCurrentCell().getName();
-  sb += "/__ctl/Account";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
+  sb += "__ctl/Account";
   return sb;
 };
 

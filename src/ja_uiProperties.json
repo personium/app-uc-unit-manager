@@ -436,6 +436,7 @@
 "MSG0431": "personium-localunit://{Cell名}/",
 "MSG0432": "personium-localcell:/",
 "MSG0433": "数字のみを入力して下さい。",
+"MSG0434": "セルが存在しません。",
 "LBL0001": "ドメイン",
 "LBL0002": "タイプ",
 "LBL0003": "APIバージョン",

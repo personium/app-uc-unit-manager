@@ -59,9 +59,10 @@ _pc.BoxManager.prototype.initializeProperties = function(self, as) {
  */
 _pc.BoxManager.prototype.getUrl = function() {
   var sb = "";
-  sb += this.getBaseUrl();
-  sb += this.accessor.cellName;
-  sb += "/__ctl/Box";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
+  sb += "__ctl/Box";
   return sb;
 };
 
@@ -225,7 +226,10 @@ _pc.BoxManager.prototype.update = function(boxName, body, etag) {
  * @returns {Object} response(sync) or promise(async) (TODO not implemented) depending on the sync/async model.
  */
 _pc.BoxManager.prototype.recursiveDelete = function(boxName, etag) {
-  var url = this.getBaseUrl() + this.accessor.cellName + "/" + boxName;
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  var url = objCellManager.getCellUrl(this.accessor.cellName);
+  url += boxName;
 console.log(url);
   var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
   var options = {};

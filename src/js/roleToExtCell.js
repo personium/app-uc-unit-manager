@@ -181,21 +181,30 @@ roleToExtCellMapping.prototype.getSelectedExtCell = function() {
 roleToExtCellMapping.prototype.bindExtCellDropDown = function() {
 	uRoleExtCellMapping.refreshDropDown();
 	var jsonString = uRoleExtCellMapping.getExternalCellList();
-	var select = document.getElementById("ExtCellDropDown");
 	var len = jsonString.length;
 	for ( var count = 0; count< len; count++) {
-		var option = document.createElement("option");
 		var objExterrnalCell = jsonString[count];
 		var externalCellURI = objExterrnalCell.Url;
-		var externalCellName = objExtCell.getExternalCellName(externalCellURI);/*objCommon
-				.getExternalCellNameFromURI(externalCellURI);*/
-		var tooltipExternalCellName = objCommon.getShorterName(externalCellName, 17);
-		option.innerHTML = externalCellURI;
-		option.text = tooltipExternalCellName;
-		option.title = externalCellURI;
-		select.appendChild(option);
+		this.appendChildDropDown(externalCellURI);
 	}
 };
+
+roleToExtCellMapping.prototype.appendChildDropDown = function(url) {
+	var externalCellName = ""
+	objCommon.getCell(url).done(function(cellObj) {
+        externalCellName = cellObj.cell.name;
+    }).fail(function(xmlObj) {
+       externalCellName = objExtCell.getExternalCellName(url);
+    }).always(function() {
+		var tooltipExternalCellName = objCommon.getShorterName(externalCellName, 17);
+		var option = document.createElement("option");
+		option.innerHTML = url;
+		option.text = tooltipExternalCellName;
+		option.title = url;
+		var select = document.getElementById("ExtCellDropDown");
+		select.appendChild(option);
+    });
+}
 
 /**
  * The purpose of this function to get external cell detail against selected
@@ -242,14 +251,22 @@ roleToExtCellMapping.prototype.createHeaderForRoleExtCellLinkTable = function(
  * The purpose of this function is to create row for RoleRelationLink Table .
  */
 roleToExtCellMapping.prototype.createRowForRoleExtCellLinkTable = function(
-		dynamicRoleExtCellLinkTable, count, extCellName,  extCellURL, roleExtCellLinkCount,etag) {
-	var itemVal = extCellName+ objCommon.startBracket + extCellURL + objCommon.endBracket;
-	var dispExtCellURL = objCommon.changeLocalUnitToUnitUrl(extCellURL);
-	dynamicRoleExtCellLinkTable += '<td style="width:1%"><input id =  "txtRoleToExtRoleMappingEtagId'+roleExtCellLinkCount+'" value='+etag+' type = "hidden" /><input title="'+roleExtCellLinkCount+'" id="chkBoxRoleExtCellAssign'+ roleExtCellLinkCount + '" type="checkbox" class="case regular-checkbox big-checkbox" name="case" value="'+ itemVal + '"'+ '"/><label for="chkBoxRoleExtCellAssign' + roleExtCellLinkCount + '" class="customChkbox checkBoxLabel"></label></td>';
-	dynamicRoleExtCellLinkTable += "<td style='max-width: 172px;width:40%;'><div class = 'mainTableEllipsis'><label title= '"+ extCellName+ "' class='cursorPointer'>" + extCellName+ "</label></div></td>";
-	dynamicRoleExtCellLinkTable += "<td style='max-width: 300px;width:59%;'><div class ='mainTableEllipsis'><label title= '"+ dispExtCellURL+ "' class='cursorPointer'>" + dispExtCellURL + "</label></div></td>";
-	dynamicRoleExtCellLinkTable += "</tr>";
-	return dynamicRoleExtCellLinkTable;
+		count, extCellURL, roleExtCellLinkCount, etag, totalRecordsize) {
+	var extCellName = "";
+	objCommon.getCell(extCellURL).done(function(cellObj) {
+        extCellName = cellObj.cell.name;
+    }).fail(function(xmlObj) {
+    	extCellName = objExtCell.getExternalCellName(extCellURL);
+    }).always(function() {
+    	var itemVal = extCellName+ objCommon.startBracket + extCellURL + objCommon.endBracket;
+		var dispExtCellURL = objCommon.changeLocalUnitToUnitUrl(extCellURL);
+		var dynamicRoleExtCellLinkTable = '<tr name="allrows" id="rowidRoleExtCellLink'+ roleExtCellLinkCount + '" onclick="objCommon.rowSelect(this,'+ "'rowidRoleExtCellLink'" + ','+ "'chkBoxRoleExtCellAssign'"+ ','+ "'row'"+ ',' + "'btnDeleteAssignRoleExtCell'"+ ','+ "'checkAllRoleExtCellAssign'"+ ','+ roleExtCellLinkCount + ','+ totalRecordsize +  ',' + "''" + ',' + "''" + ',' + "''" + ',' + "''" + ',' + "'mainRoleExtCellLinkTable'" + ');">'
+		dynamicRoleExtCellLinkTable += '<td style="width:1%"><input id =  "txtRoleToExtRoleMappingEtagId'+roleExtCellLinkCount+'" value='+etag+' type = "hidden" /><input title="'+roleExtCellLinkCount+'" id="chkBoxRoleExtCellAssign'+ roleExtCellLinkCount + '" type="checkbox" class="case regular-checkbox big-checkbox" name="case" value="'+ itemVal + '"'+ '"/><label for="chkBoxRoleExtCellAssign' + roleExtCellLinkCount + '" class="customChkbox checkBoxLabel"></label></td>';
+		dynamicRoleExtCellLinkTable += "<td style='max-width: 172px;width:40%;'><div class = 'mainTableEllipsis'><label title= '"+ extCellName+ "' class='cursorPointer'>" + extCellName+ "</label></div></td>";
+		dynamicRoleExtCellLinkTable += "<td style='max-width: 300px;width:59%;'><div class ='mainTableEllipsis'><label title= '"+ dispExtCellURL+ "' class='cursorPointer'>" + dispExtCellURL + "</label></div></td>";
+		dynamicRoleExtCellLinkTable += "</tr>";
+		$("#mainRoleExtCellLinkTable tbody").append(dynamicRoleExtCellLinkTable); 
+    });
 };
 
 /**
@@ -258,6 +275,7 @@ roleToExtCellMapping.prototype.createRowForRoleExtCellLinkTable = function(
  */
 roleToExtCellMapping.prototype.createRoleToExtCellMappingTableChunked = function (json, recordSize) {
 	$('#checkAllRoleExtCellAssign').attr('checked', false);
+	$("#mainRoleExtCellLinkTable tbody").empty();
 	objCommon.disableButton('#btnDeleteAssignRoleExtCell');
 	var dynamicRoleExtCellLinkTable = "";
 	var mainBoxValue = getUiProps().MSG0039;
@@ -276,20 +294,13 @@ roleToExtCellMapping.prototype.createRoleToExtCellMappingTableChunked = function
 		var obj = json[count];
 		var etag = obj.__metadata.etag;
 		var extCellURL = obj["Url"];
-		//var index = extCellURL.lastIndexOf("/");
-		var extCell = objExtCell.getExternalCellName(extCellURL);//extCellURL.substring(index+ 1, extCellURL.length);
-		if (extCellURL === 'null') {
-			extCellURL = mainBoxValue;
-		}
-		dynamicRoleExtCellLinkTable += '<tr name="allrows" id="rowidRoleExtCellLink'+ roleExtCellLinkCount + '" onclick="objCommon.rowSelect(this,'+ "'rowidRoleExtCellLink'" + ','+ "'chkBoxRoleExtCellAssign'"+ ','+ "'row'"+ ',' + "'btnDeleteAssignRoleExtCell'"+ ','+ "'checkAllRoleExtCellAssign'"+ ','+ roleExtCellLinkCount + ','+ totalRecordsize +  ',' + "''" + ',' + "''" + ',' + "''" + ',' + "''" + ',' + "'mainRoleExtCellLinkTable'" + ');">';
-		dynamicRoleExtCellLinkTable = uRoleExtCellMapping.createRowForRoleExtCellLinkTable(dynamicRoleExtCellLinkTable, count, extCell,  extCellURL, roleExtCellLinkCount,etag);
+		uRoleExtCellMapping.createRowForRoleExtCellLinkTable(count, extCellURL, roleExtCellLinkCount, etag, totalRecordsize);
 		roleExtCellLinkCount++;
 	}
 	if (jsonLength > 0) {
 		$("#mainRoleExtCellLinkTable thead tr").addClass('mainTableHeaderRow');
 		$("#mainRoleExtCellLinkTable tbody").addClass('mainTableTbody');
 	}
-	$("#mainRoleExtCellLinkTable tbody").html(dynamicRoleExtCellLinkTable);
 	setTimeout(function() {
 		objRoleToExtCellMapping.applyScrollCssAssignRoleToExtCellGrid();
 	}, 300);

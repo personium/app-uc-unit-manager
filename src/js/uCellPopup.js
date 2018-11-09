@@ -147,7 +147,9 @@ cellUI.popup.prototype.moveToPrevPage = function(){
  */
 cellUI.popup.prototype.populateCellURL = function(){
 	var cellName = document.getElementById("textCellPopup").value;
-	var cellUrl = getClientStore().baseURL + cellName;
+	var accessor = objCommon.initializeAccessor(getClientStore().baseURL, cellName,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    var cellUrl = objCellManager.getCellUrl(cellName);
 	document.getElementById("cellURL").innerHTML = cellUrl;
 	$('#cellURL').attr('title', cellUrl);
 };
