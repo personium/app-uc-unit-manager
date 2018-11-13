@@ -47,9 +47,9 @@ _pc.ComplexTypePropertyManager.prototype.initializeProperties = function(self, a
  */
 _pc.ComplexTypePropertyManager.prototype.getUrl = function() {
   var sb = "";
-  sb = this.getBaseUrl();
-  sb += this.accessor.cellName;
-  sb +="/";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
   sb += this.accessor.boxName;
   sb +="/";
   sb += this.collection;
@@ -64,9 +64,9 @@ _pc.ComplexTypePropertyManager.prototype.getUrl = function() {
  */
 _pc.ComplexTypePropertyManager.prototype.getComplexTypeUri = function (complexTypeName) {
   var sb = "";
-  sb = this.getBaseUrl();
-  sb += this.accessor.cellName;
-  sb +="/";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
   sb += this.accessor.boxName;
   sb +="/";
   sb += this.collection;

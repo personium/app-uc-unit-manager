@@ -64,7 +64,7 @@ odata.prototype.getRootPath  = function() {
 	if(boxName == mainBoxValue){
 		boxName = getUiProps().MSG0293;
 	}
-	return getClientStore().baseURL + this.cellName + "/" + boxName;
+	return sessionStorage.selectedcellUrl + boxName;
 };
 
 odata.prototype.openWebDavCollection = function(){
@@ -101,7 +101,9 @@ odata.prototype.openWebDavCollection = function(){
  */
 odata.prototype.getPath = function() {
 	var baseUrl = getClientStore().baseURL;
-	var path = baseUrl + odata.prototype.cellName + "/";
+	var accessor = objCommon.initializeAccessor(baseUrl, odata.prototype.cellName,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    var path = objCellManager.getCellUrl(odata.prototype.cellName);
 	var boxName = sessionStorage.boxName;
 	var mainBoxValue = getUiProps().MSG0039;
 	if (boxName == mainBoxValue) {
@@ -2190,9 +2192,8 @@ odata.prototype.createPropertyRows = function (propertyName,propertyValue,dynami
  * @returns {String}
  */
 odata.prototype.getCollectionPath  = function() {
-    var baseUrl  = getClientStore().baseURL;
     var collectionName = objOdata.getSelectedCollectionName();
-    var path = baseUrl +  sessionStorage.selectedcell + "/";
+    var path = sessionStorage.selectedcellUrl;
     path += collectionPath;
     if (!path.endsWith("/")) {
         path += "/";

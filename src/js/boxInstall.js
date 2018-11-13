@@ -73,7 +73,7 @@ installBox.prototype.getInstallationResponse = function(selectedBoxName) {
 	var baseUrl = getClientStore().baseURL;
 	var cellName = sessionStorage.selectedcell;
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
-	var path = uInstallBox.getPath(baseUrl, cellName, selectedBoxName);
+	var path = uInstallBox.getPath(sessionStorage.selectedcellUrl, selectedBoxName);
 	var response = uInstallBox.getInstallationStatus(path, accessor);
 	var responseBody = null;
 	if (response.httpClient.status == 200) {
@@ -168,13 +168,12 @@ installBox.prototype.displayInstallationResponse = function(selectedBoxName) {
 /**
  * Gets box Path.
  * 
- * @param baseUrl base URL
- * @param cellName cell name
+ * @param cellUrl cell URL
  * @param boxName box name
  * @returns {String} path
  */
-installBox.prototype.getPath = function(baseUrl, cellName, boxName) {
-	var path = baseUrl + cellName + "/";
+installBox.prototype.getPath = function(cellUrl, boxName) {
+	var path = cellUrl;
 	path += boxName;
 	return path;
 };
@@ -283,7 +282,7 @@ installBox.prototype.doBoxInstallation = function() {
 				var baseUrl = getClientStore().baseURL;
 				var boxName = document.getElementById("importBoxName").value;
 				var cellName = sessionStorage.selectedcell;
-				var path = uInstallBox.getPath(baseUrl, cellName, boxName);
+				var path = uInstallBox.getPath(sessionStorage.selectedcellUrl, boxName);
 				var accessor = objCommon.initializeAccessor(baseUrl, cellName);
 				var builder = new _pc.PersoniumRequestHeaderBuilder();
 				builder.contentType("application/zip");

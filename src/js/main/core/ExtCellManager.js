@@ -59,9 +59,10 @@ _pc.ExtCellManager.prototype.initializeProperties = function(self, as) {
  */
 _pc.ExtCellManager.prototype.getUrl = function() {
   var sb = "";
-  sb += this.getBaseUrl();
-  sb += this.accessor.cellName;
-  sb += "/__ctl/ExtCell";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
+  sb += "__ctl/ExtCell";
   return sb;
 };
 

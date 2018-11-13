@@ -64,13 +64,10 @@ ruleDetail.prototype.setCellControlsInfoTabValues = function(ccname, ccbox, ccac
     sessionStorage.cccreatedat  = objCommon.convertEpochDateToReadableFormat(cccreatedat);
     sessionStorage.ccupdatedat  = objCommon.convertEpochDateToReadableFormat(ccupdatedat);
 
-    var cellName = sessionStorage.selectedcell;
-	var baseUrl = getClientStore().baseURL;
-	var cellUrl = baseUrl + cellName + "/";
     if (schemaboxObj.length > 0 && schemaboxObj[0].Schema) {
     	sessionStorage.ccurl        = schemaboxObj[0].Schema;
     } else {
-    	sessionStorage.ccurl        = "- (" + cellUrl + ")";
+    	sessionStorage.ccurl        = "- (" + sessionStorage.selectedcellUrl + ")";
     }
     
 };

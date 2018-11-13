@@ -153,7 +153,12 @@ _pc.Cell.prototype.setName = function(value) {
  * @return {String} URL of the cell
  */
 _pc.Cell.prototype.getUrl = function() {
-  return this.accessor.getBaseUrl() + encodeURI(this.name) + "/";
+  let sb = "";
+  let cellname = encodeURI(this.name);
+  var accessor = objCommon.initializeAccessor(this.accessor.getBaseUrl(), cellname,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(cellname);
+  return sb;
 };
 
 ///**

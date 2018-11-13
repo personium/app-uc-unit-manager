@@ -642,10 +642,9 @@ function createMainBox(dynamicTable){
 var cellDate = sessionStorage.selectedcelldate;
 var cellName = sessionStorage.selectedcell;
 var baseUrl = getClientStore().baseURL;
-var cellURL = baseUrl;
+var cellURL = sessionStorage.selectedcellUrl;
 var epoc1 ="''" ;
 var epoc2="''" ;
-cellURL += cellName;
 if (!cellURL.endsWith("/")) {
        cellURL += "/";
 }
@@ -695,7 +694,7 @@ objCommon.disableButton('#btnDeleteBox');
 		boxName[count] = obj.Name;
 		schema[count] = obj.Schema;
 		if(schema[count] == null) {
-			var defaultSchemaURL = getClientStore().baseURL + sessionStorage.selectedcell;
+			var defaultSchemaURL = sessionStorage.selectedcellUrl;
 			if (!defaultSchemaURL.endsWith("/")) {
        			defaultSchemaURL += "/";
 			};

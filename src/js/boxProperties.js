@@ -158,14 +158,9 @@ boxProperties.prototype.setPropatch = function (setProptachList, removedProperty
  * @returns {String}
  */
 boxProperties.prototype.getPath = function (){
-	var baseUrl = getClientStore().baseURL;
-	if (!baseUrl.endsWith("/")) {
-		baseUrl += "/";
-	}
-	var cellName = sessionStorage.selectedcell;
 	var boxName = boxHeirarchyPath;
 	var mainBoxValue = getUiProps().MSG0039;
-	var path = baseUrl+cellName+"/"+boxName;
+	var path = sessionStorage.selectedcellUrl + boxName;
 	var colName= objOdata.getSelectedCollectionName();
 	if (colName.length == 0) {
 		colName = uFileDownload.getSelectedFileInsideServiceCollection();//sessionStorage.serviceFileName;

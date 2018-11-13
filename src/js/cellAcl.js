@@ -22,74 +22,6 @@ var isExist = false;
 var uCellAcl = new cellAcl();
 
 /**
- * The purpose of this function is to create role table corresponding to
- * selected cell.
- * 
- * @param cellName
- */
-/*cellAcl.prototype.createCellACLRoleTable = function (cellName) {
-	$(".dynamicCellACLRole").remove();
-	$(".trCellRolesBodyEmptyMsg").remove();
-	var baseUrl = getClientStore().baseURL;
-	var accessor = objCommon.initializeAccessor(baseUrl, cellName, "", "");
-	var objRoleManager = new _pc.RoleManager(accessor);
-	var json = objRoleManager.retrieve("");
-	var JSONstring = json.rawData;
-	var sortJSONString = objCommon.sortByKey(JSONstring, '__updated');
-	var recordSize = sortJSONString.length;
-	var dynamicTable = "";
-	var name = new Array();
-	var boxName = new Array();
-	var mainBoxValue = getUiProps().MSG0039;
-	if (recordSize > 0) {
-		$("#cellRoleACLEditIcon").attr('disabled', false);
-		$('#cellRoleACLEditIcon').css('cursor', 'pointer');
-		for ( var count = 0; count < recordSize; count++) {
-			var obj = sortJSONString[count];
-			name[count] = obj.Name;
-			boxName[count] = obj["_Box.Name"];
-			if (boxName[count] == null) {
-				boxName[count] = mainBoxValue;
-			}
-			var roleName = "'" + name[count] + "'";
-			var countBoxName = "'" + boxName[count] + "'";
-			var sRoleName = objCommon.getShorterName(name[count], 8);
-			var sBoxName = objCommon.getShorterName(boxName[count], 8);
-			var sRoleBoxPair = sRoleName + "&nbsp;&nbsp;-&nbsp;&nbsp;" + sBoxName;
-			var rName = name[count];
-			var bName = boxName[count];
-			var roleBoxPair = rName + "  -  " + bName;
-			dynamicTable += '<tr id= "row_'
-					+ count
-					+ '" class = "dynamicCellACLRole" onclick = "uCellAcl.highlightRoleRow('
-					+ count + ',' + roleName + ',' + countBoxName + ')">';
-			dynamicTable += '<td class="roleIconAcl" style="border-bottom:1px solid #fff"></td>';
-			dynamicTable += '<td id= "col_' + count
-					+ '" width = "80%" name = "acc" title = "' + roleBoxPair
-					+ '" class = "cellRoleAclTableTD">' + sRoleBoxPair
-					+ '</td>';
-			dynamicTable += "</tr>";
-		}
-		if (dynamicTable != "") {
-			$("#cellRoleAclTable").append(dynamicTable);
-			$("#cellRoleAclTable tbody").addClass('cellACLRoleScroll');
-		}
-		this.getFirstCellACLRoleSelected(sortJSONString[0].Name,
-				sortJSONString[0]["_Box.Name"]);
-	} else {
-		$("#cellRoleACLEditIcon").attr('disabled', true);
-		$('#cellRoleACLEditIcon').css('cursor', 'default');
-		$('#cellACLPrivilegeTable input[type=checkbox]').attr("checked", false);
-		$('#cellACLPrivilegeTable input[type=checkbox]').attr('disabled', true);
-		var noRole = "No roles created yet";
-		var displayErrorMessage = "";
-		displayErrorMessage = "<tr class='trCellRolesBodyEmptyMsg'><td style='border:none;'><div id='cellRolesBody' class='noRolesCellACL'>"
-				+ noRole + "</div></td></tr>";
-		$("#cellRoleAclTable").html(displayErrorMessage);
-	}
-};*/
-
-/**
  * The purpose of this function is to implement cell ACL i.e
  * add and remove privileges from roles.
  * 
@@ -102,7 +34,7 @@ cellAcl.prototype.implementCellACL = function (arrCellACLRolePrivilegeList) {
 		baseUrl += "/";
 	}
 	var cellName = sessionStorage.selectedcell;
-	var path = baseUrl + cellName;
+	var path = sessionStorage.selectedcellUrl;
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
 	var objJDavCollection = new _pc.DavCollection(accessor, path);
 	var objAce = null;
@@ -202,89 +134,6 @@ cellAcl.prototype.getFirstCellACLRoleSelected = function (roleName, boxName) {
 };
 
 /**
- * The purpose of this function is to highlight role row on click of
- * row.
- * 
- * @param count
- * @param roleName
- * @param boxName
- */
-/*cellAcl.prototype.highlightRoleRow = function (count, roleName, boxName) {
-	var mainBoxValue = getUiProps().MSG0039;
-	sessionStorage.selectedCellACLRole = roleName;
-	sessionStorage.selectedCellACLBoxName = boxName;
-	if (boxName == null) {
-		sessionStorage.selectedCellACLBoxName = mainBoxValue;
-	}
-	var rowId = '#row_' + count;
-	$(rowId).siblings().removeClass('selectProfileRow');
-	$(rowId).siblings().removeClass('selectRowCellACLRole');
-	$(rowId).addClass('selectProfileRow');
-	$(rowId).addClass('selectRowCellACLRole');
-
-	if (sessionStorage['cellACLRolePrivilegeSet'].length > 0) {
-		var savedRolePrivilegeSet = JSON
-				.parse(sessionStorage['cellACLRolePrivilegeSet']);
-		this.selectedRoleCellACLOperation(savedRolePrivilegeSet);
-	}
-	if ($("#cellRoleACLEditIcon").hasClass("saveIconACL")) {
-		$('#cellACLPrivilegeTable input[type=checkbox]')
-				.attr('disabled', false);
-	}
-};
-*/
-/**
- * The purpose of this function is to bind privilege table according to the
- * role selected from the cell ACL roles table.
- * 
- * @param jsonData
- */
-/*cellAcl.prototype.selectedRoleCellACLOperation = function (jsonData) {
-	$('#cellACLPrivilegeTable input[type=checkbox]').attr('disabled', false);
-	$('#cellACLPrivilegeTable input[type=checkbox]').attr("checked", false);
-	for ( var i = 0; i < jsonData.length; i++) {
-		var aclRoleName = jsonData[i].role;
-		var index = aclRoleName.lastIndexOf("/");
-		if (index == -1) {
-			aclRoleName = "../__/"+aclRoleName;
-		}
-		var selectedRoleBoxPair = "../" + sessionStorage.selectedCellACLBoxName + "/" + sessionStorage.selectedCellACLRole;
-		
-		checkedPrivilegeList = jsonData[i].privilege;
-		if (aclRoleName == selectedRoleBoxPair) {
-			this.checkBoxOperation(checkedPrivilegeList);
-		} else {
-			// $('#aclPrivilegeTable input[type=checkbox]').attr("checked",
-			// false);
-		}
-	}
-	$('#cellACLPrivilegeTable input[type=checkbox]').attr('disabled', true);
-};*/
-
-/**
- * The purpose of this function is to perform checkbox operations.
- * 
- * @param checkedPrivilegeList
- */
-/*cellAcl.prototype.checkBoxOperation = function (checkedPrivilegeList) {
-	var arrCheckedprivilege = null;
-	var checkedPrivilege = null;
-	arrCheckedprivilege = checkedPrivilegeList.split(',');
-	for ( var i = 0; i < arrCheckedprivilege.length; i++) {
-		checkedPrivilege = arrCheckedprivilege[i];
-		$('#cellACLPrivilegeTable tr').each(
-			function() {
-				var privilegeCheckBoxValue = $(this).find(
-						".aclSetPrivChkBox").val();
-				if (checkedPrivilege == privilegeCheckBoxValue) {
-					$('input[value="' + privilegeCheckBoxValue + '"]')
-							.attr("checked", true);
-				}
-			});
-	}
-};*/
-
-/**
  * The purpose of this function is to retrieve cell ACL settings by calling
  * API.
  */
@@ -294,75 +143,13 @@ cellAcl.prototype.getCellACLSettings = function () {
 		baseUrl += "/";
 	}
 	var cellName = sessionStorage.selectedcell;
-	var path = baseUrl + cellName;
+	var path = sessionStorage.selectedcellUrl;
 	var accessor = objCommon.initializeAccessor(baseUrl, cellName);
 	var objJDavCollection = new _pc.DavCollection(accessor, path);
 	var objJAclManager = new _pc.AclManager(accessor, objJDavCollection);
 	var response = uBoxAcl.getAclList(accessor, objJDavCollection);
 	return response;
 };
-
-/**
- * The purpose of this function is to bind privileges to the cell ACL
- * privilege table.
- * 
- * @param response
- */
-/*cellAcl.prototype.bindPrivilegesToCellACLPrivilegeTable = function (response) {
-	$('#cellACLPrivilegeTable input[type=checkbox]').attr("checked", false);
-	$('#cellACLPrivilegeTable input[type=checkbox]').attr('disabled', true);
-	var recordSize = response.length;
-	var checkedPrivilegeList = null;
-	for ( var count = 0; count < recordSize; count++) {
-		var aclRoleName = response[count].role;
-		var index = aclRoleName.lastIndexOf("/");
-		if (index == -1) {
-			aclRoleName = "../__/"+aclRoleName;
-		}
-		var selectedRoleBoxPair = "../" + sessionStorage.selectedCellACLBoxName + "/" + sessionStorage.selectedCellACLRole;
-		checkedPrivilegeList = response[count].privilege;
-		if (aclRoleName == selectedRoleBoxPair) {
-			this.checkBoxOperation(checkedPrivilegeList);
-		}
-	}
-	$('#cellACLPrivilegeTable input[type=checkbox]').attr('disabled', true);
-};*/
-
-/**
- * The purpose of this function is to persist the privileges corresponding
- * to role box pair.
- * 
- * @param rolePrivilegeList
- */
-/*cellAcl.prototype.persistPrivilege = function (rolePrivilegeList) {
-	var roleName = null;
-	var jsonRolePrivilegeList = null;
-	roleName = sessionStorage.selectedCellACLRole;
-	var boxName = sessionStorage.selectedCellACLBoxName;
-	var roleBoxPair = "../" + boxName + "/" + roleName;
-	jsonRolePrivilegeList = {
-		"role" : roleBoxPair,
-		"privilege" : rolePrivilegeList
-	};
-	if (arrCellACLRolePrivilegeList.length > 0) {
-		for ( var i = 0; i < arrCellACLRolePrivilegeList.length; i++) {
-			var arrRoleName = arrCellACLRolePrivilegeList[i].role;
-			if (arrRoleName == roleBoxPair) {
-				arrCellACLRolePrivilegeList.splice(i, 1);
-				arrCellACLRolePrivilegeList.push(jsonRolePrivilegeList);
-			} else {
-				if (this.isRoleExist(roleBoxPair)) {
-					isExist = false;
-				} else {
-					isExist = false;
-					arrCellACLRolePrivilegeList.push(jsonRolePrivilegeList);
-				}
-			}
-		}
-	} else {
-		arrCellACLRolePrivilegeList.push(jsonRolePrivilegeList);
-	}
-};*/
 
 /**
  * The purpose of this function is to check if role box pair exists in
@@ -403,12 +190,6 @@ cellAcl.prototype.cellACLCheckBoxSelect = function (chkBox) {
  * @param cellName
  */
 cellAcl.prototype.createCellACLRoleTable = function () {
-	/*var cellName = sessionStorage.selectedcell;
-	var baseUrl = getClientStore().baseURL;
-	var accessor = objCommon.initializeAccessor(baseUrl, cellName, "", "");
-	var objRoleManager = new _pc.RoleManager(accessor);
-	var json = objRoleManager.retrieve("");
-	var JSONstring = json.rawData;*/
 	var roleCount = retrieveRoleRecordCount();
 	var JSONstring = objRole.retrieveChunkedData(0, roleCount);
 	var sortJSONString = objCommon.sortByKey(JSONstring, '__updated');
@@ -416,7 +197,6 @@ cellAcl.prototype.createCellACLRoleTable = function () {
 	var dynamicTable = "";
 	var mainBoxValue = getUiProps().MSG0039;
 	if (recordSize > 0) {
-		//alert(JSON.stringify(sortJSONString));
 		var rolePrivList = this.getCellACLSettings();
 		var test =rolePrivList.privilegeList;
 		var previlegeRecordSize = test.length;
@@ -439,7 +219,6 @@ cellAcl.prototype.createCellACLRoleTable = function () {
 			var sRoleBoxPair = sRoleName + "&nbsp;-&nbsp;" + sBoxName;
 			var roleBoxPair = roleName + "  -  " + boxName;
 			var selectedRoleBoxPair = "../" + boxName + "/" + roleName;
-			//alert('selectedRoleBoxPair---->' + selectedRoleBoxPair);
 			var rolePrivCounter = 0;
 			dynamicTable += "<tr>";
 			dynamicTable += "<td class='col1 ContentTextpt1'><div class='mainTableEllipsis' title='"+ roleBoxPair +"'>"+ sRoleBoxPair +"</div></td>";
@@ -474,33 +253,6 @@ cellAcl.prototype.createCellACLRoleTable = function () {
 };
 
 /**
- * The purpose of this function is to bind privileges to the main box ACL
- * privilege table.
- * 
- * @param response
- *//*
-cellAcl.prototype.custumizeResponse = function(stringArrRolePrivilegeSet) {
-	var arrResponse = [];
-	var mainBoxValue = getUiProps().MSG0039;
-	arrResponse = JSON.parse(stringArrRolePrivilegeSet);
-	for ( var i = 0; i < arrResponse.length; i++) {
-		var roleName = arrResponse[i].role;
-		var priv = arrResponse[i].privilege;
-		var index = roleName.indexOf(".");
-		
-		if (index == -1) {
-			var newRole = "../"+ mainBoxValue + "/" + roleName;
-			var json = {
-				"role" : newRole,
-				"privilege" : priv
-			};
-			arrResponse.splice(i, 1, json);
-		}
-	}
-	return arrResponse;
-};*/
-
-/**
  * Following method opens and populates the edit cell pop up window.
  * @param idDialogBox
  * @param idModalWindow
@@ -512,19 +264,11 @@ cellAcl.prototype.openPopUpWindow = function(idDialogBox, idModalWindow) {
 	$(idDialogBox).css('top', windowHeight / 2 - $(idDialogBox).height() / 2);
 	$(idDialogBox).css('left', windowWidth / 2 - $(idDialogBox).width() / 2);
 	this.populateCellACLSettings();
-	//$('#lblAll0').focus();
         $('#lblRoot0').focus();
 		$('#editAclSettingsTable').scroll(
 			function() {
-			/*	$("#editAclSettingsTable > *").width(
-						$("#editAclSettingsTable").width()
-								+ $("#editAclSettingsTable").scrollLeft());*/
 				$("#editAclSettingsTable > tbody").width($("#editAclSettingsTable").width()
 						+ $("#editAclSettingsTable").scrollLeft());
-				
-				/*var tbodyWidth = $("#editAclSettingsTable").width()
-				+ $("#editAclSettingsTable").scrollLeft();*/
-				//$("#editCellACLGridTbody").css({ "max-width": tbodyWidth+"px" });
 			});
 };
 
@@ -858,18 +602,10 @@ cellAcl.prototype.populateCellACLSettings = function () {
 	objCommon.restScrollBar('#editCellACLGridTbody');
 	var roleCount = retrieveRoleRecordCount();
 	var JSONstring = objRole.retrieveChunkedData(0, roleCount);
-	/*var cellName = sessionStorage.selectedcell;
-	var baseUrl = getClientStore().baseURL;
-	var accessor = objCommon.initializeAccessor(baseUrl, cellName, "", "");
-	var objRoleManager = new _pc.RoleManager(accessor);
-	var json = objRoleManager.retrieve("");
-	var JSONstring = json.rawData;*/
 	var sortJSONString = objCommon.sortByKey(JSONstring, '__updated');
 	var recordSize = sortJSONString.length;
 	var arrCheckedState =[];
 	var mainBoxValue = getUiProps().MSG0039;
-	//var dynamicTable = "<tr style='pointer-events:none;'><td style='border-top: 1px solid #b1b1b1;border-bottom: 1px solid #b1b1b1;text-align: left;border-right:1px solid #e6e6e6;' class='firstHeaderWidth'>Principals</td><td  colspan='20' style='border-top: 1px solid #b1b1b1;border-bottom: 1px solid #b1b1b1; text-align: left;'>Privileges</td></tr>";
-	//var dynamicTable = " <tr><td style='text-align:left;min-width:147px;' class='borderRight'><div class='editACLTableEllipsis '></div></td><td ><div>All</div></td><td ><div>	Auth</div></td><td ><div class='auth-read'>Auth-Read</div></td><td ><div >Message</div></td><td ><div class='message-read'>Message-Read</div></td><td ><div class=''>Event</div></td><td ><div class='event-read'>Event-Read</div></td><td ><div>Log</div></td><td ><div class='log-read'>Log-Read</div></td><td ><div>Social</div></td><td ><div class='social-read'>Social-Read</div></td><td ><div>Box</div></td><td ><div class='box-read'>Box-Read</div></td><td><div class='box-install'>Box-Install</div></td><td ><div>Acl</div></td><td ><div class='acl-read'>Acl-Read</div></td><td ><div>propfind</div></td></tr>";
 	var dynamicTable = "<tr><td style='text-align: left;'class='borderRight headerFontSettings'><div class='editACLTableEllipsis '></div></td><td class='headerFontSettings'><div>Root</div></td><td class='headerFontSettings headerCellAcl'><div>Auth</div></td><td class='headerFontSettings '><div class='auth-read'>Auth-Read</div></td><td class='headerFontSettings '><div>Message</div></td><td class='headerFontSettings '><div class='message-read'>Message-Read</div></td><td class='headerFontSettings '><div class=''>Event</div></td><td class='headerFontSettings '><div class='event-read'>Event-Read</div></td><td class='headerFontSettings '><div>Log</div></td><td class='headerFontSettings '><div class='log-read'>Log-Read</div></td><td class='headerFontSettings '><div>Social</div></td><td class='headerFontSettings '><div class='social-read'>Social-Read</div></td><td class='headerFontSettings '><div>Box</div></td><td class='headerFontSettings '><div class='box-read'>Box-Read</div></td><td class='headerFontSettings '><div class='box-install'>Box-Install</div></td><td class='headerFontSettings '><div>Acl</div></td><td class='headerFontSettings '><div class='acl-read'>Acl-Read</div></td><td class='headerFontSettings '><div>propfind</div></td><td class='headerFontSettings'><div>All</div></td><td class='headerFontSettings'><div class='read' >Read</div></td><td class='headerFontSettings'><div class='write'>Write</div></td><td class='headerFontSettings'><div class='read-properties'>Read-Properties</div></td><td class='headerFontSettings'><div class='write-properties'>Write-Properties</div></td><td class='headerFontSettings'><div class='read-acl'>Read-ACL</div></td><td class='headerFontSettings'><div class='write-acl'>Write-ACL</div></td><td class='headerFontSettings'><div class='exec'>Exec</div></td><td class='headerFontSettings'><div class='alter-schema'>Alter-Schema</div></td></tr>";
 	if (recordSize > 0) {
 		var rolePrivList = this.getCellACLSettings();

@@ -330,41 +330,18 @@ entityTypeOperations.prototype.createEntityTypeListView = function(entityTypeLis
  */
 entityTypeOperations.prototype.viewEntityTypeData = function(entityNames){
 	if(entityNames != undefined && entityNames.length > 0){
-		if ($("#OdataSchemaTab").hasClass("odataTabSelected")) {
-			//$("#entityTypeRawIcon").removeClass('schemaRawIconDisabled');
-			//$("#entityTypeRawIcon").attr("disabled",false);
-		}
-		//$("#entityTypeRefreshIcon").removeClass('schemaRefreshIconDisabled');
 		uEntityTypeOperations.createEntityTypeListView(entityNames);
 		$("#dvemptyTableMessageOdata").hide();
-		/*$("#dvEntityTypeList").addClass("odataTypeList");
-		$("#tableDivEntityType").addClass("odataTypeList");
-		$("#dvEmptySchemaMgmtDetailMsg").hide();
-		$("#dvemptyNoPropertyDetail").show();
-		$("#dvNoSchemaMgmtMsg").show();
-		$("#btnAddEntityTypeProp").attr("disabled",false);
-		$("#btnAddEntityTypeProp").removeClass("btnAddCompTypePropDisabled");
-		$("#btnAddEntityTypeProp").addClass("btnAddCompTypePropEnabled");
-		document.getElementById("dvemptyTableMessageOdata").style.display = "none";
-		document.getElementById("tabOdataView").style.display = "block";
-		uEntityTypeOperations.createEntityTypeListView(entityNames);
-		objOdataCommon.openDataMgmtPage();*/
 	} else {
 		if ($("#OdataSchemaTab").hasClass("odataTabSelected")) {
 			$("#entityTypeRawIcon").addClass('schemaRawIconDisabled');
 			$("#entityTypeRawIcon").attr("disabled",true);
 		}
 		$("#entityTypeBody tbody").empty();
-		//$("#entityTypeRefreshIcon").addClass('schemaRefreshIconDisabled');
 		$("#dvemptyTableMessageOdata").show();
 		uDataManagement.setMarginForNoEntityTypeMsg();
 		$("#entityTypeBody").hide();
 		$("#odataRightView").hide();
-		/*$(".entityTypeRow").remove();
-		$("#dvEntityTypeList").removeClass("odataTypeList");
-		$("#tableDivEntityType").removeClass("odataTypeList");
-		document.getElementById("dvemptyTableMessageOdata").style.display = "block";
-		document.getElementById("tabOdataView").style.display = "none";*/
 	}
 };
 
@@ -389,17 +366,6 @@ entityTypeOperations.prototype.fetchEntityTypes = function(url){
 		var response = restAdapter.get(uri, "application/json");
 		var sortedJSONString = response.bodyAsJson().d.results;
 		var totalRecordsize = sortedJSONString.length;
-		/*var objjDCCollection = new _pc.PersoniumCollection(accessor , url);
-		var objEntityTypeManager = new _pc.EntityTypeManager(accessor, objjDCCollection);
-		var response = objEntityTypeManager.retrieve('');
-		var JSONstring = response.rawData;
-		var totalRecordsize = null;
-		var sortedJSONString = null;
-		if (JSONstring.length >0) {
-			sortedJSONString = objCommon.sortByKey(JSONstring, '__updated');
-			totalRecordsize = sortedJSONString.length;
-		}*/
-		//var entityTypeNames = [];
 		var updatedDate = [];
 		sessionStorage.entityTypeCount = totalRecordsize;
 		for ( var count = 0; count < totalRecordsize; count++) {

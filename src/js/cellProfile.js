@@ -175,9 +175,9 @@ cellProfile.prototype.retrieveCollectionAPIResponse = function (json, operationP
     if (!baseUrl.endsWith("/")) {
         baseUrl += "/";
     }
-    var path = baseUrl+cellName+"/__/";
+    var path = sessionStorage.selectedcellUrl+"__/";
     if (profileLng) {
-        path = baseUrl+cellName+"/__/locales/" + profileLng;
+        path += "locales/" + profileLng;
     }
     var accessor = objCommon.initializeAccessor(baseUrl, cellName);
     var objJDavCollection = new _pc.DavCollection(accessor, path);
@@ -548,9 +548,9 @@ cellProfile.prototype.setNewTokenValues = function(data) {
  */
 cellProfile.prototype.getNewTokenValues = function () {
         var paramTargetURL = sessionStorage.selectedUnitUrl;
-        var paramTargetCellUrl = paramTargetURL + sessionStorage.selectedUnitCellName;
-        var refreshtokenURL = paramTargetCellUrl + "/__token";
         let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+        var paramTargetCellUrl = ManagerInfo.cellUrl;
+        var refreshtokenURL = paramTargetCellUrl + "__token";
         let tokenCredential = {
             grant_type: "refresh_token",
             refresh_token: getClientStore().refreshToken
@@ -632,7 +632,7 @@ cellProfile.prototype.retrieveCollectionResponse = function (json,cellName) {
     if (!baseUrl.endsWith("/")) {
         baseUrl += "/";
     }
-    var path = baseUrl+cellName+"/__/";
+    var path = sessionStorage.selectedcellUrl+"__/";
     var accessor = objCommon.initializeAccessor(baseUrl, cellName);
     var objJDavCollection = new _pc.DavCollection(accessor, path);
     response = objJDavCollection.getJSON(profileFileName);
@@ -940,6 +940,9 @@ cellProfile.prototype.createFirstCellProfile = function(displayName,descriptionD
 
     if (statusCode === 201 || statusCode === 204) {
         sessionStorage.selectedcell = newlyCreatedCell;
+        var accessor = objCommon.initializeAccessor(getClientStore().baseURL, sessionStorage.selectedcell,"","");
+        var objCellManager = new _pc.CellManager(accessor);
+        sessionStorage.selectedcellUrl = objCellManager.getCellUrl(sessionStorage.selectedcell);
     }
 };
 
@@ -1039,7 +1042,7 @@ cellProfile.prototype.displayCellProfileInfo = function (profileLng) {
     spinner.stop();
     if (response.httpClient.status === SUCCESSSTATUSCODE) {
         // Add locales to the dropdown list
-        var localesPath = getClientStore().baseURL+sessionStorage.selectedcell+"/__/locales";
+        var localesPath = sessionStorage.selectedcellUrl+"__/locales";
         var collectionList = objOdata.getCollectionList(localesPath);
         var recordSize = collectionList.length;
         for ( var count = 0; count < recordSize; count++) {

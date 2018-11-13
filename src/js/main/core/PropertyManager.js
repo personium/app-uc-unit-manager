@@ -51,9 +51,9 @@ _pc.PropertyManager.prototype.initializeProperties = function(self, as, collecti
  */
 _pc.PropertyManager.prototype.getUrl = function() {
   var sb = "";
-  sb = this.getBaseUrl();
-  sb += this.accessor.cellName;
-  sb +="/";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
   sb += this.accessor.boxName;
   sb +="/";
   sb += this.collection;
@@ -68,9 +68,9 @@ _pc.PropertyManager.prototype.getUrl = function() {
  */
 _pc.PropertyManager.prototype.getPropertyUri = function (entityTypeName) {
   var sb = "";
-  sb = this.getBaseUrl();
-  sb += this.accessor.cellName;
-  sb +="/";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
   sb += this.accessor.boxName;
   sb +="/";
   sb += this.collection;

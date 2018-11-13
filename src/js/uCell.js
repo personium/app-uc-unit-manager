@@ -338,6 +338,9 @@ function applyContents() {
 	var selectedCellDate = objCommon.convertEpochDateToReadableFormat(celldate);
 	sessionStorage.selectedcelldate = selectedCellDate;
 	sessionStorage.selectedcell = cellName;
+	var accessor = objCommon.initializeAccessor(getClientStore().baseURL, sessionStorage.selectedcell,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    sessionStorage.selectedcellUrl = objCellManager.getCellUrl(sessionStorage.selectedcell);
 	sessionStorage.selectedindex = index;
 	sessionStorage.lastselectedcelldate = selectedCellDate;
 	sessionStorage.lastselectedcell = cellName;
@@ -405,6 +408,9 @@ function getselectedcell(cellname, index, celldate, isSearch) {
 		sessionStorage.selectedcelldate = sessionStorage.lastselectedcelldate;
 		sessionStorage.selectedindex = sessionStorage.lastselectedindex;
 	}
+	var accessor = objCommon.initializeAccessor(getClientStore().baseURL, sessionStorage.selectedcell,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    sessionStorage.selectedcellUrl = objCellManager.getCellUrl(sessionStorage.selectedcell);
 	$("#cellNameHeading").html(cellname);
 	$("#cellNameHeading").attr('title', cellname);
 	var unitURL = sessionStorage.selectedUnitUrl;

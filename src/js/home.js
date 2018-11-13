@@ -305,8 +305,8 @@ home.prototype.storeEnvDetails = function() {
  */
 home.prototype.getUserPrivilege = function() {
     var target = sessionStorage.selectedUnitUrl;
-    var targetCellUrl = target + sessionStorage.selectedUnitCellName;
     let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+    var targetCellUrl = ManagerInfo.cellUrl;
     let tokenCredential = {
         grant_type: "refresh_token",
         refresh_token: ManagerInfo.refreshToken
@@ -322,7 +322,7 @@ home.prototype.getUserPrivilege = function() {
     } 
     $.ajax({
         dataType : 'json',
-        url : targetCellUrl + '/__token' ,//+ tokenUrl,
+        url : targetCellUrl + '__token' ,//+ tokenUrl,
         data : tokenCredential,
         headers: {
             'Accept': 'application/json',
@@ -350,6 +350,7 @@ home.prototype.openResourceManagement = function() {
     var objCommon = new common();
     sessionStorage.tabName = "";
     sessionStorage.selectedcell = '';
+    sessionStorage.selectedcellUrl = '';
     sessionStorage.target = target;
     sessionStorage.token = token;
     objCommon.getCellCountAndOpenPage();
@@ -449,6 +450,13 @@ home.prototype.setEnvironmentVariables = function() {
         sessionStorage.selectedUnitCellName = tempParams.clickedEnvironmentUnitCellName;
         sessionStorage.ManagerInfo = tempParams.ManagerInfo;
     }
+    sessionStorage.pathBasedCellUrlEnabled = true;
+    sessionStorage.newApiVersion = true;
+    objCommon.getCell(sessionStorage.selectedUnitUrl).done(function(unitObj) {
+        sessionStorage.pathBasedCellUrlEnabled = unitObj.unit.path_based_cellurl_enabled;
+        sessionStorage.newApiVersion = true;
+    });
+
     uHome.storeEnvDetails();
 };
 

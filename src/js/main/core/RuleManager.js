@@ -59,11 +59,10 @@ _pc.RuleManager.prototype.initializeProperties = function(self, as) {
  */
 _pc.RuleManager.prototype.getUrl = function() {
   var sb = "";
-  sb += this.getBaseUrl();
-  // HCL:-Changes done to get the cellName
-
-  sb += this.accessor.cellName;
-  sb += "/__ctl/Rule";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
+  sb += "__ctl/Rule";
   return sb;
 };
 

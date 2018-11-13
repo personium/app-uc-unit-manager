@@ -58,10 +58,11 @@ _pc.RelationManager.prototype.initializeProperties = function(self, as) {
  * @returns {String} URL
  */
 _pc.RelationManager.prototype.getUrl = function() {
-  var sb = this.getBaseUrl();
-  // HCL:-Changes done to get the cellName
-  sb += this.accessor.cellName;
-  sb += "/__ctl/Relation";
+  var sb = "";
+  var accessor = objCommon.initializeAccessor(this.getBaseUrl(), this.accessor.cellName,"","");
+  var objCellManager = new _pc.CellManager(accessor);
+  sb = objCellManager.getCellUrl(this.accessor.cellName);
+  sb += "__ctl/Relation";
   return sb;
 };
 

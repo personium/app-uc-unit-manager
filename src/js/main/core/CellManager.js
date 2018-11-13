@@ -218,7 +218,7 @@ _pc.CellManager.prototype.getHttpResponseCode = function(cellName) {
  * @returns {Object} response(sync) or promise(async) (TODO not implemented) depending on the sync/async model.
  */
 _pc.CellManager.prototype.recursiveDelete = function(cellName, options) {
-  var url = this.getBaseUrl() + cellName;
+  var url = this.getCellUrl(cellName);
   var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
   if(!options){
     options = {};
@@ -238,7 +238,7 @@ _pc.CellManager.prototype.recursiveDelete = function(cellName, options) {
  * @returns {Object} response JSON object
  */
 _pc.CellManager.prototype.cellImport = function(cellName, body) {
-  var url = this.getBaseUrl() + cellName + "/__import";
+  var url = this.getCellUrl(cellName) + "__import";
   var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
   var header = {};
   header.Accept = "application/json";
@@ -255,7 +255,7 @@ _pc.CellManager.prototype.cellImport = function(cellName, body) {
  * @returns {Object} response JSON object
  */
 _pc.CellManager.prototype.cellExport = function(cellName, body) {
-  var url = this.getBaseUrl() + cellName + "/__export";
+  var url = this.getCellUrl(cellName) + "__export";
   var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
   var header = {};
   header.Accept = "application/json";
@@ -272,11 +272,33 @@ _pc.CellManager.prototype.cellExport = function(cellName, body) {
  * @returns {Object} response JSON object
  */
 _pc.CellManager.prototype.getSnapshotFile = function(cellName, filename) {
-  var url = this.getBaseUrl() + cellName + "/__snapshot/" + filename + ".zip";
+  var url = this.getCellUrl(cellName) + "__snapshot/" + filename + ".zip";
   var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
   var header = {};
   header.Accept = "application/json";
 
   var response = restAdapter.get(url, "application/json");
   return response;
+};
+
+_pc.CellManager.prototype.get = function(cellName) {
+  var url = this.getCellUrl(cellName);
+  var restAdapter = _pc.RestAdapterFactory.create(this.accessor);
+  var accept = "application/json";
+
+  var response = restAdapter.get(url, accept);
+  return response.bodyAsJson();
+};
+
+_pc.CellManager.prototype.getCellUrl = function(cellName) {
+  var cellUrl = "";
+  if (!sessionStorage.pathBasedCellUrlEnabled || sessionStorage.pathBasedCellUrlEnabled == "true") {
+    cellUrl = this.getBaseUrl() + cellName + "/";
+  } else {
+    var baseSplit = this.getBaseUrl().split("/");
+    baseSplit[2] = cellName + "." + baseSplit[2];
+    cellUrl = baseSplit.join("/");
+  }
+  
+  return cellUrl;
 };
