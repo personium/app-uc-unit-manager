@@ -589,7 +589,7 @@ dataManagement.prototype.getHeaderList = function(defaultEntityType) {
         propDetailsList[count] = [];
         propDetailsList[count][0] = obj.Name;
         propDetailsList[count][1] = obj.Type;
-        propDetailsList[count][2] = obj.CollectionKind;
+        propDetailsList[count][2] = obj.CollectionKind === "NONE" ? "None" : obj.CollectionKind;
         propDetailsList[count][3] = obj.Nullable;
         propDetailsList[count][4] = obj.DefaultValue;
         propDetailsList[count][5] = obj.IsKey;
