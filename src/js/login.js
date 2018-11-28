@@ -89,9 +89,12 @@ login.prototype.renderLoginFields = function(calledFromCell) {
 
     if (calledFromCell) {
         // When called from Unit Admin Cell and login as Unit Admin, Unit Manager will be displayed.
-        uLogin.initCellManager();
+        uLogin.initCellManager(uLogin.accessManager);
+    } else {
+        uLogin.accessManager();
     }
-
+}
+login.prototype.accessManager = function() {
     // If there is token in the parameter, log in automatically
     let hash = location.hash.substring(1);
     let params = hash.split("&");
@@ -125,28 +128,34 @@ login.prototype.renderLoginFields = function(calledFromCell) {
     // Clear fragments
     location.hash = "";
 }
-login.prototype.initCellManager = function() {
+login.prototype.initCellManager = function(callback) {
     // If it is not a local file, hide unitURL and unitCellName and extract from location.
     var cellUrlSplit = _.first(location.href.split("#")).split("/");
     if (!_.contains(cellUrlSplit, "file:") && !_.contains(cellUrlSplit, "localhost")) {
         // Hide unitURL and unitCellName
         $(".dtUnitUrl").toggle(false);
         $("#loginForm").addClass("localCellManager");
-        let cellUrl = _.first(cellUrlSplit, 4).join("/") + "/";
+        let cellUrl = _.first(cellUrlSplit, 3).join("/") + "/";
         login.getCell(cellUrl).done(function(cellObj) {
-            $("#loginUrl").val(cellUrl);
-        }).fail(function(xmlObj) {
-            if (xmlObj.status == "200") {
-                $("#loginUrl").val(cellUrl);
+            if (cellObj.unit.path_based_cellurl_enabled) {
+                $("#loginUrl").val(_.first(cellUrlSplit, 4).join("/") + "/");
             } else {
-                cellUrl = _.first(cellUrlSplit, 3).join("/") + "/";
-                login.getCell(cellUrl).done(function(cellObj) {
-                    if (cellObj.cell) {
-                        $("#loginUrl").val(cellUrl);
-                    }
-                })
+                $("#loginUrl").val(cellUrl);
+            }
+            uLogin.pTarget = cellObj.unit.url;
+        }).fail(function(xmlObj) {
+            cellUrl = _.first(cellUrlSplit, 4).join("/") + "/";
+            $("#loginUrl").val(cellUrl);
+            uLogin.pTarget = _.first(cellSplit, 3).join("/") + "/"
+        }).always(function() {
+            if ((typeof callback !== "undefined") && $.isFunction(callback)) {
+                callback();
             }
         })
+    } else {
+        if ((typeof callback !== "undefined") && $.isFunction(callback)) {
+            callback();
+        }
     }
 }
 
@@ -357,7 +366,32 @@ login.getCellInfo = function(jsonData) {
 }
 
 login.openManagerWindow = function(managerInfo) {
-    let launchUrl = 'https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/environment.html';
+    let appUnitFQDN = 'demo.personium.io';
+    let managerUrl = '';
+    $.ajax({
+        type: "GET",
+        url: "https://" + appUnitFQDN + "/",
+        headers: {
+            'Accept': 'application/json'
+        },
+        success: function(unitObj) {
+            if (unitObj.unit.path_based_cellurl_enabled) {
+                managerUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/';
+            } else {
+                managerUrl = 'https://app-uc-unit-manager.'+appUnitFQDN+'/';
+            }
+            login.checkLoginUrl(managerInfo, managerUrl);
+        },
+        error: function(res) {
+            console.log(res.status);
+            managerUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/';
+            login.checkLoginUrl(managerInfo, managerUrl);
+        }
+    })
+}
+
+login.checkLoginUrl = function(managerInfo, managerUrl) {
+    let launchUrl = managerUrl + '__/unitmgr-light';
     var cellUrl = $("#loginUrl").val();
     $.ajax({
         type: "GET",
@@ -379,10 +413,10 @@ login.openManagerWindow = function(managerInfo) {
 
 login.prepareHashParams = function(launchUrl, managerInfo, cellName) {
     let url = [
-        launchUrl,
+        launchUrl + "/environment.html",
         '?lng=' + $("#ddLanguageSelector").val(),
         '#ManagerInfo=' + JSON.stringify(managerInfo),
-        '&contextRoot=https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light',
+        '&contextRoot=' + launchUrl,
         '&clickedEnvironmentUnitUrl=' + uLogin.pTarget,
         '&clickedEnvironmentUnitCellName=' + cellName,
         '&selectedLanguage=' + $("#ddLanguageSelector").val()
