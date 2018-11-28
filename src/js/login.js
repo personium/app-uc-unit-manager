@@ -146,7 +146,7 @@ login.prototype.initCellManager = function(callback) {
         }).fail(function(xmlObj) {
             cellUrl = _.first(cellUrlSplit, 4).join("/") + "/";
             $("#loginUrl").val(cellUrl);
-            uLogin.pTarget = _.first(cellSplit, 3).join("/") + "/"
+            uLogin.pTarget = _.first(cellUrlSplit, 3).join("/") + "/"
         }).always(function() {
             if ((typeof callback !== "undefined") && $.isFunction(callback)) {
                 callback();
