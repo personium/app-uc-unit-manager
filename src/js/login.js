@@ -135,14 +135,22 @@ login.prototype.initCellManager = function(callback) {
         // Hide unitURL and unitCellName
         $(".dtUnitUrl").toggle(false);
         $("#loginForm").addClass("localCellManager");
+        // Get CellURL or UnitURL
         let cellUrl = _.first(cellUrlSplit, 3).join("/") + "/";
-        login.getCell(cellUrl).done(function(cellObj) {
-            if (cellObj.unit.path_based_cellurl_enabled) {
+        login.getCell(cellUrl).done(function(cellObj, status, xhr) {
+            let ver = xhr.getResponseHeader("x-personium-version");
+            if (ver < "1.7.1" || cellObj.unit.path_based_cellurl_enabled) {
+                // For version 1.6 or lower, or for path-based URL
                 $("#loginUrl").val(_.first(cellUrlSplit, 4).join("/") + "/");
             } else {
+                // Version 1.7 or higher and it is not a path based URL
                 $("#loginUrl").val(cellUrl);
             }
-            uLogin.pTarget = cellObj.unit.url;
+            if (cellObj.unit) {
+                uLogin.pTarget = cellObj.unit.url;
+            } else {
+                uLogin.pTarget = cellUrl;
+            }
         }).fail(function(xmlObj) {
             cellUrl = _.first(cellUrlSplit, 4).join("/") + "/";
             $("#loginUrl").val(cellUrl);
@@ -221,8 +229,14 @@ login.determineManagerType = function(unitCellUrl) {
         username: $("#userId").val(),
         password: $("#passwd").val()
     };
-    login.getCell(unitCellUrl).done(function(cellObj) {
-        uLogin.pTarget = cellObj.unit.url;
+    login.getCell(unitCellUrl).done(function(cellObj, status, xhr) {
+        let ver = xhr.getResponseHeader("x-personium-version");
+        if (ver >= "1.7.1") {
+            uLogin.pTarget = cellObj.unit.url;
+        } else {
+            let cellSplit = unitCellUrl.split("/");
+            uLogin.pTarget = _.first(cellSplit, 3).join("/") + "/"
+        }
     }).fail(function(xmlObj) {
         if (xmlObj.status == "200") {
             let cellSplit = unitCellUrl.split("/");
@@ -374,8 +388,9 @@ login.openManagerWindow = function(managerInfo) {
         headers: {
             'Accept': 'application/json'
         },
-        success: function(unitObj) {
-            if (unitObj.unit.path_based_cellurl_enabled) {
+        success: function(unitObj, status, xhr) {
+            let ver = xhr.getResponseHeader("x-personium-version");
+            if (ver < "1.7.1" || unitObj.unit.path_based_cellurl_enabled) {
                 managerUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/';
             } else {
                 managerUrl = 'https://app-uc-unit-manager.'+appUnitFQDN+'/';

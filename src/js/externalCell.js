@@ -254,16 +254,12 @@ externalCell.prototype.createExternalCell = function() {
 			return false;
 		}
 		var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
-		var extCellName = "";
 		var extCellURL = "";
 		objCommon.getCell(schemaURL).done(function(cellObj) {
-			extCellName = cellObj.cell.name;;
-			extCellURL = cellObj.unit.url;
+			extCellURL = cellObj.cell.url;
 		}).fail(function(xmlObj) {
 			if (xmlObj.status == "200") {
-				var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
-				extCellName = extCellInfo[1];
-				extCellURL = extCellInfo[0];
+				extCellURL = schemaURL;
 			}
 		}).always(function() {
 			if (extCellURL == "") {
@@ -350,9 +346,16 @@ externalCell.prototype.changeExternalCell = function() {
 	}
 	var extCellName = "";
 	var extCellURL = "";
-	objCommon.getCell(schemaURL).done(function(cellObj) {
+	objCommon.getCell(schemaURL).done(function(cellObj, status, xhr) {
 		extCellName = cellObj.cell.name;
-		extCellURL = cellObj.unit.url;
+		let ver = xhr.getResponseHeader("x-personium-version");
+        if (ver >= "1.7.1") {
+        	extCellURL = cellObj.unit.url;
+        } else {
+			var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
+			extCellURL = extCellInfo[0];
+        }
+		
 	}).fail(function(xmlObj) {
 		if (xmlObj.status == "200") {
 			var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
@@ -378,9 +381,15 @@ externalCell.prototype.changeExternalCell = function() {
 	
 		let cellName = "";
 		let unitUrl = "";
-		objCommon.getCell(schemaURL).done(function(cellObj) {
+		objCommon.getCell(schemaURL).done(function(cellObj, status, xhr) {
 			cellName = cellObj.cell.name;
-			unitUrl = cellObj.unit.url;
+			let ver = xhr.getResponseHeader("x-personium-version");
+	        if (ver >= "1.7.1") {
+	        	unitUrl = cellObj.unit.url;
+	        } else {
+	        	let cellSplit = schemaURL.split("/");
+	            unitUrl = _.first(cellSplit, 3).join("/") + "/";
+	        }
 		}).fail(function(xmlObj) {
 			if(xmlObj.status == "200") {
 				let cellSplit = schemaURL.split("/");
@@ -970,9 +979,15 @@ externalCell.prototype.initEditExternalCell = function() {
 			}
 			var extCellName = "";
 			var extCellURL = "";
-			objCommon.getCell(schemaURL).done(function(cellObj) {
+			objCommon.getCell(schemaURL).done(function(cellObj, status, xhr) {
 				extCellName = cellObj.cell.name;
-				extCellURL = cellObj.unit.url;
+				let ver = xhr.getResponseHeader("x-personium-version");
+        		if (ver >= "1.7.1") {
+        			extCellURL = cellObj.unit.url;
+        		} else {
+        			var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
+        			extCellURL = extCellInfo[0];
+        		}
 			}).fail(function(xmlObj) {
 				if (xmlObj.status == "200") {
 					var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
@@ -1160,17 +1175,13 @@ $("#txtUrl")
 						cellpopup.showErrorIcon('#txtUrl');
 						return false;
 					}
-					var extCellName = "";
 					var extCellURL = "";
-					objCommon.getCell(schemaURL).done(function(cellObj) {
-						extCellName = cellObj.cell.name;
-						extCellURL = cellObj.unit.url;
+					objCommon.getCell(schemaURL).done(function(cellObj, status, xhr) {
+						let ver = xhr.getResponseHeader("x-personium-version");
+						extCellURL = cellObj.cell.url;						
 					}).fail(function(xmlObj) {
 						if (xmlObj.status == "200") {
-							var extCellInfo = objExternalCell
-								.getExternalCellInfo(schemaURL);
-							extCellName = extCellInfo[1];
-							extCellURL = extCellInfo[0];
+							extCellURL = schemaURL;
 						}
 					}).always(function() {
 						if (extCellURL == "") {

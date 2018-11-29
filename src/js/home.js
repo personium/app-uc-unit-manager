@@ -451,10 +451,20 @@ home.prototype.setEnvironmentVariables = function() {
         sessionStorage.ManagerInfo = tempParams.ManagerInfo;
     }
     sessionStorage.pathBasedCellUrlEnabled = true;
-    sessionStorage.newApiVersion = true;
-    objCommon.getCell(sessionStorage.selectedUnitUrl).done(function(unitObj) {
-        sessionStorage.pathBasedCellUrlEnabled = unitObj.unit.path_based_cellurl_enabled;
-        sessionStorage.newApiVersion = true;
+    sessionStorage.newApiVersion = false;
+    objCommon.getCell(sessionStorage.selectedUnitUrl).done(function(unitObj, status, xhr) {
+        let ver = xhr.getResponseHeader("x-personium-version");
+        if (ver >= "1.7.1") {
+            sessionStorage.pathBasedCellUrlEnabled = unitObj.unit.path_based_cellurl_enabled;
+            sessionStorage.newApiVersion = true;
+        } else if (ver >= "1.6.16") {
+            sessionStorage.newApiVersion = true;
+        }
+    }).fail(function(xhr) {
+        let ver = xhr.getResponseHeader("x-personium-version");
+        if (ver >= "1.6.16") {
+            sessionStorage.newApiVersion = true;
+        }
     });
 
     uHome.storeEnvDetails();
