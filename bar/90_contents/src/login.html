@@ -109,7 +109,6 @@
                         <label style="display: table;margin: 0 auto;margin-top: -14px">of Google Chrome.</label>
                     </div>
                     <form name="login" id="loginForm">
-                        <input type="hidden" name="CSRFTokenLogin" value='<%=application.getInitParameter("TOKEN")%>' id="CSRFTokenLogin">
                         <div style="visibility: visible; height: 15px;margin-top: 5px;" id="logoutDiv">
                             <label id="logoutMsg" class="logoutMessage"></label>
                         </div>
@@ -205,7 +204,6 @@
                     <h2>*All Fields are mandatory!</h2>
                 </hgroup>
                 <form name="registration" action="./RegisterServlet" method="post">
-                    <input type="hidden" name="CSRFTokenUserRegistration" value='<%=application.getInitParameter("TOKEN")%>' id="CSRFTokenUserRegistration">
                     <div id="confirm">
                         <div>
                             <label>Username</label> <input type="text" class="textBoxNormal"

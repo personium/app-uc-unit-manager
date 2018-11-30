@@ -729,12 +729,17 @@ cellProfile.prototype.retrieveCellProfile = function(startIndex,endIndex) {
 cellProfile.prototype.setCellProfileData = function(cellUrl, count) {
     let externalCellName = "";
     let unitUrl = "";
-    objCommon.getCell(cellUrl).done(function(cellObj) {
+    objCommon.getCell(cellUrl).done(function(cellObj, status, xhr) {
         externalCellName = cellObj.cell.name;
-        unitUrl = cellObj.unit.url;
+        let ver = xhr.getResponseHeader("x-personium-version");
+        if (ver >= "1.7.1") {
+            unitUrl = cellObj.unit.url;
+        } else {
+            unitUrl = uCellProfile.getUnitOfExternalCell(cellUrl);
+        }
     }).fail(function(xmlObj) {
-       externalCellName = uCellProfile.getExternalCellName(arrayData.Url);
-       unitUrl = uCellProfile.getUnitOfExternalCell(arrayData.Url);
+       externalCellName = uCellProfile.getExternalCellName(cellUrl);
+       unitUrl = uCellProfile.getUnitOfExternalCell(cellUrl);
     }).always(function() {
         var response = uCellProfile.retrieveCollectionResponse(profileFileName,externalCellName);
         var shorterExternalCellName = objCommon.getShorterName(externalCellName,16);

@@ -19,18 +19,12 @@ var uLoginValidation = new login_validation();
 
 function validateForm() {
 	document.getElementById("logoutDiv").style.visibility = "hidden";
-        if (document.login.unitUrl.value == "") {
+        if (document.login.loginUrl.value == "") {
 		document.getElementById("unitspan").style.display = "block";
-                document.getElementById("unitspan").innerHTML = "Please enter unitUrl";
-		document.login.unitUrl.focus();
+                document.getElementById("unitspan").innerHTML = "Please enter loginUrl";
+		document.login.loginUrl.focus();
 		return false;
-        } else if (document.login.unitCellName.value == "") {
-		document.getElementById("unitspan").style.display = "none";
-		document.getElementById("unitcellspan").style.display = "block";
-                document.getElementById("unitcellspan").innerHTML = "Please enter unitUrl";
-		document.login.unitCellName.focus();
-		return false;
-	} else if (document.login.userId.value == "") {
+        } else if (document.login.userId.value == "") {
 		document.getElementById("unitspan").style.display = "none";
 		document.getElementById("unitcellspan").style.display = "none";
 		document.getElementById("userspan").style.display = "block";
