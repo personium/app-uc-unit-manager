@@ -258,7 +258,7 @@ externalCell.prototype.createExternalCell = function() {
 		objCommon.getCell(schemaURL).done(function(cellObj) {
 			extCellURL = cellObj.cell.url;
 		}).fail(function(xmlObj) {
-			if (xmlObj.status == "200") {
+			if (xmlObj.status == "200" || xmlObj.status == "412") {
 				extCellURL = schemaURL;
 			}
 		}).always(function() {
@@ -316,7 +316,7 @@ function updateExternalInfo(schemaURL) {
 	objCommon.getCell(schemaURL).done(function(cellObj) {
 		extCellName = cellObj.cell.name;
 	}).fail(function(xmlObj) {
-		if (xmlObj.status == "200") {
+		if (xmlObj.status == "200" || xmlObj.status == "412") {
 			var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
 			extCellName = extCellInfo[1];
 		}
@@ -357,7 +357,7 @@ externalCell.prototype.changeExternalCell = function() {
         }
 		
 	}).fail(function(xmlObj) {
-		if (xmlObj.status == "200") {
+		if (xmlObj.status == "200" || xmlObj.status == "412") {
 			var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
 			extCellName = extCellInfo[1];
 			extCellURL = extCellInfo[0];
@@ -391,7 +391,7 @@ externalCell.prototype.changeExternalCell = function() {
 	            unitUrl = _.first(cellSplit, 3).join("/") + "/";
 	        }
 		}).fail(function(xmlObj) {
-			if(xmlObj.status == "200") {
+			if(xmlObj.status == "200" || xmlObj.status == "412") {
 				let cellSplit = schemaURL.split("/");
 	            unitUrl = _.first(cellSplit, 3).join("/") + "/";
 				cellName = objCommon.getName(schemaURL);
@@ -669,7 +669,7 @@ externalCell.prototype.addExtCellTable = function(arrayData, count, externalCell
 	objCommon.getCell(cellUrl).done(function(cellObj) {
 		externalCellName = cellObj.cell.name;
 	}).fail(function(xmlObj) {
-		if (xmlObj.status == "200") {
+		if (xmlObj.status == "200" || xmlObj.status == "412") {
 			externalCellName = objExternalCell.getExternalCellName(arrayData.Url);
 		}
 	}).always(function() {
@@ -989,7 +989,7 @@ externalCell.prototype.initEditExternalCell = function() {
         			extCellURL = extCellInfo[0];
         		}
 			}).fail(function(xmlObj) {
-				if (xmlObj.status == "200") {
+				if (xmlObj.status == "200" || xmlObj.status == "412") {
 					var extCellInfo = objExternalCell.getExternalCellInfo(schemaURL);
 					extCellName = extCellInfo[1];
 					extCellURL = extCellInfo[0];
@@ -1180,7 +1180,7 @@ $("#txtUrl")
 						let ver = xhr.getResponseHeader("x-personium-version");
 						extCellURL = cellObj.cell.url;						
 					}).fail(function(xmlObj) {
-						if (xmlObj.status == "200") {
+						if (xmlObj.status == "200" || xmlObj.status == "412") {
 							extCellURL = schemaURL;
 						}
 					}).always(function() {
