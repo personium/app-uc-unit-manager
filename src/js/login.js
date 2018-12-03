@@ -184,7 +184,7 @@ login.prototype.getEnvDetail = function() {
                 login.determineManagerType(unitCellUrl);
             },
             error : function(res) {
-                if (res.status == "200") {
+                if (res.status == "200" || res.status == "412") {
                     login.determineManagerType(unitCellUrl);
                 } else {
                     $('body > div.mySpinner').hide();
@@ -238,7 +238,7 @@ login.determineManagerType = function(unitCellUrl) {
             uLogin.pTarget = _.first(cellSplit, 3).join("/") + "/"
         }
     }).fail(function(xmlObj) {
-        if (xmlObj.status == "200") {
+        if (xmlObj.status == "200" || xmlObj.status == "412") {
             let cellSplit = unitCellUrl.split("/");
             uLogin.pTarget = _.first(cellSplit, 3).join("/") + "/"
         }
@@ -419,7 +419,7 @@ login.checkLoginUrl = function(managerInfo, managerUrl) {
         },
         error: function(res) {
             console.log(res.status);
-            if (res.status == "200") {
+            if (res.status == "200" || res.status == "412") {
                 location.href = login.prepareHashParams(launchUrl, managerInfo, uLogin.getName(cellUrl));
             }
         }
