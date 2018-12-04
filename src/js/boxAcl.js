@@ -406,14 +406,14 @@ boxAcl.prototype.getAclList = function(accessor, objJDavCollection) {
 						privilegeNodeList  = grant.childNodes;
 					}*/
 					if (ace[aceCount].firstElementChild != null && ace[aceCount].firstElementChild.childNodes[1] != null){
-						if(ace[aceCount].firstElementChild.childNodes[1].nodeName == "href"){
+						if(ace[aceCount].firstElementChild.childNodes[1].localName == "href"){
 							if(ace[aceCount].firstElementChild.childNodes[1].firstChild.data != null){
 								roleName = ace[aceCount].firstElementChild.childNodes[1].firstChild.data;
 								grant = ace[aceCount].lastElementChild;
 								privilegeNodeList  = grant.childNodes;
 							}
-						}else if(ace[aceCount].firstElementChild.childNodes[1].nodeName = "all"){
-							roleName = ace[aceCount].firstElementChild.childNodes[1].nodeName;
+						}else if(ace[aceCount].firstElementChild.childNodes[1].localName = "all"){
+							roleName = ace[aceCount].firstElementChild.childNodes[1].localName;
 							if (roleName == 'all') {
 								roleName = 'all (anyone)';
 							}
@@ -422,7 +422,7 @@ boxAcl.prototype.getAclList = function(accessor, objJDavCollection) {
 						}
 					}
 					for (var prvNodeCount =0; prvNodeCount <privilegeNodeList.length-1; prvNodeCount = prvNodeCount+2) {
-							privilege = privilegeNodeList[prvNodeCount+1].firstElementChild.nodeName;
+							privilege = privilegeNodeList[prvNodeCount+1].firstElementChild.localName;
 							prevList += privilege + ", ";
 							/*rolePrivilegePair = {"role" : roleName,"privilege" : privilege};
 							privilegeList.push(rolePrivilegePair);*/
