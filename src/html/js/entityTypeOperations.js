@@ -757,7 +757,7 @@ entityTypeOperations.prototype.setDataManagementContent = function(){
 	$("#dataManagementHeader").removeClass("dataManagementHeaderUnSelected");
 	$("#dataManagementHeader").addClass("dataManagementHeaderSelected");
 	$("#schemaManagment").hide();
-	$("#schemaManagment").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/dataManagement.html', function() {
+	$("#schemaManagment").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/dataManagement.html', function() {
 		$("#schemaManagment").show();
 		$("#boxTableDiv").show();
 	});
@@ -854,7 +854,7 @@ entityTypeOperations.prototype.openSchemaMgmtView = function() {
 		$("#complexTypeList").hide();
 		$("#odataContentArea")
 				.load(
-						contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/schemaManagement.html',
+						contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/schemaManagement.html',
 						function() {
 							$("#OdataDataTab").removeClass("odataTabSelected");
 							$("#OdataSchemaTab").css("color", "#c80000");
@@ -1010,23 +1010,6 @@ entityTypeOperations.prototype.getFolderHeirarchy = function(boxName) {
  * This function is called on page load.
  */
 $(function(){
-	// var objODataCommon = new odataCommon();
-	// objODataCommon.openDataMgmtPage();
-//	var objEntityT = new entityTypeOperations();
-	/*
-	 * var collectionURLCharacterCount = 0;
-	 * uEntityTypeOperations.setDataManagementContent(); var contextRoot =
-	 * sessionStorage.contextRoot; $(".oDataFooter").load(contextRoot +
-	 * '/htmls/oDataFooter.html');
-	 * $("#dvCollectionURL").text(sessionStorage.collectionURL);
-	 * collectionURLCharacterCount = sessionStorage.collectionURL.length; if
-	 * (collectionURLCharacterCount > 200){ $("#dvCollectionURL").attr('title',
-	 * sessionStorage.collectionURL); }
-	 * $("#dvTopRecord").text(sessionStorage.collectionName);
-	 * $("#messageBlock").hide(); //var objEntityType = new
-	 * entityTypeOperations(); uEntityTypeOperations.fetchEntityTypes();
-	 */
-
 	$("#btnEditEntityType").click(function() {
 		uEntityTypeOperations.updateEntityType();
 	});

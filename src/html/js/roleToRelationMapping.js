@@ -436,7 +436,7 @@ roleToRelationMapping.prototype.delRoleRelationMapping = function() {
 	}
 	uRelRoleMapping.showDelStatusOnRibbon(
 			'#roleRelationMultipleDeleteModalWindow', '',
-			'/htmls/'+sessionStorage.selectedLanguage+'/roleToRelationMapping.html');
+			'/templates/'+sessionStorage.selectedLanguage+'/roleToRelationMapping.html');
 	var recordCount = objRoleToRelationMapping.retrieveRoleRelationAssignRecordCount();
 		objCommon.populateTableAfterDelete(etagValue, arrDeletedConflictCount,
 			arrEtag, idCheckAllChkBox, etagIDOfPreviousRecord, type, tableID,

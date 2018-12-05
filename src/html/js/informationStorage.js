@@ -50,7 +50,7 @@ function loadCellList() {
 	var target = document.getElementById('dvCellListContainer');
 	var spinner = new Spinner(objCommon.opts).spin(target);
 	// Code for Spinner START.
-	$("#dvCellListContainer").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellListView.html', function(){
+	$("#dvCellListContainer").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellListView.html', function(){
 	});
 
 	spinner.stop();

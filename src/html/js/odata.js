@@ -1896,7 +1896,7 @@ odata.prototype.deleteBreadCrum = function (id,title,pcollectionURL, mType) {
 			opts.left = 'auto';
 			var spinner = new Spinner(opts).spin(target);
 			$("#webDavContentArea").hide();
-			$("#webDavContentArea").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/boxDetailContent.html',
+			$("#webDavContentArea").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/boxDetailContent.html',
 					function(){
 						objOdata.createTable(objOdata.currentCollectionPath);
 						uBoxDetail.populatePropertiesList(objOdata.currentCollectionPath, objOdata.currentCollectionPath, title, false, type);

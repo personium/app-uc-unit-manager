@@ -127,11 +127,6 @@ $ (document).ready(function() {
 		$(".eventSubMenu").css("display","none");
 	});
 	$.ajaxSetup({ cache : false });
-	//$(".header").load(contextRoot+'/htmls/'+sessionStorage.selectedLanguage+'/header.jsp');
-	//$(".cellProfileHeader").load(contextRoot+'/htmls/cellProfileHeader.jsp');
-	//$(".leftPanel").load(contextRoot+'/htmls/leftNavigation.html');
-	//$(".footer").load(contextRoot+'/htmls/footer.html');
-	//$(".homeFooter").load(contextRoot+'/htmls/homeFooter.html');
 	$('.cellList li').each(function() {
 		$(this).click(function() {
 			$(this).siblings().removeClass("activeCell");

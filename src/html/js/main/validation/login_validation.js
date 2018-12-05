@@ -326,7 +326,7 @@ login_validation.prototype.postNewPassword = function(userName,
 			} else if (jsonData['passwordUpdateStatus'] == true) {
 				/*uLoginValidation.displayNotificationMessage(
 						"PASSWORD_SETTINGS", "changePassAdminMgmntModal");*/
-					window.location.href = firstTimeUserContextRoot + '/htmls/'+sessionStorage.firstTimeUserSelectedLanguage+'/home.jsp';
+					window.location.href = firstTimeUserContextRoot + '/templates/'+sessionStorage.firstTimeUserSelectedLanguage+'/home.jsp';
 			}
 		},
 		error : function() {

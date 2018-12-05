@@ -70,7 +70,7 @@ function boxListData(callback) {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/boxListView.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/boxListView.html',
                 function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         createBoxTable();
@@ -123,7 +123,7 @@ function roleListData() {
         $("#mainContent").hide();*/
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleListView.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/roleListView.html',
                 function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         loadRolePage();
@@ -153,7 +153,7 @@ function accountListData() {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/accountListView.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/accountListView.html',
                 function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         loadAccountPage();
@@ -191,7 +191,7 @@ function openRoleLinkPage(accountname, accountdate, rolecount, etagstart, etagEn
         var spinner = new Spinner(opts).spin(target);
         $("#mainContentWebDav").empty();
         $("#mainContentWebDav").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleAccountLinkControl.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/roleAccountLinkControl.html', function() {
                     /*if (navigator.userAgent.indexOf("Firefox") != -1) {
                         loadAccountRoleAssignationPage();
                     }*/
@@ -213,7 +213,7 @@ function clickAccountRoleLinkMappingPage() {
         var spinner = new Spinner(opts).spin(target);
         sessionStorage.accountName = $("#lblAccountName").text();
         $("#mainContentWebDav").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleAccountLinkControl.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/roleAccountLinkControl.html', function() {
                     /*if (navigator.userAgent.indexOf("Firefox") != -1) {
                     loadAccountRoleAssignationPage();
                     }*/
@@ -243,7 +243,7 @@ function relationListData() {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/relationListView.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/relationListView.html',
                 function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         var objRelation  = new uRelation();
@@ -283,10 +283,10 @@ function relationListData() {
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
         $("#mainContentWebDav").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/assignRoleNavigation.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/assignRoleNavigation.html', function() {
                     objCommon.centerAlignRibbonMessage("#roleLinkMessageBlock");
                     objCommon.autoHideAssignRibbonMessage("roleLinkMessageBlock");
-                    $("#roleAccountLinkDiV").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleToAccountMapping.html', function() {
+                    $("#roleAccountLinkDiV").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/roleToAccountMapping.html', function() {
                         if (navigator.userAgent.indexOf("Firefox") != -1) {
                             loadRoleToAccountMappingPage();
                     }
@@ -316,7 +316,7 @@ function clickRoleAccountLinkMappingPage() {
         sessionStorage.roleName = $("#assignRoleName").text();
         sessionStorage.boxName = $("#assignBoxName").text();
         $("#roleAccountLinkDiV").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleToAccountMapping.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/roleToAccountMapping.html', function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         loadRoleToAccountMappingPage();
                     }
@@ -348,7 +348,7 @@ function externalCellList() {
         $("#mainContent").hide();*/
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/externalCell.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/externalCell.html',
                 function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         var objExternalCell = new externalCell();
@@ -381,7 +381,7 @@ function openReceivedMessageList() {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/receivedMessage.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/receivedMessage.html',
                 function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         //loadAccountPage();
@@ -423,7 +423,7 @@ mainNavigation.prototype.openSentMessageList = function() {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/sentMessage.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/sentMessage.html',
                 function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         //loadAccountPage();
@@ -461,7 +461,7 @@ mainNavigation.prototype.CellEventNavigationData = function() {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellEventNavigation.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellEventNavigation.html',
                 function() {
                     if(sessionStorage.tabName==='infoEvent') {
                         uMainNavigation.ruleViewData();
@@ -503,7 +503,7 @@ mainNavigation.prototype.logViewData = function() {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/log.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/log.html',
                 function() {
                     var objLog = new log();
                     objLog.createEventLogFolderTable();
@@ -540,7 +540,7 @@ mainNavigation.prototype.ruleViewData = function() {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/ruleListView.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/ruleListView.html',
                 function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         loadRulePage();
@@ -575,7 +575,7 @@ mainNavigation.prototype.snapshotViewData = function() {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/snapshot.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/snapshot.html',
                 function() {
                     var objSnapshot = new snapshot();
                     let snapshotPath = objSnapshot.getSnapshotPath();
@@ -608,11 +608,11 @@ function openExternalCellToRoleMapping(externalCellName, extCellURL) {
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
         $("#mainContentWebDav").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/assignExternalCellNavigation.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/assignExternalCellNavigation.html', function() {
                     var extData = objExtCell.getExternalCellData(extCellURL);
                     objExtCell.setCellControlsInfoTabValues(externalCellName, extData.__metadata.etag, objCommon.convertEpochDateToReadableFormat(extData.__published), objCommon.convertEpochDateToReadableFormat(extData.__updated));
                     objExtCell.initEditExternalCell();
-                    $("#extCellTabLinkDiV").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/externalCellToRoleMapping.html', function() {
+                    $("#extCellTabLinkDiV").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/externalCellToRoleMapping.html', function() {
                         if (navigator.userAgent.indexOf("Firefox") != -1) {
                             var objExternalCellToRoleMapping = new externalCellToRoleMapping();
                             objExternalCellToRoleMapping.loadExtCellToRolesMappingPage();
@@ -640,7 +640,7 @@ function clickExtCellToRoleMappingPage() {
         var spinner = new Spinner(opts).spin(target);
         sessionStorage.extCellURL = $("#assignExtCellURlName").text();
         $("#extCellTabLinkDiV").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/externalCellToRoleMapping.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/externalCellToRoleMapping.html', function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         objExternalCellToRoleMapping.loadExtCellToRolesMappingPage();
                     }
@@ -664,7 +664,7 @@ function clickExtCellToRelationMappingPage() {
         var spinner = new Spinner(opts).spin(target);
         sessionStorage.extCellURL = $("#assignExtCellURlName").text();
         $("#extCellTabLinkDiV").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/externalCellToRelationMapping.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/externalCellToRelationMapping.html', function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         objExternalCellToRelationMapping.loadExtCellToRelationMappingPage();
                     }
@@ -693,8 +693,8 @@ function openRelationToRoleMappingPage(relationName, boxName,  etagstart, etagEn
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
         $("#mainContentWebDav").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/assignRelationNavigation.html', function() {
-                    $("#relationTabLinkDiV").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/relationToRoleMapping.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/assignRelationNavigation.html', function() {
+                    $("#relationTabLinkDiV").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/relationToRoleMapping.html', function() {
                         if (navigator.userAgent.indexOf("Firefox") != -1) {
                             var objRelationToRoleMapping = new relationToRoleMapping();
                             objRelationToRoleMapping.loadRelationToRoleMappingPage();
@@ -724,7 +724,7 @@ function clickRelationToRoleMappingPage() {
         sessionStorage.relationName = $("#assignRelationName").text();
         sessionStorage.boxName = $("#assignBoxName").text();
         $("#relationTabLinkDiV").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/relationToRoleMapping.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/relationToRoleMapping.html', function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         var objRelationToRoleMapping = new relationToRoleMapping();
                         objRelationToRoleMapping.loadRelationToRoleMappingPage();
@@ -749,7 +749,7 @@ function openRelationToExtCellMappingPage() {
         sessionStorage.relationName = $("#assignRelationName").text();
         sessionStorage.boxName = $("#assignBoxName").text();
         $("#relationTabLinkDiV").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/relationToExtCellMapping.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/relationToExtCellMapping.html', function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         var objRelationToExternalCellMapping = new relationToExternalCellMapping();
                         objRelationToExternalCellMapping.loadRelationToExtCellMappingPage();
@@ -783,7 +783,7 @@ function externalRoleList() {
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
         $("#mainContent").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/externalRoleListView.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/externalRoleListView.html', function() {
                     if (navigator.userAgent.indexOf("Firefox") != -1) {
                         uExternalRole.loadExternalRolePage();
                     }
@@ -810,7 +810,7 @@ function openBoxDetail(boxName) {
         $("#mainContent").hide();
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
-        $("#mainContent").load(contextRoot + '/htmls/boxDetail.html',
+        $("#mainContent").load(contextRoot + '/templates/boxDetail.html',
                 function() {
             objOdata.createTable();
             objOdata.populatePropertiesList();
@@ -830,7 +830,7 @@ function openRoleRelationLinkMappingPage() {
     var spinner = new Spinner(opts).spin(target);
     $("#mainContent").hide();
     $("#roleAccountLinkDiV").load(
-            contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleToRelationMapping.html',
+            contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/roleToRelationMapping.html',
             function() {
                 if (navigator.userAgent.indexOf("Firefox") != -1) {
                     var objRoleExtCellMapping = new roleToExtCellMapping();
@@ -852,7 +852,7 @@ function openRoleExtCellLinkPage(roleName, boxName, updatedOn,
     var target = document.getElementById('spinner');
     var spinner = new Spinner(opts).spin(target);
     $("#mainContent").hide();
-    $("#roleAccountLinkDiV").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleToExtCell.html',
+    $("#roleAccountLinkDiV").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/roleToExtCell.html',
             function() {
         if (navigator.userAgent.indexOf("Firefox") != -1) {
             var objRoleExtCellMapping = new roleToExtCellMapping();
@@ -889,7 +889,7 @@ function openExternalRoleLinkPage(paramRelationName, paramExtRoleName,
         var spinner = new Spinner(opts).spin(target);
         $("#mainContentWebDav").empty();
         $("#mainContentWebDav").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/externalRoleToRoleMapping.html',
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/externalRoleToRoleMapping.html',
                 function() {
                     $("#mainContentWebDav").show();
                     spinner.stop();
@@ -908,7 +908,7 @@ function clickExternalRoleLinkMappingPage() {
         sessionStorage.ExtRoleName = $("#lblExtRoleName").text();
         sessionStorage.ExtRoleRelationName = $("#lblExtRoleRelationName").text();
         sessionStorage.ExtRoleBoxName = $("#lblExtRoleBoxName").text();
-        $("#mainContentWebDav").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/externalRoleToRoleMapping.html', function() {
+        $("#mainContentWebDav").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/externalRoleToRoleMapping.html', function() {
                     spinner.stop();
                 });
     } else {
@@ -923,7 +923,7 @@ function openRoleExtRoleLinkPage() {
     var target = document.getElementById('spinner');
     var spinner = new Spinner(opts).spin(target);
     $("#mainContent").hide();
-    $("#roleAccountLinkDiV").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/roleToExtRole.html',
+    $("#roleAccountLinkDiV").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/roleToExtRole.html',
             function() {
         if (navigator.userAgent.indexOf("Firefox") != -1) {
             var objRoleExtCellMapping = new roleToExtCellMapping();
@@ -948,7 +948,7 @@ mainNavigation.prototype.CellInfoNavigationData = function() {
             var target = document.getElementById('spinner');
             spinner = new Spinner(opts).spin(target);
         }
-        $("#mainContent").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellInfoNavigation.html',
+        $("#mainContent").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellInfoNavigation.html',
                 function() {
                     if(sessionStorage.tabName==='infoAdmin') {
                         uMainNavigation.openAdministrationDetail();
@@ -984,7 +984,7 @@ mainNavigation.prototype.openCellProfileInfo = function(profileLng) {
         
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
-        $("#cellInfoDetail").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellProfileInfo.html',
+        $("#cellInfoDetail").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellProfileInfo.html',
                 function() {
                     $("#cellInfoDetail").hide();
                     uCellProfile.displayCellProfileInfo(profileLng);
@@ -1013,7 +1013,7 @@ mainNavigation.prototype.openAdministrationDetail = function() {
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
         $("#cellInfoDetail").load(
-            contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellAdministration.html',
+            contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellAdministration.html',
             function() {
                 $("#cellInfoDetail").hide();
                 uCellAcl.createCellACLRoleTable();
@@ -1042,7 +1042,7 @@ mainNavigation.prototype.openRoleInfo = function() {
         var spinner = new Spinner(opts).spin(target);
         $("#dvemptyAssignTableMessage").hide();
         $("#roleAccountLinkDiV").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
                     //if (navigator.userAgent.indexOf("Firefox") != -1) {
                     uBoxDetail.displayBoxInfoDetails();
                     //}
@@ -1067,7 +1067,7 @@ mainNavigation.prototype.openAccountInfo = function() {
         $("#dvemptyAssignTableMessage").hide();
         $("#divAccountHeader").hide();
         $("#webDavAccountArea").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
                     uBoxDetail.displayBoxInfoDetails();
                     spinner.stop();
                 });
@@ -1087,7 +1087,7 @@ mainNavigation.prototype.openExternalCellInfo = function() {
         var target = document.getElementById('spinner');
         var spinner = new Spinner(opts).spin(target);
         $("#extCellTabLinkDiV").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
                     uBoxDetail.displayBoxInfoDetails();
                     spinner.stop();
                 });
@@ -1106,7 +1106,7 @@ mainNavigation.prototype.openRelationInfo = function() {
         var spinner = new Spinner(opts).spin(target);
         $("#dvemptyAssignTableMessage").hide();
         $("#relationTabLinkDiV").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
                     uBoxDetail.displayBoxInfoDetails();
                     spinner.stop();
                 });
@@ -1126,7 +1126,7 @@ mainNavigation.prototype.openExternalRoleInfo = function() {
         $("#dvemptyAssignTableMessage").hide();
         $("#divAccountHeader").hide();
         $("#webDavAccountArea").load(
-                contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
+                contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html', function() {
                     uBoxDetail.displayBoxInfoDetails();
                     spinner.stop();
                 });

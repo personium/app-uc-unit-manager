@@ -1769,7 +1769,6 @@ common.prototype.getCellCountAndOpenPage = function() {
         //open create cell popup
         var ucellP = new cellUI.popup();
         ucellP.openAutoPopup();
-        //$("#mainContainer").load(contextRoot + '/htmls/firstCellCreate.html');
         setTimeout(function() {
             $("#mainContainer").show();
             if(document.getElementById("spinnerEnvt") != null){

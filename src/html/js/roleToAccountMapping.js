@@ -407,7 +407,7 @@ function delRoleAccMapping() {
 		}
 	}
 	showDelStatusOnRibbon('#roleAccountMultipleDeleteModalWindow', '',
-			'/htmls/'+sessionStorage.selectedLanguage+'/roleToAccountMapping.html');
+			'/templates/'+sessionStorage.selectedLanguage+'/roleToAccountMapping.html');
 	removeSpinner("modalSpinnerRoleAccountLink");
 	var recordCount = objRoleToAccountMapping
 			.retrieveRoleAccountAssignRecordCount();

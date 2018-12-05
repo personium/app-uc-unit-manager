@@ -137,16 +137,6 @@ _pc.AccountManager.prototype.create = function(obj, password) {
   }
 };
 
-/*function accountRefresh() {
-	var contextRoot = sessionStorage.contextRoot;
-	$("#mainContent").html('');
-	$("#mainContent").load(contextRoot+'/htmls/accountListView.html', function() {
-		if (navigator.userAgent.indexOf("Firefox") != -1) {
-			loadAccountPage();
-		}
-	});
-}
- */
 ///**
 //* Accountを取得.
 //* @param {String} name 取得対象のAccount名
