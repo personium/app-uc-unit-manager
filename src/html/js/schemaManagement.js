@@ -764,7 +764,7 @@ schemaManagement.prototype.loadAssociationEndViewMode = function() {
 	var spinner = new Spinner(opts).spin(target);
 	$('#PropertyTab').removeClass("genericSelectRed");
 	$('#AssociationTab').addClass("genericSelectRed");
-	$("#associationEndMainDiv").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/associationEnd.html', function() {
+	$("#associationEndMainDiv").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/associationEnd.html', function() {
 		$('#propertyTerNav').hide();
 		$('#PropertyViewBody').hide();
 		$(".associationEndViewIcon").addClass("associationEndViewIconSelected");
@@ -1505,7 +1505,7 @@ schemaManagement.prototype.clickEntityTypeRawView = function() {
 	}
 	var selectedEntityTypeIndex = uEntityTypeOperations.getSelectedEntityTypeIndex();
 	$("#odataContentArea").hide();
-	$("#odataContentArea").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/dataManagement.html',
+	$("#odataContentArea").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/dataManagement.html',
 			function() {
 				uEntityTypeOperations.setCurrentSelectedTab("data");
 				sessionStorage.ODataViewSelectedTab = "raw";

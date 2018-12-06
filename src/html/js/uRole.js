@@ -245,7 +245,7 @@ function closeDeleteRolePopup() {
 	$('#multipleDeleteModalWindow, .window').hide(0);
 	$('#singleDeleteModalWindow, .window').hide(0);
 	$('#conflictModalwindow, .window').hide(0);
-	$("#mainContent").load(contextRoot+'/htmls/roleListView.html');
+	$("#mainContent").load(contextRoot+'/templates/roleListView.html');
 }
 
 /**

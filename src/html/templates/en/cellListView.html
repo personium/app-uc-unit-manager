@@ -194,7 +194,7 @@ function reloadCellList(createdCellName) {
     document.getElementById("successmsg").innerHTML = "Cell "+ shorterBoxName + " created successfully!";
     document.getElementById("successmsg").title = createdCellName;
     sessionStorage.selectedindex = 0;
-    $("#dvCellListContainer").load(contextRoot+'/htmls/cellListView.html');
+    $("#dvCellListContainer").load(contextRoot+'/templates/cellListView.html');
     $('#createCellModal, .window').hide();
     objCommon.autoHideAssignRibbonMessage('crudOperationMessageBlock');
 }
@@ -222,18 +222,12 @@ function checkLength(cellName) {
  */
 function searchCells() { 
     var id = objCommon.isSessionExist();
-    //sessionStorage.isSearch="true";
     if (id != null) {
         var toBeSearchedCellName = document.getElementById("txtSearchCellName").value.toUpperCase();
         if(toBeSearchedCellName!='') {  
             var cNextList = $('#downID');
             cNextList.removeClass('disabled');
             createcelltable("true");
-            /* var target = document.getElementById('cellDataList');
-            var spinner = new Spinner(objCommon.opts).spin(target);
-              $("#cellDataList").load(contextRoot + '/htmls/cellListView.html', function(){
-                
-            }); */
         }
     } else {
         window.location.href = contextRoot;

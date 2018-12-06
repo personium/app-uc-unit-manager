@@ -35,10 +35,10 @@ ruleDetail.prototype.openRuleDetail = function(rulename, boxname){
 
 	var target = document.getElementById('spinner');
 	var spinner = new Spinner(opts).spin(target);
-	$("#mainContentWebDav").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/ruleDetail.html',
+	$("#mainContentWebDav").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/ruleDetail.html',
 			function() {
 				$("#webDavProfileArea").hide();
-				$("#webDavProfileArea").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/ruleInfo.html',
+				$("#webDavProfileArea").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/ruleInfo.html',
 						function(){
 							uRuleDetail.initializePage(rulename, boxname);
 							$("#webDavProfileArea").show();

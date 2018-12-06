@@ -457,7 +457,7 @@ relationToRoleMapping.prototype.deleteSingleRelation=function(isSingleDelete,cou
 			'Role',key, mappingBoxName, mappingRoleName);
 	if(isSingleDelete){
 		uRelationToRoleMapping.displayResponseOnRibbon('#singleDeleteModalWindow',
-				response.resolvedValue.status, '/htmls/relationToRoleMapping.html');
+				response.resolvedValue.status, '/templates/relationToRoleMapping.html');
 	}
 	else {
 		if (response.resolvedValue.status == 204) {

@@ -160,7 +160,7 @@ function displaySuccessfulMessage(id) {
 	var existingAccount = sessionStorage.accountName;
 	var shorterexistingAccountName = objCommon
 			.getShorterEntityName(existingAccount);
-	$("#mainContent").load(contextRoot + '/htmls/accountListView.html',
+	$("#mainContent").load(contextRoot + '/templates/accountListView.html',
 			function() {
 				if (navigator.userAgent.indexOf("Firefox") != -1) {
 					loadAccountPage();
@@ -213,47 +213,23 @@ function displayMultipleAccountsConflictMessage() {
 		isDeleted = true;
 		addSuccessClass('#accountMessageIcon');
 		$("#accountMessageBlock").css("display", 'table');
-		//inlineMessageBlock(300,'#accountMessageBlock');
 		document.getElementById("accountSuccessmsg").innerHTML = successfulAccountDeleteLength + " " +getUiProps().MSG0336;
-		/*addSuccessClass();
-		inlineMessageBlock();
-		document.getElementById("successmsg").innerHTML = successfulAccountDeleteLength
-				+ " Account(s) deleted successfully!";*/
 	} else if (successfulAccountDeleteLength < 1
 			&& conflictAccountDeleteLength > 0) {
 		isDeleted = false;
 		addErrorClass('#accountMessageIcon');
 		$("#accountMessageBlock").css("display", 'table');
-		//inlineMessageBlock(300,'#accountMessageBlock');
 		document.getElementById("accountSuccessmsg").innerHTML = conflictAccountDeleteLength +" "+getUiProps().MSG0337;
-		/*addErrorClass();
-		inlineMessageBlock();*/
-		/*document.getElementById("successmsg").innerHTML = conflictAccountDeleteLength
-				+ " Account(s) cannot be deleted.";*/
 	} else if (conflictAccountDeleteLength > 0
 			&& successfulAccountDeleteLength > 0) {
 		isDeleted = true;
 		addErrorClass('#accountMessageIcon');
 		$("#accountMessageBlock").css("display", 'table');
-		//inlineMessageBlock(300,'#accountMessageBlock');
 		document.getElementById("accountSuccessmsg").innerHTML = successfulAccountDeleteLength + " "+ getUiProps().MSG0323 + " " + (conflictAccountDeleteLength + successfulAccountDeleteLength)
 		+ " "+getUiProps().MSG0336;
-		/*addPartialSuccessClass();
-		inlineMessageBlock();*/
-		/*document.getElementById("successmsg").innerHTML = successfulAccountDeleteLength
-				+ " of "
-				+ (conflictAccountDeleteLength + successfulAccountDeleteLength)
-				+ " Account(s) deleted successfully!";*/
 	}
-	/*$("#mainContent").load(contextRoot + '/htmls/accountListView.html',
-			function() {
-				if (navigator.userAgent.indexOf("Firefox") != -1) {
-					loadAccountPage();
-				}
-			});*/
 	sbSuccessfulAccount = '';
 	sbConflictAccount = '';
-	//createAccountTable();
 	objCommon.centerAlignRibbonMessage("#accountMessageBlock");
 	objCommon.autoHideAssignRibbonMessage('accountMessageBlock');
 }
@@ -318,7 +294,7 @@ function closeDeleteAccount() {
 	$('#singleDeleteModalWindow, .window').hide(0);
 	$('#multipleDeleteModalWindow, .window').hide(0);
 	$('#conflictModalwindow, .window').hide(0);
-	$("#mainContent").load(contextRoot + '/htmls/accountListView.html',
+	$("#mainContent").load(contextRoot + '/templates/accountListView.html',
 			function() {
 				if (navigator.userAgent.indexOf("Firefox") != -1) {
 					loadAccountPage();
@@ -559,8 +535,7 @@ function createAccount(accessor, objAccount, objAccountManager, pwd, accNameToCr
 
 function accountRefresh() {
 	var contextRoot = sessionStorage.contextRoot;
-	//$("#mainContent").html('');
-	$("#mainContent").load(contextRoot + '/htmls/accountListView.html',
+	$("#mainContent").load(contextRoot + '/templates/accountListView.html',
 			function() {
 				if (navigator.userAgent.indexOf("Firefox") != -1) {
 					loadAccountPage();

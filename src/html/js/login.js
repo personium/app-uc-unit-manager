@@ -406,7 +406,7 @@ login.openManagerWindow = function(managerInfo) {
 }
 
 login.checkLoginUrl = function(managerInfo, managerUrl) {
-    let launchUrl = managerUrl + '__/unitmgr-light';
+    let launchUrl = managerUrl + '__/html';
     var cellUrl = $("#loginUrl").val();
     $.ajax({
         type: "GET",

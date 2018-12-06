@@ -92,7 +92,7 @@ dataManagement.prototype.openODataPage = function(collectionURL, collectionName)
 	$(".currentDirectoryIcon").css("margin-left","-3px");
 	$(".currentDirectoryIcon").css("margin-left","-2px");
 	uDataManagement.updateBreadCrumb(collectionName);
-	$("#webDavContentArea").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/ODataView.html',
+	$("#webDavContentArea").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/ODataView.html',
 		function() {
 			uDataManagement.setDynamicWidthForHeader();
 			sessionStorage.selectedEntityTypeCount = 0;
@@ -133,7 +133,7 @@ dataManagement.prototype.loadDataView = function(collectionURL, entityTypeNames,
 		selectedEntityTypeName = entityTypeNames[0];
 	}
 	var selectedEntityTypeIndex = uEntityTypeOperations.getSelectedEntityTypeIndex();
-	$("#odataContentArea").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/dataManagement.html',
+	$("#odataContentArea").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/dataManagement.html',
 			function() {
 				uEntityTypeOperations.setCurrentSelectedTab("data");
 				sessionStorage.ODataViewSelectedTab = "grid";

@@ -96,59 +96,7 @@ _pc.BoxManager.prototype.create = function(obj) {
   }
   responseJson = response.bodyAsJson().d.results;
   return responseJson;
-  /*if(json !== undefined && json.response === undefined) {
-		var objCommon = new common();
-		addSuccessClass();
-		inlineMessageBlock();
-		boxTableRefresh();
-		var shorterBoxName = objCommon.getShorterEntityName(boxName);
-		document.getElementById("successmsg").innerHTML = "Box "+shorterBoxName+" created successfully!";
-		document.getElementById("successmsg").title = boxName;
-		$('#createBoxModal, .window').hide();
-		autoHideMessage();
-	}*/
-  /*if(json.response !== undefined) {
-		return json;
-	}*/
-  /*var path = _pc.UrlUtils.append(accessor.getCurrentCell().getUrl(), body.Name);
-	obj.initialize(this.accessor, json, path);
-	return obj;*/
-//var body = {};
-//body.Name = obj.getName();
-//body.Schema = obj.getSchema();
-//var json = this.internalCreate(body);
-//var path = _pc.UrlUtils.append(accessor.getCurrentCell().getUrl(), body.Name);
-//obj.initialize(this.accessor, json, path);
-//return obj;
-//var requestBody = JSON.stringify(obj);
-//var json = this.internalCreate(requestBody);
-//return new _pc.Box(this.accessor, json, _pc.UrlUtils.append(this.accessor.getCurrentCell().getUrl(), obj.Name));
 };
-
-///**
-//* The purpose of this function is to refresh the boxList.
-//*/
-/*function boxTableRefresh() {
-	var contextRoot = sessionStorage.contextRoot;
-	$("#mainContent").html('');
-	$("#mainContent").load(contextRoot+'/htmls/boxListView.html', function() {
-		if(navigator.userAgent.indexOf("Firefox") != -1) {
-			createBoxTable();
-		}
-	});
-}*/
-
-///**
-//* Boxを作成.
-//* @param {Object} body リクエストボディ
-//* @return {_pc.Box} 作成したBoxオブジェクト
-//* @throws {DaoException} DAO例外
-//*/
-//_pc.BoxManager.prototype.createAsMap = function(body) {
-//var requestBody = JSON.stringify(body);
-//var json = this.internalCreate(requestBody);
-//return new _pc.Box(this.accessor, json, _pc.UrlUtils.append(this.accessor.getCurrentCell().getUrl(), body.Name));
-//};
 
 ///**
 //* Boxを取得.

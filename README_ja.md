@@ -13,7 +13,7 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 ## セットアップ  
 Personium Project's Unit/Cell Managerを使いたい場合、下記のURLにアクセスしてください。   
 
-    https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/login.html
+    https://demo.personium.io/app-uc-unit-manager/__/html/login.html
 
 Unit/Cell ManagerはWebサーバーに配置するだけで使用する事が出来ます。  
 例： [1-server unit](https://github.com/personium/ansible/blob/master/1-server_unit/1-server_unit.jpg)を構築した方はモジュールをNginxサーバフォルダにuploadしてください。

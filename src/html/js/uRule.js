@@ -271,7 +271,7 @@ function closeDeleteRulePopup() {
 	$('#multipleDeleteModalWindow, .window').hide(0);
 	$('#singleDeleteModalWindow, .window').hide(0);
 	$('#conflictModalwindow, .window').hide(0);
-	$("#mainContent").load(contextRoot+'/htmls/ruleListView.html');
+	$("#mainContent").load(contextRoot+'/templates/ruleListView.html');
 }
 
 /**

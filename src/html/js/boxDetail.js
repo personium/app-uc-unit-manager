@@ -105,10 +105,10 @@ boxDetail.prototype.openBoxDetail = function(boxname, etagstart, etagEnd, create
 
 		var target = document.getElementById('spinner');
 		var spinner = new Spinner(opts).spin(target);
-		$("#mainContentWebDav").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/boxDetail.html',
+		$("#mainContentWebDav").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/boxDetail.html',
 				function() {
 					$("#webDavContentArea").hide();
-					$("#webDavContentArea").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/boxDetailContent.html',
+					$("#webDavContentArea").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/boxDetailContent.html',
 							function(){
 								var roleList = uBoxAcl.getRoleListForCell();
 								if (roleList != undefined) {
@@ -147,7 +147,7 @@ boxDetail.prototype.loadBoxContentsTab = function(boxname){
 		var spinner = new Spinner(opts).spin(target);
 		$("#webDavContentArea").hide();
 		$("#tertiaryBar").hide();
-		$("#webDavContentArea").load(contextRoot + '/htmls/boxDetailContent.html',
+		$("#webDavContentArea").load(contextRoot + '/templates/boxDetailContent.html',
 				function(){
 					uBoxDetail.initializePage(boxname);
 					$("#tblBoxBreadCrum").find("tr:gt(0)").remove();
@@ -178,7 +178,7 @@ boxDetail.prototype.loadBoxProfileTab = function() {
 		var spinner = new Spinner(opts).spin(target);
 		$("#tertiaryBar").hide();
 		$("#webDavContentArea").hide();
-		$("#webDavProfileArea").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellProfileInfo.html',
+		$("#webDavProfileArea").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellProfileInfo.html',
 				function() {
 					objBoxProfile.displayProfileDetails();
 					$("#dvBoxEditIcon").show();
@@ -207,7 +207,7 @@ boxDetail.prototype.loadBoxInfoTab = function() {
 		var target = document.getElementById('spinner');
 		var spinner = new Spinner(opts).spin(target);
 
-		$("#webDavProfileArea").load(contextRoot + '/htmls/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html',
+		$("#webDavProfileArea").load(contextRoot + '/templates/'+sessionStorage.selectedLanguage+'/cellControlsInfo.html',
 				function() {
 					$("#tertiaryBar").hide();
 					$("#webDavContentArea").hide();

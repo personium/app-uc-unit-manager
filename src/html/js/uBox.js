@@ -478,11 +478,6 @@ function displayMessage() {
 		+(entityCount(sbConflict)+entityCount(sbSuccessful))+" " + getUiProps().MSG0324;
 	}
 	$("#deleteBoxMessageBlock").css("display", 'table');
-	/*$("#mainContent").load(contextRoot + '/htmls/boxListView.html',  function() {
-		if(navigator.userAgent.indexOf("Firefox") != -1) {
-			createBoxTable();
-		}
-	});*/
 	sbSuccessful = '';
 	sbConflict = '';
 	//createBoxTable();
@@ -614,7 +609,7 @@ function displayEditSuccessMessage(boxName) {
 function boxRefresh() { 
 	var contextRoot = sessionStorage.contextRoot;
 	//$("#mainContent").html('');		
-	$("#mainContent").load(contextRoot+'/htmls/'+sessionStorage.selectedLanguage+'/boxListView.html',  function() {
+	$("#mainContent").load(contextRoot+'/templates/'+sessionStorage.selectedLanguage+'/boxListView.html',  function() {
 		if(navigator.userAgent.indexOf("Firefox") != -1) {
 			createBoxTable();
 		}

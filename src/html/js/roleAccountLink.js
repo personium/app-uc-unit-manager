@@ -482,7 +482,7 @@ function bindRoleBoxDropDown() {
 function closeMapping() {
 	$('#singleDeleteMappingModalWindow, .window').hide();
 	$('#multipleDeleteMappingModalWindow, .window').hide();
-	$("#mainContent").load(contextRoot+'/htmls/'+sessionStorage.selectedLanguage+'/roleAccountLinkControl.html', function() {
+	$("#mainContent").load(contextRoot+'/templates/'+sessionStorage.selectedLanguage+'/roleAccountLinkControl.html', function() {
 		if (navigator.userAgent.indexOf("Firefox") != -1) {
 			loadAccountRoleAssignationPage();
 		}
