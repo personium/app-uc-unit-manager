@@ -21,12 +21,12 @@ var uInstallBox = new installBox();
 var isPollingNeeded = false;
 var isStateReady = false;
 var isResponseConflict = false;
-var interval;
 var fileData;
 var fileName = null;
 var failedInstallationCount = 0;
 
 $("#btnImportBox").click(function() {
+		isResponseConflict = false;
 		uInstallBox.doBoxInstallation();
 });
 
@@ -116,7 +116,6 @@ installBox.prototype.startingInstallationProcess = function(selectedBoxName) {
 	$("#installStatusProgress").hide();
 	$("#sectionProgressBar").css('height','215px');
 	isPollingNeeded = true;
-	uInstallBox.doPolling(selectedBoxName);
 };
 
 /**
@@ -328,7 +327,7 @@ installBox.prototype.doBoxInstallation = function() {
  */
 installBox.prototype.doPolling = function(boxName) {
 	if (isPollingNeeded) {
-		interval = setInterval(function() {
+		setTimeout(function() {
 			uInstallBox.polling(boxName);
 		}, 20000);
 	}
@@ -343,11 +342,15 @@ installBox.prototype.polling = function(box) {
 	if (boxName == undefined || boxName == null || boxName == '') {
 		boxName = box;
 	} 
-	uInstallBox.displayInstallationResponse(boxName);
-	isPollingNeeded = false;
-	if (isStateReady == true && isPollingNeeded == true) {
-		uInstallBox.displaySuccessfulInstallationMessage(boxName);
-		clearInterval(interval);
+	if (!isResponseConflict) {
+		uInstallBox.displayInstallationResponse(boxName);
+		if (isStateReady == true && isPollingNeeded == true) {
+			uInstallBox.displaySuccessfulInstallationMessage(boxName);
+		} else {
+			setTimeout(function() {
+				uInstallBox.polling(boxName);
+			}, 20000);
+		}
 	}
 };
 
@@ -368,8 +371,6 @@ installBox.prototype.displaySuccessfulInstallationMessage = function(boxName) {
 	isPollingNeeded = false;
 	objCommon.centerAlignRibbonMessage("#boxMessageBlock");
 	objCommon.autoHideAssignRibbonMessage('boxMessageBlock');
-	clearInterval(interval);
-	interval = null;
 };
 
 /**
@@ -424,8 +425,10 @@ installBox.prototype.openInstallationStatusPopUp = function(boxName,isOpenedDire
 	sessionStorage.enteredBoxName = boxName;
 	openCreateEntityModal('#progressBarModalWindow', '#progressBarDialogBox');
 	uInstallBox.displayInstallationResponse(boxName);
-	if (isOpenedDirectlyFromScreen) {
-		clearInterval(interval);
+	if (!isOpenedDirectlyFromScreen) {
+		setTimeout(function() {
+			uInstallBox.polling(boxName);
+		}, 20000);
 	}
 };
 
@@ -468,9 +471,10 @@ installBox.prototype.closeInstallationPopUpModal = function(modalID) {
 	$("#installStatusProgress").attr('value', 0);
 	$("#lblProgressBar").text('');
 	$("#txtAreaInstallationStatus").val('');
-	if (isPollingNeeded == false) {
-		clearInterval(interval);
-		interval = null;
+	if (isPollingNeeded) {
+		setTimeout(function() {
+			uInstallBox.polling(boxName);
+		}, 20000);
 	}
 };
 
