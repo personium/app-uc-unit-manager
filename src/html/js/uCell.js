@@ -356,8 +356,10 @@ function applyContents() {
 	var cellURL = "";
 	if(!unitURL.endsWith("/")){
 		unitURL = unitURL + "/";
-	} 
-	cellURL = unitURL + cellName;
+	}
+	var accessor = objCommon.initializeAccessor(unitURL, cellName,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    cellURL = objCellManager.getCellUrl(cellName);
 	if (!cellURL.endsWith("/")) {
 		cellURL += "/";
 	}
@@ -418,7 +420,9 @@ function getselectedcell(cellname, index, celldate, isSearch) {
 	if(!unitURL.endsWith("/")){
 		unitURL = unitURL + "/";
 	} 
-	cellURL = unitURL + cellname;
+	var accessor = objCommon.initializeAccessor(unitURL, cellname,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    cellURL = objCellManager.getCellUrl(cellname);
 	if (!cellURL.endsWith("/")) {
 		cellURL +="/";
 	}
