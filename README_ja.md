@@ -18,6 +18,47 @@ Personium Project's Unit/Cell Managerを使いたい場合、下記のURLにア�
 Unit/Cell ManagerはWebサーバーに配置するだけで使用する事が出来ます。  
 例： [1-server unit](https://github.com/personium/ansible/blob/master/1-server_unit/1-server_unit.jpg)を構築した方はモジュールをNginxサーバフォルダにuploadしてください。
 
+独自Personium UnitにUnit/Cell Managerを使用したい場合、下記の手順を参考に[zip](./app-uc-unit-manager_cell.zip)をインポートしてください。
+
+### セットアップ手順
+
+**\*本手順で記載しているAPIはユニットユーザーのトランスセルトークンを使用して実行してください。**
+
+
+1. [app-uc-unit-manager_cell.zip](./app-uc-unit-manager_cell.zip) をダウンロードします。
+1. 以下のコマンドを実行し、自身のPersonium Unitにapp-uc-unit-managerセルを作成します。
+
+    ```console
+    # curl "https://{UnitFQDN}/__ctl/Cell" -X POST -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -d '{"Name":"app-uc-unit-manager"}'
+    ```
+
+1. 以下のコマンドを実行し、作成したセルにzipファイルをアップロードします。
+
+    ```console
+    # curl "https://{UnitFQDN/app-uc-unit-manager/__snapshot/app-uc-unit-manager.zip -X PUT -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -T "{zip格納フォルダ}/app-uc-unit-manager_cell.zip"
+    ```
+
+1. 以下のコマンドを実行し、セルインポートを実行します。
+
+    ```console
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/__import -X POST -i -H 'Authorization: Bearer {AccessToken}' -d '{"Name":"app-uc-unit-manager.zip"}
+    ```
+
+1. 以下のコマンドを実行し、login.js ファイルをダウンロードします。
+
+    ```console
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js -X GET -H 'Authorization: Bearer {AccessToken}' -o '/tmp/login.js'
+    ```
+
+1. テキストエディタを利用し、login.js を編集します。
+    「demo.personium.io」を自身のPersonium Unit のFQDN に変更してください。
+
+1. 以下のコマンドを実行し、変更したlogin.js をアップロードします。
+
+    ```console
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/__html/js/login.js -X PUT -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -d '/tmp/login.js'
+    ```
+
 ## アクセス手順  
 
 1. 以下にアクセスする  
