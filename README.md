@@ -14,7 +14,7 @@ In order to use the Unit/Cell Manager, make sure you have the following ready.
 ## Installation (for those who own a 1-server unit)  
 If you want to use our Unit/Cell Manager to access your Personium Unit's cell(s), access the following page.  
 
-    https://demo.personium.io/app-uc-unit-manager/__/unitmgr-light/login.html
+    https://demo.personium.io/app-uc-unit-manager/__/html/login.html
 
 No installation or compilation, you only need to upload the modules to your web server.  
 For example, if you have constructed your own [1-server unit](https://github.com/personium/ansible/blob/master/1-server_unit/1-server_unit.jpg), you can upload the modules to your Nginx's server folder.  
