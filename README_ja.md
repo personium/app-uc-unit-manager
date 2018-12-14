@@ -192,7 +192,7 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
         ```
 
 1. barディレクトリをzip 形式で圧縮します。  
-    \*Windows を利用して圧縮する場合は7z 等を使用して圧縮してください。
+    \*Windows を利用して圧縮する場合は7z 等を使用して圧縮してください。  
     \*barファイルの詳細については[こちら](https://personium.io/docs/ja/apiref/current/301_Bar_File.html)を参照してください。
 
 1. 圧縮したzipファイルのファイル名を`cell-manager.bar`に変更します。
