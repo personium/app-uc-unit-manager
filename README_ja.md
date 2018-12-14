@@ -15,7 +15,7 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 * {AccessToken}　：トランスセルトークン
 
 
-1. [unit-manager.zip](./unit-manager.zip) をダウンロードします。
+1. [unit-manager.zip](https://github.com/personium/app-uc-unit-manager/raw/master/unit-manager.zip) をダウンロードします。
 1. [Cell作成API](https://personium.io/docs/ja/apiref/current/100_Create_Cell.html)を実行し、自身のPersonium Unitにapp-uc-unit-managerセルを作成します。
 
     ```console
@@ -66,7 +66,7 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 1. [ファイル登録更新API](https://personium.io/docs/ja/apiref/current/312_Register_and_Update_WebDAV.html)を実行し、変更したlogin.js をアップロードします。
 
     ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X PUT -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -d '/tmp/login.js'
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X PUT -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -T '/tmp/login.js'
     ```
 
 1. 以下のURLにアクセスし、ユニットマネージャが表示されることを確認します。
