@@ -15,35 +15,55 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 * {AccessToken}　：トランスセルトークン
 
 
-1. [app-uc-unit-manager_cell.zip](./app-uc-unit-manager_cell.zip) をダウンロードします。
-1. 以下のコマンドを実行し、自身のPersonium Unitにapp-uc-unit-managerセルを作成します。
+1. [unit-manager.zip](./unit-manager.zip) をダウンロードします。
+1. [Cell作成API](https://personium.io/docs/ja/apiref/current/100_Create_Cell.html)を実行し、自身のPersonium Unitにapp-uc-unit-managerセルを作成します。
 
     ```console
     # curl "https://{UnitFQDN}/__ctl/Cell" -X POST -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -d '{"Name":"app-uc-unit-manager"}'
     ```
 
-1. 以下のコマンドを実行し、作成したセルにzipファイルをアップロードします。
+1. [Cellスナップショットファイル登録更新API](https://personium.io/docs/ja/apiref/current/503_Register_and_Update_Snapshot_Cell.html)を実行し、作成したセルにzipファイルをアップロードします。
 
     ```console
     # curl "https://{UnitFQDN/app-uc-unit-manager/__snapshot/app-uc-unit-manager.zip" -X PUT -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -T "{zip格納フォルダ}/app-uc-unit-manager_cell.zip"
     ```
 
-1. 以下のコマンドを実行し、セルインポートを実行します。
+1. [CellインポートAPI](https://personium.io/docs/ja/apiref/current/507_Import_Cell.html)を実行し、セルインポートを実行します。
 
     ```console
     # curl "https://{UnitFQDN}/app-uc-unit-manager/__import" -X POST -i -H 'Authorization: Bearer {AccessToken}' -d '{"Name":"app-uc-unit-manager.zip"}
     ```
 
-1. 以下のコマンドを実行し、login.js ファイルをダウンロードします。
+1. [ファイル取得API](https://personium.io/docs/ja/apiref/current/311_Get_WebDav.html)を実行し、login.js ファイルをダウンロードします。
 
     ```console
     # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X GET -H 'Authorization: Bearer {AccessToken}' -o '/tmp/login.js'
     ```
 
 1. テキストエディタを利用し、login.js を編集します。
-    「demo.personium.io」を自身のPersonium Unit のFQDN に変更してください。
+    ファイルに記載されているFQDN`demo.personium.io`を自身のPersonium Unit のFQDN に変更してください。  
+    \*変更する前は以下のように記載されています。
 
-1. 以下のコマンドを実行し、変更したlogin.js をアップロードします。
+    * login.js
+
+        ```
+        ～～略～～
+        login.openManagerWindow = function(managerInfo) {
+            let appUnitFQDN = 'demo.personium.io';
+            let managerUrl = '';
+            $.ajax({
+                type: "GET",
+                url: "https://" + appUnitFQDN + "/",
+                headers: {
+                    'Accept': 'application/json'
+                },
+                success: function(unitObj, status, xhr) {
+                    let ver = xhr.getResponseHeader("x-personium-version");
+
+        ～～略～～
+        ```
+
+1. [ファイル登録更新API](https://personium.io/docs/ja/apiref/current/312_Register_and_Update_WebDAV.html)を実行し、変更したlogin.js をアップロードします。
 
     ```console
     # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X PUT -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -d '/tmp/login.js'
@@ -60,7 +80,7 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 * {UnitFQDN}　　 ：Personium Unit URL
 * {AccessToken}　：トランスセルトークン
 
-1. 以下のコマンドを実行し、Cell Manager をダウンロードします。
+1. [ファイル取得API](https://personium.io/docs/ja/apiref/current/311_Get_WebDav.html)を実行し、Cell Manager をダウンロードします。
 
     ```console
     # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X GET -H 'Authorization: Bearer {AccessToken}' -o '/tmp/cell-manager.zip'
@@ -68,7 +88,7 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 
 1. ダウンロードした `cell-manager.zip` を解凍します。  
     
-    解凍して出来上がるbarディレクトリは以下の構成でファイルが含まれています。
+    解凍して出来るbarディレクトリは以下の構成でファイルが含まれています。
 
     ```
     ./bar
@@ -81,7 +101,8 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
                 login.html
     ```
 
-1. bar ディレクトリ内のファイルに含まれる文字列`demo.personium.io`を環境のPersonium Unit FQDNに修正します。
+1. bar ディレクトリ内のファイルに含まれるFQDN`demo.personium.io`を自身のPersonium Unit のFQDNに修正します。  
+    \*変更する前は以下のように記載されています。
 
     * 00_mainfast.json
 
@@ -172,16 +193,17 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 
 1. barディレクトリをzip 形式で圧縮します。  
     \*Windows を利用して圧縮する場合は7z 等を使用して圧縮してください。
+    \*barファイルの詳細については[こちら](https://personium.io/docs/ja/apiref/current/301_Bar_File.html)を参照してください。
 
 1. 圧縮したzipファイルのファイル名を`cell-manager.bar`に変更します。
 
-1. 以下のコマンドを実行し、barインストールを実行します。
+1. [BoxインストールAPI](https://personium.io/docs/ja/apiref/current/302_Box_Installation.html)を実行し、boxインストールを実行します。
 
     ```
     # curl "https://{UnitFQDN}/app-uc-unit-manager/cell-manager" -X MKCOL -i -H 'Content-type: application/zip' -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -T "/tmp/cell-manager.bar"
     ```
 
-1. 以下のコマンドを実行し、bar ファイルをアップロードします。
+1. [ファイル登録更新API](https://personium.io/docs/ja/apiref/current/312_Register_and_Update_WebDAV.html)を実行し、bar ファイルをアップロードします。
 
     ```console
     # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X PUT -H 'Authorization: Bearer {AccessToken}' -T '/tmp/cell-manager.zip'
