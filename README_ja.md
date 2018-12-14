@@ -25,19 +25,26 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 1. [Cellスナップショットファイル登録更新API](https://personium.io/docs/ja/apiref/current/503_Register_and_Update_Snapshot_Cell.html)を実行し、作成したセルにzipファイルをアップロードします。
 
     ```console
-    # curl "https://{UnitFQDN/app-uc-unit-manager/__snapshot/app-uc-unit-manager.zip" -X PUT -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -T "{zip格納フォルダ}/app-uc-unit-manager_cell.zip"
+    # curl \
+    "https://{UnitFQDN/app-uc-unit-manager/__snapshot/app-uc-unit-manager.zip" \
+    -X PUT -i -H 'Authorization: Bearer {AccessToken}' \
+    -H 'Accept: application/json' \
+    -T "{zip格納フォルダ}/app-uc-unit-manager_cell.zip"
     ```
 
 1. [CellインポートAPI](https://personium.io/docs/ja/apiref/current/507_Import_Cell.html)を実行し、セルインポートを実行します。
 
     ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__import" -X POST -i -H 'Authorization: Bearer {AccessToken}' -d '{"Name":"app-uc-unit-manager.zip"}
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/__import" -X POST -i \
+    -H 'Authorization: Bearer {AccessToken}' \
+    -d '{"Name":"app-uc-unit-manager.zip"}
     ```
 
 1. [ファイル取得API](https://personium.io/docs/ja/apiref/current/311_Get_WebDav.html)を実行し、login.js ファイルをダウンロードします。
 
     ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X GET -H 'Authorization: Bearer {AccessToken}' -o '/tmp/login.js'
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X GET \
+    -H 'Authorization: Bearer {AccessToken}' -o '/tmp/login.js'
     ```
 
 1. テキストエディタを利用し、login.js を編集します。
@@ -66,7 +73,9 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 1. [ファイル登録更新API](https://personium.io/docs/ja/apiref/current/312_Register_and_Update_WebDAV.html)を実行し、変更したlogin.js をアップロードします。
 
     ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X PUT -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -T '/tmp/login.js'
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X PUT \
+    -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' \
+    -T '/tmp/login.js'
     ```
 
 1. 以下のURLにアクセスし、ユニットマネージャが表示されることを確認します。
@@ -83,7 +92,8 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 1. [ファイル取得API](https://personium.io/docs/ja/apiref/current/311_Get_WebDav.html)を実行し、Cell Manager をダウンロードします。
 
     ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X GET -H 'Authorization: Bearer {AccessToken}' -o '/tmp/cell-manager.zip'
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X GET \
+    -H 'Authorization: Bearer {AccessToken}' -o '/tmp/cell-manager.zip'
     ```
 
 1. ダウンロードした `cell-manager.zip` を解凍します。  
@@ -200,13 +210,16 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 1. [BoxインストールAPI](https://personium.io/docs/ja/apiref/current/302_Box_Installation.html)を実行し、boxインストールを実行します。
 
     ```
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/cell-manager" -X MKCOL -i -H 'Content-type: application/zip' -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -T "/tmp/cell-manager.bar"
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/cell-manager" -X MKCOL -i \
+    -H 'Content-type: application/zip' -H 'Authorization: Bearer {AccessToken}' \
+    -H 'Accept: application/json' -T "/tmp/cell-manager.bar"
     ```
 
 1. [ファイル登録更新API](https://personium.io/docs/ja/apiref/current/312_Register_and_Update_WebDAV.html)を実行し、bar ファイルをアップロードします。
 
     ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X PUT -H 'Authorization: Bearer {AccessToken}' -T '/tmp/cell-manager.zip'
+    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X PUT \
+    -H 'Authorization: Bearer {AccessToken}' -T '/tmp/cell-manager.zip'
     ```
 
 ## アクセス手順  
