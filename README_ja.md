@@ -19,7 +19,9 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 1. [Cell作成API](https://personium.io/docs/ja/apiref/current/100_Create_Cell.html)を実行し、自身のPersonium Unitにapp-uc-unit-managerセルを作成します。
 
     ```console
-    # curl "https://{UnitFQDN}/__ctl/Cell" -X POST -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' -d '{"Name":"app-uc-unit-manager"}'
+    # curl "https://{UnitFQDN}/__ctl/Cell" -X POST -i \
+    -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' \
+    -d '{"Name":"app-uc-unit-manager"}'
     ```
 
 1. [Cellスナップショットファイル登録更新API](https://personium.io/docs/ja/apiref/current/503_Register_and_Update_Snapshot_Cell.html)を実行し、作成したセルにzipファイルをアップロードします。
