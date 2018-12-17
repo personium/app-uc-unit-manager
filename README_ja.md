@@ -4,16 +4,16 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 - Unit Manager - Personium Unit配下のセル（複数）  
 - Cell Manager - 一般セル
 
-
 ## セットアップ  
 
 ### Unit Manager セットアップ手順
 
+本書ではUnit Manager のセットアップ手順を説明します。
+Cell Manager を利用したい方は[Cell Managerセットアップ手順](.setup_cell-manager_ja.md)を参照してください。
 この手順では以下の情報を使用します。環境に合わせて修正してください。
 
 * {UnitFQDN}　　 ：Personium Unit URL
 * {AccessToken}　：トランスセルトークン
-
 
 1. [unit-manager.zip](https://github.com/personium/app-uc-unit-manager/raw/master/unit-manager.zip) をダウンロードします。
 1. [Cell作成API](https://personium.io/docs/ja/apiref/current/100_Create_Cell.html)を実行し、自身のPersonium Unitにapp-uc-unit-managerセルを作成します。
@@ -84,149 +84,9 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 
     https://{UnitFQDN}/app-uc-unit-manager/__/html/login.html
 
-### Cell Manager セットアップ手順
-
-この手順では以下の情報を使用します。環境に合わせて修正してください。
-
-* {UnitFQDN}　　 ：Personium Unit URL
-* {AccessToken}　：トランスセルトークン
-
-1. [ファイル取得API](https://personium.io/docs/ja/apiref/current/311_Get_WebDav.html)を実行し、Cell Manager をダウンロードします。
-
-    ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X GET \
-    -H 'Authorization: Bearer {AccessToken}' -o '/tmp/cell-manager.zip'
-    ```
-
-1. ダウンロードした `cell-manager.zip` を解凍します。  
-    
-    解凍して出来るbarディレクトリは以下の構成でファイルが含まれています。
-
-    ```
-    ./bar
-    ├─00_meta
-    │      00_manifest.json
-    │      90_rootprops.xml
-    │
-    └─90_contents
-        └─src
-                login.html
-    ```
-
-1. bar ディレクトリ内のファイルに含まれるFQDN`demo.personium.io`を自身のPersonium Unit のFQDNに修正します。  
-    \*変更する前は以下のように記載されています。
-
-    * 00_mainfast.json
-
-        ```
-        {
-        "bar_version": "1",
-        "box_version": "1",
-        "DefaultPath": "app-uc-unit-manager",
-        "schema": "https://demo.personium.io/app-uc-unit-manager/"
-        }
-        ```
-
-    * 90_rootprops.xml
-    
-        ```
-        <multistatus xmlns="DAV:">
-            <response>
-                <href>dcbox:/</href>
-                <propstat>
-                    <prop>
-                    <resourcetype>
-                            <collection/>
-                        </resourcetype>
-                    </prop>
-                </propstat>
-            </response>
-            <response>
-                <href>dcbox:/src</href>
-                <propstat>
-                    <prop>
-                        <resourcetype>
-                        <collection/>
-                        </resourcetype>
-                        <acl xml:base="https://demo.personium.io/app-uc-unit-manager/__role/__/" xmlns:p="urn:x-personium:xmlns">
-                            <ace>
-                                <principal>
-                                    <all/>
-                                </principal>
-                                <grant>
-                                    <privilege>
-                                        <read/>
-                                    </privilege>
-                                </grant>
-                            </ace>
-                        </acl>
-                    </prop>
-                </propstat>
-            </response>
-            <response>
-                <href>dcbox:/src/login.html</href>
-                <propstat>
-                    <prop>
-                        <getcontenttype>text/html</getcontenttype>
-                    </prop>
-                </propstat>
-            </response>
-        </multistatus>
-
-        ```
-
-    * login.html
-
-        ```
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-            <meta http-equiv="Pragma" content="no-cache">
-            <meta http-equiv="Expires" content="-1">
-            <title>Personium Unit Manager</title>
-            <script type="text/javascript"
-                    src="https://demo.personium.io/app-uc-unit-manager/__/html/js/main/validation/login_validation.js"></script>
-            <!--<script type="text/javascript" src="./login.js"></script>-->
-            <script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/html/js/login.js"></script>
-            <script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/html/js/jquery-1.9.0.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-            <script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/html/js/commonFunctions.js"></script>
-            <script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/html/js/jquery.modalbox.js"></script>
-            <script type="text/javascript"
-                    src="https://demo.personium.io/app-uc-unit-manager/__/html/js/main/validation/reg_validation.js"></script>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <link href="https://demo.personium.io/app-uc-unit-manager/__/html/css/loginStylesheet.css" rel="stylesheet" type="text/css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
-            ～～｛略｝～～
-        ```
-
-1. barディレクトリをzip 形式で圧縮します。  
-    \*Windows を利用して圧縮する場合は7z 等を使用して圧縮してください。  
-    \*barファイルの詳細については[こちら](https://personium.io/docs/ja/apiref/current/301_Bar_File.html)を参照してください。
-
-1. 圧縮したzipファイルのファイル名を`cell-manager.bar`に変更します。
-
-1. [BoxインストールAPI](https://personium.io/docs/ja/apiref/current/302_Box_Installation.html)を実行し、boxインストールを実行します。
-
-    ```
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/cell-manager" -X MKCOL -i \
-    -H 'Content-type: application/zip' -H 'Authorization: Bearer {AccessToken}' \
-    -H 'Accept: application/json' -T "/tmp/cell-manager.bar"
-    ```
-
-1. [ファイル登録更新API](https://personium.io/docs/ja/apiref/current/312_Register_and_Update_WebDAV.html)を実行し、bar ファイルをアップロードします。
-
-    ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X PUT \
-    -H 'Authorization: Bearer {AccessToken}' -T '/tmp/cell-manager.zip'
-    ```
-
 ## アクセス手順  
 
-1. 以下にアクセスする  
+1. 以下にアクセスする。  
 
         https://{UnitFQDN}/app-uc-unit-manager/__/html/login.html
 
