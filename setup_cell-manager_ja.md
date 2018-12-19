@@ -1,6 +1,6 @@
-# Cell Manager セットアップ手順
+# Cell Manager 
 
-本書ではCell Manager のセットアップ手順を説明します。
+本書ではCell Manager のセットアップ手順とインストール手順を説明します。
 必要なセルにインストールして利用してください。
 なお、Cell Manager を利用する場合は事前にUnit Manager がセットアップされている必要があります。
 この手順では以下の情報を使用します。環境に合わせて修正してください。
@@ -9,149 +9,110 @@
 * {AccessToken}　：トランスセルトークン
 * {UserCell}     ：任意のユーザーセル
 
-1. [ファイル取得API](https://personium.io/docs/ja/apiref/current/311_Get_WebDav.html)を実行し、Cell Manager をダウンロードします。
+## Cell Manager のセットアップ手順
 
-    ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X GET \
-    -H 'Authorization: Bearer {AccessToken}' -o '/tmp/cell-manager.zip'
-    ```
+自身のPersonium Unit で利用可能なCell Manager を設定する手順です。
 
-1. ダウンロードした `cell-manager.zip` を解凍します。  
-    
-    `cell-manager.zip`を解凍すると以下のファイルが展開されます。
+1. ブラウザにてUnit Manager にアクセスします。
 
     ```
-    00_meta
-    ├   00_manifest.json
-    └   90_rootprops.xml
-    90_contents
-    └   src
-        └   login.html
+    https://{UnitFQDN}/app-uc-unit-manager/__/html/login.html
     ```
 
-1. bar ディレクトリ内のファイルに含まれるFQDN`demo.personium.io`を自身のPersonium Unit のFQDNに修正します。  
-    \*変更する前は以下のように記載されています。
+1. ログイン画面に以下の要領で情報を入力し、ログインします。
 
-    * 00_mainfast.json
+    |項目|入力値|
+    |---|---|
+    | Login URL  | https://{UnitFQDN}/{UnitCellName}/|
+    | Username　 | {UnitUserName}                    |
+    | Password　 | {UnitUserPassword}                |
 
-        ```
-        {
-            "bar_version":"2",
-            "box_version":"1",
-            "default_path":"cell-manager",
-            "schema":"https://demo.personium.io/app-uc-unit-manager/"
-        }
-        ```
+1. 画面左部のメニュー「Cell List」の`app-uc-unit-manager`をクリックします。
 
-    * 90_rootprops.xml
-    
-        ```
-        <multistatus xmlns="DAV:">
-            <response>
-                <href>personium-localbox:/</href>
-                <propstat>
-                    <prop>
-                        <creationdate>2018-12-14T10:29:57.585+0900</creationdate>
-                        <getlastmodified>Fri, 14 Dec 2018 01:29:57 GMT</getlastmodified>
-                        <resourcetype>
-                            <collection/>
-                        </resourcetype>
-                        <acl xml:base="https://demo.personium.io/app-uc-unit-manager/__role/cell-manager/" xmlns:p="urn:x-personium:xmlns"/>
-                    </prop>
-                    <status>HTTP/1.1 200 OK</status>
-                </propstat>
-            </response>
-            <response>
-                <href>personium-localbox:/src</href>
-                <propstat>
-                    <prop>
-                        <creationdate>2018-12-14T10:29:57.850+0900</creationdate>
-                        <getlastmodified>Fri, 14 Dec 2018 01:29:57 GMT</getlastmodified>
-                        <resourcetype>
-                            <collection/>
-                        </resourcetype>
-                        <acl xml:base="https://demo.personium.io/app-uc-unit-manager/__role/cell-manager/" xmlns:p="urn:x-personium:xmlns">
-                            <ace>
-                                <principal>
-                                    <all/>
-                                </principal>
-                                <grant>
-                                    <privilege>
-                                        <D:read xmlns:D="DAV:"/>
-                                    </privilege>
-                                </grant>
-                            </ace>
-                        </acl>
-                    </prop>
-                    <status>HTTP/1.1 200 OK</status>
-                </propstat>
-            </response>
-            <response>
-                <href>personium-localbox:/src/login.html</href>
-                <propstat>
-                    <prop>
-                        <creationdate>2018-12-14T10:29:58.115+0900</creationdate>
-                        <getcontentlength>20348</getcontentlength>
-                        <getcontenttype>text/html</getcontenttype>
-                        <getlastmodified>Fri, 14 Dec 2018 01:29:58 GMT</getlastmodified>
-                        <resourcetype/>
-                        <acl xml:base="https://demo.personium.io/app-uc-unit-manager/__role/cell-manager/" xmlns:p="urn:x-personium:xmlns"/>
-                    </prop>
-                    <status>HTTP/1.1 200 OK</status>
-                </propstat>
-            </response>
-        </multistatus>
-        ```
+    <img src="./doc/cell_list_001.jpg" title="cell-list" style="width:70%;height:auto;">
 
-    * login.html
+1. `Box List`の`cell-manager`をクリックします。
 
-        ```
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-            <meta http-equiv="Pragma" content="no-cache">
-            <meta http-equiv="Expires" content="-1">
-            <title>Personium Unit Manager</title>
-            <script type="text/javascript"
-                    src="https://demo.personium.io/app-uc-unit-manager/__/html/js/main/validation/login_validation.js"></script>
-            <!--<script type="text/javascript" src="./login.js"></script>-->
-            <script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/html/js/login.js"></script>
-            <script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/html/js/jquery-1.9.0.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-            <script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/html/js/commonFunctions.js"></script>
-            <script type="text/javascript" src="https://demo.personium.io/app-uc-unit-manager/__/html/js/jquery.modalbox.js"></script>
-            <script type="text/javascript"
-                    src="https://demo.personium.io/app-uc-unit-manager/__/html/js/main/validation/reg_validation.js"></script>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <link href="https://demo.personium.io/app-uc-unit-manager/__/html/css/loginStylesheet.css" rel="stylesheet" type="text/css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
-            ～～｛略｝～～
-        ```
+    <img src="./doc/cell_manager_box.jpg" title="cell-manager-box-click" style="width:70%;height:auto;">
 
-1. barディレクトリをzip 形式で圧縮します。  
-    \*Windows を利用して圧縮する場合は7z 等を使用して圧縮してください。  
-    \*barファイルの詳細については[こちら](https://personium.io/docs/ja/apiref/current/301_Bar_File.html)を参照してください。
+1. 鉛筆アイコンをクリックします。
 
-1. 圧縮したzipファイルのファイル名を`cell-manager.bar`に変更します。
+    <img src="./doc/cell-edit_bottan.jpg" title="cell-edit-bottan-click" style="width:70%;height:auto;">
 
+1. Edit Box 画面の`Schema URL`を変更します。  
+    `https://{UnitFQDN}/app-uc-unit-manager/`となるように自身のPersonium Unit URLを指定してください。
 
-1. [ファイル登録更新API](https://personium.io/docs/ja/apiref/current/312_Register_and_Update_WebDAV.html)を実行し、bar ファイルをアップロードします。
+    <img src="./doc/schema_url_edit.jpg" title="schema-url-edit" style="width:70%;height:auto;">
 
-    ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/cell-manager.bar" -X PUT \
-    -H 'Authorization: Bearer {AccessToken}' -T '/tmp/cell-manager.zip'
-    ```
+    Schema URL を修正した後"save"ボタンをクリックします。
 
-1. [BoxインストールAPI](https://personium.io/docs/ja/apiref/current/302_Box_Installation.html)を実行し、任意のユーザーセルにboxインストールを実行します。
+1. cell-manager Box のsrc コレクションをクリックします。
+1. login.html コレクションのチェックボックスをオンにしてdownload ボタンをクリックします。
+
+    <img src="./doc/download_loginhtml.jpg" title="schema-url-edit" style="width:70%;height:auto;">
+
+1. ダウンロードしたlogin.html をテキストエディタで編集します。
+    ファイル内に記載されているFQDN`demo.personium.io`を自身のPersonium Unit のFQDNに修正します。  
+1. 編集したファイルをアップロードするためUnit Manager のupload ボタンをクリックします。
+
+    <img src="./doc/upload_loginhtml_001.jpg" title="schema-url-edit" style="width:70%;height:auto;">
+
+    ファイル選択ダイアログが表示されるので、login.htmlを選択してOKボタンをクリックします。
+
+1. パン屑リストからcell-managerをクリックします。
+
+    <img src="./doc/cd_cell-manager-box.jpg" title="schema-url-edit" style="width:70%;height:auto;">
+
+1. Exportボタンをクリックしてcell-manager ボックスをエクスポートします。
+
+    <img src="./doc/export_cell-manager-box.jpg" title="schema-url-edit" style="width:70%;height:auto;">
+
+    エクスポートに成功すると配布可能なbarファイルが作成されます。  
+    これでCell Managerのセットアップは完了です。
+    必要なセルにbox インストールして利用してください。
+
+## Cell Manager インストール手順
+
+ユーザーセルに対してCell Manager をインストールする手順を説明します。 
+この手順は以下の設定がされている必要があります。
+
+    1) Cellが作成されていること
+    2) Roleが作成されていること
+    3) Accountが作成されており「2」のRoleが割り当ててあること
+    4) 「2」のRoleにCellのroot権限が割り当てられていること
+    5) Cell Manager セットアップ手順で作成したbarファイルを所持していること
+
+1. ブラウザにてUnit Manager にアクセスします。
 
     ```
-    # curl "https://{UnitFQDN}/{UserCell}/cell-manager" -X MKCOL -i \
-    -H 'Content-type: application/zip' -H 'Authorization: Bearer {AccessToken}' \
-    -H 'Accept: application/json' -T "/tmp/cell-manager.bar"
+    https://{UnitFQDN}/app-uc-unit-manager/__/html/login.html
     ```
+
+1. ログイン画面に以下の要領で情報を入力し、ログインします。
+
+    |項目|入力値|
+    |---|---|
+    | Login URL  | https://{UnitFQDN}/{UnitCellName}/|
+    | Username　 | {UnitUserName}                    |
+    | Password　 | {UnitUserPassword}                |
+
+1. 画面左部のメニュー「Cell List」のインストール対象セルをクリックします。
+    この手順では`test-user`
+
+    <img src="./doc/select_test-user-cell.jpg" title="cell-list" style="width:70%;height:auto;">
+
+1. Create BoxプルダウンのImport Boxボタンをクリックします。
+
+    <img src="./doc/Import_Box_001.jpg" title="cell-list" style="width:70%;height:auto;">
+
+1. Import Box画面で①Box Nameにcell-managerと入力します。  
+その後②Browseボタンをクリックし、Cell Managerセットアップ手順で作成したcell-manager.barを選択してOKボタンをクリックします。  
+ファイルの選択が完了したら③Createボタンをクリックします。  
+
+    <img src="./doc/Import_Box_002.jpg" title="cell-list" style="width:70%;height:auto;">
+
+    Installation Completedが表示されるとCell Managerのインストールは完了です。  
+    <img src="./doc/Import_Box_003.jpg" title="cell-list" style="width:70%;height:auto;">
 
 ## アクセス手順  
 

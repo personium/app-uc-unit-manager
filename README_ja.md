@@ -1,8 +1,12 @@
 # Unit/Cell Manager  
+
+# 概要
 Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事が出来るGUIツールです。  
 
-- Unit Manager - Personium Unit配下のセル（複数）  
-- Cell Manager - 一般セル
+| Name | Contents |
+|---|---|
+| Unit Manager  | Personium Unit 上のセルを管理するGUIツールです。  ユニットユーザーを利用することでユニットに存在するすべてのセルに対する操作が可能です。|
+| Cell Manager  | ユーザーセルにインストールし、インストールされたセルを管理するGUIツールです。|
 
 ## セットアップ  
 
