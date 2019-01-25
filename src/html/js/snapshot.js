@@ -647,7 +647,7 @@ snapshot.prototype.validateSnapshotFileText = function() {
 	var cellname = sessionStorage.selectedcell;
 	var accessor = objCommon.initializeAccessor(baseUrl, cellname,"","");
 	var objCellManager = new _pc.CellManager(accessor);	
-	var response = objCellManager.getSnapshotFile(cellName, enterText);
+	var response = objCellManager.getSnapshotFile(cellname, enterText);
 
 	if(response.httpClient.status === 200) {
 		document.getElementById("popupErrorMsgSnapshotText").innerHTML = getUiProps().MSG0410;
