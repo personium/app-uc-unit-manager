@@ -175,7 +175,9 @@ cellProfile.prototype.retrieveCollectionAPIResponse = function (json, operationP
     if (!baseUrl.endsWith("/")) {
         baseUrl += "/";
     }
-    var path = sessionStorage.selectedcellUrl+"__/";
+    var accessor = objCommon.initializeAccessor(getClientStore().baseURL, cellName,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    var path = objCellManager.getCellUrl(cellName)+"__/";
     if (profileLng) {
         path += "locales/" + profileLng;
     }
@@ -948,8 +950,43 @@ cellProfile.prototype.createFirstCellProfile = function(displayName,descriptionD
         var accessor = objCommon.initializeAccessor(getClientStore().baseURL, sessionStorage.selectedcell,"","");
         var objCellManager = new _pc.CellManager(accessor);
         sessionStorage.selectedcellUrl = objCellManager.getCellUrl(sessionStorage.selectedcell);
+        if (scopeSelection == "Public") {
+            this.appendAllReadACLToProfile();
+        }
     }
 };
+
+cellProfile.prototype.appendAllReadACLToProfile = function() {
+    var baseUrl = getClientStore().baseURL;
+    if (!baseUrl.endsWith("/")) {
+        baseUrl += "/";
+    }
+    var cellName = sessionStorage.selectedcell;
+    var path = sessionStorage.selectedcellUrl + "__/profile.json";
+    var accessor = objCommon.initializeAccessor(baseUrl, cellName);
+    var objJDavCollection = new _pc.DavCollection(accessor, path);
+    var objXmlBaseUrlRole = new _pc.Role(accessor);
+    objXmlBaseUrlRole.setBoxName("[main]");
+    var resourceBaseUrl = objXmlBaseUrlRole.getResourceBaseUrl();
+    var boxName = null;
+    var roleName = "all (anyone)";
+    json = {
+        "Name" : roleName,
+        "_Box.Name" : boxName
+    };
+    var objJRole = new _pc.Role(accessor, json);
+    var objJAcl = new _pc.Acl();
+    objJAcl.setBase(resourceBaseUrl);
+    objAce = new _pc.Ace();
+    objAce.setRole(objJRole);
+    objAce.setPrincipal('all');
+    objAce.addPrivilege("D:read");
+    objJAcl.addAce(objAce);
+
+    var objJAclManager = new _pc.AclManager(accessor, objJDavCollection);
+    var response = objJAclManager.setAsAcl(objJAcl);
+    return response;
+}
 
 //Methods for Expand and collapse - More/Less Start.
 /**
