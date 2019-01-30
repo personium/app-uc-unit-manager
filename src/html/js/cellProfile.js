@@ -195,7 +195,7 @@ cellProfile.prototype.retrieveCollectionAPIResponse = function (json, operationP
 /**
  * The purpose of this function is to update cell profile.
  */
-cellProfile.prototype.updateCellProfile = function() { 
+cellProfile.prototype.updateCellProfile = function() {
         var displayName = document.getElementById("editDisplayName").value;
         var description = document.getElementById("editDescription").value;
         var fileData = null;
@@ -207,6 +207,7 @@ cellProfile.prototype.updateCellProfile = function() {
             var validDesciption = uCellProfile.validateDescription(description,"popupEditDescriptionErrorMsg");
             if (validDesciption){
                 var prof = this.getCellProfileInfo();
+                var status = prof.getStatusCode();
                 prof = prof.bodyAsJson();
                 if (document.getElementById("editDisplayName").dataset.CellType == "App") {
                     // If cellType is App, update en of existing profile.json
@@ -224,11 +225,16 @@ cellProfile.prototype.updateCellProfile = function() {
                         "ProfileImageName" : profileBoxImageName
                     };
                 }
-                $.extend(
-                    true,
-                    prof,
-                    latestProf
-                );
+                if (status == 200) {
+                    $.extend(
+                        true,
+                        prof,
+                        latestProf
+                    );
+                } else {
+                    prof = latestProf;
+                }
+                
                 fileData = prof;
                 var selectedLng = $("#profileLngList").val();
                 response = uCellProfile.retrieveCollectionAPIResponse(fileData, "EDIT",sessionStorage.selectedcell, selectedLng);
