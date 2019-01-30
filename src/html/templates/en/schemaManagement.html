@@ -32,7 +32,7 @@ limitations under the License.
 			//enable display if properties are present
 			$('#PropertyViewBody').show();
 				var entityTypeNames = uEntityTypeOperations.fetchEntityTypes(sessionStorage.selectedCollectionURL);
-			uEntityTypeOperations.updatePropertyView(entityTypeNames[0]);
+			uEntityTypeOperations.updatePropertyView(entityTypeNames[sessionStorage.selectedEntityTypeCount]);
 		}else{
 			document.getElementById("PropertyViewEmptyBody").style.display = "block";
 		}
