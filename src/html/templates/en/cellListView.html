@@ -161,29 +161,6 @@ function isCellExist(responseCode) {
     return false;
 }
 
-function createCell(accessor, objCell, objCellManager) {
-    var cell = objCellManager.create(undefined, objCell, null, null, null);
-    if ($('#chkAdmin').is(':checked')) {
-        var roleName = document.getElementById("txtRoleName").value;
-        createRoleFromCellWindow(accessor, roleName, cell.name);
-    }
-
-    //When Create Profile is checked.
-    if ($('#chkCreateProfile').is(':checked')) {
-        var displayName = $("#txtCellDisplayName").val();
-        var descriptionDetails = document.getElementById("txtCellDescription").value;
-        var scopeSelection = $("#btnPublic").val();
-        if ($('#btnPrivate').is(':checked')) {
-            scopeSelection = $("#btnPrivate").val();
-        }
-        uCellProfile.createFirstCellProfile(displayName,descriptionDetails,cell.name, scopeSelection);  
-    }
-    
-    reloadCellList(cell.name);  
-    removeSpinner("modalSpinnerCellList");
-    return true;
-}
-
 /* The purpose of this function is to reload the cell list.
  */
 function reloadCellList(createdCellName) {

@@ -3225,9 +3225,9 @@ dataManagement.prototype.validateFieldsPerType = function(edit) {
  * @param propVal
  * @returns {Array}
  */
-dataManagement.prototype.getListData = function(propVal) {
+dataManagement.prototype.getListData = function(propVal, propType) {
     var arrayData = propVal.split(',');	
-    if(propVal.indexOf('、') != -1){
+    if(propType != "Edm.String" && propVal.indexOf('、') != -1){
         arrayData = propVal.split('、');
     }
     var noOfItems = arrayData.length;
@@ -3270,7 +3270,7 @@ dataManagement.prototype.createJsonData = function(edit) {
                 } else if (uDataManagement.propertyDetailsList[index][2] == "List") {
                     var propName = uDataManagement.propertyDetailsList[index][0];
                     var propVal = $(elem + index).val();
-                    var propValData = uDataManagement.getListData(propVal);
+                    var propValData = uDataManagement.getListData(propVal, uDataManagement.propertyDetailsList[index][1]);
                     json[propName] = propValData;
                 }
             }
@@ -3288,7 +3288,7 @@ dataManagement.prototype.createJsonData = function(edit) {
                 if ($(elem + index).val() != "") {
                     var propName = uDataManagement.propertyDetailsList[index][0];
                     var propVal = $(elem + index).val();
-                    var propValData = uDataManagement.getListData(propVal);
+                    var propValData = uDataManagement.getListData(propVal, uDataManagement.propertyDetailsList[index][1]);
                     json[propName] = propValData;
                 }
             }
