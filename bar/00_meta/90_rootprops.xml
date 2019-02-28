@@ -1,42 +1,55 @@
 <multistatus xmlns="DAV:">
     <response>
-        <href>dcbox:/</href>
+        <href>personium-localbox:/</href>
         <propstat>
             <prop>
+                <creationdate>2018-06-28T07:38:42.018+0000</creationdate>
+                <getlastmodified>Thu, 28 Jun 2018 07:38:42 GMT</getlastmodified>
                 <resourcetype>
                     <collection/>
                 </resourcetype>
+                <acl xml:base="https://app-uc-unit-manager.demo.personium.io/__role/cell-manager/" xmlns:p="urn:x-personium:xmlns"/>
             </prop>
+            <status>HTTP/1.1 200 OK</status>
         </propstat>
     </response>
     <response>
-        <href>dcbox:/src</href>
+        <href>personium-localbox:/src</href>
         <propstat>
             <prop>
+                <creationdate>2018-06-28T07:38:42.132+0000</creationdate>
+                <getlastmodified>Thu, 28 Jun 2018 07:38:42 GMT</getlastmodified>
                 <resourcetype>
                     <collection/>
                 </resourcetype>
-                <acl xml:base="https://demo.personium.io/app-uc-unit-manager/__role/__/" xmlns:p="urn:x-personium:xmlns">
+                <acl xml:base="https://app-uc-unit-manager.demo.personium.io/__role/cell-manager/" xmlns:p="urn:x-personium:xmlns">
                     <ace>
                         <principal>
                             <all/>
                         </principal>
                         <grant>
                             <privilege>
-                                <read/>
+                                <D:read xmlns:D="DAV:"/>
                             </privilege>
                         </grant>
                     </ace>
                 </acl>
             </prop>
+            <status>HTTP/1.1 200 OK</status>
         </propstat>
     </response>
     <response>
-        <href>dcbox:/src/login.html</href>
+        <href>personium-localbox:/src/login.html</href>
         <propstat>
             <prop>
+                <creationdate>2018-06-28T07:38:42.186+0000</creationdate>
+                <getcontentlength>19980</getcontentlength>
                 <getcontenttype>text/html</getcontenttype>
+                <getlastmodified>Thu, 21 Feb 2019 14:03:43 GMT</getlastmodified>
+                <resourcetype/>
+                <acl xml:base="https://app-uc-unit-manager.demo.personium.io/__role/cell-manager/" xmlns:p="urn:x-personium:xmlns"/>
             </prop>
+            <status>HTTP/1.1 200 OK</status>
         </propstat>
     </response>
 </multistatus>
