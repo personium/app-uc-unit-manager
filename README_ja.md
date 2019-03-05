@@ -35,7 +35,7 @@ Cell Manager を利用したい方は[Cell Managerセットアップ手順](./se
 
     ```console
     # curl \
-    "https://{UnitFQDN/app-uc-unit-manager/__snapshot/app-uc-unit-manager.zip" \
+    "https://{UnitFQDN}/app-uc-unit-manager/__snapshot/app-uc-unit-manager.zip" \
     -X PUT -i -H 'Authorization: Bearer {AccessToken}' \
     -H 'Accept: application/json' \
     -T "{zip格納フォルダ}/app-uc-unit-manager_cell.zip"
@@ -46,7 +46,7 @@ Cell Manager を利用したい方は[Cell Managerセットアップ手順](./se
     ```console
     # curl "https://{UnitFQDN}/app-uc-unit-manager/__import" -X POST -i \
     -H 'Authorization: Bearer {AccessToken}' \
-    -d '{"Name":"app-uc-unit-manager"}
+    -d '{"Name":"app-uc-unit-manager"}'
     ```
 
 1. [ファイル取得API](https://personium.io/docs/ja/apiref/current/311_Get_WebDav.html)を実行し、login.js ファイルをダウンロードします。
