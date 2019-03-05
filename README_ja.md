@@ -13,7 +13,7 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 ### Unit Manager セットアップ手順
 
 本書ではUnit Manager のセットアップ手順を説明します。
-Cell Manager を利用したい方は[Cell Managerセットアップ手順](.setup_cell-manager_ja.md)を参照してください。
+Cell Manager を利用したい方は[Cell Managerセットアップ手順](./setup_cell-manager_ja.md)を参照してください。
 この手順では以下の情報を使用します。環境に合わせて修正してください。
 
 * {UnitFQDN}　　 ：Personium Unit URL
