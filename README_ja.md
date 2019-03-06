@@ -38,7 +38,7 @@ Cell Manager を利用したい方は[Cell Managerセットアップ手順](./se
     "https://{UnitFQDN}/app-uc-unit-manager/__snapshot/app-uc-unit-manager.zip" \
     -X PUT -i -H 'Authorization: Bearer {AccessToken}' \
     -H 'Accept: application/json' \
-    -T "{zip格納フォルダ}/app-uc-unit-manager_cell.zip"
+    -T "{zip格納フォルダ}/unit-manager.zip"
     ```
 
 1. [CellインポートAPI](https://personium.io/docs/ja/apiref/current/507_Import_Cell.html)を実行し、セルインポートを実行します。
