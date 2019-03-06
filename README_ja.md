@@ -10,6 +10,9 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 
 ## セットアップ  
 
+### Per-Cell環境利用時の注意
+Per-Cell環境でUnit Manager を利用する場合、CellのURLアクセス時にエラーや警告が出ないことが必要です。例えば、自己署名証明書が配備された環境ではUnit Managerは正常に動作しません。正しいSSL証明書を取得、配備してください。
+
 ### Unit Manager セットアップ手順
 
 本書ではUnit Manager のセットアップ手順を説明します。
