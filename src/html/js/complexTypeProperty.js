@@ -364,6 +364,9 @@ complexTypeProperty.prototype.retrieveEpochDate = function(defaultDate,
 		hours = fullTime[0];
 		minutes = fullTime[1];
 		seconds = fullTime[2];
+		if (!seconds) {
+			seconds = "00";
+		}
 		date = defaultDate;
 	}
 	var selectedDateWithTime = date + " " + hours + ":" + minutes + ":"
