@@ -130,7 +130,10 @@ log.prototype.getLogFilePath = function (baseUrl, cellName, logFolderName, logFi
 	if (!baseUrl.endsWith("/")) {
 		baseUrl += "/";
 	}
-	var path = baseUrl+cellName+"/__log/";
+	var accessor = objCommon.initializeAccessor(baseUrl, cellName,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    var path = objCellManager.getCellUrl(cellName);
+	path += "__log/";
 	path += logFolderName;
 	if (!path.endsWith("/")) {
 		path += "/";
