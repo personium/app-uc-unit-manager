@@ -29,7 +29,7 @@
 
 1. 画面左部のメニュー「Cell List」の`app-uc-unit-manager`をクリックします。
 
-    <img src="./doc/cell_list_001.jpg" title="cell-list" style="width:70%;height:auto;">
+    <img src="./doc/select-app-uc-unit-manager-cell.jpg" title="cell-list" style="width:70%;height:auto;">
 
 1. `Box List`の`cell-manager`をクリックします。
 
