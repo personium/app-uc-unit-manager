@@ -6,20 +6,14 @@ Unit Manager and Cell ManagerはPersoniumのセル単位での管理を行う事
 | Name | Contents |
 |---|---|
 | Unit Manager  | Personium Unit 上のセルを管理するGUIツールです。  ユニットユーザーを利用することでユニットに存在するすべてのセルに対する操作が可能です。|
-| Cell Manager  | ユーザーセルにインストールし、インストールされたセルを管理するGUIツールです。|
+| Cell Manager  | ユーザーセルにセットアップし、セットアップされたセルを管理するGUIツールです。|
 
 ## セットアップ  
-
-### Per-Cell環境利用時の注意
-Per-Cell環境でUnit Manager を利用する場合、CellのURLアクセス時にエラーや警告が出ないことが必要です。例えば、自己署名証明書が配備された環境ではUnit Managerは正常に動作しません。正しいSSL証明書を取得、配備してください。
 
 ### Unit Manager セットアップ手順
 
 本書ではUnit Manager のセットアップ手順を説明します。
-Cell Manager を利用したい方は[Cell Managerセットアップ手順](./setup_cell-manager_ja.md)を参照してください。
-
-この手順ではcellアクセスURLとしてPath-Baseの環境での例を記載しています。Per-Cell環境の場合はURLを環境に応じて読み替えてください。
-
+Cell Manager を利用したい方は[Cell Managerセットアップ手順](.setup_cell-manager_ja.md)を参照してください。
 この手順では以下の情報を使用します。環境に合わせて修正してください。
 
 * {UnitFQDN}　　 ：Personium Unit URL
@@ -38,24 +32,24 @@ Cell Manager を利用したい方は[Cell Managerセットアップ手順](./se
 
     ```console
     # curl \
-    "https://{UnitFQDN}/app-uc-unit-manager/__snapshot/app-uc-unit-manager.zip" \
+    "https://app-uc-unit-manager.{UnitFQDN}/__snapshot/app-uc-unit-manager.zip" \
     -X PUT -i -H 'Authorization: Bearer {AccessToken}' \
     -H 'Accept: application/json' \
-    -T "{zip格納フォルダ}/unit-manager.zip"
+    -T "{zip格納フォルダ}/app-uc-unit-manager_cell.zip"
     ```
 
 1. [CellインポートAPI](https://personium.io/docs/ja/apiref/current/507_Import_Cell.html)を実行し、セルインポートを実行します。
 
     ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__import" -X POST -i \
+    # curl "https://app-uc-unit-manager.{UnitFQDN}/__import" -X POST -i \
     -H 'Authorization: Bearer {AccessToken}' \
-    -d '{"Name":"app-uc-unit-manager"}'
+    -d '{"Name":"app-uc-unit-manager"}
     ```
 
 1. [ファイル取得API](https://personium.io/docs/ja/apiref/current/311_Get_WebDav.html)を実行し、login.js ファイルをダウンロードします。
 
     ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X GET \
+    # curl "https://app-uc-unit-manager.{UnitFQDN}/__/html/js/login.js" -X GET \
     -H 'Authorization: Bearer {AccessToken}' -o '/tmp/login.js'
     ```
 
@@ -85,20 +79,20 @@ Cell Manager を利用したい方は[Cell Managerセットアップ手順](./se
 1. [ファイル登録更新API](https://personium.io/docs/ja/apiref/current/312_Register_and_Update_WebDAV.html)を実行し、変更したlogin.js をアップロードします。
 
     ```console
-    # curl "https://{UnitFQDN}/app-uc-unit-manager/__/html/js/login.js" -X PUT \
+    # curl "https://app-uc-unit-manager.{UnitFQDN}/__/html/js/login.js" -X PUT \
     -i -H 'Authorization: Bearer {AccessToken}' -H 'Accept: application/json' \
     -T '/tmp/login.js'
     ```
 
 1. 以下のURLにアクセスし、ユニットマネージャが表示されることを確認します。
 
-    https://{UnitFQDN}/app-uc-unit-manager/__/html/login.html
+    https://app-uc-unit-manager.{UnitFQDN}/__/html/login.html
 
 ## アクセス手順  
 
 1. 以下にアクセスする。  
 
-        https://{UnitFQDN}/app-uc-unit-manager/__/html/login.html
+        https://app-uc-unit-manager.{UnitFQDN}/__/html/login.html
 
 ## 必要な情報  
 
