@@ -20,49 +20,6 @@ function login() {
 var uLogin = new login();
 
 login.prototype.renderLoginFields = function(calledFromCell) {
-    $("#cpassdid").removeAttr("disabled");
-    $("#useridtext").removeAttr("disabled");
-    $("#useridtext").blur(function () {
-        var uname = $(this).val();
-        var validUserName = userid_validation(uname);
-        if (validUserName) {
-            if (uname.length > 0) {
-                $("#userspanid").html("");
-                //$("#userspanid").html("Checking availability...");
-                $.ajax
-                ({
-                    type: "POST",
-                    dataType: 'json',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-                        xhr.setRequestHeader("Pragma", "no-cache");
-                        xhr.setRequestHeader("Expires", -1);
-                    },
-                    url: "check",
-                    data: "useridtext=" + escape(uname),
-                    cache: false,
-                    success: function (response) {
-                        var msg = "";
-                        if (response['userIdMsg'] == "inUse") {
-                            msg = uname + " is already in use";
-                            $("#userspanid").removeClass('alertSuccessMsg');
-                            $("#userspanid").addClass('alertmsg');
-                            $("#ProceedButton").attr("disabled", "disabled");
-                        } else if (response['userIdMsg'] == "available") {
-                            msg = uname + " is available";
-                            $("#userspanid").removeClass('alertmsg');
-                            $("#userspanid").addClass('alertSuccessMsg');
-                            $("#ProceedButton").removeAttr("disabled");
-                        }
-                        $("#userspanid").html(msg);
-                    }
-                });
-            } else {
-                $("#userspanid").html("");
-            }
-        }
-    });
-
     var errorFlag = null;
     var showMessage = '';
     if (errorFlag == 'null' && showMessage == 'null') {
@@ -439,12 +396,6 @@ login.prepareHashParams = function(launchUrl, managerInfo, cellName) {
     return url;
 }
 
-//Closing account registration popup
-function closeAcctReg() {
-    clearData();
-    $('#modalAcctReg, .window').hide();
-}
-        
 function clearData() {
     $('#confirm').find('input:text').val('');
     $('#confirm').find('input:password').val('');
@@ -471,25 +422,3 @@ function back() {
         document.getElementById("confirm").style.display = "block";
     }
 }
-
-//Opening account registration popup
-function openAcctReg() {
-    //$("#serverErrorMsg").hide();
-    document.getElementById("logoutDiv").style.visibility = "hidden";
-        $('#loginUrl').val('');
-    $('#userId').val('');
-    $('#passwd').val('');
-        $('#unitspan').html('');
-    $('#userspan').html('');
-    $('#paswdspan').html('');
-    var id = '#dialogAcctReg';
-    // transition effect
-    $('#modalAcctReg').fadeIn(1000);
-    // Get the window height and width
-    var winH = $(window).height();
-    var winW = $(window).width();
-    // Set the popup window to center
-    $(id).css('top', winH / 2 - $(id).height() / 2);
-    $(id).css('left', winW / 2 - $(id).width() / 2);
-}
-
