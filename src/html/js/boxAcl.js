@@ -393,6 +393,9 @@ boxAcl.prototype.getAclList = function(accessor, objJDavCollection) {
 					
 				}
 				for (var aceCount = 0; aceCount <ace.length; aceCount++) {
+                    if ($(ace[aceCount]).find("inherited").size() > 0) {
+                        continue;
+                    }
 					/*if (ace[aceCount].firstElementChild != null && ace[aceCount].firstElementChild.childNodes[1].firstChild != null) {
 						roleName = ace[aceCount].firstElementChild.childNodes[1].firstChild.data;
 						grant = ace[aceCount].lastElementChild;
@@ -422,8 +425,8 @@ boxAcl.prototype.getAclList = function(accessor, objJDavCollection) {
 						}
 					}
 					for (var prvNodeCount =0; prvNodeCount <privilegeNodeList.length-1; prvNodeCount = prvNodeCount+2) {
-							privilege = privilegeNodeList[prvNodeCount+1].firstElementChild.localName;
-							prevList += privilege + ", ";
+                        privilege = privilegeNodeList[prvNodeCount+1].firstElementChild.localName;
+                        prevList += privilege + ", ";
 							/*rolePrivilegePair = {"role" : roleName,"privilege" : privilege};
 							privilegeList.push(rolePrivilegePair);*/
 					}
