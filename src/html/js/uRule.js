@@ -1071,7 +1071,7 @@ function validateTargetUrl(editFlg) {
 					return false;
 				}
 				let targetSplit = targetUrl.split("/");
-				if (targetSplit.length !== 2) {
+				if (targetSplit.length < 2) {
 					document.getElementById("popupTargetUrlErrorMsg"+editId).innerHTML = getUiProps().MSG0427;
 					return false;
 				}
@@ -1082,7 +1082,7 @@ function validateTargetUrl(editFlg) {
 					return false;
 				}
 				let targetSplit = targetUrl.split("/");
-				if (targetSplit.length !== 3) {
+				if (targetSplit.length < 3) {
 					document.getElementById("popupTargetUrlErrorMsg"+editId).innerHTML = getUiProps().MSG0428;
 					return false;
 				}
