@@ -298,7 +298,7 @@ registerFileAsService.prototype.getEngineSubject = function() {
 	var response = restAdapter.propfind(path);
 	var xmlContent = response.httpClient.responseText;
 	try {
-		return xmlContent.match(/subject=\"(.+?)\"/)[1];
+		return xmlContent.match(/subject=\"([^\"]+?)\"/)[1];
 	} catch (e) {
 		return "";
 	}
