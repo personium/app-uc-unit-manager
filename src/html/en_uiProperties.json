@@ -433,7 +433,7 @@
 "MSG0428":"{box name}/{collection name}/{service name}",
 "MSG0429":"Special characters such as control codes can not be used.",
 "MSG0430": "External Role edited successfully!",
-"MSG0431": "personium-localunit://{CellName}/",
+"MSG0431": "personium-localunit:/{CellName}/",
 "MSG0432": "personium-localcell:/",
 "MSG0433": "Numeric only string",
 "MSG0434": "The cell does not exist.",

@@ -433,7 +433,7 @@
 "MSG0428":"ボックス名/コレクション名/サービス名",
 "MSG0429":"制御コード等の特殊な文字は使用出来ません。",
 "MSG0430": "外部ロールは正常に変更されました!",
-"MSG0431": "personium-localunit://{Cell名}/",
+"MSG0431": "personium-localunit:/{Cell名}/",
 "MSG0432": "personium-localcell:/",
 "MSG0433": "数字のみを入力して下さい。",
 "MSG0434": "セルが存在しません。",
