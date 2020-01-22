@@ -1660,10 +1660,10 @@ odata.prototype.uploadFile = function (fileData) {
     	var pluginPath = objOdata.getPath();
         flag = true;
         var objJserviceCollection = new _pc.ServiceCollection(accessor, pluginPath);
-        response = objJserviceCollection.put(objOdata.fileName, objOdata.contentType, fileData, "*");
+        response = objJserviceCollection.put(objOdata.fileName, objOdata.contentType, fileData, null);
     } else {
         var objJDavCollection = new _pc.DavCollection(accessor, path);
-        response = objJDavCollection.put(objOdata.fileName, objOdata.contentType, fileData, "*");
+        response = objJDavCollection.put(objOdata.fileName, objOdata.contentType, fileData, null);
         if (response.getBody() != undefined) {
         	response = response.getBody();
         }
