@@ -337,33 +337,34 @@ login.getCellInfo = function(jsonData) {
 }
 
 login.openManagerWindow = function(managerInfo) {
-    let appUnitFQDN = 'demo.personium.io';
-    let managerUrl = '';
-    $.ajax({
-        type: "GET",
-        url: "https://" + appUnitFQDN + "/",
-        headers: {
-            'Accept': 'application/json'
-        },
-        success: function(unitObj, status, xhr) {
-            let ver = xhr.getResponseHeader("x-personium-version");
-            if (ver < "1.7.1" || unitObj.unit.path_based_cellurl_enabled) {
-                managerUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/';
-            } else {
-                managerUrl = 'https://app-uc-unit-manager.'+appUnitFQDN+'/';
-            }
-            login.checkLoginUrl(managerInfo, managerUrl);
-        },
-        error: function(res) {
-            console.log(res.status);
-            managerUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/';
-            login.checkLoginUrl(managerInfo, managerUrl);
-        }
-    })
+    // let appUnitFQDN = 'demo.personium.io';
+    // let managerUrl = '';
+    // $.ajax({
+    //     type: "GET",
+    //     url: "https://" + appUnitFQDN + "/",
+    //     headers: {
+    //         'Accept': 'application/json'
+    //     },
+    //     success: function(unitObj, status, xhr) {
+    //         let ver = xhr.getResponseHeader("x-personium-version");
+    //         if (ver < "1.7.1" || unitObj.unit.path_based_cellurl_enabled) {
+    //             managerUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/';
+    //         } else {
+    //             managerUrl = 'https://app-uc-unit-manager.'+appUnitFQDN+'/';
+    //         }
+    //         login.checkLoginUrl(managerInfo, managerUrl);
+    //     },
+    //     error: function(res) {
+    //         console.log(res.status);
+    //         managerUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/';
+    //         login.checkLoginUrl(managerInfo, managerUrl);
+    //     }
+    // })
+    login.checkLoginUrl(managerInfo, '/');
 }
 
 login.checkLoginUrl = function(managerInfo, managerUrl) {
-    let launchUrl = managerUrl + '__/html';
+    let launchUrl = managerUrl + 'app-uc-unit-manager/html';
     var cellUrl = $("#loginUrl").val();
     $.ajax({
         type: "GET",
