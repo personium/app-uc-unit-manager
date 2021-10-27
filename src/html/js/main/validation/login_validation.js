@@ -26,14 +26,12 @@ function validateForm() {
 		return false;
         } else if (document.login.userId.value == "") {
 		document.getElementById("unitspan").style.display = "none";
-		document.getElementById("unitcellspan").style.display = "none";
 		document.getElementById("userspan").style.display = "block";
 		document.getElementById("userspan").innerHTML = "Please enter username";
 		document.login.userId.focus();
 		return false;
 	} else if (document.login.passwd.value == "") {
 		document.getElementById("unitspan").style.display = "none";
-		document.getElementById("unitcellspan").style.display = "none";
 		document.getElementById("userspan").style.display = "none";
 		document.getElementById("paswdspan").style.display = "block";
 		document.getElementById("paswdspan").innerHTML = "Please enter password";
