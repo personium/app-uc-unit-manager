@@ -111,6 +111,10 @@ body{background:#fff!important;width:100%;height:auto;font-family:Tahoma}
 .dtUnitUrl {
 	margin-top: 0px;
 }
+.dtLanguage {
+  margin-top: 18px;
+  height: 20px;
+}
 .dtUnitCellName {
 	margin-top: 10px;
 }

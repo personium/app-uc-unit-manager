@@ -17,20 +17,20 @@
 function login_validation() {}
 var uLoginValidation = new login_validation();
 
-function validateForm() {
+function validateForm(ignoreCell, ignoreUser, ignorePass) {
     document.getElementById("logoutDiv").style.visibility = "hidden";
-    if (document.login.loginUrl.value == "") {
+    if (!ignoreCell && document.login.loginUrl.value == "") {
         document.getElementById("unitspan").style.display = "block";
         document.getElementById("unitspan").innerHTML = "Please enter loginUrl";
         document.login.loginUrl.focus();
         return false;
-    } else if (document.login.userId.value == "") {
+    } else if (!ignoreUser && document.login.userId.value == "") {
         document.getElementById("unitspan").style.display = "none";
         document.getElementById("userspan").style.display = "block";
         document.getElementById("userspan").innerHTML = "Please enter username";
         document.login.userId.focus();
         return false;
-    } else if (document.login.passwd.value == "") {
+    } else if (!ignorePass && document.login.passwd.value == "") {
         document.getElementById("unitspan").style.display = "none";
         document.getElementById("userspan").style.display = "none";
         document.getElementById("paswdspan").style.display = "block";
@@ -361,10 +361,10 @@ login_validation.prototype.postNewPassword = function (userName, newPassword) {
         url: "./AdministratorManagement",
         type: "POST",
         /*beforeSend: function (xhr) {
-			xhr.setRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-				xhr.setRequestHeader("Pragma", "no-cache");
-				xhr.setRequestHeader("Expires", 0);
-			},*/
+            xhr.setRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                xhr.setRequestHeader("Pragma", "no-cache");
+                xhr.setRequestHeader("Expires", 0);
+            },*/
         async: false,
         cache: false,
         success: function (jsonData) {
@@ -372,7 +372,7 @@ login_validation.prototype.postNewPassword = function (userName, newPassword) {
                 window.location.href = firstTimeUserContextRoot;
             } else if (jsonData["passwordUpdateStatus"] == true) {
                 /*uLoginValidation.displayNotificationMessage(
-						"PASSWORD_SETTINGS", "changePassAdminMgmntModal");*/
+                        "PASSWORD_SETTINGS", "changePassAdminMgmntModal");*/
                 window.location.href =
                     firstTimeUserContextRoot +
                     "/templates/" +
