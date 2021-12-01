@@ -349,7 +349,14 @@ login.getCellInfo = function(jsonData) {
 
 login.openManagerWindow = function(managerInfo) {
     let appUnitFQDN = UNIT_FQDN;
-    let managerUrl = '';
+    let launchUrl = '';
+
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf(' electron/') > -1) {
+        launchUrl = '.';
+        login.checkLoginUrl(managerInfo, launchUrl);
+        return;
+    }
     $.ajax({
         type: "GET",
         url: "https://" + appUnitFQDN + "/",
@@ -359,22 +366,21 @@ login.openManagerWindow = function(managerInfo) {
         success: function(unitObj, status, xhr) {
             let ver = xhr.getResponseHeader("x-personium-version");
             if (ver < "1.7.1" || unitObj.unit.path_based_cellurl_enabled) {
-                managerUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/';
+                launchUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/__/html';
             } else {
-                managerUrl = 'https://app-uc-unit-manager.'+appUnitFQDN+'/';
+                launchUrl = 'https://app-uc-unit-manager.'+appUnitFQDN+'/__/html';
             }
-            login.checkLoginUrl(managerInfo, managerUrl);
+            login.checkLoginUrl(managerInfo, launchUrl);
         },
         error: function(res) {
             console.log(res.status);
-            managerUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/';
-            login.checkLoginUrl(managerInfo, managerUrl);
+            launchUrl = 'https://'+appUnitFQDN+'/app-uc-unit-manager/__/html';
+            login.checkLoginUrl(managerInfo, launchUrl);
         }
     })
 }
 
-login.checkLoginUrl = function(managerInfo, managerUrl) {
-    let launchUrl = managerUrl + '__/html';
+login.checkLoginUrl = function(managerInfo, launchUrl) {
     var cellUrl = $("#loginUrl").val();
     $.ajax({
         type: "GET",
