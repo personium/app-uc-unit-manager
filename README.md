@@ -2,10 +2,6 @@
 Unit Manager is a GUI tool that helps manage Personium Cells on any Personium Unit.  
 
 ## Preparation  
-If you want to use our Unit Manager access the following URL.  
-
-    https://app-uc-unit-manager.appdev.personium.io/__/html/login.html
-
 If you want to have your own copy, 
 No installation or compilation, you only need to upload the modules to your web server.  
 For example, if you have constructed your own [1-server unit](https://github.com/personium/ansible/blob/master/1-server_unit/1-server_unit.jpg), you can upload the modules to your Nginx's server folder.  
