@@ -58,24 +58,32 @@ login.prototype.accessManager = function() {
     let arrParam = {};
     for (var i in params) {
         var param = params[i].split("=");
-        arrParam[param[0]] = param[1]; 
+        arrParam[param[0]] = decodeURIComponent(param[1]);
     }
     if (arrParam.refresh_token) {
         // Update the received token and try login
         var unitCellUrl = $("#loginUrl").val();
-        let refreshTokenCredential = {
-            grant_type: "refresh_token",
-            refresh_token: arrParam.refresh_token
-        };
-        login.refreshToken(unitCellUrl, refreshTokenCredential).done(function(jsonData){
-            login.getCellInfo(jsonData);
-        });
+        login.refreshToken(unitCellUrl, arrParam.refresh_token).done(login.getCellInfo);
     } else if (arrParam.id && arrParam.password) {
         // Try login with id, pass
         var cellUrl = $("#loginUrl").val();
         $("#userId").val(arrParam.id);
         $("#passwd").val(arrParam.password);
-        login.determineManagerType(cellUrl);
+        let cellTokenCredential = {
+            grant_type: "password",
+            username: arrParam.id,
+            password: arrParam.password,
+        };
+        login.determineManagerType(cellUrl, cellTokenCredential);
+    } else if (arrParam.state && arrParam.id_token) {
+        // Try login with id_token
+        var cellUrl = decodeURIComponent(arrParam.state);
+        $("#loginUrl").val(cellUrl);
+        let cellTokenCredential = {
+            grant_type: arrParam.grant_type,
+            id_token: arrParam.id_token,
+        };
+        login.determineManagerType(cellUrl, cellTokenCredential);
     } else {
         // Manual Login
         $('body > div.mySpinner').hide();
@@ -131,6 +139,11 @@ login.prototype.getEnvDetail = function() {
         $('body > div.mySpinner').show();
         $('body > div.myHiddenDiv').hide();
         var unitCellUrl = $("#loginUrl").val();
+        let cellTokenCredential = {
+            grant_type: "password",
+            username: $("#userId").val(),
+            password: $("#passwd").val()
+        };
         $.ajax({
             type: "GET",
             url: unitCellUrl,
@@ -138,11 +151,11 @@ login.prototype.getEnvDetail = function() {
                 'Accept':'application/json'
             },
             success : function(res) {
-                login.determineManagerType(unitCellUrl);
+                login.determineManagerType(unitCellUrl, cellTokenCredential);
             },
             error : function(res) {
                 if (res.status == "200" || res.status == "412") {
-                    login.determineManagerType(unitCellUrl);
+                    login.determineManagerType(unitCellUrl, cellTokenCredential);
                 } else {
                     $('body > div.mySpinner').hide();
                     $('body > div.myHiddenDiv').show();
@@ -180,12 +193,7 @@ login.prototype.getName = function (path) {
     return name;
 };
 
-login.determineManagerType = function(unitCellUrl) {
-    let cellTokenCredential = {
-        grant_type: "password",
-        username: $("#userId").val(),
-        password: $("#passwd").val()
-    };
+login.determineManagerType = function(unitCellUrl, cellTokenCredential) {
     login.getCell(unitCellUrl).done(function(cellObj, status, xhr) {
         let ver = xhr.getResponseHeader("x-personium-version");
         if (ver >= "1.7.1") {
@@ -238,11 +246,14 @@ login.getToken = function(unitCellUrl, loginInfo) {
     });
 }
 
-login.refreshToken = function(cellUrl, refreshInfo) {
+login.refreshToken = function(cellUrl, refreshToken) {
     return $.ajax({
         dataType: 'json',
         url : cellUrl + '__token', //+ tokenUrl
-        data : refreshInfo,
+        data : {
+            grant_type: "refresh_token",
+            refresh_token: refreshToken
+        },
         headers: {
             'Accept': 'application/json',
             'content-type': 'application/x-www-form-urlencoded'
@@ -337,7 +348,7 @@ login.getCellInfo = function(jsonData) {
 }
 
 login.openManagerWindow = function(managerInfo) {
-    let appUnitFQDN = 'demo.personium.io';
+    let appUnitFQDN = UNIT_FQDN;
     let managerUrl = '';
     $.ajax({
         type: "GET",

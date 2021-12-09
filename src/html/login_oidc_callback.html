@@ -1,0 +1,15 @@
+<html>
+<head>
+<script type="text/javascript">
+    const defaultGrantType = "urn:x-personium:oidc:google";
+    const query = new URLSearchParams(location.search);
+    const grantType = query.get('grant_type');
+    if (grantType) query.delete("grant_type");
+
+    // append grant_type to hash parameter
+    const newHash = ( location.hash ? location.hash + '&' : '#') + "grant_type=" + encodeURIComponent(grantType || defaultGrantType);
+    const newQuery = ( query.toString() ? '&' + query.toString() : '');
+    location.href = location.origin + "/__/html/login.html" + newQuery + newHash;
+</script>
+</head>
+</html>

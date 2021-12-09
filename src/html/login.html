@@ -6,6 +6,10 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <title>Personium Unit Manager</title>
+<script type="text/javascript">
+    /* Constants for this application. */
+    const UNIT_FQDN="";
+</script>
 <script type="text/javascript"
     src="./js/main/validation/login_validation.js"></script>
 <script type="text/javascript"
@@ -28,6 +32,32 @@ $(document).ready(function(){
     uLogin.renderLoginFields();
 });
 
+// Start OIDC Auth handler
+function startOIDCAuth() {
+    /* Constants for OIDC */
+    const OIDC_AUTH_ENDPOINT = '';
+    const OIDC_CLIENT_ID = '';
+    const OIDC_REDIRECT_URI = location.origin + "/__/html/login_oidc_callback.html";
+    const OIDC_SCOPE = "";
+    const OIDC_NONCE = "";
+
+    document.getElementById("logoutDiv").style.visibility = "hidden";
+    if (validateForm(false, true, true)) {
+        var unitCellUrl = $('#loginUrl').val();
+        var nextUrl = [
+            OIDC_AUTH_ENDPOINT,
+            '?response_type=id_token',
+            '&client_id=' + OIDC_CLIENT_ID,
+            '&redirect_uri=' + encodeURIComponent(OIDC_REDIRECT_URI),
+            '&state=' + encodeURIComponent(unitCellUrl),
+            '&scope=' + encodeURIComponent(OIDC_SCOPE),
+            '&nonce=' + encodeURIComponent(OIDC_NONCE)
+        ].join("");
+        console.log(nextUrl);
+        location.href = nextUrl;
+    }
+    return false;
+}
 
 
 //Validating field values
@@ -97,7 +127,7 @@ $(function() {
     <div class="myHiddenDiv" id="loginContainer" style="min-width: 530px">
         <!-- Login Content Starts -->
         <div id="loginContentWrapper">
-                <div class="dvloginSection" id = "dvloginSection">
+                <div class="dvloginSection" id="dvloginSection" style="display: flex; flex-direction: column; justify-content: center;">
                 <div class="newLoginHeading">
                 <!-- //<label class="fjLogo" id="logoContainer">Fujitsu Cloud PaaS Persona Container</label> -->
 <!--                <img alt="" src="./images/login_logo.png"> -->
@@ -110,7 +140,7 @@ $(function() {
                     </br>
                     <label style="display: table;margin: 0 auto;margin-top: -14px">of Google Chrome.</label>
                     </div>
-                    <form name="login" id="loginForm" style="margin-left: 106px;">
+                    <form name="login" id="loginForm" style="margin-left: 106px;" onsubmit="function (e) {e.preventDefault(); return false;}">
                         <div style="visibility: visible; height: 15px;margin-top: 5px;" id="logoutDiv">
                             <label id="logoutMsg" class="logoutMessage"></label>
                         </div>
@@ -139,17 +169,23 @@ $(function() {
                                     </span>
                                 <div class="clearBoth"></div>
                             </dt>
-                            <dt style="margin-top: 18px;height: 20px;">
-                            <select id="ddLanguageSelector" name="ddLanguageSelector" class="dropDownBig" onclick="" style="float: left;margin-top: -17px;margin-right: 10px;padding-bottom: 2px;margin-left: 80px;height: 30px;width: 150px;">
-
-                        <option value="en">English(en)</option>
-<!--                        <option value="ja">Japanese(ja)</option> -->
-                    </select>
+                            <dt class="dtLanguage">
+                                <select id="ddLanguageSelector" name="ddLanguageSelector" class="dropDownBig" onclick="" style="float: left;margin-top: -17px;margin-right: 10px;padding-bottom: 2px;margin-left: 80px;height: 30px;width: 150px;">
+                                    <option value="en">English(en)</option>
+                                    <!-- <option value="ja">Japanese(ja)</option> -->
+                                </select>
                             </dt>
                             <dt class="dtLoginBtn">
                                 <span class="loginArrow"><input type="submit" value="Sign In"
                                     value="" class="loginButton"
                                     onclick="return uLogin.getEnvDetail();"/></span>
+                            </dt>
+                            <dt class="dtLoginBtn">
+                                <span class="loginArrow">
+                                    <input type="submit" value="Sign in with Google"
+                                        value="" class="loginButton"
+                                        onclick="return startOIDCAuth();"/>
+                                </span>
                             </dt>
                         </dl>
                     </form>
