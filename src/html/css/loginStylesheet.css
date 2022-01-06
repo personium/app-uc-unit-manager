@@ -20,15 +20,6 @@ body{background:#fff!important;width:100%;height:auto;font-family:Tahoma}
 	outline: 0;
 	border: 1px solid #e1e1e1;
 } */
-@font-face{
-	font-family: "Fujitsu Sans";
-	src: url("../font/FujitsuSansRegular.ttf");
-}
-
-@font-face{
-	font-family: "IE Fujitsu Sans";
-	src: url("../font/FujitsuSansRegular.eot");
-}
 
 /**** Common css starts here ****/
 .clearBoth{clear:both}

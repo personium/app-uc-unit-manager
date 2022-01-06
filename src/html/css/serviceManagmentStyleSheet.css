@@ -113,11 +113,6 @@ progress {
 
 /** Service Management Header - Start */
 
-@font-face{
-	font-family: "Fujitsu Sans";
-	src: url("../font/FujitsuSansRegular.ttf");
-}
-
 .topHeader{
 	width:100%;
 	min-width:1280px;
@@ -129,7 +124,6 @@ progress {
 	float:left;
 	min-width:285px;
 	margin-top:12.5px;
-	font-family:Fujitsu Sans;
 	font-size:14pt;
 	color:#1b1b1b;
 	margin-left:20px;
