@@ -332,8 +332,6 @@ Common CSS for both resolutions starts here
 
 /**** Header starts here ****/
 .headerContainer{width:95%;padding:0 2.5%}
-.personaLogo{background:url(../images/persona_logo.gif) no-repeat top left;color:#4d5257;float:left;margin:25px 0;width:271px;height:20px;text-indent:-2000px}
-.fujitsuLogo{float:right;background:url(../images/fujitsu_logo.gif) no-repeat top right;text-indent:-2000px;width:80px;height:41px;margin:20px 0}
 /**** Header ends here ****/
 
 /******************************************************

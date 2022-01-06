@@ -32,8 +32,6 @@ body{background:#fff!important;width:100%;height:auto;font-family:Tahoma}
 #loginContainer{margin:0 auto;width:100%;overflow:hidden}
 .topBar{background:url(../newImages/top_header.gif) repeat-x;text-indent:-1000px;height:5px;width:100%}
 .headerContainer{width:95%;padding:0 2.5%}
-.personaLogo{background:url(../newImages/persona_logo.gif) no-repeat top left;color:#4d5257;float:left;margin:25px 0;width:271px;height:20px;text-indent:-2000px}
-.fujitsuLogo{float:right;background:url(../newImages/fujitsu_logo.gif) no-repeat top right;text-indent:-2000px;width:80px;height:41px;margin:20px 0}
 #loginContainer #loginContentWrapper{margin:0 auto;clear:both;min-height: 385px}
 #loginContainer #loginContentWrapper .loginWrapperBkContainer{display:block;width:100%;height:auto;position:absolute;margin:0 auto}
 #loginContainer #loginContentWrapper .loginWrapperBk{display:block;width:100%;height:auto;z-index:-1;position:absolute;margin:0 auto}
