@@ -245,18 +245,17 @@ body{background:#fff!important;width:100%;height:auto;font-family:Tahoma}
 	font-size: 10pt; 
 	color: #717171;
 }
-.fjLogo {
-	font-family: "Fujitsu Sans", Fallback, Tahoma;
+.loginLogo {
+	font-family: Fallback, Tahoma;
 	font-size: 15pt;
 	color: #313131;
 }
-
-.fjLogoIE {
-	font-family: "IE Fujitsu Sans", Fallback, Tahoma;
+.loginLogoIE {
+	font-family: Fallback, Tahoma;
 	font-size: 1.2em;
 	color: #313131;
 }
-.fjIcon {
+.loginIcon {
 	width: 78px;
 	margin: 17px 0px 0px 26px;
 	height: 38px;
