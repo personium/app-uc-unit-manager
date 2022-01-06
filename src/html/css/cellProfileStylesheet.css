@@ -2448,12 +2448,6 @@ div.modal-window {
     font-size: 10px;
     color: #696969;
 }
-.topHeader .rightSection .fujitsuIcon{
-    background:url(../images/logo.png) no-repeat;
-    height: 40px;
-    width: 62px;
-    margin-right:20px;
-}
 .checkBoxPopup {
     margin: 0 7px 0 5px
 }

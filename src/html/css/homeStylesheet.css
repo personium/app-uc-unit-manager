@@ -201,10 +201,6 @@ progress {
 	float:left;
 }
 
-.topHeader .rightSection .fujitsuIcon{
-	float:right;
-}
-
 .topHeader .rightSection .headerButtons .documentation{
 	float:left;
 	background: #d9d9d9;
@@ -343,13 +339,6 @@ progress {
 .logout:hover{
 	background: #fff1f1;
 	border:1px solid #f6cdcd;
-}
-
-.topHeader .rightSection .fujitsuIcon{
-	background:url(../images/logo.png) no-repeat;
-	height: 40px;
-	width: 62px;
-	margin-right:50px;
 }
 
 /** Service Management Header - End */
