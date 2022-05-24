@@ -351,12 +351,19 @@ login.openManagerWindow = function(managerInfo) {
     let appUnitFQDN = UNIT_FQDN;
     let launchUrl = '';
 
-    const userAgent = navigator.userAgent.toLowerCase();
-    if (userAgent.indexOf(' electron/') > -1) {
-        launchUrl = '.';
-        login.checkLoginUrl(managerInfo, launchUrl);
-        return;
+    const isTauri = location.href.startsWith('https://tauri.localhost/');
+
+    const isElectron = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      return userAgent.indexOf(' electron/') > -1;
+    };
+  
+    if (isElectron || isTauri) {
+      launchUrl = '.';
+      login.checkLoginUrl(managerInfo, launchUrl);
+      return;
     }
+
     $.ajax({
         type: "GET",
         url: "https://" + appUnitFQDN + "/",
