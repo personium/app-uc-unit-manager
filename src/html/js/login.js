@@ -351,7 +351,7 @@ login.openManagerWindow = function(managerInfo) {
     let appUnitFQDN = UNIT_FQDN;
     let launchUrl = '';
 
-    const isTauri = location.href.startsWith('https://tauri.localhost/');
+    const isTauri = location.hostname === 'tauri.localhost';
 
     const isElectron = () => {
       const userAgent = navigator.userAgent.toLowerCase();
@@ -362,6 +362,12 @@ login.openManagerWindow = function(managerInfo) {
       launchUrl = '.';
       login.checkLoginUrl(managerInfo, launchUrl);
       return;
+    }
+
+    const isGitHubPages = location.hostname.endsWith('github.io');
+
+    if (isGitHubPages) {
+      launchUrl = 'app-uc-unit-manager/html';
     }
 
     $.ajax({
