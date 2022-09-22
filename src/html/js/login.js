@@ -351,12 +351,25 @@ login.openManagerWindow = function(managerInfo) {
     let appUnitFQDN = UNIT_FQDN;
     let launchUrl = '';
 
-    const userAgent = navigator.userAgent.toLowerCase();
-    if (userAgent.indexOf(' electron/') > -1) {
-        launchUrl = '.';
-        login.checkLoginUrl(managerInfo, launchUrl);
-        return;
+    const isTauri = location.hostname === 'tauri.localhost';
+
+    const isElectron = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      return userAgent.indexOf(' electron/') > -1;
+    };
+  
+    if (isElectron || isTauri) {
+      launchUrl = '.';
+      login.checkLoginUrl(managerInfo, launchUrl);
+      return;
     }
+
+    const isGitHubPages = location.hostname.endsWith('github.io');
+
+    if (isGitHubPages) {
+      launchUrl = 'app-uc-unit-manager/html';
+    }
+
     $.ajax({
         type: "GET",
         url: "https://" + appUnitFQDN + "/",
