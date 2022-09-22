@@ -170,11 +170,6 @@ progress {
 
 /** Service Management Header - Start */
 
-@font-face{
-	font-family: "Fujitsu Sans";
-	src: url("../font/FujitsuSansRegular.ttf");
-}
-
 .topHeader{
 	width:100%;
 	min-width:1280px;
@@ -187,7 +182,6 @@ progress {
 	min-width:285px;
 	/* margin-top:12.5px; */
 	margin-top:33.5px; 
-	font-family:Fujitsu Sans;
 	font-size:14pt;
 	color:#1b1b1b;
 	margin-left:20px;
@@ -199,10 +193,6 @@ progress {
 
 .topHeader .rightSection .headerButtons{
 	float:left;
-}
-
-.topHeader .rightSection .fujitsuIcon{
-	float:right;
 }
 
 .topHeader .rightSection .headerButtons .documentation{
@@ -343,13 +333,6 @@ progress {
 .logout:hover{
 	background: #fff1f1;
 	border:1px solid #f6cdcd;
-}
-
-.topHeader .rightSection .fujitsuIcon{
-	background:url(../images/logo.png) no-repeat;
-	height: 40px;
-	width: 62px;
-	margin-right:50px;
 }
 
 /** Service Management Header - End */

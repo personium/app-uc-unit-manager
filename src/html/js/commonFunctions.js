@@ -840,8 +840,8 @@ function displayIncompatibleMessage() {
  * The purpose of this function is to set styling on IE.
  */
 function setIEStyling() {
-	$("#logoContainer").removeClass("fjLogo");
-	$("#logoContainer").addClass("fjLogoIE");
+	$("#logoContainer").removeClass("loginLogo");
+	$("#logoContainer").addClass("loginLogoIE");
 	$("#incompatibleBrowseMsg").css("font-size", "0.8em");
 	$("#fullLoginFooter").css("font-size", "0.76em");
 }
