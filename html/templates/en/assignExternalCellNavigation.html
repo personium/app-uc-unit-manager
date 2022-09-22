@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<div>
+	<div style="height: 30px;">
+		<div class="assignBackWrapper" style="display: inline-block;">
+			<div class="assignBackIcon" onclick="objCommon.clickAssignBackButton();"></div>
+			<div class="divAssignEllipsis" id="divAssignRoleName">
+				<label id="assignExtCellName" class="backBtnTxt"></label>
+			</div>
+			<div class="divEditIcon">
+				<input id="iconEditExternalCell" type="button" class="editIconEnabled" onclick="openCreateEntityModal('#externalCellEditModalWindow','#externalCellEditDialogBox', 'txtEditExternalCellName');" tabindex="-1" title="Edit">
+			</div>
+			<label id="assignExtCellURlName" style="display: none;"></label>
+		</div>
+	</div>
+
+	<div class="assignEntities">
+		<ul>
+			<li id="assignExtCellToRole" class="assignNavigation selected" onclick="clickExtCellToRoleMappingPage();"><label>Assign Role</label></li>
+			<li id="assignExtCellToRelation" class="assignNavigation" onclick="clickExtCellToRelationMappingPage();"><label>Assign Relation</label></li>
+			<li id="assignExtCellInfo" class="assignNavigation" onclick="uMainNavigation.openExternalCellInfo();"><label>Info</label></li>
+		</ul>
+	</div>
+
+	<div id="extCellTabLinkDiV"></div>
+	<div style="display: none;" id="dvemptyAssignTableMessage" class="emptyTableMessage externalCellEmptyTableMessageWidth"></div>
+	<!-- ExternalCell EDIT Pop Up Start -->
+	<div id="externalCellEditModalWindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 262px; width: 474px; background: #ffffff"
+			id="externalCellEditDialogBox">
+			<div style="height: 300px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon"
+						onclick="objExtCell.closeEditPopUpWindow();" tabindex="6" title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label class="AccessTokenHeading">Edit ExternalCell</label>
+					<section class="sectionContent"
+						style="height: 100px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+						<div class= 'popUpEditExternalCellContent'>
+							<table>
+								<tr>				
+									<td style="width: 336px; display: none" id="rowEditCellURL">
+										<div style="margin-bottom: 10px;">
+											<label class="lblElement">Cell URL</label>
+										</div>
+										<div>
+											<input type="text" class="bigTextBox propertyPopUpTextBox"
+												id="txtEditUrl" tabindex="4"> <span class="spanPopupErrorMessageCommon">
+												<aside class="asidePopupErrorMessageCommon"
+													id="externalCellURLEditErrorMessage"></aside>
+											</span>
+										</div>
+									</td>
+								</tr>
+							</table>
+							</div>
+						</form>
+					</section>
+			<!-- Button Section Starts -->
+			<section style="margin-top: 32px" class="positionButtons">
+				<div id="dvEdit" class="dvCreate">
+					<input onclick="objExtCell.changeExternalCell();" type="button" class="btnClose"
+						value="Edit" tabindex="5">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id="btnCancel"
+						onclick="objExtCell.closeEditPopUpWindow();"
+						class="cancelBtn" value="Cancel" tabindex="4">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ExternalCell EDIT Pop Up End -->
+</div>

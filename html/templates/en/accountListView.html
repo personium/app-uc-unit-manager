@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<script type="text/javascript" src="./js/uCell.js"></script>
+<script type="text/javascript" src="./js/uAccount.js"></script>
+</head>
+<body>
+<div class="boxOperationSection">
+		<div class="leftSubHeading">
+			<div class="divList">
+				<label class="lblList">Account List</label>
+			</div>
+
+			<div id="createEntityWrapper" class="createAccountWrapper" onclick="objAccount.openPopUpWindow('#createAccDialog','#createAccModal');">
+				<div id="createIcon" class="createIcon"></div>
+				<div id="createText" class="createText">Create Account</div>
+			</div>
+
+			
+
+			<div class="divDeleteIcon">
+				<input type="button" class="deleteIconDisabled" id="btnDeleteAccount" onclick="objAccount.openPopUpWindow('#multipleDeleteDialogBox','#multipleDeleteModalWindow');" tabindex="-1" title="Delete">
+			</div>
+		</div>
+		<div id="accountMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="accountMessageIcon">&nbsp;</span>
+				<div id="accountSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		<div class="rightSubHeading">
+			<div class="sortWrapper">
+				<label class="sortText">Sort by Date</label>
+				<div class="downArrow"></div>
+			</div>
+			<div class="paginationWrapper">
+				<div class="recordCount" id="recordCount_Account"></div>
+				<div class="paginationIcons">
+					<div class="leftPagination">
+						<div class="firstPageDisabled" id="firstPage_Account" title="First"></div>
+						<div class="prevPageDisabled" id="prevPage_Account" title="Previous"></div>
+					</div>
+					<div class="rightPagination">
+						<div class="nextPageDisabled" id="nextPage_Account" title="Next"></div>
+						<div class="lastPageDisabled" id="lastPage_Account" title="Last"></div>
+					</div>
+					<div class="rightPagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ACCOUNT TABLE DIV -->
+	<div id="accountTableDiv">
+		<form name='fAccountTable'>
+			<table id='mainAccountTable' cellpadding='0' cellspacing='0' border='0'
+				class='mainTable'>
+				<thead>
+					<tr>
+						<th class='col1'><input type='checkbox'  id='chkSelectall' onclick='objAccount.checkAllAccountGrid(this)' class='checkBox cursorHand regular-checkbox big-checkbox'/><label id="labelSelectAllAccount" for="chkSelectall" class="checkBoxLabel"></label></th>
+						<th class='col2'>Name</th>
+						<th class='col3'>Account Type</th>
+						<th class='col4'>Created</th>
+						<th class='col5'>Updated</th>
+						<th class='col6'>Role</th>
+					</tr>
+				</thead>
+				<tbody id='entityGridTbody' class="entityGridTbody"></tbody>
+			</table>
+		</form>
+	</div>
+	
+	<!-- Create Account Popup: start -->
+	<div id="createAccModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 380px; width: 706px; background: #ffffff"
+			id="createAccDialog">
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeCreateAccount();" tabindex="8" title="Close"></div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Create Account</label>
+			</div>
+			<div class= 'popUpCreateAccountContent'>
+				<table cellpadding='0' cellspacing='0' border='0' class="popupcreatePropertyTable">
+					<tr>
+						<td style="width: 336px">
+							<div style="margin-bottom: 10px;">
+								<label class="lblElement">* Name</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox" id="txtAccountName" tabindex="1"> 
+								<span class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"	id="popupAccErrorMsg"></aside>
+								</span>
+							</div>
+						</td>
+						<td>
+							<div style="margin-bottom: 10px;">
+								<input type='checkbox' id='checkBoxAccountCreate' onclick='objCommon.clickAssignChkBoxCreatePopup("checkBoxAccountCreate", "dropDownAcntCreate", true, "selectRoleDropDownError");'
+									class='checkBox cursorHand regular-checkbox big-checkbox' tabindex="4" style="display: inline-block;opacity: 0;" onfocus="checkboxFocusOnAccount();" onblur="checkboxBlurOnAccount();"/>
+								<label	for="checkBoxAccountCreate" class="checkBoxLabel" style="margin-left: -17px" id = "lblAssignCreateRole"></label>
+								<label class="lblElement" style="vertical-align: text-top;margin-left: 10px;display: inline-block;margin-top: 2px;">Assign Role</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 336px">
+							<div style="margin-bottom: 10px;">
+								<label class="lblElement">* Password</label>
+							</div>
+							<div>
+								<input type="password" class="bigTextBox propertyPopUpTextBox"	id="txtPassword" autocomplete="off" tabindex="2">
+								<span	class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon" id="pasdError"></aside>
+								</span>
+							</div>
+						</td>
+						<td >
+							<div style="margin-bottom: 10px;margin-top: -60px;">
+								<label class="lblElement">Role</label>
+							</div>
+							<div>
+								<div class="customSelectIconAssociation"
+									style="background-position-x: 106.5%">
+									<select name="" id="dropDownAcntCreate" class="selectMenuPopup" disabled="disabled" tabindex="5">
+									<option>Select Role (Box)</option>
+									</select>
+								</div>
+								<span class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon" id="selectRoleDropDownError"></aside>
+								</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 336px">
+							<div style="margin-bottom: 10px;">
+								<label class="lblElement">* Retype Password</label>
+							</div>
+							<div>
+								<input type="password" class="bigTextBox propertyPopUpTextBox"
+									id="txtRePassword" autocomplete="off" tabindex="3"> <span
+									class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon" id="rPasdError"></aside>
+								</span>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- Button Section Starts -->
+			<section class="positionButtons">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button" id="" class="btnClose"
+						onclick="accountNewCreate();" value="Create" tabindex="7">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id="" onclick="closeCreateAccount()"
+						class="cancelBtn" value="Cancel" tabindex="6">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+<!-- Create Account Popup:END -->
+
+	<!-- Account Multiple Delete Pop Up Start-->
+	<div id="multipleDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="multipleDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a title="Close" id="modalbox-close"
+						class="popupCloseIcon"
+						onclick="closeEntityModal('#multipleDeleteModalWindow');" tabindex="3" title="Close"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="">
+					<label class="sessionExpiredPopUpHeading" id="lblHeadingCollection">Delete
+						Account(s)</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>Do you want to delete selected account(s) ? </label>
+			</div>
+			<div class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#multipleDeleteModalWindow');" tabindex="1" id="btnCancelAccountDelete">
+				<input type="button" id="" class="btnClose"
+					onclick="deleteMultipleAccounts();" value="Delete" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- Account Multiple Delete Pop Up End -->
+	<!-- Account conflict message  Pop Up Start-->
+	<div id="conflictModalwindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 200px; width: 375px; background: #ffffff"
+			id="conflictDialogBox">
+			<div class="popupWrapper" id="deleteAccountpopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeDeleteAccount();">Close</a>
+				<header class="popupHeader">Conflicted Account Names</header>
+				<div class="popupContent">
+					<section class="popupInnerContent conflict">
+						<aside class="conflictAccount" id="conflictAccount"></aside>
+					</section>
+					<section class="bottomBtn">
+						<input type="button" value="Ok" onclick="closeDeleteAccount();"
+							class="normalButtonGrey" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Account conflict message Pop Up End -->
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerAcct" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"></div>
+		</div>
+	</div>
+	<!-- Spinner code - End -->
+</body>
+</html>

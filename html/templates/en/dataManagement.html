@@ -1,0 +1,506 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache" >
+<meta http-equiv="Expires" content="-1">
+<script type="text/javascript" src="./js/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="./js/odataQuery.js"></script>
+</head>
+<body onload="prettyPrint();">
+	<div class="entityTypeList" id="entityTypeList">
+			<div class="entityTypeHeader">
+				<div class="entityTypeTxt">Entity Type</div>
+				<input type="button" class="refreshIcon disableRefreshEntityType" onclick="uEntityTypeOperations.refreshEntityTypeList();" title="Refresh" id="entityTypeRefreshBtn"/>
+			</div>
+			<div style="display: none;" id="dvemptyTableMessageOdata" class="emptyTableMessageForEType">
+				<div >No Entity Type created yet.</div><div class="createETypeLink" 
+				onclick="openCreateEntityModal('#createETypeModal','#createETypeDialog', 'txtETypeName');">Create Entity Type</div>
+			</div>
+			<table class="entityTypeBody" id="entityTypeBody" cellpadding='0' cellspacing='0' border='0'>
+				<tbody id="entityTypeTbody" class="entityGridTbody"></tbody>
+			</table>
+	</div>
+	<div class="odataRightView" id="odataRightView">
+		<div class="entityTypeInfo">
+			<div class="entityTypeName mainTableEllipsis" id="entityTypeName"></div>
+			<div class="entityTypeURL mainTableEllipsis" id="entityTypeURL"></div>
+		</div>
+		<div class="odataQueryWrapper">
+			<input type="text" class="txtBoxQuery" id="txtBoxQuery" tabindex="-1"/>
+			<input type="button" value="Go" class="btnGo" id="btnGo" tabindex="-1"/>
+		</div>
+		<div class="odataSubHeader">
+			<div class="odataSubHeaderLeft">
+				<div id="createOdataEntityWrapper" class="createOdataEntityWrapper" 
+					onclick="uDataManagement.openCreateEntityPopUp();">
+					<div id="createODataEntityIcon" class="createIcon"></div>
+					<div id="createODataEntityText" class="createText createOdataEntityTxt">Create Entity</div>
+				</div>
+				<div class="editIconWebDav" id="editOdata" onclick="uDataManagement.openEditEntityPopUp();" title="Edit"></div>
+				<div class="deleteIconWebDav" onclick="uDataManagement.openDeleteEntityPopUp();" id="deleteOdata" title="Delete"></div>
+			</div>
+			 <div class="odataSubHeaderCenter" id="errorMsgODataQuery" style="display: none;"></div> 
+			<div class="odataSubHeaderRight">
+				<div class="odataModeWrapper">
+					<div class="odataGridIconSelected" id="gridBtn" onclick="uDataManagement.clickGridTab();" title="Grid"></div>
+					<div class="odataRawIconUnselected" id="rawBtn" onclick="uDataManagement.clickRawTab();"></div>
+				</div>
+				<div class="sortWrapperWebDav sortWrapperOData" id="sortWrapperOData">
+					<div class="sortTextWebDav" id="sortTextOData">Sort by Date</div>
+					<div class="sortdownArrowWebDav" id="sortdownArrowOData"></div>
+				</div>
+				<div class="paginationWrapper paginationWrapperOData pagination">
+					<div class="recordCount" id="recordCount_OdataGrid"></div>
+					<div class="paginationIcons">
+						<div class="leftPagination">
+							<div class="firstPageDisabled" id="firstPage_OdataGrid" title="First"></div>
+							<div class="prevPageDisabled" id="prevPage_OdataGrid" title="Previous"></div>
+						</div>
+						<div class="rightPagination">
+							<div class="nextPageDisabled" id="nextPage_OdataGrid" title="Next"></div>
+							<div class="lastPageDisabled" id="lastPage_OdataGrid" title="Last"></div>
+						</div>
+						<div class="rightPagination"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="odataGrid">
+			<table id="entityTable" cellspacing=0 cellpadding=0
+					class="mainTable scrollEntityTable">
+					<thead style="display:block;">
+						<tr class='entityTableHead'></tr>
+					</thead>
+					<tbody class="entityGridTbody" id="entityTableBody">
+					</tbody>
+			</table>
+		</div>
+		<div id="odataRaw" style="display:none;"></div>
+		<div id="dvNoPropertyMsg" class="noPropMsg" style="display:none;">
+			<span class="goToSchemaMgmtMsg">No Properties & Data created yet.</span>
+				<a class="goToSchemaMgmtLink" onclick="uEntityTypeOperations.openSchemaMgmtView();"
+					>Go to Schema</a>
+				<span class="goToSchemaMgmtText">to add Properties</span>
+		</div>
+	</div>
+	<!-- <section> --> <!-- Div for tabs getting generated on the fly - start -->
+	<!-- <div class="tabOdataView " id="tabOdataView">
+							<div class="tabOdataWrapper">
+								<div class="tabOdataText" id="tab1"></div>
+								<input type="button" class="tabClose flRt" id="crossid" title="Close"  />
+							</div>
+						</div> --> <!-- Tabs end --> <!-- </section> -->
+
+	<!-- <div>
+		<input class="inputBoxForURL" type="text" id="txtBoxQuery"
+			value="Type your query" /> <input value="Go" id="btnGo" title="Go"
+			type="button" class="normalButtonBlue flRt" style="margin-top: 10px" />
+	</div>
+	<aside class="popupAlertmsg popupAlertmsgForDropDown"
+		id="errorMsgODataQuery" style="font-size: 0.7em"></aside>
+	End
+	Middle section start
+	<section class="midSection">
+	<div class="topLeftDataMgmnt ">
+		<span class="normalText">Results</span> <select
+			style="margin-right: 8px;" class="dropDownBig">
+			<option>Filter columns</option>
+		</select> <input value="Grid" id="btnGrid" type="button"
+			class="odataNormalButtonGrey"
+			onclick="uDataManagement.clickGridTab();" /> <input value="Raw"
+			id="btnRaw" type="button" title="Raw" class="odataNormalButtonGrey"
+			onclick="uDataManagement.clickRawTab();" />
+	</div>
+	<div class="topRight topRightODataMidSection">
+		<input disabled="disabled" type="button" id="btnCreateEntity"
+			title="Create Entity" class="createBtnDisabled"
+			onclick="openCreateEntityModal('#createEntityModalWindow','#createEntityDialogBox');">
+		<input disabled="disabled" type="button" title="Edit Entity"
+			class="editIconOdataView" id="editBtnDataMgmt"
+			onclick="openCreateEntityModal('#editEntityModalWindow','#editEntityDialogBox');">
+		<input type="button" id="btnDeleteEntity" disabled="disabled"
+			title="Delete Entity"
+			onclick="openCreateEntityModal('#multipleEntityDeleteModalWindow','#multipleEntityDeleteDialogBox');"
+			class="deleteBtnDisabled" />
+	</div>
+	<div class="rowCount displayNone rowCountMessage" id="dvRowCount">
+		<span class="normalText">Row Count: </span><label
+			id="rowInlinecountID"></label>
+	</div>
+	<div class="clearBoth"></div>
+	</section>
+	<div id="boxTableDiv">
+		<div id="resultPane" class="resultPane">
+			<div id="dvEntityTable" class="scrollEntityDv">
+				<table id="entityTable" cellspacing=0 cellpadding=0 width=100%
+					class="scrollEntityTable">
+					<thead>
+						<tr class='entityTableHead'></tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			<div id="dvEntityRawTable" class="displayNone scrollEntityDv">
+				<code>
+					<table id="entityRawTable">
+						<thead class="displayNone">
+							<tr>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</code>
+			</div>
+			<div id="dvNoPropertyMsg" class="displayNone">
+				<div class="noPropMsg">No Properties & Data created yet</div>
+				<div class="goToSchemaMgmtMsg">
+					<a class="goToSchemaMgmtLink"
+						onclick="objOdataCommon.openSchemaMgmtPage();">Go to Schema
+						Management</a>
+					<div class="goToSchemaMgmtText">to add Properties</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<!-- /*********************** CREATE ENTITY POPUP : START *********************/ -->
+	<div id="createEntityModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block;padding-bottom:20px;width: 706px; background: #ffffff"
+			id="createEntityDialogBox">
+			<div style="width: 706px;">
+				<div style="height: 34px; width: 706px">
+					<a class="popupCloseIcon"
+						onclick="closeEntityModal('#createEntityModalWindow');" id="btnCrossEntityCreate" title="Close"></a>
+				</div>
+				<div class="divPopupInner" style="width:676px;">
+					<div class="createEntityHeading">Create Entity</div>
+					<section class="sectionContent sectionContentCreateEntity entityGridTbody">
+						<form onsubmit="return false;">
+							<table id="createEntityTable">
+								<tbody></tbody>
+							</table>
+						</form>
+					</section>
+					<section style="float: right;" class="divLogoutBtn">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+							onclick="closeEntityModal('#createEntityModalWindow');" id="btnCancelCreateEntity"> <input
+							type="button" value="Create" class="btnSavePopup" id="btnCreateEntity"
+							onclick="uDataManagement.createEntity();">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /*********************** CREATE ENTITY POPUP : END *********************/ -->
+
+	<!-- /*********************** EDIT ENTITY POPUP : START *********************/ -->
+	<div id="editEntityModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block;padding-bottom:20px;width: 706px; background: #ffffff"
+			id="editEntityDialogBox">
+			<div style="width: 706px;">
+				<div style="height: 34px; width: 706px">
+					<a class="popupCloseIcon"
+						onclick="closeEntityModal('#editEntityModalWindow');" id="btnCrossEditEntity" title="Close"></a>
+				</div>
+				<div class="divPopupInner" style="width:676px;">
+					<div class="createEntityHeading">Edit Entity</div>
+					<section class="sectionContent sectionContentEditEntity entityGridTbody">
+						<form onsubmit="return false;">
+							<table id="editEntityTable">
+								<tbody></tbody>
+							</table>
+						</form>
+					</section>
+					<section style="float: right;" class="divLogoutBtn">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+							onclick="closeEntityModal('#editEntityModalWindow');" id ="btnCancelEditEntity"> <input
+							type="button" value="Edit" class="btnSavePopup" id="btnEditEntity"
+							onclick="uDataManagement.editEntity();">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /*********************** EDIT ENTITY POPUP : END *********************/ -->
+	<!-- ********************  Delete Entity Pop Up Starts **************** -->
+<div id="multipleEntityDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="multipleEntityDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close"
+						class="popupCloseIcon"
+						onclick="closeEntityModal('#multipleEntityDeleteModalWindow');" tabindex="3"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="">
+					<label class="sessionExpiredPopUpHeading"
+						id="lblHeadingCollection">Delete Entities</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>Do you want to delete the selected
+					Entity(s) ? </label>
+			</div>
+			<div  class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#multipleEntityDeleteModalWindow');" tabindex="1" id="btnCancelEntityDelete">
+				<input type="button" id="btnMultipleFileDelete" class="btnClose"
+					onclick="uDataManagement.deleteMultipleRecords();" value="Delete" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- ********************  Delete Entity Pop Up Ends **************** -->
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerDataManagement" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"></div>
+		</div>
+	</div>
+	<!-- Spinner code - End -->
+
+	<!-- /********************* ENTITY LINK POPUP : START **********************/ -->
+	<!-- <div id="EntityLinkModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 410px; width: 500px; background: #ffffff"
+			id="entityLinkDialog">
+			<div class="popupWrapper" id="entityLinkPopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeEntityModal('#EntityLinkModal');">Close</a>
+				<header class="popupHeader" style="width:490px;">
+				<div class='entityLinkHeaderImg'></div>
+				<div>Entity Link</div>
+				</header>
+				<div class="popupContent">
+				<div class="messageWrapper" id="messageBlockPopUp" style="display: none">
+					<div class="successfulWrapper" id="messageWrapperPopUp" style="display: none">
+						<span class="successfulIcon" id="messageIconPopUp" style="display: none">&nbsp;</span>
+						<div id="successmsgPopUp" style="display: none"></div>
+						<input type="button" name="" class="messageClose" id="crossidPopUp" title="Close" style="display: none;" onclick="uDataManagement.hideMessage();" />
+					</div>
+					<div class="clearBoth"></div>
+				</div>
+					<div>
+						<table class="entityLinkTable" id="mtable" cellpadding=0 cellspacing=0>
+							<thead>
+								<tr>
+									<td class="col1"><input type="checkbox" id="chkSelectall" onclick="uDataManagement.checkAllLinks(this);"></td>
+									<td class="col2">Entity Type</td>
+									<td class="col3">ID</td>
+									<td class="col4"><input type="button" title="Delete" class="deleteLinkIconDisabled" style="height:20px;" id="deleteEntityLink" disabled="disabled"
+										onclick="openCreateEntityModal('#entityLinkDeleteModalWindow','#entityLinkDeleteDialogBox');"></input></td>
+								</tr>
+							</thead>
+							<tbody id="tbody"/>
+						</table>
+					</div>
+					
+					<div style="background:#4fbfcd;margin-left:0px;margin-top: 6px;font-size:0.9em;color:#fff;height:30px;">
+						<div style="float:left;" class="createELinkIcon"> input type="button" title="Add Link" onclick="" class="createBtn"/</div>
+						<div style="padding-top: 5px">Add Link</div>
+					</div>
+					
+					<div style="margin-left: 0px; margin-top: 18px;">
+						<select id="entityTypeDD" class="entityTypeDD" title="Entity Type">
+							<option class="disabled">-----Select Entity Type-----</option>
+						</select> 
+						<input type="text" id="textId" value="" size="12" class="entityTypeText" title="Enter ID"/>
+						<input type="submit"
+							value="Add" id="addLink" class="entityTypeButton" onclick="uDataManagement.addLink();" title="Add"/> 
+						<input type="submit"
+							value="Cancel" id="cancel" class="entityTypeButtonGrey" onclick="closeEntityModal('#EntityLinkModal');" title="Cancel"/>
+							<aside class="validationMessageArea"
+								id="validationMessageArea"></aside>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<div id="EntityLinkModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border" style="/* margin:50px 0px 0px 100px; */display: block; height: 493px; width: 706px; background: #ffffff" id="entityLinkDialog">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close" class="popupCloseIcon" onclick="closeEntityModal('#EntityLinkModal');" tabindex="4"></a>
+				</div>
+				
+				<div class="sessionExpiryDiv" id="">
+					<div>
+					<label class="sessionExpiredPopUpHeading" id="lblHeadingCollection">Entity Link</label>
+					</div>
+					<div id="entityLnkMessageBlock" class="crudOperationSuccessWrapper" style="display:none; position:absolute;margin: -29px 0px 4px -2px;">
+						<div class="crudOperationMsgWrapper" style="display: table-cell;white-space: nowrap;padding-right: 34px;">
+							<span class="crudOperationSuccessIcon" id="entityLinkMessageIcon">&nbsp;</span>
+							<div id="entityLinkSuccessMsg" class="crudOperationSuccessMsg"></div>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				<!-- <div class="sessionExpiryDiv" id="">
+					<label class="sessionExpiredPopUpHeading" id="lblHeadingCollection">Entity Link</label>
+					<div id="entityLnkMessageBlock" class="crudOperationSuccessWrapper" style="width:260px;display:none; margin: -32px 0px 0px 195px;">
+						<div class="crudOperationMsgWrapper">
+							<span class="crudOperationSuccessIcon" id="entityLinkMessageIcon">&nbsp;</span>
+							<div id="entityLinkSuccessMsg" class="crudOperationSuccessMsg"></div>
+						</div>
+					</div>
+				</div> -->
+			</section>
+			<div style="margin-left:80px;width:556px;height:80px;margin-top:-26px;">
+				<div style="width:230px;height:50px;float:left;">
+					<div style="margin-bottom: 10px;">
+						<label class="lblElement"> Entity Type</label>
+					</div>
+					<div>
+						<div class="customSelectIconAssociation" style="background-position-x: 109.5%;width:200px;">
+							<select name="" id="entityTypeDD" class="selectMenuPopup" style="width:200px;" tabindex="1">
+								<option class="disabled">Select Entity Type</option>
+							</select>
+							<aside class="popupAlertmsg" id="validationMessageArea" style="height:14px;width:200px;background:#fff;float:left;"></aside>
+						</div> 
+					</div>
+				</div>
+
+				<div style="width:230px;height:50px;float:left;">
+					<div style="margin-bottom: 9px;">
+						<label class="lblElement">ID</label>
+					</div>
+					<div>
+						<div style="width:200px;">
+							<input type='text' id="textId" size='12' class='entityTypeText serviceNameTextBox' style="width:168px;margin-left: 1px;" tabindex="2"/>
+							<aside class="popupAlertmsg" style="width:235px;" id="validationMessageArea1"></aside>
+						</div> 
+					</div>
+				</div>
+				<div style="float:right;width:90px;margin-top:30px;margin-right: 3px;">
+					<div class="">
+						<input type="button" id="addLink" class="btnClose" onclick="uDataManagement.addLink();" value="Add" tabindex="3">
+					</div>
+				</div>
+			</div>
+			<div id="" style="margin-left:80px;width:556px;" class='entityGridTbody'>
+				<form name='ftable'>
+					<table id="mtable" cellpadding="0" cellspacing="0" class="mainTable" style="width:554px;min-width:554px;border: 1px solid #e6e6e6;border-top: none;">
+						<thead >
+							<tr style="display:block;">
+								<th style="width:5%;">
+									<input type='checkbox' id='chkELSelectall' onclick='uDataManagement.checkAllLinks(this)' class='checkBox cursorHand regular-checkbox big-checkbox' />
+									<label for="chkELSelectall" class="checkBoxLabel" style="margin-left:10px;"></label>
+								</th>
+								<th style="width:46.5%;padding:0px 1px 0px 0px;">Entity Type</th>
+								<th style="width:46%;padding:0px 1px 0px 0px;">ID
+								<input type="button" class="deleteIconDisabled" style="float:right;margin-right:10px;" id="deleteEntityLink" disabled="disabled" onclick="openCreateEntityModal('#entityLinkDeleteModalWindow','#entityLinkDeleteDialogBox');" title="Delete">
+								</th>
+							</tr>
+						</thead>
+						<tbody id='tbody' style='max-height:220px;display:block;overflow: auto;' class='entityGridTbody'></tbody>
+					</table>
+				</form>
+			</div>
+			<div id="dvNoEntityLink" class="emptyTableMessage"
+				style="display: none; width: 245px;margin: 0 auto;cursor: default;margin-top:110px;">No link established yet</div>
+		</div>
+	</div>
+	<!-- /********************* ENTITY LINK POPUP : END **********************/ -->
+	
+	<!--  DELETE ENTITY LINK POPUP - START -->
+<!-- 	<div id="entityLinkDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 175px; width: 375px; background: #ffffff"
+			id="entityLinkDeleteDialogBox">
+			<div class="popupWrapper" id="deleteEntityLink">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeEntityModal('#entityLinkDeleteModalWindow');">Close</a>
+				<header class="popupHeader"> Delete Linkage </header>
+				<div class="popupContent">
+					<section class="popupInnerContent">
+						<aside class="deleteAccount">Do you want to delete
+							selected linkage(s) ?</aside>
+					</section>
+					<section class="bottomBtn">
+						<input type="button" value="Cancel"
+							onclick="closeEntityModal('#entityLinkDeleteModalWindow');"
+							class="normalButtonGrey" /> <input type="button"
+							id="btnDeleteEntityLink" value="OK"
+							class="normalButtonBlue" onclick="uDataManagement.clickDeleteEntityLink();"/>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<div id="entityLinkDeleteModalWindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border" style="display: block; height: 217px; width: 460px; background: #ffffff" id="entityLinkDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close" class="popupCloseIcon" onclick="closeEntityModal('#entityLinkDeleteModalWindow');"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="">
+					<label class="sessionExpiredPopUpHeading" id="lblHeadingCollection">Delete Linkage</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>Do you want to delete selected linkage(s) ? </label>
+			</div>
+			<div  class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup" onclick="closeEntityModal('#entityLinkDeleteModalWindow');">
+				<input type="button" id="" class="btnClose" onclick="uDataManagement.clickDeleteEntityLink();" value="Delete">
+			</div>
+		</div>
+	</div>
+	<!--  DELETE ENTITY LINK POPUP - END -->
+	<!-- /*********************** ENTITY URL POPUP : START *********************/ -->
+	<div id="urlEntityModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block;padding-bottom:20px;width: 494px; background: #ffffff"
+			id="urlEntityDialogBox">
+			<div style="width: 494px;">
+				<div style="height: 34px; width: 494px">
+					<a class="popupCloseIcon"
+						onclick="closeEntityModal('#urlEntityModalWindow');" tabindex="3"></a>
+				</div>
+				<div class="divPopupInner" style="width:464px;">
+					<div class="createEntityHeading">Entity URL</div>
+					<section class="sectionContent sectionEntityURL" tabindex="1" id="urlDataManagement">
+						<div id="entityURLValue" class="entityURLValue entityGridTbody"></div>
+					</section>
+					<section style="float: right;" class="divLogoutBtn">
+						<input type="button" value="Close" class="btnSavePopup"
+							onclick="closeEntityModal('#urlEntityModalWindow');" tabindex="2">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /*********************** ENTITY URL POPUP : END *********************/ -->
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/main/core/Message.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/receivedMessage.js"></script>
+<script type="text/javascript" src="./js/odataQuery.js"></script>
+</head>
+<body>
+<div class="boxOperationSection">
+		<div class="leftSubHeading">
+			<div class="divList">
+				<label class="lblList">Received Message list</label>
+			</div>
+				<div class="divDeleteIcon">
+				<input type="button" class="deleteIconDisabled" id="btnDeleteReceivedMessage" title="Delete">
+			</div>
+		</div>
+		
+		<div id="rowCountReceivedMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="rowCountBanner" id="rowCountMessageIcon">&nbsp;</span>
+				<div id="rowCountSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		
+		<div id="receivedMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="receivedMessageIcon">&nbsp;</span>
+				<div id="receivedMessageSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+	<div class="rightSubHeading">
+	<div class="odataModeWrapper">
+					<div style="margin-top:0px;" class="odataGridIconSelected" id="btnGridReceivedMessage" title="Grid"></div>
+					<div style="margin-top:0px;" class="odataRawIconUnselected" id="btnRawReceivedMessage"></div>
+				</div>
+		<!-- <div class="sortWrapper">
+				<label class="sortText">Sort by Date</label>
+				<div class="downArrow"></div>
+			</div> -->
+			 <div style="margin-top: 0px;" class="sortWrapperWebDav sortWrapperOData" id="sortWrapperOData">
+					<div class="sortTextWebDav" id="sortTextOData">Sort by Date</div>
+					<div class="sortdownArrowWebDav" id="sortdownArrowOData"></div>
+				</div> 
+			<div class="paginationWrapper">
+				<div class="recordCount" id="recordCount_ReceivedMessage"></div>
+				<div class="paginationIcons">
+					<div class="leftPagination">
+						<div class="firstPageDisabled" id="firstPage_ReceivedMessage" title="First"></div>
+						<div class="prevPageDisabled" id="prevPage_ReceivedMessage" title="Previous"></div>
+					</div>
+					<div class="rightPagination">
+						<div class="nextPageDisabled" id="nextPage_ReceivedMessage" title="Next"></div>
+						<div class="lastPageDisabled" id="lastPage_ReceivedMessage" title="Last"></div>
+					</div>
+					<div class="rightPagination"></div>
+				</div>
+			</div>
+		</div> 
+		
+		<!-- <div class="odataSubHeaderRight">
+				<div class="odataModeWrapper">
+					<div class="odataGridIconSelected" id="gridBtn" onclick="uDataManagement.clickGridTab();"></div>
+					<div class="odataRawIconUnselected" id="rawBtn" onclick="uDataManagement.clickRawTab();"></div>
+				</div>
+				<div class="sortWrapperWebDav sortWrapperOData" id="sortWrapperOData">
+					<div class="sortTextWebDav" id="sortTextOData">Sort by Date</div>
+					<div class="sortdownArrowWebDav" id="sortdownArrowOData"></div>
+				</div>
+				<div class="paginationWrapper paginationWrapperOData pagination">
+					<div class="recordCount" id="recordCount_ReceivedMessage"></div>
+					<div class="paginationIcons">
+						<div class="leftPagination">
+							<div class="firstPageDisabled" id="firstPage_ReceivedMessage"></div>
+							<div class="prevPageDisabled" id="prevPage_ReceivedMessage"></div>
+						</div>
+						<div class="rightPagination">
+							<div class="nextPageDisabled" id="nextPage_ReceivedMessage"></div>
+							<div class="lastPageDisabled" id="lastPage_ReceivedMessage"></div>
+						</div>
+						<div class="rightPagination"></div>
+					</div>
+				</div>
+			</div> -->
+	</div>
+	<div id="dvReceivedMessage" class="dvReceivedMessage" >
+		<div style="width:100%;margin-left: 0px;" class="odataQueryWrapper">
+			<input type="text" class="txtBoxQuery" id="txtBoxQueryReceivedMessage" tabindex="-1"/>
+			<input type="button" value="Go" class="btnGo" id="btnGoReceivedMessage" style="cursor: pointer;background: #e8e8e8" tabindex="-1"/>
+			<div id="dvErrorMessage" style="display: none">
+				<span class="spanPopupErrorMessageCommon" style="margin-bottom: 2px;margin-top: 2px;height: auto;">
+					<aside class="asidePopupErrorMessageCommon"
+						id="errorReceivedMsgQuery"></aside>
+			</div>
+
+		</div>
+	</div>
+	<div id="receivedMessageTableDiv" class="receivedMessageTableDiv">
+		<table id="receivedMessageTable" cellspacing="0" cellpadding="0"
+			class="mainTable entityGridTbody tblReceivedMessage">
+			<thead class="tblReceivedMessageThead">
+			<tr>
+				<th class='col1'><input
+					type='checkbox' id='chkSelectall' onclick="uReceivedMessage.checkAllReceivedMessage(this);"
+					class='checkBox cursorHand regular-checkbox big-checkbox' /><label
+					for="chkSelectall" class="checkBoxLabel" id="lblCheckSelectAllReceivedMessage"></label></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Status</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Type</div></th>
+				<th class="largeCol"><div 
+						class="entityHeadText">ID</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Created</div></th>
+			<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Updated</div></th>
+				<th class="largeCol"><div 
+						class="entityHeadText">From</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Box.Name</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Metadata-Etag</div></th>
+						<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Metadata-Type</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Metadata-URI</div></th>
+				<th class="smallCol"><div 
+						class="entityHeadText">InReplyTo</div></th>
+						<th class="mediumSpacedCol"><div 
+						class="entityHeadText">MulticastTo</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Title</div></th>
+				<th class="largeCol"><div 
+						class="entityHeadText">Body</div></th>
+				<th class="smallestCol"><div 
+						class="entityHeadText">Priority</div></th>
+				<th class="largeCol"><div 
+						class="entityHeadText">RequestRelation</div></th>
+				<th class="largeCol"><div class="entityHeadText">RequestRelationTarget</div></th>
+			</tr>
+			</thead>
+			<tbody class="entityGridTbody tblReceivedMessageTBody" id="entityGridTbody">
+			</tbody>
+		</table>
+	</div>
+		<div id="dvReceivedMessageRawTable" class="displayNone scrollEntityDv">
+				<code>
+					<table style="margin-top: 10px;" class="mainTable entityGridTbody tblReceivedMessage removeRowHighlight" id="receivedMessageRawTable">
+						<tbody style="overflow-x:auto; border:1px solid #b1b1b1;" class="entityGridTbody tblReceivedMessageTBody" id="receivedMessageRawDataTbody"></tbody>
+					</table>
+				</code>
+			</div>
+	<!-- <section class="topTable">
+		<div class="topLeft">
+			<div id = "upperLetMenu" class="leftUpperMenudiv">Received Messages</div>
+			<label class="sortLabel">Sort By :</label> <select
+				class="dropDownNormal" disabled="disabled">
+				<option>-- Select --</option>
+				<option>Account</option>
+			</select>
+		</div>
+		<div class="clearBoth"></div>
+	</section>
+	<div id="accountTableDiv"></div>
+	<div style="display: block;" id="dvemptyTableMessage"
+		class="emptyTableMessage">No message(s) received yet</div>
+
+<div>
+		<input class="inputBoxForURL" type="text" id="txtBoxQueryReceivedMessage"
+			value="Type your query" /> <input value="Go" id="btnGoReceivedMessage" title="Go"
+			type="button" class="normalButtonBlue flRt" style="margin-top: 10px" />
+	</div>
+	<aside class="popupAlertmsg popupAlertmsgForDropDown"
+		id="errorReeivedMsgQuery" style="font-size: 0.7em"></aside>
+	End
+	Middle section start
+	<section class="midSection">
+	<div class="topLeftDataMgmnt ">
+		<span class="normalText">Results</span> <select
+			style="margin-right: 8px;" class="dropDownBig">
+			<option>Filter columns</option>
+		</select> <input value="Grid" id="btnGridReceivedMessage" type="button"
+			class="odataNormalButtonGrey"
+			onclick="" /> <input value="Raw"
+			id="btnRawReceivedMessage" type="button" title="Raw" class="odataNormalButtonGrey"
+			onclick="" />
+	</div>
+	<div class="topRight topRightODataMidSection">
+		<input disabled="disabled" type="button" id="btnReceivedMessage"
+			title="Received message" class="createBtnDisabled" onclick="">
+		<input type="button" id="btnDeleteReceivedMessage" disabled="disabled"
+			title="Delete Received Messages" class="deleteBtnDisabled" />
+	</div>
+	<div class="rowCount displayNone rowCountMessage" id="dvRowCountReceivedMessage">
+		<span class="normalText">Row Count: </span><label
+			id="rowInlinecountID"></label>
+	</div>
+	<div class="clearBoth"></div>
+	</section>
+	<div id="receivedMessageTableDiv">
+		<div id="resultPaneReceivedMessage" class="resultPane">
+			<div id="dvReceivedMessageTable" class="scrollEntityDv">
+				<table id="receivedMessageTable" cellspacing=0 cellpadding=0 width=100%
+					class="scrollEntityTable" style="table-layout: auto; min-width: 1000px;cursor: default;">
+					<thead id = "receivedMessageHeader">
+						<tr class='entityTableHead'></tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div id="dvReceivedMessageRawTable" class="displayNone scrollEntityDv">
+				<code>
+					<table id="receivedMessageRawTable">
+						<thead class="displayNone">
+							<tr>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</code>
+			</div>
+			<div id="dvNoPropertyMsgReceivedMessage" class="">
+				<div class=emptyTableMessage style="margin-top: -185px; display: none" id = "dvsReceivedMessageEmpty">No message(s) received yet</div>
+			</div>
+		</div>
+	</div>
+	
+
+	
+	RECEIVED MESSAGE DELEET POP UP START
+	<div id="receivedMessageDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 175px; width: 375px; background: #ffffff"
+			id="receivedMessageDeleteDialogBox">
+			<div class="popupWrapper" id="deleteAccountpopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeEntityModal('#receivedMessageDeleteModalWindow');">Close</a>
+				<header class="popupHeader">Delete Received Message</header>
+				<div class="popupContent">
+					<section class="popupInnerContent">
+						<aside class="deleteAccount">Do you want to delete
+							selected message(s) ?</aside>
+					</section>
+					<section class="bottomBtn">
+
+						<input type="button" value="Cancel"
+							onclick="closeEntityModal('#receivedMessageDeleteModalWindow');"
+							class="normalButtonGrey" /> <input type="button" value="Ok"
+							id = "btnReceivedMessageDeleteOk" class="normalButtonBlue" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	RECEIVED MESSAGE DELETE POP UP END
+	
+	Spinner code - Start
+	<div id="modalSpinnerReceivedMessage" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"></div>
+		</div>
+	</div>
+	Spinner code - End -->
+	
+	
+	<!-- VIEW RECEIVED MESSAGE DETAIL POP UP START -->
+	<div id="receivedMessageDetailPopUpModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 506px; width: 706px; background: #ffffff"
+			id="receivedMessageDetailDialogBox">
+			<div id="" class="closeIconDiv">
+				<a href="#" id="modalbox-close" class="popupCloseIcon"
+					onclick="closeEntityModal('#receivedMessageDetailPopUpModalWindow');"
+					style="margin: 0px;" tabindex="3" title="Close"></a>
+			</div>
+			<div class="accessTokenDiv">
+				<label class="AccessTokenHeading"> Received Message Detail</label>
+			</div>
+			<div class="dvTextArea">
+				<div class="outerDvTextArea" style="height: 312px;">
+				<pre class='prettyprint'><div id="textReceivedMessageDetail" style="font-family: Segoe UI Light;height: 320px; width: 523px;overflow: auto;font-weight: 13px;" class="entityGridTbody" tabindex="1"></div></pre>
+					<!-- <textarea spellcheck="false" spellcheck="false" name="" cols=""
+						rows="" wrap="off" class="textAreaShowAccessToken entityGridTbody"
+						readonly="readonly" id="textReceivedMessageDetail"
+						style="height: 320px; outline: 0;"></textarea> -->
+				</div>
+			</div>
+			<div class="dvClose">
+				<input type="button" id="btnClose" class="btnClose" style="margin-top: 11px;" onclick="closeEntityModal('#receivedMessageDetailPopUpModalWindow');" value="Close" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- VIEW RECEIVED MESSAGE DETAIL POP UP END -->
+	
+	<!-- RECEIVED MESSAGE DELETE POP UP START -->
+	<div id="receivedMessageDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="receivedMessageDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close"
+						class="popupCloseIcon"
+						onclick="closeEntityModal('#receivedMessageDeleteModalWindow');" tabindex="3"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="dvAccessheader">
+					<label class="sessionExpiredPopUpHeading"
+						id="lblHeadingAccessToken"> Delete Received Message</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>Do you want to delete selected message(s) ? </label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#receivedMessageDeleteModalWindow');" tabindex="1" id="btnCancelReceivedMessage">
+				<input type="button" id="btnReceivedMessageDeleteOk" class="btnSavePopup"
+					onclick="" value="Delete" style="margin-right: 0px" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- RECEIVED MESSAGE DELETE POP UP END -->
+</body>
+</html>

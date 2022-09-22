@@ -1,0 +1,248 @@
+/**
+ * Personium
+ * Copyright 2016 FUJITSU LIMITED
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ .serviceMgmtIconRed {
+	background: url(../images/newSprite.png) no-repeat 43% -135px;
+	float: left;
+	margin:0 10px 0 0;
+	height: 22px;
+	width: 32px;
+}
+
+.serviceMgmtIconGrey {
+	background: url(../images/newSprite.png) no-repeat 50% -591px;
+	float: left;
+	margin:0 10px 0 0;
+	height: 22px;
+	width: 32px;
+}
+
+.adminMgmtIconRed {
+	background: url(../images/newSprite.png) no-repeat 43% -627px;
+	margin:0 10px 0 0;
+	float: left;
+	height: 20px;
+	width: 30px;
+}
+
+.adminMgmtIconGrey {
+	background: url(../images/newSprite.png) no-repeat 47% -176px;
+	margin:0 10px 0 0;
+	float: left;
+	height: 20px;
+	width: 30px;
+}
+
+.configureUnitIcon {
+	background: url(../images/newSprite.png) no-repeat 43% -296px;
+	float: left;
+	height: 20px;
+	width: 20px;
+}
+
+.disableConfigureUnitIcon {
+	background: url(../images/sprite3.png) no-repeat 43% -554px;
+	float: left;
+	height: 20px;
+	width: 20px;
+}
+
+.notificationIcon {
+background: url(../images/newSprite.png) no-repeat 57% -216px;
+	float: left;
+	height: 20px;
+	width: 20px;
+}
+
+.environmentIcon {
+	background: url(../images/newSprite.png) no-repeat 43% -332px;
+	float: left;
+	height: 20px;
+	width: 20px;
+}
+
+.messageIconUnit{
+	background:url(../images/newSprite.png) no-repeat -16px -700px;
+	float:left;
+	height:15px;
+	width:25px;
+}
+
+.availableStatusIconUnit{
+	background:url(../images/newSprite.png) no-repeat -16px -254px;
+	float:left;
+	height:20px;
+	width:25px;
+}
+
+.underMaintenanceStatusIconUnit{
+	background: url(../images/newSprite.png) no-repeat -16px -2285px;
+	float:left;
+	height:20px;
+	width:23px;
+}
+
+.changeConfigurationStatusIconUnit{
+	background: url(../images/newSprite.png) no-repeat -16px -2246px;
+	float:left;
+	height:20px;
+	width:22px;
+}
+
+.inactiveStatusIconUnit {
+	background: url(../images/newSprite.png) no-repeat -16px -218px;
+	float: left;
+	height: 20px;
+	width: 22px;
+}
+
+.notavailable {
+	background: url(../images/sprite3.png) no-repeat -15px -450px;
+	float: left;
+	height: 22px;
+	width: 22px;
+}
+
+.connectionFailed {
+	background: url(../images/sprite3.png) no-repeat -15px -420px;
+	float: left;
+	height: 22px;
+	width: 22px;
+}
+
+.infoRetrivalFailed {
+	/* background: url(../images/sprite3.png) no-repeat -15px -482px; */
+	background: url(../images/infoRetrivalFailed.png) no-repeat 3px 3px;
+	float: left;
+	height: 22px;
+	width: 22px;
+}
+
+.folderIcon{
+	background:url(../images/newSprite.png) no-repeat 62% -920px;
+	float:left;
+	width:20px;
+	height:20px;
+	border: none;
+}
+
+.fileIcon{
+	background:url(../images/newSprite.png) no-repeat 54% -1627px;
+	float:left;
+	width:20px;
+	height:20px;
+	border: none;
+}
+
+.odataIcon{
+	background:url(../images/newSprite.png) no-repeat 62% -950px;
+	float:left;
+	width:20px;
+	height:20px;
+	border: none;
+}
+
+.engineServiceIcon{
+	background:url(../images/sprite3.png) no-repeat 62% -167px;
+	float:left;
+	width:20px;
+	height:20px;
+	border: none;
+}
+
+.rightArrowServiceCollection{
+	background:url(../images/sprite3.png) no-repeat 34% -298px;
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin-left: -21px;
+	margin-top: 0px;
+	cursor: pointer;
+}
+
+.rightArrowServiceCollection:hover{
+	background:url(../images/sprite3.png) no-repeat 34% -275px;
+}
+
+.downArrowServiceCollection{
+	background: url(../images/sprite.png) no-repeat 16% -600px;
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin-left: -22px;
+	margin-top: -2px;
+	cursor: pointer;
+}
+
+.downArrowServiceCollection:hover{
+	background: url(../images/sprite.png) no-repeat 16% -577px;
+}
+
+.collectionIconWebDavEnabled{
+	background: url(../images/sprite.png) no-repeat -12px -60px;
+	width: 23px;
+	float: left;
+	height: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.wdFolderIcon {
+	background:url(../images/newSprite.png) no-repeat -3% -920px;
+	padding-left: 25px;
+	color:#3c3c3c;
+}
+.wdFolderIcon:hover {
+	background:url(../images/newSprite.png) no-repeat -3% -891px;
+	color:#c80000;
+	text-decoration: underline;
+}
+
+.wdFileIcon{
+	background:url(../images/newSprite.png) no-repeat -3% -1627px;
+	padding-left: 25px;
+	color:#3c3c3c;
+}
+
+.wdFileIcon:hover {
+	background:url(../images/newSprite.png) no-repeat -3% -1654px;
+	color:#c80000;
+	text-decoration: underline;
+}
+
+.wdOdataIcon{
+	background:url(../images/newSprite.png) no-repeat -3% -950px;
+	padding-left: 25px;
+	color:#3c3c3c;
+	height: 18px;
+}
+
+.wdOdataIcon:hover {
+	background:url(../images/newSprite.png) no-repeat -3% -978px;
+	color:#c80000;
+	text-decoration: underline;
+}
+
+.wdEngineServiceIcon {
+	background:url(../images/sprite3.png) no-repeat -3% -167px;
+	padding-left: 25px;
+	color:#3c3c3c;
+}
+
+.wdEngineServiceIcon:hover {
+	background:url(../images/sprite3.png) no-repeat -3% -203px;
+	color:#c80000;
+	text-decoration: underline;
+}

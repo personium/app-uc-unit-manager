@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<div id="AdministrationDetail" style="max-height: 450px;display: block;overflow: auto;" class='entityGridTbody'>
+	<div class="borderBottom" style="float:left; margin: 10px 0px 0px 0px; width:100%">
+		<label style="margin: 10px 0px 20px 0px;">Delete Cell</label>
+		<input type="button" id="deleteCell" class="btnClose" style="margin: 12px 0px 18px 15px;" value="Delete" onclick="openDeleteModalWindow();" tabindex="-1">
+	</div>
+	<div class="webDavAclSettings">
+		<div class="aclSettingsHeader">
+			<div class="aclSettingsText" style="margin:15px 0px 0px 2px;">ACL</div>
+			<div id="dvEditCellAclSettings" onclick="uCellAcl.openPopUpWindow('#editCellAclSettingDialog','#editCellAclSettingModal');"   class="editIconACLSettings" style="margin:15px 0px 0px 0px;" title="Edit"></div>
+		</div>
+			<table id="cellInfoAdmin" class="cellInfoAdminData" cellpadding='0' cellspacing='0'>
+		<thead>
+			<tr>
+				<th class="ContentHeadingpt1" style="width:27%;border:none;padding: 15px 0px 15px 0px;font-weight: normal;">Principals</th>
+				<th class="ContentHeadingpt1" style="width:73%;border:none;font-weight: normal;">Privileges</th>
+			</tr>
+		</thead>
+		<tbody id="cellInfoAdminData"></tbody></table>
+	</div>
+</div>
+<!-- Delete cell popup: start -->
+<div id="deleteModal" class="modelback" style="display: none;">
+	<div class="modal-window block-border" style="display: block; height: 391px; width: 614px; background-color: rgb(255, 255, 255); top: 71px; left: 330px; background-position: initial initial; background-repeat: initial initial;" id="deleteDialog">
+		<div id="dvCloseIcon" class="closeIconDiv">
+			<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon" onclick="closeDeleteModalWindow();" tabindex="4"></a>
+		</div>
+		<div class="accessTokenDiv" style="padding-bottom: 15px" id="dvAccessheader">
+			<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+				Delete Cell</label>
+		</div>
+		<div class="popupContent">
+			<section class="popupInnerContent">
+				<aside class="ContentHeadingpt1" style="text-align: left;margin: 15px 0px 0px 160px;">Are you sure you want to delete the selected Cell?</aside>
+				<aside class="ContentHeadingpt1" style="text-align: left;margin: 10px 0px 0px 186px;">Once deleted, it cannot be recovered.</aside>
+				<aside class="ContentHeadingpt1" style="text-align: left;margin: 25px 0px 0px 166px;">Please enter the verification text you see below:</aside>
+				<input class="ContentTextpt16 border3 backgroundcolor6 labelCapcha" type="text" id="labelCapcha" onfocus="this.blur()" tabindex="-1"/>
+				<input class="textCapcha" type="text" id="textCapcha" tabindex="1">
+				<span class="popupAlertArea">
+					<aside class="popupAlertmsg" id="popupErrorMsgRecursiveCellDelete" style="margin-left:210px;"></aside>
+				</span>
+			</section>
+			<section class="popupInnerContent">
+			</section>
+			<!-- Button Section Starts -->
+			<section class="positionButtons" style="margin-top:0px;">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button" id="btnDeleteCell" onclick="deleteCell();" class="btnClose" value="Delete" tabindex="3">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id="btnCancel" onclick="closeDeleteModalWindow();" class="cancelBtn" value="Cancel" tabindex="2">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+</div>
+<!-- 	Delete cell popup: end -->
+<!-- EDIT ACL SETTING POP UP STARTS -->
+	<div id="editCellAclSettingModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 455px; width: 997px; background: #ffffff"
+			id="editCellAclSettingDialog">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin: 0px;" href="#" title="Close" id="modalbox-close"
+					class="popupCloseIcon crossIconCellACLFocus"
+					onclick="closeEntityModal('#editCellAclSettingModal')" tabindex="3"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					ACL Settings</label>
+			</div>
+				<div id="" class="folderElement">
+				<div>
+				<!--  <table id="tblHeaderEditAcl" cellpadding="0" cellspacing="0"
+						border="0" class="tblEditACLHeader">
+							<th class="firstHeaderWidth">Principals</th>
+							<th>Privileges</th>
+						</table> -->
+						<table id="tblHeaderEditAcl" cellpadding="0" cellspacing="0"
+						border="0" class="tblEditACLHeader">
+						<th class="firstHeaderWidth">Principals</th>
+						<th>Privileges</th>
+					</table>
+					<table id="editAclSettingsTable" style="display: block; max-width: 844px; width: 844px;border: 1px solid #e6e6e6;min-width: 844px;"
+						class="tblEditSettingsAcl entityGridTbody " cellpadding="0" cellspacing="0"
+						border="0">
+					<!-- 	<thead>
+						<tr style='pointer-events: none;'>
+							<th
+								style='min-width:147px;width:147px; font-weight: normal; height: 37px; font-size: 10pt; border-top: 1px solid #b1b1b1; border-bottom: 1px solid #b1b1b1; text-align: left; border-left: 1px; border-right: 1px solid #e6e6e6;'
+								class=''><label>Principals</label></th>
+							<th colspan=''
+								style='font-weight: normal; height: 37px; font-size: 10pt; border-top: 1px solid #b1b1b1; border-bottom: 1px solid #b1b1b1; text-align: left;'>
+								<label>Privileges</label>
+							</th>
+						</tr>
+					</thead> -->
+						<!--<thead
+							style="min-width: 844px;border: 1px solid #e6e6e6; ">
+							<tr>
+								<td style='text-align: left; min-width: 159.5px;'
+									class='borderRight headerFontSettings'><div class='editACLTableEllipsis '></div></td>
+								<td class="headerFontSettings"><div>Root</div></td>
+								<td style="padding-left: 23px;" class="headerFontSettings headerCellAcl"><div>Auth</div></td>
+								<td class="headerFontSettings "><div class='auth-read'>Auth-Read</div></td>
+								<td class="headerFontSettings "><div>Message</div></td>
+								<td class="headerFontSettings "><div class='message-read'>Message-Read</div></td>
+								<td class="headerFontSettings "><div class=''>Event</div></td>
+								<td class="headerFontSettings "><div class='event-read'>Event-Read</div></td>
+								<td class="headerFontSettings "><div>Log</div></td>
+								<td class="headerFontSettings "><div class='log-read'>Log-Read</div></td>
+								<td class="headerFontSettings "><div>Social</div></td>
+								<td class="headerFontSettings "><div class='social-read'>Social-Read</div></td>
+								<td class="headerFontSettings "><div>Box</div></td>
+								<td class="headerFontSettings "><div class='box-read'>Box-Read</div></td>
+								<td class="headerFontSettings "><div class='box-install'>Box-Install</div></td>
+								<td class="headerFontSettings "><div>Acl</div></td>
+								<td class="headerFontSettings "><div class='acl-read'>Acl-Read</div></td>
+								<td class="headerFontSettings "><div>propfind</div></td>
+								<td class="headerFontSettings"><div>All</div></td>
+								<td class="headerFontSettings"><div class='read' >Read</div></td>
+								<td class="headerFontSettings"><div class='write'>Write</div></td>
+								<td class="headerFontSettings"><div class='read-properties'>Read-Properties</div></td>
+								<td class="headerFontSettings"><div class='write-properties'>Write-Properties</div></td>
+								<td class="headerFontSettings"><div class='read-acl'>Read-ACL</div></td>
+								<td class="headerFontSettings"><div class='write-acl'>Write-ACL</div></td>
+								<td class="headerFontSettings"><div class='exec'>Exec</div></td>
+								<td class="headerFontSettings"><div class='alter-schema'>Alter-Schema</div></td>
+							</tr>
+						</thead>-->
+						<tbody
+							id="editCellACLGridTbody" style="height: 235px;max-height: 267px;border: 1px solid #e6e6e6;overflow: auto;display: block;" class="entityGridTbody">
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- Button Section Starts -->
+			<section class="positionBottomButtons" style="margin-top:20px">
+				<div id="dvCreateFoolder" class="dvCreate">
+					<input type="button" onclick="uCellAcl.editCellAcl();" id="btnEditCellAcl" class="btnClose"
+						value="Save" tabindex="2">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button"
+						onclick="closeEntityModal('#editCellAclSettingModal')"
+						class="cancelBtn" value="Cancel" tabindex="1" id = "btnCancelEditCellAcl">
+				</div>
+			</section>
+		</div>
+	</div>
+	<!-- EDIT ACL SETTING POP UP STARTS -->

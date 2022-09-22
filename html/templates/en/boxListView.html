@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/boxInstall.js"></script>
+<script type="text/javascript" src="./js/uBox.js"></script>
+<script type="text/javascript" src="./js/odata.js"></script>
+<script type="text/javascript">
+</script>
+</head>
+<body>
+	<div class="boxOperationSection">
+		<div class="leftSubHeading">
+			<div class="divList">
+				<label class="lblList">Box List</label>
+			</div>
+			<div id="createEntityWrapper">
+				<div id="createIcon" class="createIcon"></div>
+				<div id="createText" class="createText">Create Box</div>
+				<div id="arrow" class="downArrowCreate"></div>
+				<div ><ul class="createBoxSubMenu">
+					<li><a href="#" class="createBoxItem"
+						onclick="openCreateEntityModal('#createBoxPopUpModalWindow','#createBoxPopUpDialogBox', 'txtBoxName');">
+							Create Box</a></li>
+					<li class="importBoxWrapper"><a href="#" class="importBoxItem" onclick="uInstallBox.openImportBoxPopUp();">
+							Import Box</a></li> 
+							<!-- <li class="importBoxWrapper"><a href="#" class="importBoxItem" onclick="openCreateEntityModal('#progressBarModalWindow','#progressBarDialogBox');">
+							Import Box</a></li> -->
+				</ul></div>
+			</div>
+
+			<div class="divDeleteIcon">
+				<input type="button" class="deleteIconDisabled" id="btnDeleteBox" disabled="disabled" onclick="openPopUpWindow('#singleDeleteDialogBox','#deleteModalWindow');" tabindex="-1" title="Delete">
+			</div>
+		</div>
+			<div id="boxMessageBlock" class="crudOperationSuccessWrapper" style="display: none;float:left;position:absolute;margin-top: 6px;width:0px;">
+				<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+					<span class="crudOperationSuccessIcon" id="boxMessageIcon">&nbsp;</span>
+					<div id="successmsg" class="crudOperationSuccessMsg">Box created successfully!</div>
+				</div>
+			</div>
+			<div id="deleteBoxMessageBlock" class="crudOperationSuccessWrapper" style="position:absolute;display:none;float: left;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="deleteBoxIcon">&nbsp;</span>
+				<div id="deleteBoxSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		<div class="rightSubHeading">
+			<div class="sortWrapper">
+				<label class="sortText">Sort by Date</label>
+				<div id="arrow" class="downArrow"></div>
+			</div>
+			<div class="paginationWrapper">
+				<div class="recordCount" id="recordCount_Box"></div>
+				<div class="paginationIcons">
+					<div class="leftPagination">
+						<div class="firstPageDisabled" id="firstPage_Box" title="First"></div>
+						<div class="prevPageDisabled" id="prevPage_Box" title="Previous"></div>
+					</div>
+					<div class="rightPagination">
+						<div class="nextPageDisabled" id="nextPage_Box" title="Next"></div>
+						<div class="lastPageDisabled" id="lastPage_Box" title="Last"></div>
+					</div>
+					<div class="rightPagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- BOX TABLE DIV -->
+	<div id="boxTableDiv" style="height:446px">
+		<form name='fBoxtable'>
+			<table id='mainBoxTable' cellpadding='0' cellspacing='0' border='0'
+				class='mainTable'>
+				<thead>
+					<tr>
+						<th class='col1'><input type='checkbox'
+							id='chkSelectall' onclick='checkAll(this)'
+							class='checkBox cursorHand regular-checkbox big-checkbox'/><label for="chkSelectall" class="checkBoxLabel"></label></th>
+						<th class='col2'>Box</th>
+						<th class="col3">URL</th>
+						<th class='col4'>Updated</th>
+						<th class='col5'>Installation Status</th>
+					</tr>
+				</thead>
+				<tbody id='entityGridTbody' class="entityGridTbody"></tbody>
+			</table>
+		</form>
+	</div>
+
+	<!-- Create box popup: start -->
+	<!-- <div id="createBoxModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: auto; width: 375px; background: #ffffff"
+			id="createBoxDialog">
+			<div class="popupWrapper" id="createBoxpopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeCreateBox();">Close</a>
+				<header class="popupHeader"> Create Box </header>
+				<div class="popupContent">
+					<section class="popupInnerContent">
+						<form>
+							<table width="100%" border="0" class="popupCommonTable">
+									<tr>
+								<td class="space" colspan="2"><input type="radio"
+									id="rdCreateBox" name="createBox" class="hand" value="My Cells"
+									checked="checked" /> Create Box &nbsp; &nbsp; <input
+									id="rdInstallBox" name="createBox" type="radio"
+									value="Install Box" class="hand" /> Install Box</td>
+								</tr>
+								<tr>
+									<td width="40%" valign="top"><label>*Box Name</label></td>
+									<td width="60%" align="left"><input type="text" name=""
+										id="txtBoxName" value="" class="textBoxPopup" style="width:219px"> <span
+										class="popupAlertArea">
+											<aside class="popupAlertmsg" id="popupBoxErrorMsg"></aside>
+									</span></td>
+								</tr>
+								<tr id="trSchemaURL">
+									<td valign="top"><label>Schema URL</label></td>
+									<td align="left"><input type="text" id="txtSchemaURL"
+										name="" value="" class="textBoxPopup" style="width:219px"> <span
+										class="popupAlertArea">
+											<aside class="popupAlertmsg" id="popupSchemaErrorMsg"></aside>
+									</span></td>
+								</tr>
+								<tr id="trSchemaURLMessage">
+									<td valign="top" colspan=2><label class="schemaURLMsg" style="padding-left:101px;margin-top:-5px; color: gray;">Schema URL must be unique to identify application.</label></td>
+								</tr>
+								<tr id = "trBoxProfile" onclick="objBoxProfile.toggleProfileMode();">
+									<td colspan="2"><input id="chkCreateProfileBox" name=""
+										type="checkbox" value="" class="checkBoxPopup">Create
+										Profile</td>
+								</tr>
+								<tr style="height:9px"></tr>
+								<tr id = "trBoxDisplayName" class="displayNone">
+									<td valign="top"><label>Display Name</label></td>
+									<td><input name="" type="text" value=""
+										class="textBoxPopup" style="width:219px" id = "txtDisplayNameBox">
+										<span class="popupAlertArea">
+											<aside class="popupAlertmsg"
+												id="boxDisplayNameErrorMsg"></aside>
+									</span>
+										</td>
+								</tr>
+								<tr id="trBoxDescription" class="displayNone">
+									<td valign="top"><label>Description</label></td>
+									<td><textarea name="" style="width: 219px" cols="" rows=""
+											class="textAreaPopup" id="txtDescriptionBox"></textarea> <span
+										class="popupAlertArea">
+											<aside class="popupAlertmsg" id="boxDescriptionErrorMsg"></aside>
+									</span></td>
+								</tr>
+								<tr id = "trBoxImage" class="displayNone">
+									<td valign="top"><label>Image</label></td>
+									<td><input type="file" id="idImgFileBox" class="fileUpload"
+										multiple="multiple" onchange="uCellProfile.attachFile('popupBoxImageErrorMsg', 'idImgFileBox');"/>
+										<span class="popupAlertArea">
+											<aside class="popupAlertmsg" id="popupBoxImageErrorMsg"></aside>
+									</span></td>
+								</tr>
+								<tr id="trBarFileInstallation" class="displayNone">
+									<td valign="top"><label>*Select File</label></td>
+									<td><input type="file" id="idBarFileInstallation" class="fileUpload" multiple="multiple" onchange="uInstallBox.attachBarFile('popupBarFileInstallationMsg', 'idBarFileInstallation');">
+										<span class="popupAlertArea">
+											<aside class="popupAlertmsg" id="popupBarFileInstallationMsg"></aside>
+									</span></td>
+								</tr>
+							</table>
+						</form>
+					</section>
+					<section class="bottomBtn" style="margin-bottom: 10px">
+						<input type="submit" value="Cancel" class="normalButtonGrey"
+							onclick="closeCreateBox();" /> <input type="submit"
+							value="Create Box" id="btnCreateInstallBox" onclick="createNewBox();"
+							class="normalButtonBlue" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- Create box pop up: end -->
+
+	<!-- Delete box modal pop up: start-->
+
+	<div id="deleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 242px; width: 467px; background: #ffffff"
+			id="singleDeleteDialogBox">
+			<div class="boxPopupWrapper" id="deleteBoxpopup">
+				<div id="dvCloseIcon" class="popupCloseIcon"
+				onclick="closeEntityModal('#deleteModalWindow');" tabindex="3" title="Close"></div>
+
+			<div class="sessionExpiryDiv" id="boxDeleteDivAccessheader" style="padding-top:30px">
+				<label class="sessionExpiredPopUpHeading" >
+					Delete Box(es)</label>
+			</div>
+
+			<div class="sessionExpiredLabel" style="margin-top: 44px;height:34px">
+				<div style="text-align:left;">Are you sure you want to delete the
+							selected box(es) ?</div>
+							<div style="text-align:left;">Once deleted, it cannot be recovered.</div>
+				</div>
+			<div id="boxDivClose" class="sessionPopUpCloseSection">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#deleteModalWindow');" tabindex="1" id ="btnCloseBoxCreate">
+				<input type="button" id="boxDeletebtnDeleteProperty" class="btnSavePopup"
+					onclick="deleteMultipleBoxes();"
+					value="Delete" style="margin-right: 0px;" tabindex="2">
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<!-- Delete delete box modal popup: end-->
+
+	<!--  Single Delete Pop Up Start-->
+	<!-- <div id="singleDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 175px; width: 375px; background: #ffffff"
+			id="singleDeleteDialogBox">
+			<div class="popupWrapper" id="deleteAccountpopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeDeleteAccount();">Close</a>
+				<header class="popupHeader"> Delete Box </header>
+				<div class="popupContent">
+					<section class="popupInnerContent">
+						<aside class="deleteAccount">Do you want to delete
+							selected account ?</aside>
+					</section>
+					<section class="bottomBtn">
+						<input type="button" value="Cancel"
+							onclick="closeEntityModal('#singleDeleteModalWindow');"
+							class="normalButtonGrey" /> <input type="button" value="Ok"
+							onclick="deleteBox();" class="normalButtonBlue" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!--  Single Delete Pop Up End -->
+	<!-- Box EDIT Pop Up Start -->
+
+<!-- 	<div id="boxEditModalWindow" class="modelback" style="display: block;">
+		<div class="modal-window block-border"
+			style="display: block; height: 215px; width: 375px; background: #ffffff"
+			id="boxEditDialogBox">
+			<div class="popupWrapper" id="editBoxPopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeEntityModal('#boxEditModalWindow')">Close</a>
+				<header class="popupHeader">Edit Box</header>
+				<div class="popupContent">
+					<section class="popupInnerContent">
+						<form>
+							<table width="100%" border="0" class="popupCommonTable">
+								<tr>
+									<td width="40%" valign="top"><label>*Box Name</label></td>
+									<td width="60%" align="left" id="editBoxId"><input
+										type="text" id="txtEditBoxName" class="textBoxPopup"><span
+										class="popupAlertArea">
+											<aside class="popupAlertmsg" id="editPopupBoxErrorMsg"></aside>
+									</span></td>
+								</tr>
+								<tr>
+									<td valign="top"><label>Schema URL</label></td>
+									<td align="left" id="editSchemaId"><input type="text"
+										id="txtEditBoxSchema" name="" value="" class="textBoxPopup"><span
+										class="popupAlertArea">
+											<aside class="popupAlertmsg" id="editPopupSchemaErrorMsg"></aside>
+									</span></td>
+								</tr>
+							</table>
+						</form>
+					</section>
+					<section class="bottomBtn">
+						<input type="button" value="Cancel"
+							onclick="closeEntityModal('#boxEditModalWindow')"
+							class="normalButtonGrey" /> <input type="submit" value="Ok"
+							onclick="updateBox()" class="normalButtonBlue" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	
+	
+	
+	<!-- Box EDIT Pop Up End -->
+<!-- /********************* Create Import Box Pop up: start **********************/ -->
+	<div id="importBoxModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 315px; width: 474px; background: #ffffff"
+			id="importBoxDialog">
+			<div style="height: 300px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon"
+						onclick="uInstallBox.closeImportBoxPopUp('#importBoxModal');" tabindex="5" 
+						title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label class="AccessTokenHeading">Import Box</label>
+					<section  class="sectionContent"
+						style="height: 173px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+							<table>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">*Box
+											Name</label></td>
+								</tr>
+								<tr>
+									<td><input type="text" id="importBoxName"
+										class="bigTextBoxCollection" autocomplete="off"
+										style="width: 205px" tabindex="1"> <span
+										class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon"
+												id="popupImportBoxErrorMsg" style="width: 248px"></aside>
+									</span></td>
+								</tr>
+								<tr>
+									<td id="idselectBox"><div style="margin-bottom: 10px;">
+											<label class="lblElement">*Select File</label>
+										</div>
+										<div id="dvBrowseButtonSection" class="">
+											<div class="">
+												<div id="dvBrowse"
+													class="file-input-wrapper browseEditBoxProfile">
+													<button title="" id="btnBarFileBrowse"
+														class="btn-file-input btnClose">Browse</button>
+													<input tabindex="2" type="file" id="idBarFileInstallation"
+														class="fileUpload" multiple="multiple"
+														onfocus="divOnFocusBrowse();" onblur="divOnBlurBrowse();"
+														onchange="uInstallBox.attachBarFile(this,'popupBarFileInstallationMsg', 'idBarFileInstallation');">
+												</div>
+											</div>
+										</div>
+										<div class="itemInfo "
+											style="margin-left: 95px; margin-top: -23px;">
+											<label id="lblImportBoxNoFileSelected">No file
+												selected </label>
+										</div> <span class="spanPopupErrorMessageCommon"
+										style="padding-top: 10px;">
+											<aside class="asidePopupErrorMessageCommon"
+												id="popupBarFileInstallationMsg"></aside>
+									</span></td>
+								</tr>
+							</table>
+						</form>
+					</section>
+					<section style="float: right; margin: 15px 0px 0px 0px;"
+						class="divLogoutBtn">
+						<input type="button" id="btnCancelImportBox" value="Cancel"
+							class="btnCancelPopup"
+							onclick="uInstallBox.closeImportBoxPopUp('#importBoxModal');" tabindex="3">
+						<input type="button" value="Create" class="btnSavePopup"
+							id="btnImportBox" tabindex="4">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /********************* Import Box Pop up: end **********************/ -->
+	<!-- /********************* Progress Bar: Start **********************/ -->
+	<div id="progressBarModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 315px; width: 474px; background: #ffffff"
+			id="progressBarDialogBox">
+			<div style="height: 300px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon"
+						onclick="uInstallBox.closeInstallationPopUpModal('#progressBarModalWindow')"
+						tabindex="5" title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label id="lblProgressBar" class="AccessTokenHeading"></label>
+					<section id="sectionProgressBar" class="sectionContent"
+						style="height: 170px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+							<!-- Start -->
+							<div id="dvStartingInstallation" style="height: 173px;width: 292px;">
+								<label id="lblStartingInstallation"
+									style="font-family: Segoe UI Light;color: #1b1b1b;margin-left: 83px;margin-top: 88px;position: absolute;"
+									class="progressBarPercentage lblInstallComplete">
+									Starting Installation.. </label>
+							</div>
+							<!-- End -->
+							<div id="dvProgressBar">
+								<table>
+									<tr>
+										<td style="padding-bottom: 5px;"><label
+											id="lblPercentage"
+											style="font-weight: bold; font-size: 20px;"
+											class="lblElement"> </label> <progress
+												style="height: 24px; margin-left: 11px; width: 240px;"
+												id="installStatusProgress"> </progress></td>
+									</tr>
+									<tr style="word-wrap: break-word;">
+										<td><textarea
+												style="border: solid 1px #d2d2d2; height: 130px; width: 292px; font-family: Segoe UI Light; resize: none;display:none;"
+												name="" cols="" rows=""
+												class="textBoxPopup textAreaShowAccessToken entityGridTbody"
+												readonly="readonly" id="txtAreaInstallationStatus"></textarea>
+											<span class="popupAlertArea"> </span></td>
+									</tr>
+								</table>
+							</div>
+						</form>
+					</section>
+					<section style="float: right; margin: 19px 0px 0px 0px;"
+						class="divLogoutBtn">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+							onclick="uInstallBox.closeInstallationPopUpModal('#progressBarModalWindow');"
+							tabindex="3">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!-- /********************* Progress Bar: End **********************/ -->
+<!-- Create Box Pop UP Starts -->
+	<div id="createBoxPopUpModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 300px; width: 474px; background: #ffffff"
+			id="createBoxPopUpDialogBox">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon"
+					onclick="closeCreateBoxPopUp('#createBoxPopUpModalWindow')" tabindex="9"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Create New Box</label>
+			</div>
+			<section  class="popupContent">
+				<!-- LHS Block Start -->
+				<div id="dvLHSElements" class="positionLeftHandElements">
+					<div id="dvBoxName" class="lblElement">* Box Name</div>
+					<div class="positionTopDiv">
+						<div id="dvTextBoxName" class=" ">
+							<input id="txtBoxName" type="text" class="bigTextBox  " tabindex="1">
+						</div>
+						<span class="popupAlertArea">
+							<aside class="popupAlertmsg" id="popupBoxErrorMsg"></aside>
+						</span>
+					</div>
+					<div id="dvBoxName" class="lblElement"> URL to identify the
+						schema of this application</div>
+					<div class="positionTopDiv">
+						<div id="dvTextSchemaURL" class=" ">
+							<input id="txtSchemaURL" type="text" class="bigTextBox " tabindex="2">
+						</div>
+						<span class="popupAlertArea">
+							<aside class="popupAlertmsg" id="popupSchemaErrorMsg"></aside>
+						</span>
+					</div>
+				</div>
+				<!-- LHS Block ENDS -->
+			</section>
+		
+			<!-- Button Section Starts -->
+			<section class="positionButtons">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button" id="btnCreateInstallBox" class="btnClose"
+						value="Create" tabindex="8">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id="btnCancel"
+						onclick="closeCreateBoxPopUp('#createBoxPopUpModalWindow')"
+						class="cancelBtn" value="Cancel" tabindex="7">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+	<!-- - Create Box Pop up Ends -->
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerBox" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"></div>
+		</div>
+	</div>
+	<!-- Spinner code - End -->
+</body>
+</html>

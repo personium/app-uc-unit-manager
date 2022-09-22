@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache" >
+<meta http-equiv="Expires" content="-1">
+<script type="text/javascript" src="./js/boxAcl.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/boxProperties.js"></script>
+<script type="text/javascript" src="./js/fileDownload.js"></script>
+<script type="text/javascript" src="./js/boxDetail.js"></script>
+<script type="text/javascript" src="./js/dataManagement.js"></script>
+
+</head>
+<body>
+	<div class="backWrapper" style="overflow: hidden;">
+		<div class="backIcon" onclick="uBoxDetail.clickBackButton();"></div>
+		<div class="backBtnTxt" style="float:left;"><a id="backBtnTxt"></a></div>
+		<div class="divEditIcon">
+			<input id="btnEditBoxIcon" onclick="getSelectedBoxDetails();" type="button" class="editIconEnabled" tabindex="-1" title="Edit">
+		</div>
+		<div class="exportWebDavWrapper" onclick="uFileDownload.downloadBarFile();" id="exportWebDavWrapper">
+			<div id="dvExportIcon" class="exportWebDavIconEnabled"></div>
+			<div id="dvExportText" class="exportWebDavTextEnabled">Export</div>
+		</div>
+	</div>
+	<ul class="secondaryHeaderBar" style="clear: both;">
+		<li><div class="data selected" id="boxdetailContentsTab">Contents</div></li>
+		<li><div class="info" id="boxdetailInfoTab">Info</div></li>
+		<li>
+			<div id="collectionMessageSuccessBlock"
+				class="crudOperationSuccessWrapper" style="display: none; position:absolute;">
+				<div class="crudOperationMsgWrapper" style="display: table-cell;white-space: nowrap;padding-right: 34px;">
+					<span class="crudOperationSuccessIcon" id="messageIcon">&nbsp;</span>
+					<div id="collectionSuccessMsg" class="crudOperationSuccessMsg"></div>
+				</div>
+			</div>
+			<div id="collectionMessageErrorBlock"
+				class="crudOperationSuccessWrapper" style="display: none; position:absolute;width: 0px">
+				<div class="crudOperationMsgWrapper" style="display: table-cell;white-space: nowrap;padding-right: 34px;">
+					<span class="crudOperationErrorIcon" id="errorMessageIcon">&nbsp;</span>
+					<div id="collectionErrorMsg" class="crudOperationSuccessMsg"></div>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<div id="breadCrumbBar" class="breadCrumbBar">
+		<div class="leftBreadCrumbBar" id="leftBreadCrumbBar">
+			<div id="currentDirectoryIcon" class="currentDirectoryIcon"></div>
+			<div id="currentDirectoryName" class="currentDirectoryName mainTableEllipsis" style="margin-right:0px;"></div>
+		</div>
+		<div class="rightBreadCrumbBar">
+			<div class="collectionWrapper" id="collectionWrapper">
+				<!-- <div id="leftArrowWebDav" class="collectionLeftArrowWebDavDisabled"></div>
+				<div id="rootWebDav" class="collectionIconWebDavDisabled"></div> -->
+				<div id="dvBrowse1" class="browse" style="float:left;">
+					<div id="dvBreadCrumBrowse" style="display: none"></div>
+					<table id = "tblBoxBreadCrum" style='margin:0 10px 0px 0;' cellspacing='0' cellpadding='0'>
+						<!-- <tr id ="rowId_0" class="breadrCrumTableTr ContentHeading1 ContentHeadingpt1">
+							<td title="contents" id ="content" onclick="objOdata.createWebDavRootView();">Contents</td>
+							<td> ></td>
+						</tr> -->
+						<tr id ="rowId_0" class="breadrCrumTableTr ContentHeading1 ContentHeadingpt1">
+							<td id ="columnId_0" title="contents" onclick="objOdata.deleteBreadCrum(id,title);"></td>
+							<td id ="columnId_01" class="breadCrumStyle"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tertiaryBar" id="tertiaryBar">
+		<div class="leftTertiaryBar">
+			<div id="leftIcons" style="float:left;">
+				<div id="dvRefreshIcon" class="refreshIcon removeBorderOdataRefreshIcon" onclick="objOdata.refreshCollection();" title="Refresh"></div>
+				<div class="createWebDavWrapper" id="createWebDavWrapper">
+					<div id="createIconCollection" class="createWebDavIconEnabled"></div>
+					<div id="createTextCollection" class="createWebDavTextEnabled">Create</div>
+					<div id="arrowCollection" class="downArrowWebDavEnabled"></div>
+					<div id="dvCollectionSubMenu" style="display:none;">
+						<ul id="createCollectionSubMenu" class="createBoxSubMenu" style="padding-top: 27px;">
+							<li><a href="#" class="folderItem"
+								onclick="openCreateEntityModal('#createFolderModal','#createFolderDialog', 'txtFolderName');">
+									Folder</a></li>
+							<li class="oDataWrapper"><a href="#" style="border-top: 0px" onclick="openCreateEntityModal('#createODataModal','#createODataDialog', 'txtOdataName');" class="folderItem">
+									OData</a></li>
+							<li class="oDataWrapper"><a href="#" onclick="openCreateEntityModal('#createEngineServiceModal','#createEngineserviceDialog', 'txtEngineServiceName');" class="oDataItem">
+									Service</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="uploadWebDavWrapper" id="uploadWebDavWrapper" onclick="objOdata.toggleMode();">
+					<div class="uploadWebDavIconEnabled" id="uploadWebDavIcon"></div>
+					<div class="uploadWebDavTextEnabled" id="uploadWebDavText">Upload</div>
+				</div>
+			<!-- 	<div class="downloadWebDavWrapper" id="downloadWebDavWrapper">
+					<div class="downloadWebDavIconDisabled"></div>
+					<div class="downloadWebDavTextDisabled">Download</div>
+				</div> -->
+					<div class="downloadWebDavWrapper" onclick="uFileDownload.downloadFile();" id="downloadWebDavWrapper">
+				<div id="dvDownLoadIcon" class="downloadWebDavIconDisabled"></div>
+				<div id="dvDownLoadText" class="downloadWebDavTextDisabled">Download</div>
+			</div>
+			<!-- <div id="btnServiceRegistration" onclick="uRegisterFileAsService.openServiceRegistrationModal();" style="display: none;">Service Registration
+			</div> -->
+			<div class="createWebDavWrapper createWebDavTextEnabled" id="btnServiceRegistration" onclick="uRegisterFileAsService.openServiceRegistrationModal();" style="display: none;border-left: 1px solid #565656;padding: 0px 10px 0px 10px;margin-top: 9px;height: 20px;border-right: 1px solid #565656;">Configure
+			</div>
+				<a id = "downloadBinaryData" download = "" ></a>
+				<div id="btnDeleteCollection" class="deleteIconWebDav" onclick="uBoxDetail.openDeleteBoxDetailEntityPopUp();" title="Delete"></div>
+			</div>
+		</div>
+ 		<div class="rightTertiaryBar" id="rightTertiaryBar">
+<!-- 			<div class="rightArrowWebDav"></div> -->
+			<div class="sortWrapperWebDav" id="sortWrapperWebDav">
+				<div class="sortTextWebDav" id="sortTextWebDav">Sort by Date</div>
+				<div class="sortdownArrowWebDav" id="sortdownArrowWebDav"></div>
+			</div>
+		</div>
+	</div>
+	<div id="webDavContentArea" class="webDavContentArea"></div>
+	<div id="webDavProfileArea" class="webDavContentArea" style='display:none;'></div>
+<!-- <section class="topTable">
+	<div class="topLeft">
+		<label class="sortLabel">Sort By :</label> 
+		<select	class="dropDownNormal" disabled="disabled">
+			<option>-- Select --</option>
+			<option>Folder</option>
+		</select>
+	</div>
+	<div class="topRight">
+		<input type="button" title="Refresh" id = "btnRefreshCollection" onclick="objOdata.refreshCollection();"
+			class="refreshBoxDetail flLt" />
+			<input type="button" style="min-width:135px;margin-right:2px;" class="cursorHand flLt normalButtonBlue smallBlueButton" id="btnServiceRegistration" title="Service Registration" value="Service Registration" onclick="uRegisterFileAsService.openServiceRegistrationModal();">
+		<input type="button" id = "btnDownload" title="Download" class="importBtnDisabled" disabled="disabled"/>
+		<input type="button" id = "btnUploadFile" title="Upload" onclick="document.getElementById('fileID').click();" 
+			class="uploadBtn" />
+			<input type="button" id="btnCreateCollection"
+			title="Create Collection"
+			onclick="objOdata.openAddCollectionDropDown();"
+			class="createBtn" /> 
+			<div class="submenu" id="submenu">
+				<div style="width:100%">
+					<ul  class="custDropDown">
+						<li class="submenuLink" title="Folder" onclick="openCreateEntityModal('#createFolderModal','#createFolderDialog');"> 
+								<img alt="Folder" src="../images/folderIcon.png">
+								Folder
+						</li>
+						<li class="submenuLink" title="OData Collection" onclick="openCreateEntityModal('#createODataModal','#createODataDialog');">
+								<img alt="OData Service" src="../images/odata_new.jpg">
+								OData
+						</li>
+						<li class="submenuLink" title="Engine Service" onclick="openCreateEntityModal('#createEngineServiceModal','#createEngineserviceDialog');">
+								<img alt="Engine Service" src="../newImages/seviceCollection_small.png" class="engineSeerviceDropdownLink">
+								Engine Service
+						</li>
+					</ul>
+				</div>
+			</div>
+		<input type="button" id="btnDeleteCollection" title="Delete Collection"
+			disabled="disabled" class="deleteBtnDisabled" onclick="objOdata.openPopUpWindow('#multipleFileDeleteDialogBox','#multipleFileDeleteModalWindow');"/>
+			<input type="button" id = "btnUploadFile" title="Upload" onclick="objOdata.toggleMode();" 
+			class="uploadBtn" /> 
+			<a id = "downloadBinaryData" download = "" ></a>
+	</div>
+<span class="blackSearch"><input type="text" value="Search"
+			class="textBoxNormal" disabled="disabled" /></span>
+	<div class="clearBoth"></div>
+</section>
+<div class="boxBreadCrumLeftArrowDisable" onclick="objOdata.leftBreadCrumEnable();" id ="leftArrowBreadCrumId">
+<a href="#"></a>
+</div>
+<div id="dvBrowse1" class="browse">
+	<div id="dvBreadCrumBrowse" style="display: none"></div>
+		<table id = "tblBoxBreadCrum">
+			<tr style="float: left" id ="rowId_0" class="breadrCrumTableTr">
+				<td id ="columnId_0" onclick="objOdata.deleteBreadCrum(id);"></td>
+				<td> ></td>
+			</tr>
+		</table>
+</div>
+<div class="boxBreadCrumRightArrowDisable" onclick="objOdata.rightBreadCrumEnable();" id = "rightArrowBreadCrumId">
+<a href="#"></a>
+</div>
+<div class="leftPane">
+	<form>
+	<input type="hidden" name="CSRFToken" value="" id = "CSRFTokenDisplayEnvironment">
+	<table id="tblBoxDetail" class='boxDetailTable' cellpadding='0' cellspacing='0' border='0'>
+		<thead style="display:inline-table;">
+			<tr>
+				<th class="boxDetailTabHeadNoScrollBarCol1"><input type="checkbox" id='chkSelectall' onclick="uBoxAcl.checkAll(this);" class="checkBox cursorHand"/></th>
+				<th class="boxDetailTabHeadNoScrollBarCol2">Name</th>
+				<th class="boxDetailTabHeadNoScrollBarCol3">Size</th>
+				<th class="boxDetailTabHeadNoScrollBarCol4">Updated</th>
+				</tr>
+		</thead>
+		<tbody class="scroll">
+			<tr>
+				<td class="boxDetailTabCol1">
+					<input id ="rootFolderChkBox" type="checkbox" class = "rootFolderChkBox" disabled="disabled"/>
+					<div id="dvBoxName" class="rootFolderName"></div>
+				</td>
+				<td class="boxDetailTabCol2"><div id="dvSize" class="rootFolderName">-</div></td>
+				<td class="boxDetailTabCol2"><div id="dvLastModifiedDate" class="rootFolderName"></div></td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+	<div id="dvemptyTableOdataMessage" class="emptyTableMessage" style=" display:none;width:70%;">
+	Create New Folder, OData Service, Engine Service or Upload Files to get started
+	</div>
+	<div id="dvemptyTableOdataMessageFile" class="emptyTableMessage" style=" display:none;width:50%;">
+	Folder is empty 
+	</div>
+	</div>
+
+<div class="rightPane">
+	<div id="ACLFiller" style="height:100%;">
+		<div class="ACLFiller" id="propBody"><div id='dvNoColSelected' class='noSelectionMessage'></div></div>
+	</div>
+	
+	<div id="boxHeader" style="height:27px;">
+		<div class="boxPropsPaneHeader shortName" id="boxPropsPaneHeader">&nbsp;</div>
+	</div>
+	<div id="properties" style="height:40%;">
+		<div class="propsPane" id="propHead">
+			<span style="float:left;">
+				<input type="button" title="Properties" class="aclSetImage"></input>
+			</span>
+			Properties 
+			<span style="float:right;">
+				<input type="button" title="XML" class="xmlBut" value="XML" id = "btnXmlView"/> 
+				<input type="button" title="Edit" class="editIconBoxDetail" />
+			</span>
+		</div>
+		<div class="propBody" style="overflow-y:auto;overflow-x:hidden; " id="dvPropertyList"></div>
+	</div>
+	<div id="aclSettings" style="height:60%;">
+		<div class="propsPane" id="aclSettingsHead">
+			<span style="float:left;">
+				<input type="button" title="Properties" class="aclSetImage" ></input>
+			</span>
+			ACL Settings 
+			<span style="float:right;">
+				<input type="button" title="Edit" class="editIconBoxDetail" id = "roleAclEditIcon" onclick="uBoxAcl.toggleMode();" />
+				<input type="button" disabled="disabled" style="cursor:default" title="Edit" class="editIconBoxDetail" id = "roleAclEditIcon"/>
+			</span>
+		</div>
+		<div class="aclSetBody" id="aclSettingsBody">
+			<div id="rolesHead" class="aclSettingsBody">Principal</div>
+			<div id="rolesBody" class="rolesBody">
+				<table id = "roleAclTable">
+				</table>
+			</div>
+			<div id="privilegeHead" class="aclSettingsBody">Privilege</div>
+			<div id="privilegeBody" class="privBody">
+				<form id = "roleAclForm" name ="roleAclForm">
+					<table id = "aclPrivilegeTable">
+					<tr>
+					<td>
+					<input type="checkbox" value="all" class="aclSetPrivChkBox" onclick="uBoxAcl.checkBoxSelect(this);" id = "aclChekBox" name = "roleAclCheckBox">all</td></tr>
+					<div class="privChkBox">
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="read" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>read</td></tr>
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="write" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>write</td></tr>
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="read-properties" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>read-properties</td></tr>
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="write-properties" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>write-properties</td></tr>
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="read-acl" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>read-acl</td></tr>
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="write-acl" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>write-acl</td></tr>
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="write-content" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>write-content</td></tr>
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="bind" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>bind</td></tr>
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="unbind" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>unbind</td></tr>
+								<tr><td class="aclChildCheckbox"><input type="checkbox" value="exec" name = "roleAclCheckBox" id = "aclChekBox"  class="aclSetPrivChkBox" onclick="uBoxAcl.getCheckBoxPrivilegeSelection();"/>exec</td></tr>
+					</div>
+				</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<!-- Box EDIT Pop Up Start -->
+	<div id="boxEditModalWindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border" style="display: block; height: 315px; width: 474px; background: #ffffff" id="boxEditDialogBox">
+			<div style="height: 300px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon" onclick="closeEntityModal('#boxEditModalWindow');" tabindex="5" title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label class="AccessTokenHeading">Edit Box</label>
+					<section class="sectionContent" style="height: 170px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+							<table>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">*Box Name</label></td>
+								</tr>
+								<tr>
+									<td  id="editBoxId">
+										<input type="text" id="txtEditBoxName" class="bigTextBoxCollection" autocomplete="off" style="width: 205px" tabindex="1">
+										<span class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon" id="editPopupBoxErrorMsg" style="width: 248px"></aside>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">Schema URL</label></td>
+								</tr>
+								<tr>
+									<td  id="editSchemaId">
+										<input type="text" id="txtEditBoxSchema" class="bigTextBoxCollection" autocomplete="off" style="width: 205px" tabindex="2">
+										<span class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon" id="editPopupSchemaErrorMsg" style="width: 248px"></aside>
+										</span>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</section>
+					<section style="float: right; margin: 15px 0px 0px 0px;" class="divLogoutBtn">
+						<input type="button" value="Cancel" class="btnCancelPopup" onclick="closeEntityModal('#boxEditModalWindow');" tabindex="3">
+						<input type="button" value="Save" class="btnSavePopup" id="btnEditRole" onclick="updateBox();" tabindex="4">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Box EDIT Pop Up End -->
+<!-- /********************* CREATE ODATA : START **********************/ -->
+	<div id="createODataModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 210px; width: 444px; background: #ffffff"
+			id="createODataDialog">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon"
+					onclick="objCollectionOdata.closePopUp('#createODataModal','#txtOdataName')" tabindex="4"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Create OData</label>
+			</div>
+			<div id="dvCreateOdata" class="folderElement">
+				<div  id="dvOdataName" class="lblElement errorMessageSpan" >OData Name</div>
+				<div class="positionTopDiv">
+					<div id="dvTextOdataName" class=" ">
+						<input  id="txtOdataName" onkeyup="objCollectionOdata.createOdataOnEnterKeyPress();" type="text" class="bigTextBoxCollection" tabindex="1" onblur="objCollectionOdata.validateOdataNameOnBlur();">
+					</div>
+					<span   class="popupAlertArea errorMessageSpan">
+						<aside class="popupAlertmsg" id="popupOdataErrorMsg"></aside>
+					</span>
+				</div>
+		</div>
+				<!-- Button Section Starts -->
+		<section class="positionBottomButtons">
+				<div id="dvCreateOdatar" class="dvCreate">
+					<input type="button" onclick="objCollectionOdata.createOdataCollection();"  id="btnCreateOdata" class="btnClose"
+						value="Create" tabindex="3">
+				</div>
+				<div id="dvOdataCancel" class="dvCreate">
+					<input type="button" 
+						onclick="objCollectionOdata.closePopUp('#createODataModal','#txtOdataName')" 
+						class="cancelBtn" value="Cancel" tabindex="2">
+				</div>
+			</section> 
+		</div>
+	</div>
+<!-- /********************* CREATE ODATA : END **********************/ -->
+
+<!-- /********************* SINGLE FILE DELETE : START **********************/ -->
+<div id="singleFileDeleteModalWindow" class="modelback"
+	style="display: none;">
+	<div class="modal-window block-border"
+		style="display: block; height: 175px; width: 375px; background: #ffffff"
+		id="singleFileDeleteDialogBox">
+		<div class="popupWrapper" id="deleteFilepopup">
+			<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+				onclick="closeEntityModal('#singleFileDeleteModalWindow');">Close</a>
+			<header class="popupHeader"> Delete Collection </header>
+			<div class="popupContent">
+				<section class="popupInnerContent">
+					<aside class="deleteAccount">Do you want to delete selected
+						collection ?</aside>
+				</section>
+				<section class="bottomBtn">
+					<input type="button" value="Cancel" onclick="closeEntityModal('#singleFileDeleteModalWindow');"
+						class="normalButtonGrey" /> <input type="button" value="Ok"
+						id="btnSingleFileDelete" class="normalButtonBlue" />
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /********************* SINGLE FILE DELETE : END **********************/ -->
+
+<!-- /********************* MULTIPLE FILE DELETE : START **********************/ -->
+<!-- <div id="multipleFileDeleteModalWindow" class="modelback"
+	style="display: none;">
+	<div class="modal-window block-border"
+		style="display: block; height: 175px; width: 375px; background: #ffffff"
+		id="multipleFileDeleteDialogBox">
+		<div class="popupWrapper" id="deleteFilepopup">
+			<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+				onclick="closeEntityModal('#multipleFileDeleteModalWindow');">Close</a>
+			<header class="popupHeader"> Delete Collection(s) </header>
+			<div class="popupContent">
+				<section class="popupInnerContent">
+					<aside class="deleteAccount" id="multipleDeleteMsg">Do you want to delete selected
+						collection(s) ?</aside>
+				</section>
+				<section class="bottomBtn">
+					<input type="button" value="Cancel" onclick="closeEntityModal('#multipleFileDeleteModalWindow');"
+						class="normalButtonGrey" /> <input type="button" value="Ok"
+						id="btnMultipleFileDelete" class="normalButtonBlue"/>
+				</section>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<div id="multipleFileDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="multipleFileDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close"
+						class="popupCloseIcon"
+						onclick="closeEntityModal('#multipleFileDeleteModalWindow');" tabindex="3"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="">
+					<label class="sessionExpiredPopUpHeading"
+						id="lblHeadingCollection">Delete Collection(s)</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label id="multipleDeleteMsg">Do you want to delete selected
+						collection(s) ? </label>
+			</div>
+			<div  class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#multipleFileDeleteModalWindow');" tabindex="1" id= "btnCancelDavCollectionDelete">
+				<input type="button" id="btnMultipleFileDelete" class="btnClose"
+					onclick="objOdata.deleteMultipleCollections();" value="Delete" tabindex="2">
+			</div>
+		</div>
+	</div>
+
+
+<!-- /********************* MULTIPLE FILE DELETE : END **********************/ -->
+
+<!--  Spinner code - Start -->
+<div id="modalSpinnerBoxOdata" class="modelbackSpinner" style="display: none;">
+	<div class="modal-window block-border"
+		style="display: block; height: 0; width: 0; background:transparent;position:absolute;top:50%;left:50%;border:0"
+		id="dialogSpinner">
+		<div id="spinnerPopUp"> 
+		</div>
+	</div>
+</div>
+<!--  Spinner code - End -->
+<input type="file" id="fileID" style="visibility: hidden;" onchange="objOdata.attachFile();"/>
+
+<!-- /********************* CREATE FOLDER : START **********************/ -->
+	<div id="createFolderModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 210px; width: 444px; background: #ffffff"
+			id="createFolderDialog">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon"
+					onclick="objCollectionOdata.closePopUp('#createFolderModal','#txtFolderName')" tabindex="4"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Create Folder</label>
+			</div>
+			<div id="dvCreateFolder" class="folderElement">
+				<div  id="dvFolderName" class="lblElement errorMessageSpan" >Folder Name</div>
+				<div class="positionTopDiv">
+					<div id="dvTextBoxName" class=" ">
+						<input id="txtFolderName"  onkeyup="objCollectionOdata.createFolderOnEnterKeyPress();" type="text" class="bigTextBoxCollection" tabindex="1" onblur="objCollectionOdata.validateFolderNameOnBlur();">
+					</div>
+					<span class="popupAlertArea errorMessageSpan">
+						<aside class="popupAlertmsg" id="popupFolderErrorMsg"></aside>
+					</span>
+				</div>
+		</div>
+				<!-- Button Section Starts -->
+		<section class="positionBottomButtons">
+				<div id="dvCreateFoolder" class="dvCreate">
+					<input type="button" id="btnCreateFolder" onclick="objCollectionOdata.createFolder();" class="btnClose"
+						value="Create" tabindex="3">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" 
+						onclick="objCollectionOdata.closePopUp('#createFolderModal','#txtFolderName')" 
+						class="cancelBtn" value="Cancel" tabindex="2">
+				</div>
+			</section> 
+		</div>
+	</div>
+
+	<!-- /********************* CREATE FOLDER : END **********************/ -->
+
+<!-- /********************* CREATE ENGINE SERVICE : START **********************/ -->
+	<div id="createEngineServiceModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 210px; width: 444px; background: #ffffff"
+			id="createEngineserviceDialog">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon"
+					onclick="objCollectionOdata.closePopUp('#createEngineServiceModal','#txtEngineServiceName')" tabindex="4"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvEngineServiceheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Create Service</label>
+			</div>
+			<div id="dvCreateService" class="folderElement">
+				<div  id="dvPlugInName" class="lblElement errorMessageSpan" >Service Name</div>
+				<div class="positionTopDiv">
+					<div id="dvTextPlugInName" class=" ">
+						<input id="txtEngineServiceName"  onkeyup="objCollectionOdata.createEngineServiceOnEnterKeyPress();" type="text" class="bigTextBoxCollection" tabindex="1" onblur="objCollectionOdata.validateEngineServiceNameOnBlur();">
+					</div>
+					<span class="popupAlertArea errorMessageSpan">
+						<aside class="popupAlertmsg" id="popupEngineServiceErrorMsg"></aside>
+					</span>
+				</div>
+		</div>
+				<!-- Button Section Starts -->
+		<section class="positionBottomButtons">
+				<div id="dvCreateEngineService" class="dvCreate">
+					<input type="button" id="btnCreateEngineService" onclick="objCollectionOdata.createEngineService();" class="btnClose"
+						value="Create" tabindex="3">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" 
+						onclick="objCollectionOdata.closePopUp('#createEngineServiceModal','#txtEngineServiceName')" 
+						class="cancelBtn" value="Cancel" tabindex="2">
+				</div>
+			</section> 
+		</div>
+	</div>
+<!-- /********************* CREATE ENGINE SERVICE : END **********************/ -->
+
+<!-- /********************* SERVICE REGISTRATION POPUP : START **********************/ -->
+	
+	<div id="serviceRegistrationModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border" style="display: block; height: 493px; width: 850px; background: #ffffff" id="serviceRegistratioDialog">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" id="modalbox-close" class="popupCloseIcon" onclick="uRegisterFileAsService.closeServiceRegistrationModal('#serviceRegistrationModal');" tabindex="4" title="Close"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="">
+					<div>
+					<label class="sessionExpiredPopUpHeading" id="lblHeadingCollection">Service Configuration</label>
+					</div>
+					<div id="serviceRegistraionMessageBlock" class="crudOperationSuccessWrapper" style="display:none; margin: -29px 0px 4px 327px;">
+						<div class="crudOperationMsgWrapper" style="display: table-cell;white-space: nowrap;padding-right: 34px;">
+							<span class="crudOperationSuccessIcon" id="serviceRegistraionMessageIcon">&nbsp;</span>
+							<div id="serviceRegistraionSuccessMsg" class="crudOperationSuccessMsg"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<div class="serviceRegistrationUpperHeader">
+				<div style="width:305px;height:50px;float:left;">
+					<div style="margin-bottom: 10px;">
+						<label class="lblElement">Service Path</label>
+					</div>
+					<div>
+						<div>
+							<input type='text' id="txtBoxServiceNameID" class='entityTypeText serviceNameTextBox' onblur="uRegisterFileAsService.validateService();" title='' tabindex="1">
+							<aside class="popupAlertmsg" id="serviceNameErrorMsg"></aside>
+						</div> 
+					</div>
+				</div>
+				<div style="width:305px;height:50px;float:left;">
+					<div style="margin-bottom: 10px;">
+						<label class="lblElement"> Source File</label>
+					</div>
+					<div>
+						<div class="customSelectIconAssociation" style="background-position-x: 106.5%;width:272px;">
+							<select name="" id="dropDownSourceFileID" onblur="uRegisterFileAsService.validateSourceFileDropDown();" class="selectMenuPopup" style="width:272px;" tabindex="2">
+								<option class="disabled">Select</option>
+							</select>
+							<aside class="popupAlertmsg" id="sourceFileDDErrorMsg" style="height:14px;width:272px;background:#fff;float:left;"></aside>
+						</div> 
+					</div>
+				</div>
+				<div style="float:right;width:90px;margin-top:30px;">
+					<div class="">
+						<input type="button" id="btnRegisterServiceID" class="btnClose" onclick="uRegisterFileAsService.registerFileAsAService();" value="Register" tabindex="3">
+					</div>
+				</div>
+			</div>
+			<div id="dvRegisterServiceTable" class='entityGridTbody dvRegisteredserviceTable' >
+				<form name='ftable'>
+					<table id="tblRegisteredServices" cellpadding="0" cellspacing="0" border='0' class="entityGridTbody mainTable" style="display: block;overflow-x: auto; max-width: 700px; overflow-y:hidden ">
+						<thead >
+							<tr>
+								<th class='col1'>
+									<input type='checkbox' id='chkSelectallServiceRegistrationPopup' onclick='uRegisterFileAsService.checkAllRegisteredServices(this);' class='checkBox cursorHand regular-checkbox big-checkbox' />
+									<label for="chkSelectallServiceRegistrationPopup" class="checkBoxLabel" style="margin-left:10px;"></label>
+								</th>
+								<th class='col2'>Service Path</th>
+								<th class='col3'>Source File</th>
+								<th class='col4'>
+									<div style="float: left">URL</div>
+									<div ><input type="button" class="deleteIconDisabled" style="float: right;" id="deleteRegisteredService" disabled="disabled" onclick="openCreateEntityModal('#serviceRegistrationDeleteModalWindow','#serviceRegistrationDeleteDialogBox', 'btnCancelDeletePlugin');" title="Delete"></div>
+								</th>
+							</tr>
+						</thead>
+						<tbody id='tbodyServicesRegistered' style='max-height:220px;width:700px;display:block;overflow: auto;overflow-x:hidden;' class='entityGridTbody'></tbody>
+					</table>
+				</form>
+			<div id="dvEmptyServiceRegistration" class="emptyTableMessage"
+				style="display: none; width: 180px;margin: 119px auto;margin-bottom:0px; cursor: default;">No service configured yet</div>
+			</div>
+		</div>
+	</div>
+	<!--  /********************* SERVICE REGISTRATION POPUP : END **********************/ -->
+	
+	<!-- VIEW COLLECTION PROPFIND POP UP START --> 
+	<div id="xmlViewPopUpModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 506px; width: 706px; background: #ffffff"
+			id="xmlViewDialogBox">
+			<div id="" class="closeIconDiv">
+				<a title="Close" id="modalbox-close" class="popupCloseIcon"
+					onclick="uBoxProperty.closeXmlPopup('#xmlViewPopUpModalWindow')" style="margin: 0px;" tabindex="4"></a>
+			</div>
+			<div class="accessTokenDiv"> 
+				<label class="AccessTokenHeading" >
+					Xml View</label>
+			</div>
+			
+			<div class="dvTextArea">
+				<div  class="outerDvTextArea"  style="height: 312px;">
+
+					<textarea spellcheck="false" name="" cols="" rows="" wrap="off" class="  textAreaShowAccessToken entityGridTbody"
+						readonly="readonly" id="textXmlView"  style="height: 320px;" tabindex="1"></textarea>
+						<span class="popupAlertArea" id = "popupXmlTextAreaError" style="padding-top: 15px; font-family: Segoe UI; font-size: 0.85em;"></span>
+				</div>
+				
+				
+			</div>
+			
+			<div  class="dvClose">
+				<input type="button"  class=" btnCancelPopup"
+					onclick="uBoxProperty.closeXmlPopup('#xmlViewPopUpModalWindow')" value="Cancel" tabindex="2">
+				<input type="button" id="btnXmlViewEdit" class="normalButtonBlue btnClose" disabled="disabled"
+					 style="cursor:default;background-color: #AAA6A6;" value="Edit" tabindex="3">
+				
+							
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<!-- VIEW COLLECTION PROPFIND POP UP END -->
+	
+	 <!-- DELETE SERVICE REGISTRATION  POPUP - START -->
+	<div id="serviceRegistrationDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="serviceRegistrationDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close"
+						class="popupCloseIcon"
+						onclick="closeEntityModal('#serviceRegistrationDeleteModalWindow');"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="dvAccessheader">
+					<label class="sessionExpiredPopUpHeading"
+						id="lblHeadingAccessToken"> Delete Service(s)</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>Do you want to unconfigure selected service(s) ? </label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup" id="btnCancelDeletePlugin"
+					onclick="closeEntityModal('#serviceRegistrationDeleteModalWindow');">
+				<input type="button" id="" class="btnSavePopup"
+					onclick="uRegisterFileAsService.selectRecordsForDelete();" value="Delete" style="margin-right: 0px">
+			</div>
+		</div>
+	</div>
+	<!--  DELETE  POPUP - END -->
+	
+	<!-- EDIT ACL SETTING POP UP STARTS -->
+	<div id="editAclSettingModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 504px; width: 997px; background: #ffffff"
+			id="editAclSettingDialog">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin: 0px;" href="#" title="Close" id="modalbox-close"
+					class="popupCloseIcon crossIconFocus"
+					onclick="closeEntityModal('#editAclSettingModal')" tabindex="6"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					ACL Settings</label>
+			</div>
+			<div id="dvSchemaAuth" class="folderElement">
+				<div id="dvSchemaAuthOptions"
+					class="lblElement errorMessageSpan schemaAuthOptionsDIV">Schema
+					Auth</div>
+				<div>
+				    <table style="position: relative;top: -5px;">
+				    	<tr>
+				    		<td style="padding-right: 70px;">
+    							<input  id="chkNone" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="schemaAuth" value="none" onfocus="radioBtnFocusOnBoxAcl('#lblNoneBoxAcl');" onblur="radioBtnBlurOnBoxAcl('#lblNoneBoxAcl');" tabindex="1" style="opacity: 0">
+    							<label id ="lblNoneBoxAcl"  for="chkNone" class="customChkbox checkBoxLabel aclLabelFocus">
+    								<span style="padding-left:15px;position:absolute;top:-5px;">
+    									none
+    								</span>
+    							</label>
+							</td>
+							<td style="padding-right: 70px;">
+    							<input  id="chkPublic" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="schemaAuth" value="public" onfocus="radioBtnFocusOnBoxAcl('#lblPublicBoxAcl');" onblur="radioBtnBlurOnBoxAcl('#lblPublicBoxAcl');" tabindex="2" style="opacity: 0">
+    							<label id ="lblPublicBoxAcl"  for="chkPublic" class="customChkbox checkBoxLabel aclLabelFocus">
+    								<span style="padding-left:15px;position:absolute;top:-5px;">
+    									public
+    								</span>
+    							</label>
+							</td>
+							<td>
+    							<input  id="chkConfidential" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="schemaAuth" value="confidential" onfocus="radioBtnFocusOnBoxAcl('#lblConfidentialBoxAcl');" onblur="radioBtnBlurOnBoxAcl('#lblConfidentialBoxAcl');" tabindex="3" style="opacity: 0">
+    							<label id ="lblConfidentialBoxAcl"  for="chkConfidential" class="customChkbox checkBoxLabel aclLabelFocus">
+    								<span style="padding-left:15px;position:absolute;top:-5px;">
+    									confidential
+    								</span>
+    							</label>
+							</td>
+				    	</tr>
+				    </table>
+				</div>
+			</div>
+			<div id="" class="folderElement">
+				<div id="" class="lblElement errorMessageSpan ">Access Control</div>
+				<div>
+                    <table id="editAclSettingsTable" class="display" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="firstHeaderWidth" rowspan="2">Principals</th>
+                                <th colspan="9">Privileges</th>
+                            </tr>
+                            <tr>
+                                <th class="no-sort"><div>All</div></th>
+                                <th class="no-sort"><div>Read</div></th>
+                                <th class="no-sort"><div>Write</div></th>
+                                <th class="no-sort"><div>Read-Properties</div></th>
+                                <th class="no-sort"><div>Write-Properties</div></th>
+                                <th class="no-sort"><div>Read-acl</div></th>
+                                <th class="no-sort"><div>Write-acl</div></th>
+                                <th class="no-sort"><div>Exec</div></th>
+                                <th class="no-sort"><div>Alter-Schema</div></th>
+                            </tr>
+                        </thead>
+                        <tbody id="editACLGridTbody"></tbody>
+                    </table>
+				</div>
+			</div>
+			<!-- Button Section Starts -->
+			<section class="positionBottomButtons" style="margin-top: 20px">
+				<div id="dvCreateFoolder" class="dvCreate">
+					<input type="button" id="btnEditAcl" class="btnClose" value="Save"
+						tabindex="13">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button"
+						onclick="closeEntityModal('#editAclSettingModal')"
+						class="cancelBtn" value="Cancel" tabindex="12" id="btnCancelBoxAcl">
+				</div>
+			</section>
+		</div>
+	</div>
+	<!-- EDIT ACL SETTING POP UP ENDS -->
+
+	<div id = "dvGreyOut" class = "modelback" style="display: none"></div> 
+</body>
+</html>

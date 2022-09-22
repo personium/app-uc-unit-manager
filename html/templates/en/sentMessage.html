@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/sentMessage.js"></script>
+<script type="text/javascript" src="./js/odataQuery.js"></script>
+<script type="text/javascript" src="./js/main/core/Message.js"></script>
+</head>
+<body>
+	<div class="boxOperationSection">
+		<div class="leftSubHeading">
+			<div class="divList">
+				<label class="lblList">Sent Message list</label>
+			</div>
+				<div class="divDeleteIcon">
+				<input type="button" class="deleteIconDisabled" id="btnDeleteSentMessage" title="Delete" disabled="disabled">
+			</div>
+		</div>
+				<div id="rowCountSentMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="rowCountBanner" id="rowCountSentMessageIcon">&nbsp;</span>
+				<div id="rowCountSentSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		
+		<div id="sentMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="sentMessageIcon">&nbsp;</span>
+				<div id="sentMessageSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		<div class="rightSubHeading">
+			<div class="odataModeWrapper">
+				<div style="margin-top:0px;" class="odataGridIconSelected" id="btnGridSentMessage" title="Grid"></div>
+				<div style="margin-top:0px;" class="odataRawIconUnselected" id="btnRawSentMessage"></div>
+			</div>
+			<div style="margin-top: 0px;" class="sortWrapperWebDav sortWrapperOData" id="sortWrapperOData">
+				<div class="sortTextWebDav" id="sortTextOData">Sort by Date</div>
+				<div class="sortdownArrowWebDav" id="sortdownArrowOData"></div>
+			</div> 
+			<div class="paginationWrapper">
+				<div class="recordCount" id="recordCount_SentMessage"></div>
+				<div class="paginationIcons">
+					<div class="leftPagination">
+						<div class="firstPageDisabled" id="firstPage_SentMessage" title="First"></div>
+						<div class="prevPageDisabled" id="prevPage_SentMessage" title="Previous"></div>
+					</div>
+					<div class="rightPagination">
+						<div class="nextPageDisabled" id="nextPage_SentMessage" title="Next"></div>
+						<div class="lastPageDisabled" id="lastPage_SentMessage" title="Last"></div>
+					</div>
+					<div class="rightPagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="dvSentMessage" class="dvReceivedMessage" >
+		<div style="width:100%;margin-left: 0px;" class="odataQueryWrapper">
+			<input type="text" placeholder="Type your query" class="txtBoxQuery" id="txtBoxQuerySentMessage" tabindex="-1"/>
+			<input type="button" value="Go" class="btnGo" id="btnGoSentMessage" tabindex="-1"/>
+			<div id="dvSentErrorMessage" style="display: none">
+				<span class="spanPopupErrorMessageCommon" style="margin-bottom: 2px;margin-top: 2px;height: auto;">
+				<aside class="asidePopupErrorMessageCommon" id="errorSentMsgQuery"></aside>
+			</div>
+		</div>
+	</div>
+	<div id="sentMessageTableDiv" class="receivedMessageTableDiv">
+		<table id="sentMessageTable" cellspacing="0" cellpadding="0" class="mainTable entityGridTbody tblReceivedMessage">
+			<thead class="tblReceivedMessageThead">
+			<tr>
+				<th class='col1'><input
+					type='checkbox' id='chkSelectall' onclick="uSentMessage.checkSelectAll(this);"
+					class='checkBox cursorHand regular-checkbox big-checkbox' /><label
+					for="chkSelectall" class="checkBoxLabel" id="lblCheckSelectAllSentMessage"></label></th>
+				<th class="largeCol"><div 
+						class="entityHeadText">ID</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Created</div></th>
+			<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Updated</div></th>
+				<th class="largeCol"><div 
+						class="entityHeadText">To</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Box.Name</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Metadata-Etag</div></th>
+						<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Metadata-Type</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Metadata-URI</div></th>
+				<th class="smallCol"><div 
+						class="entityHeadText">InReplyTo</div></th>
+						<th class="mediumSpacedCol"><div 
+						class="entityHeadText">ToRelation</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Type</div></th>
+				<th class="mediumSpacedCol"><div 
+						class="entityHeadText">Title</div></th>
+				<th class="largeCol"><div 
+						class="entityHeadText">Body</div></th>
+				<th class="smallestCol"><div 
+						class="entityHeadText">Priority</div></th>
+				<th class="largeCol"><div 
+						class="entityHeadText">RequestRelation</div></th>
+				<th class="largeCol"><div class="entityHeadText">RequestRelationTarget</div></th>
+			</tr>
+			</thead>
+			<tbody class="entityGridTbody tblSentMessageTBody" id="entityGridTbody">
+			</tbody>
+		</table>
+	</div>
+	<div id="dvSentMessageRawTable" class="displayNone scrollEntityDv">
+		<code>
+			<table id="sentMessageRawTable" class=" entityGridTbody tblReceivedMessage">
+				<thead class="displayNone">
+					<tr>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody id="sentMessageRawDataTbody" class="entityGridTbody tblSentMessageTBody" style="overflow-x:auto;overflow-y:auto;"></tbody>
+			</table>
+		</code>
+	</div>
+		<!-- VIEW SENT MESSAGE DETAIL POP UP START -->
+	<div id="sentMessageDetailPopUpModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 506px; width: 706px; background: #ffffff"
+			id="sentMessageDetailDialogBox">
+			<div id="" class="closeIconDiv">
+				<a href="#" id="modalbox-close" class="popupCloseIcon"
+					onclick="closeEntityModal('#sentMessageDetailPopUpModalWindow');"
+					style="margin: 0px;" tabindex="3" title="Close"></a>
+			</div>
+			<div class="accessTokenDiv">
+				<label class="AccessTokenHeading"> Sent Message Detail</label>
+			</div>
+			<div class="dvTextArea">
+				<div class="outerDvTextArea" style="height: 312px;">
+				<pre class='prettyprint'><div id="textSentMessageDetail" style="font-family: Segoe UI Light;height: 320px; width: 523px;overflow: auto;font-weight: 13px;" class="entityGridTbody" tabindex="1"></div></pre>
+					<!-- <textarea spellcheck="false" spellcheck="false" name="" cols=""
+						rows="" wrap="off" class="textAreaShowAccessToken entityGridTbody"
+						readonly="readonly" id="textReceivedMessageDetail"
+						style="height: 320px; outline: 0;"></textarea> -->
+				</div>
+			</div>
+			<div class="dvClose">
+				<input type="button" id="btnClose" class="btnClose" style="margin-top: 11px;" onclick="closeEntityModal('#sentMessageDetailPopUpModalWindow');" value="Close" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- VIEW SENT MESSAGE DETAIL POP UP END -->
+	
+	<!-- SENT MESSAGE DELETE POP UP START -->
+	<div id="sentMessageDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="sentMessageDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close"
+						class="popupCloseIcon"
+						onclick="closeEntityModal('#sentMessageDeleteModalWindow');" tabindex="3"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="dvAccessheader">
+					<label class="sessionExpiredPopUpHeading"
+						id="lblHeadingAccessToken"> Delete Sent Message</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>Do you want to delete selected message(s) ? </label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#sentMessageDeleteModalWindow');" tabindex="1" id="btnCancelSentMessage">
+				<input type="button" id="btnSendMessageDelete" class="btnSavePopup"
+					onclick="" value="Delete" style="margin-right: 0px" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- SENT MESSAGE DELETE POP UP END -->
+</body>
+</html>

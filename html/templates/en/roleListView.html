@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/uRole.js"></script>
+
+<!-- <script type="text/javascript" src="../js/roleToAccountMapping.js"></script> -->
+</head>
+<body>
+	<div class="boxOperationSection">
+		<div class="leftSubHeading">
+			<div class="divList">
+				<label class="lblList">Role List</label>
+			</div>
+
+			<div id="createEntityWrapper" class="createRoleWrapper"
+				onclick="openCreateEntityModal('#createRoleModal','#createRoleDialog', 'roleName');">
+				<div id="createIcon" class="createIcon"></div>
+				<div id="createText" class="createText">Create Role</div>
+			</div>
+
+			
+			<div class="divDeleteIcon">
+				<input type="button" class="deleteIconDisabled" id="btnDeleteRole"
+					onclick="objRole.openPopUpWindow('#multipleDeleteDialogBox','#multipleDeleteModalWindow');" tabindex="-1" title="Delete">
+			</div>
+		</div>
+		<div id="roleMessageBlock" class="crudOperationSuccessWrapper"
+			style="display:none;float: left;position:absolute;margin-top: 6px;width: 0px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="roleMessageIcon">&nbsp;</span>
+				<div id="roleSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		<div class="rightSubHeading">
+			<div class="sortWrapper">
+				<label class="sortText">Sort by Date</label>
+				<div class="downArrow"></div>
+			</div>
+			<div class="paginationWrapper">
+				<div class="recordCount" id="recordCount_Role"></div>
+				<div class="paginationIcons">
+					<div class="leftPagination">
+						<div class="firstPageDisabled" id="firstPage_Role" title="First"></div>
+						<div class="prevPageDisabled" id="prevPage_Role" title="Previous"></div>
+					</div>
+					<div class="rightPagination">
+						<div class="nextPageDisabled" id="nextPage_Role" title="Next"></div>
+						<div class="lastPageDisabled" id="lastPage_Role" title="Last"></div>
+					</div>
+					<div class="rightPagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="roleTableDiv">
+		<form name='fRoleTable'>
+			<table id="mainRoleTable" cellpadding="0" cellspacing="0"
+				class="mainTable">
+				<thead>
+					<tr>
+						<th class='col1'><input type='checkbox' id='chkSelectall'
+							onclick='objRole.checkAll(this);'
+							class='checkBox cursorHand regular-checkbox big-checkbox' /><label
+							for="chkSelectall" class="checkBoxLabel"></label></th>
+						<th class='col2'>Name</th>
+						<th class='col3'>Box</th>
+						<th class='col4'>Created</th>
+						<th class='col4'>Updated</th>
+					</tr>
+				</thead>
+				<tbody id='entityGridTbody' class='entityGridTbody'></tbody>
+			</table>
+		</form>
+	</div>
+
+	<!-- Create Role Popup: start 
+	<div id="createRoleModal" class="modelback" style="display:none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 230px; width: 528px; background: #ffffff"
+			id="createRoleDialog">
+			<div class="popupWrapper" id="createRolepopup">
+				<!--  a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeCreateRole();">Close</a
+				<header class="popupHeader"> Create Role</header>
+				<div class="popupContent">
+					<section class="popupInnerContent">
+						<form>
+							<table width="100%" border="0" class="popupCommonTable">
+								<tr>
+									<td width="46%" valign="top"><label>* Role Name</label></td>
+									<td width="54%" align="right"><input type="text" name=""
+										value="" class="textBoxPopup" id="roleName"> <span
+										class="popupAlertArea">
+											<aside class="popupAlertmsg" id="popupRoleErrorMsg"></aside>
+									</span></td>
+								</tr>
+								<tr>
+									<td valign="top"><label>&nbsp;&nbsp;Select Box</label></td>
+									<td align="right"><select id="dropDownBox"
+										class="selectBoxPopup" style="float: left; width: 213px">
+											<options>--Select--</options>
+									</select> <span class="popupAlertArea">
+											<aside class="popupAlertmsg"></aside>
+									</span></td>
+								</tr>
+							</table>
+						</form>
+					</section>
+					<section class="bottomBtn">
+						<input type="submit" value="Cancel" class="normalButtonGrey"
+							onclick="closeCreateRole();" /> <input type="submit"
+							value="Create Role" onclick="createRole();"
+							class="normalButtonBlue" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+-->
+
+	<!-- /********************* Create Role Pop up: start **********************/ -->
+	<div id="createRoleModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 315px; width: 474px; background: #ffffff"
+			id="createRoleDialog">
+			<div style="height: 300px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon" onclick="closeCreateRole();" tabindex="5" title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label class="AccessTokenHeading">Create Role</label>
+					<section class="sectionContent"
+						style="height: 170px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+							<table>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">*Name</label></td>
+								</tr>
+								<tr>
+									<td><input type="text" id="roleName"
+										class="bigTextBoxCollection" autocomplete="off" style="width:205px" tabindex="1"> <span
+										class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon"
+												id="popupRoleErrorMsg" style="width: 248px"></aside>
+									</span></td>
+								</tr>
+								<tr>
+								<td id="idselectBox"><div
+											style="margin-bottom: 10px;">
+											<label class="lblElement">*Box where this Role is used</label>
+										</div>
+										<div class="customSelectIconAssociation"
+											style="background-position-x: 79.5%">
+											<select name="" id="dropDownBox"
+												class="selectMenuPopup" style="width:248px;" tabindex="2">
+											</select>
+										</div>
+										<span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="ddlRoleErrorMsg"></aside>
+						</span></td></tr>
+							</table>
+						</form>
+					</section>
+					<section style="float: right;margin: 15px 0px 0px 0px;" class="divLogoutBtn">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+							onclick="closeCreateRole();" tabindex="3"> <input type="button"
+							value="Create" class="btnSavePopup" id="" onclick="createRole();" tabindex="4">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /********************* Create Role Pop up: end **********************/ -->
+
+	<!-- Role Multiple Delete Pop Up Start-->
+	<div id="multipleDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="multipleDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close"
+						class="popupCloseIcon"
+						onclick="closeEntityModal('#multipleDeleteModalWindow');" tabindex="3"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="">
+					<label class="sessionExpiredPopUpHeading" id="lblHeadingCollection">Delete
+						Role(s)</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>Do you want to delete selected role(s) ? </label>
+			</div>
+			<div class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#multipleDeleteModalWindow');" tabindex="1" id="btnCancelRoleDelete">
+				<input type="button" id="" class="btnClose"
+					onclick="objRole.deleteMultipleRoles();" value="Delete" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- Role Multiple Delete Pop Up End -->
+
+	<!-- Role conflict message  Pop Up Start-->
+	<div id="conflictModalwindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 170px; width: 375px; background: #ffffff"
+			id="conflictDialogBox">
+			<div class="popupWrapper" id="deleteRolepopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeDeleteRolePopup();">Close</a>
+				<header class="popupHeader">Conflicted Role Names</header>
+				<div class="popupContent">
+					<section class="popupInnerContent conflict">
+						<aside class="conflictRole" id="conflictRole"></aside>
+					</section>
+					<section class="bottomBtn">
+						<input type="button" value="Ok" onclick="closeDeleteRolePopup();"
+							class="normalButtonGrey" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Role conflict message Pop Up End -->
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerRole" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"></div>
+		</div>
+	</div>
+	<!-- Spinner code - End -->
+</body>
+</html>

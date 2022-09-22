@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<title>Personium Unit Manager</title>
+<script type="text/javascript">
+    /* Constants for this application. */
+    const UNIT_FQDN="";
+</script>
+<script type="text/javascript"
+    src="./js/main/validation/login_validation.js"></script>
+<script type="text/javascript"
+    src="./js/login.js"></script>
+<script type="text/javascript" src="./js/jquery-1.9.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script type="text/javascript" src="./js/commonFunctions.js"></script>
+<script type="text/javascript" src="./js/jquery.modalbox.js"></script>
+<script type="text/javascript"
+    src="./js/main/validation/reg_validation.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="./css/loginStylesheet.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+<script>
+//history.pushState({},"","");
+//On load function called for user id
+$(document).ready(function(){
+    uLogin.renderLoginFields();
+});
+
+// Start OIDC Auth handler
+function startOIDCAuth() {
+    /* Constants for OIDC */
+    const OIDC_AUTH_ENDPOINT = '';
+    const OIDC_CLIENT_ID = '';
+    const OIDC_REDIRECT_URI = location.origin + "/__/html/login_oidc_callback.html";
+    const OIDC_SCOPE = "";
+    const OIDC_NONCE = "";
+
+    document.getElementById("logoutDiv").style.visibility = "hidden";
+    if (validateForm(false, true, true)) {
+        var unitCellUrl = $('#loginUrl').val();
+        var nextUrl = [
+            OIDC_AUTH_ENDPOINT,
+            '?response_type=id_token',
+            '&client_id=' + OIDC_CLIENT_ID,
+            '&redirect_uri=' + encodeURIComponent(OIDC_REDIRECT_URI),
+            '&state=' + encodeURIComponent(unitCellUrl),
+            '&scope=' + encodeURIComponent(OIDC_SCOPE),
+            '&nonce=' + encodeURIComponent(OIDC_NONCE)
+        ].join("");
+        console.log(nextUrl);
+        location.href = nextUrl;
+    }
+    return false;
+}
+
+
+//Validating field values
+function FillBilling(f) {
+    if(document.getElementById("confirm").style.display == "block"){
+        document.getElementById("confirm").style.display = "none";
+        document.getElementById("register").style.display = "block";
+    }
+    else {
+        document.getElementById("confirm").style.display = "none";
+        document.getElementById("register").style.display = "block";
+    }
+    var trimcid = f.cid.value.toString();
+    trimcid = trimcid.replace(/\s/g, '');
+    trimcid = trimcid.trim();
+    var trimcpassd = f.cpassd.value.toString();
+    trimcpassd = trimcpassd.replace(/\s/g, '');
+    trimcpassd = trimcpassd.trim();
+    var trimcfName = f.cfName.value.toString();
+    trimcfName = trimcfName.replace(/\s+/g, " ");
+    trimcfName = trimcfName.trim();
+    var trimcfamilyName = f.cfamilyName.value.toString();
+    trimcfamilyName = trimcfamilyName.replace(/\s+/g, " ");
+    trimcfamilyName = trimcfamilyName.trim();
+    var trimcoName = f.coName.value.toString();
+    trimcoName = trimcoName.replace(/\s+/g, " ");
+    trimcoName = trimcoName.trim();
+    f.rid.value = trimcid;
+    f.rpassd.value = trimcpassd;
+    f.rrpassd.value = f.crpassd.value;
+    f.rfName.value = trimcfName;
+    f.rfamilyName.value = trimcfamilyName;
+    f.roName.value = trimcoName;
+    f.remail.value = f.cemail.value;
+}
+
+//opening success registration popup.
+function openSuccesPopUp() {
+    var id = '#successMsgPopup';
+    $('#successMsgBlock').fadeIn(1000);
+    var winH = $(window).height();
+    var winW = $(window).width();
+    $(id).css('top', winH / 2 - $(id).height() / 2);
+    $(id).css('left', winW / 2 - $(id).width() / 2);
+}
+
+//For checking the value after successful registration.
+$(function() {
+    setDynaicBrowserCompatabilitySection();
+    setDynamicLoginSection();
+    if (document.getElementById("userId") != null) {
+        document.querySelector("#userId").spellcheck = false;
+    }
+    var flag = '<%=session.getValue("flag")%>';
+    if (flag == 'true') {
+        openSuccesPopUp();
+        //<%session.putValue("flag", false);%>
+    }
+});
+</script>
+</head>
+
+<body>
+    <div class="mySpinner">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    </div>
+    <div class="myHiddenDiv" id="loginContainer" style="min-width: 530px">
+        <!-- Login Content Starts -->
+        <div id="loginContentWrapper">
+                <div class="dvloginSection" id="dvloginSection" style="display: flex; flex-direction: column; justify-content: center;">
+                <div class="newLoginHeading">
+                    <!-- <label class="loginLogo" id="logoContainer">Personium Unit Manager</label> -->
+                    <!-- <img alt="" src="./images/login_logo.png"> -->
+                </div>
+                <div class="loginWrapper">
+                    <div class="browserSupportedMessage" id="incompatibleBrowseMsg">
+                    <label style="display: table;margin: 0 auto;font-size: 13pt;color: #c80000">Your browser is not supported.</label>
+                    </br>
+                    <label style="display: table;margin: 0 auto;">To use Personium unit manager, we recommend using the latest version</label>
+                    </br>
+                    <label style="display: table;margin: 0 auto;margin-top: -14px">of Google Chrome.</label>
+                    </div>
+                    <form name="login" id="loginForm" style="margin-left: 106px;" onsubmit="function (e) {e.preventDefault(); return false;}">
+                        <div style="visibility: visible; height: 15px;margin-top: 5px;" id="logoutDiv">
+                            <label id="logoutMsg" class="logoutMessage"></label>
+                        </div>
+                        <dl>
+                            <dt class="dtUnitUrl">
+                                <input type="text" autocomplete="off" placeholder="Login URL (with ending slash)"
+                                    name="loginUrl" id="loginUrl" class="txtUnitUrl"/>
+                                    <span class="newLoginAlertMessage">
+                                        <aside id="unitspan" style="display: none; width: 100%"></aside>
+                                    </span>
+                                <div class="clearBoth"></div>
+                            </dt>
+                            <dt class="dtUserName">
+                                <input type="text" autocomplete="off" placeholder="Username"
+                                    name="userId" id="userId" class="txtUserName"/>
+                                    <span class="newLoginAlertMessage">
+                                        <aside id="userspan" style="display: none; width: 100%"></aside>
+                                    </span>
+                                <div class="clearBoth"></div>
+                            </dt>
+                            <dt class="dtPassword">
+                                <input type="password" autocomplete="new-password" placeholder="Password"
+                                    name="passwd" id="passwd" class ="txtPassword"/>
+                                    <span class="newLoginAlertMessage">
+                                        <aside id="paswdspan" style="display: none; width: 100%"></aside>
+                                    </span>
+                                <div class="clearBoth"></div>
+                            </dt>
+                            <dt class="dtLanguage">
+                                <select id="ddLanguageSelector" name="ddLanguageSelector" class="dropDownBig" onclick="" style="float: left;margin-top: -17px;margin-right: 10px;padding-bottom: 2px;margin-left: 80px;height: 30px;width: 150px;">
+                                    <option value="en">English(en)</option>
+                                    <!-- <option value="ja">Japanese(ja)</option> -->
+                                </select>
+                            </dt>
+                            <dt class="dtLoginBtn">
+                                <span class="loginArrow"><input type="submit" value="Sign In"
+                                    value="" class="loginButton"
+                                    onclick="return uLogin.getEnvDetail();"/></span>
+                            </dt>
+                            <dt class="dtLoginBtn">
+                                <span class="loginArrow">
+                                    <input type="submit" value="Sign in with Google"
+                                        value="" class="loginButton"
+                                        onclick="return startOIDCAuth();"/>
+                                </span>
+                            </dt>
+                        </dl>
+                    </form>
+                </div>
+                </div>
+                <div class="dvnewLoginFooter">
+                <footer id="fullLoginFooter">
+                <label class="loginFooterPolicy">Privacy Policy</label>
+                <br>
+                <label class="loginFootercopyright">Copyright 2017-2022 Personium.io</label>
+                </footer>
+                </div>
+            <!-- </div> -->
+        </div>
+        <div id="successMsgBlock" class="modelback" style="display: none;">
+            <div class="modal-window block-border"
+                style="display: block; height: 573px; width: 460px; background: #ffffff"
+                id="successMsgPopup">
+                <div id="confirmRegs">
+                    <a href="#" title="Close" id="modalbox-close" class="closeIcon"
+                        onclick="closeSuccessMsg();">Close</a>
+                    <figure>Your account has been created successfully.
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <!-- Login Content Ends -->
+    </div>
+    </div>
+</body>
+</html>

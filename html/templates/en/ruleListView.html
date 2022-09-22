@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/uRule.js"></script>
+
+<!-- <script type="text/javascript" src="../js/roleToAccountMapping.js"></script> -->
+</head>
+<body>
+	<div class="boxOperationSection">
+		<div class="leftSubHeading">
+			<div class="divList">
+				<label class="lblList">Rule List</label>
+			</div>
+
+			<div id="createEntityWrapper" class="createRuleWrapper"
+				onclick="openCreateEntityModal('#createRuleModal','#createRuleDialog', 'dropDownAction');">
+				<div id="createIcon" class="createIcon"></div>
+				<div id="createText" class="createText">Create Rule</div>
+			</div>
+
+			<div class="divDeleteIcon">
+				<input type="button" class="deleteIconDisabled" id="btnDeleteRule"
+					onclick="objRule.openPopUpWindow('#multipleDeleteDialogBox','#multipleDeleteModalWindow');" tabindex="-1" title="Delete">
+			</div>
+		</div>
+		<div id="ruleMessageBlock" class="crudOperationSuccessWrapper"
+			style="display:none;float: left;position:absolute;margin-top: 6px;width: 0px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="ruleMessageIcon">&nbsp;</span>
+				<div id="ruleSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		<div class="rightSubHeading">
+			<div class="sortWrapper">
+				<label class="sortText">Sort by Date</label>
+				<div class="downArrow"></div>
+			</div>
+			<div class="paginationWrapper">
+				<div class="recordCount" id="recordCount_Rule"></div>
+				<div class="paginationIcons">
+					<div class="leftPagination">
+						<div class="firstPageDisabled" id="firstPage_Rule" title="First"></div>
+						<div class="prevPageDisabled" id="prevPage_Rule" title="Previous"></div>
+					</div>
+					<div class="rightPagination">
+						<div class="nextPageDisabled" id="nextPage_Rule" title="Next"></div>
+						<div class="lastPageDisabled" id="lastPage_Rule" title="Last"></div>
+					</div>
+					<div class="rightPagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="ruleTableDiv" class="receivedMessageTableDiv">
+		<form name='fRuleTable'>
+			<table id="mainRuleTable" cellpadding="0" cellspacing="0"
+				class="mainTable entityGridTbody tblReceivedMessage"
+				style="min-width:1228px;min-height:681px;">
+				<thead>
+					<tr>
+						<th class='col1'><input type='checkbox' id='chkSelectall'
+							onclick='objRule.checkAll(this);'
+							class='checkBox cursorHand regular-checkbox big-checkbox' /><label
+							for="chkSelectall" class="checkBoxLabel"></label></th>
+						<th class='col2'>Name</th>
+						<th class='col3'>Box</th>
+						<th class='col4'>Action</th>
+						<th class='col5'>Created</th>
+						<th class='col6'>Updated</th>
+					</tr>
+				</thead>
+				<tbody id='entityGridTbody' class='entityGridTbody'></tbody>
+			</table>
+		</form>
+	</div>
+
+	<!-- /********************* Create Rule Pop up: start **********************/ -->
+	<div id="createRuleModal" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 540px; width: 706px; background: #ffffff"
+			id="createRuleDialog">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon"
+					onclick="closeCreateBoxPopUp('#createRuleModal')" tabindex="9"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Create Rule</label>
+			</div>
+			<section  class="popupContent">
+				<!-- THS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvBoxName" class="lblElement" style="padding-bottom:0px;padding-top:5px;">
+							<input  id="chkBoxBound" type="checkbox" class="cursorHand regular-checkbox big-checkbox aclCheckboxFocus" name="chkBoxBound" tabindex="1" style="display:none;">
+    						<label id ="lblBoxBound"  for="chkBoxBound" class="customChkbox checkBoxLabel aclLabelFocus">
+    							<span style="width:100px;padding-left:20px;position:absolute;">
+    								Bound to Box
+    							</span>
+    						</label>
+						</div>
+						<div class="positionTopDiv">
+							<div class="customSelectIconAssociation"
+										style="background-position-x: 105.5%">
+										<select name="" id="dropDownBox"
+											class="selectMenuPopup" style="width:248px;" tabindex="2" disabled>
+										</select>
+							</div>
+							<span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="ddlRuleErrorMsg"></aside>
+							</span>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvRuleName" class="lblElement">Rule Name</div>
+						<div class="positionTopDiv">
+							<div id="dvTextRuleName" class=" ">
+								<input id="txtRuleName" type="text" placeholder="Please enter rule name" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupRuleErrorMsg"></aside>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- THS Block ENDS -->
+				<div class="positionElements separatorElements" style="clear:both;"></div>
+				<!-- MHS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvEventType" class="lblElement" style="float:left">EventType</div>
+						<div id="dvEventExternal" class="lblElement radio">
+							<input id="rdInternal" type="radio" name="dropDownEventExternal" value="false" checked="checked" style="opacity: 0">
+							<label for="rdInternal" style="margin-right: 6px; margin-left: 10px;height: 18px;padding-top: 2px;padding-right: 2px;" id= "lblInternal">Internal</label>
+							<input id="rdExternal" type="radio" name="dropDownEventExternal" value="true" style="opacity: 0" tabindex="2" onfocus="radioBtnOthereFocusOnExternalCell();" onblur="radioBtnOtherBlurOnExternalCell();">
+							<label for="rdExternal" style="margin-right: 6px; margin-left: 10px;height: 18px;padding-top: 2px;padding-right: 2px;" id="lblExternal">External</label>
+						</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventType" class=" ">
+								<input id="txtEventType" type="text" placeholder="example)davfile.update" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventTypeErrorMsg"></aside>
+							</span>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvEventSubject" class="lblElement">EventSubject</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventSubject" class=" ">
+								<input id="txtEventSubject" type="text" placeholder="Please enter cell URL" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventSubjectErrorMsg"></aside>
+							</span>
+						</div>
+					</div>
+					<div class="positionLeftHandElements">
+						<div id="dvEventObject" class="lblElement">EventObject</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventObject" class=" " style="display:none;">
+								<!--<label id="lblEventObject" class="lblElement">personium-localcell:/</label>-->
+								<input id="txtEventObject" type="text" placeholder="Any character string" class="bigTextBox  " tabindex="1">
+							</div>
+							<div id="dvTextEventObjectLocalBox" style="display:none;">
+								<lable class="lblElement">personium-localbox:/</lable>
+								<input id="txtEventObjectLocalBox" type="text" placeholder="Any character string" class="bigTextBox" style="width:	103px;" tabindex="1">
+							</div>
+							<div id="dvTextEventObjectLocalCel">
+								<lable class="lblElement">personium-localcell:/</lable>
+								<input id="txtEventObjectLocalCel" type="text" placeholder="Any character string" class="bigTextBox" style="width:	103px;" tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventObjectErrorMsg"></aside>
+							</span>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvEventInfo" class="lblElement">EventInfo</div>
+						<div class="positionTopDiv">
+							<div id="dvTextEventInfo" class=" ">
+								<input id="txtEventInfo" type="text" placeholder="Any character string" class="bigTextBox  " tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupEventInfoErrorMsg"></aside>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- MHS Block ENDS -->
+				<div class="positionElements separatorElements" style="clear:both;"></div>
+				<!-- BHS Block Start -->
+				<div>
+					<div class="positionLeftHandElements">
+						<div id="dvAction" class="lblElement">Action</div>
+						<div class="positionTopDiv">
+							<div id="dvSelectAction" class="customSelectIconAssociation"
+											style="background-position-x: 105.5%">
+								<select name="" id="dropDownAction"
+									class="selectMenuPopup" style="width:248px;" tabindex="2">
+									<option value="exec">exec</option>
+									<option value="relay">relay</option>
+									<option value="relay.event">relay.event</option>
+									<option value="log.info">log.info</option>
+									<option value="log.warn">log.warn</option>
+									<option value="log.error">log.error</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="positionRHSElements">
+						<div id="dvTargetUrl" class="lblElement">TargetUrl</div>
+						<div class="positionTopDiv">
+							<div id="dvTextTargetUrl" class=" " style="display:none;">
+								<input id="txtTargetUrl" type="text" placeholder="Please enter cell URL" class="bigTextBox  " tabindex="1">
+							</div>
+							<div id="dvTextTargetUrlLocalBox" style="display:none;">
+								<lable class="lblElement">personium-localbox:/</lable>
+								<input id="txtTargetUrlLocalBox" type="text" placeholder="{CollectionName}/{ServiceName}" class="bigTextBox" style="	width:103px;" tabindex="1">
+							</div>
+							<div id="dvTextTargetUrlLocalCel">
+								<lable class="lblElement">personium-localcell:/</lable>
+								<input id="txtTargetUrlLocalCel" type="text" placeholder="{BoxName}/{CollectionName}/{ServiceName}" class="	bigTextBox" style="width:103px;" tabindex="1">
+							</div>
+							<span class="popupAlertArea">
+								<aside class="popupAlertmsg" id="popupTargetUrlErrorMsg"></aside>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- BHS Block ENDS -->
+			</section>
+		
+			<!-- Button Section Starts -->
+			<section class="positionButtons">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button"
+						value="Create" class="btnSavePopup" id="" onclick="createRule();" tabindex="4">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id="btnCancel"
+						onclick="closeCreateBoxPopUp('#createRuleModal')"
+						class="cancelBtn" value="Cancel" tabindex="7">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+	<!-- /********************* Create Rule Pop up: end **********************/ -->
+
+	<!-- Rule Multiple Delete Pop Up Start-->
+	<div id="multipleDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="multipleDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close"
+						class="popupCloseIcon"
+						onclick="closeEntityModal('#multipleDeleteModalWindow');" tabindex="3"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="">
+					<label class="sessionExpiredPopUpHeading" id="lblHeadingCollection">Delete
+						Rule(s)</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>Do you want to delete selected rule(s) ? </label>
+			</div>
+			<div class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#multipleDeleteModalWindow');" tabindex="1" id="btnCancelRuleDelete">
+				<input type="button" id="" class="btnClose"
+					onclick="objRule.deleteMultipleRules();" value="Delete" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- Rule Multiple Delete Pop Up End -->
+
+	<!-- Rule conflict message  Pop Up Start-->
+	<div id="conflictModalwindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 170px; width: 375px; background: #ffffff"
+			id="conflictDialogBox">
+			<div class="popupWrapper" id="deleteRulepopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="closeDeleteRulePopup();">Close</a>
+				<header class="popupHeader">Conflicted Rule Names</header>
+				<div class="popupContent">
+					<section class="popupInnerContent conflict">
+						<aside class="conflictRule" id="conflictRule"></aside>
+					</section>
+					<section class="bottomBtn">
+						<input type="button" value="Ok" onclick="closeDeleteRulePopup();"
+							class="normalButtonGrey" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Rule conflict message Pop Up End -->
+
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerRule" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"></div>
+		</div>
+	</div>
+	<!-- Spinner code - End -->
+</body>
+</html>

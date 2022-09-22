@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<div id="CellProfileInfo" style="min-width:1220px;max-height: 450px;display: block;overflow: auto;" class='entityGridTbody'>
+	<div class="aclSettingsHeader">
+		<div class="aclSettingsText" style="margin:15px 0px 0px 2px;">Profile</div>
+		<div onclick="openCreateEntityModal('#editBoxProfileModalWindow','#editBoxProfileDialogBox', 'editBPDisplayName');" id ="dvBoxEditIcon" class="editIconACLSettings" style="width:0px;margin:15px 0px 0px 9px;" title="Edit"></div>
+		<div onclick="openCreateEntityModal('#editCellProfileModalWindow','#editCellProfileDialogBox', 'editDisplayName');"  id ="dvCellEditIcon" class="editIconACLSettings" style="width:0px;margin:15px 0px 0px 9px;" title="Edit"></div>
+		<span id="profileLngArea">
+			<div class="aclSettingsText" style="margin:15px 0px 0px 15px;">Language</div>
+			<select id="profileLngList" onchange="uCellProfile.changeEditProfileLng(this);" style="margin:20px 0px 0px 9px;float:left;" >
+				<option value="">default</option>
+			</select>
+		</span>
+	</div>
+	<div style="margin:70px 0px 0px 2px;width:99%;">
+		<div class='ContentHeadingpt1' style="width:10%;float:left;">Display Name</div>
+		<div id='dvdisplayName' class='ContentTextpt1' style="width:90%;word-wrap: break-word;float:left;">-</div>
+	</div>
+	<div style="width:99%;">
+		<div class='ContentHeadingpt1' style="width:10%;padding-top: 30px;float:left;">Description</div>
+		<div id='dvdisplayDesc' class='ContentTextpt1' style="width:90%;padding-top: 30px;word-wrap:break-word;float:left;">-</div>
+	</div>
+	<div style="width:99%;">
+		<div class='ContentHeadingpt1' style="width:10%;padding-top:30px;float:left;">Profile Picture</div>
+		<!-- <div id="ProfilePhoto" class='imgBorder boxProfileImage' style="width: 71px;height: 71px;margin-top:30px;float:left;"></div> -->
+		<div class="floatLeft" style="margin-top:30px;" id="ProfilePhoto">
+								<table>
+									<tr>
+										<td align="center" valign="middle" class="imgBorder">
+											<figure id="figboxProfileImage" class="boxProfileImage">
+													<img style="display: none; margin: auto;"
+														id="imgBoxViewProfile" src="#" alt="image" />
+											</figure>
+										</td>
+									</tr>
+								</table>
+							</div>
+</div>
+</div>
+<!-- Create Edit Box Profile Pop UP Starts -->
+	<div id="editBoxProfileModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 325px; width: 706px; background: #ffffff"
+			id="editBoxProfileDialogBox">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon"
+					onclick="objBoxProfile.closeEditBoxProfilePopUp('#editBoxProfileModalWindow')" tabindex="6"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Edit Box Profile</label>
+			</div>
+			<!-- LHS Block Start -->
+				<div id="dvLHSElements" class="positionLeftHandElements">
+					<div id="dvDisplayName" class="lblElement ">Display Name</div>
+					<div class="positionTopDiv">
+						<div id="dvTextDisplayName" class=" ">
+							<input id="editBPDisplayName" onblur="objBoxProfile.displayNameBlurEvent();" type="text" class="bigTextBox " tabindex="1">
+						</div>
+						<span class="popupAlertArea">
+							<aside class="popupAlertmsg RHSAlertMsg" id="popupEditBPDisplayNameErrorMsg"></aside>
+						</span>
+					</div>
+					<div id="dvDescription" class="lblElement">Description</div>
+					<div class="">
+						<div id="dvTextDisplayName" class="">
+						<textarea name="" cols="" rows="" class="profileTextArea bigTextBox bigTextBoxHeight entityGridTbody" onblur="objBoxProfile.descriptionBlurEvent();" id="editBPDescription" tabindex="2"></textarea>
+						</div>
+						<span style="padding-top: 3px;height:11px;" class="popupAlertArea">
+							<aside class="popupAlertmsg RHSAlertMsg" id="popupEditBPDescriptionErrorMsg"></aside>
+						</span>
+					</div>
+				</div>
+				<!-- LHS Block ENDS -->
+				<!-- RHS Block Starts -->
+				<div id="dvRHSElements" class="positionRHSElements RHSElements">
+				<div id="dvApplicationImage"
+						class="widthApplicationImage lblElement">Application Image</div>
+					<section class="positionImageSection" id="imgSection">
+						<div class="floatLeft" id="dvBoxProfileImage">
+								<table >
+									<tr>
+										<td align="center" valign="middle" class="imgBorder">
+											<figure id="figEditBoxProfile" class="boxProfileImage">
+													<img style="display: none; margin: auto;"
+														id="idBPImgFile" src="#" alt="image" />
+											</figure>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div id="dvBrowseButtonSection" class="browseButtonSection" >
+								<div>
+									<label class="itemInfo positionImageInfo"
+										id="lblEditNoFileSelected">No file selected </label>
+								</div>
+								<div class="browseButton">
+									<div id="dvBrowse" class="file-input-wrapper browseEditBoxProfile">
+										<button title="" id="btnBoxImageProfileBrowse" class="btn-file-input btnClose">Browse</button>
+										<input style="cursor: pointer;" title=" "
+											onchange="selectFile(this,'popupEditBoxImageErrorMsg','idImgFileEditBox','#idBPImgFile','#lblEditNoFileSelected','#figEditBoxProfile');"
+											id="idImgFileEditBox" type="file" name="file" tabindex="3" onfocus="divOnFocusBrowseOnBoxProfile();" onblur="divOnBlurBrowseOnBoxProfile();"/>
+									</div> 
+								</div>
+							</div>
+						</section>
+					<section  class="positionTopDiv positionApplicationImageSection">
+						<div>
+							<label class="floatLeft itemInfo" id="boxImageInfo"> You can
+								upload any image of size max. 50 kb, dimension<br> 180px x
+								180 px in JPEG/PNG format
+							</label>
+						</div>
+						<span class="popupAlertArea">
+							<aside class="popupAlertmsg RHSAlertMsg" id="popupEditBoxImageErrorMsg"></aside>
+						</span>
+					</section>
+				</div>
+				<!-- RHS Block Ends -->
+			<!-- Button Section Starts -->
+			<section style="margin-top:0px;" class="positionButtons">
+				<div id="dvButtonPanel" class="dvCreate">
+					<input type="button" onclick="objBoxProfile.clickEditBoxProfile();" id="btnEditBoxProfile" class="btnClose"
+						value="Save" tabindex="5">
+				</div>
+				<div id="dvBoxProfileCancel" class="dvCreate">
+					<input type="button" id="btnCancel"
+						onclick="objBoxProfile.closeEditBoxProfilePopUp('#editBoxProfileModalWindow')"
+						class="cancelBtn" value="Cancel" tabindex="4">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+	<!-- - Create Edit Box Profile Ends -->
+	
+	<!-- Create Edit Cell Profile Pop UP Starts -->
+	<div id="editCellProfileModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 325px; width: 706px; background: #ffffff"
+			id="editCellProfileDialogBox">
+			<div id="dvCloseIcon" class="closeIconDiv">
+				<a style="margin:0px;" href="#" title="Close" id="modalbox-close" class="popupCloseIcon"
+					onclick="uCellProfile.closeEditProfilePopUp('#editCellProfileModalWindow')" tabindex="6"></a>
+			</div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Edit Profile</label>
+			</div>
+			<!-- LHS Block Start -->
+				<div id="dvLHSElements" class="positionLeftHandElements">
+					<div id="dvDisplayName" class="lblElement ">Display Name</div>
+					<div class="positionTopDiv">
+						<div id="dvTextDisplayName" class=" ">
+							<input id="editDisplayName" onblur="uCellProfile.editDisplayNameBlurEvent();" type="text" class="bigTextBox " tabindex="1">
+						</div>
+						<span class="popupAlertArea">
+							<aside class="popupAlertmsg RHSAlertMsg" id="popupEditDisplayNameErrorMsg"></aside>
+						</span>
+					</div>
+					<div id="dvDescription" class="lblElement">Description</div>
+					<div class="">
+						<div id="dvTextDisplayName" class="">
+						<textarea onblur="uCellProfile.editDescriptionBlurEvent();" name="" cols="" rows="" class="profileTextArea bigTextBox bigTextBoxHeight entityGridTbody" id="editDescription" tabindex="2"></textarea>
+						</div>
+						<span style="padding-top: 3px;height:11px;" class="popupAlertArea">
+							<aside class="popupAlertmsg RHSAlertMsg" id="popupEditDescriptionErrorMsg"></aside>
+						</span>
+					</div>
+				</div>
+				<!-- LHS Block ENDS -->
+				<!-- RHS Block Starts -->
+				<div id="dvRHSElements" class="positionRHSElements RHSElements">
+				<div id="dvApplicationImage"
+						class="widthApplicationImage lblElement">Application Image</div>
+					<section class="positionImageSection" id="imgSection">
+						<div class="floatLeft" id="dvBoxProfileImage">
+								<table >
+									<tr>
+										<td align="center" valign="middle" class="imgBorder">
+											<figure id="figEditCellProfile" class="boxProfileImage">
+													<img style="display: none; margin: auto;"
+														id="idImgFile" src="#" alt="image" />
+											</figure>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div id="dvBrowseButtonSection" class="browseButtonSection" >
+								<div>
+									<label class="itemInfo positionImageInfo"
+										id="lblEditFileName">No file selected </label>
+								</div>
+								<div class="browseButton">
+									<div id="dvBrowse" class="file-input-wrapper browseEditCellProfile">
+										<button title="" id="btnBoxImageProfileBrowse" class="btn-file-input btnClose">Browse</button>
+										<input style="cursor: pointer;" title=" "
+											onchange="selectFile(this,'popupCellEditUserPhotoErrorMsg','idImgFileEditCell','#idImgFile','#lblEditFileName','#figEditCellProfile');"
+											id="idImgFileEditCell" type="file" name="file" tabindex="3"/ onfocus="divOnFocusBrowseOnCellProfile();" onblur="divOnBlurBrowseOnCellProfile();">
+									</div> 
+								</div>
+							</div>
+						</section>
+					<section  class="positionTopDiv positionApplicationImageSection">
+						<div>
+							<label class="floatLeft itemInfo" id="boxImageInfo"> You can
+								upload any image of size max. 50 kb, dimension<br> 180px x
+								180 px in JPEG/PNG format
+							</label>
+						</div>
+						<span class="popupAlertArea">
+							<aside class="popupAlertmsg RHSAlertMsg" id="popupCellEditUserPhotoErrorMsg"></aside>
+						</span>
+					</section>
+				</div>
+				<!-- RHS Block Ends -->
+			<!-- Button Section Starts -->
+			<section style="margin-top:0px;" class="positionButtons">
+				<div id="dvButtonPanel" class="dvCreate">
+					<input type="button"  id="btnEditBoxProfile" onclick="uCellProfile.updateCellProfile();" class="btnClose"
+						value="Save" tabindex="5">
+				</div>
+				<div id="dvBoxProfileCancel" class="dvCreate">
+					<input type="button" id="btnCancel"
+						onclick="uCellProfile.closeEditProfilePopUp('#editCellProfileModalWindow')"
+						class="cancelBtn" value="Cancel" tabindex="4">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+	<!-- - Create Edit Cell Profile Ends -->

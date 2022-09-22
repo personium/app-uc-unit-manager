@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="./js/spin.js"></script>
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/main/core/PropertyManager.js"></script>
+<script type="text/javascript" src="./js/schemaManagement.js"></script>
+<script type="text/javascript" src="./js/entityTypeProperty.js"></script>
+<script type="text/javascript" src="./js/complexTypeProperty.js"></script>
+<script>
+	function displayPropDetails() {
+		$("#associationEndMainDiv").empty();
+		$('#propertyTerNav').show();
+		if(sessionStorage.countOfProps > 0){
+			//enable display if properties are present
+			$('#PropertyViewBody').show();
+				var entityTypeNames = uEntityTypeOperations.fetchEntityTypes(sessionStorage.selectedCollectionURL);
+			uEntityTypeOperations.updatePropertyView(entityTypeNames[sessionStorage.selectedEntityTypeCount]);
+		}else{
+			document.getElementById("PropertyViewEmptyBody").style.display = "block";
+		}
+		$('#AssociationTab').removeClass("genericSelectRed");
+		$('#PropertyTab').addClass("genericSelectRed");
+	}
+
+</script>
+</head>
+<body>
+	<div class="entityTypeList" id="entityTypeList">
+		<div>
+			<div class="entityTypeHeader" style="border-bottom: 1px solid #e6e6e6;">
+				<div class="entityTypeTab typeTabSelected" onclick="uSchemaManagement.clickEntityTypeTab();">Entity Type</div>
+				<div class="complexTypeTab" onclick="uSchemaManagement.clickComplexTypeTab();">Complex Type</div>
+			</div>
+			<div style="width: 100%;height: 35px;">
+			<div class="schemaRefreshIcon disableRefreshEntityType"  id="entityTypeRefreshIcon" title="Refresh"></div>
+			<div class="schemaCreateIcon" id="entityTypeCreateIcon" title="Create" onclick=""></div>
+			<div class="schemaRawIconUnselected" id="entityTypeRawIcon"></div>
+			</div>
+		</div>
+		<div style="display: none;" id="dvemptyTableMessageOdata" class="emptyTableMessageForEType">
+				<div >No Entity Type created yet.</div><div class="createETypeLink" 
+				onclick="openCreateEntityModal('#createETypeModal','#createETypeDialog', 'txtETypeName');">Create Entity Type</div>
+		</div>
+		<table class="entityTypeBody" id="entityTypeBody" cellpadding='0' cellspacing='0' border='0'>
+		<tbody id="entityTypeTbody" class="entityGridTbody"></tbody>
+		</table>
+		<div id="dvemptyComplexTypeMessageOdata" class="emptyTableMessage dvNoComplexType" style="display: none;">
+		<label>No Complex Type created yet</label><br><a class="noComplexTypeAnchor" onclick="openCreateEntityModal('#createCTypeModal','#createCTypeDialog', 'txtCTypeName');">Create Complex Type</a></div>
+		<table class="entityTypeBody" id="complexTypeList" cellpadding='0' cellspacing='0' border='0'>
+					<tbody id="complexTypeTbody" class="entityGridTbody"></tbody>
+				</table>
+	</div>
+		<div class="odataRightView" id="odataRightView">
+		<div id="propertyViewUI" class="propertyViewUI">
+			<div id="propertyToolBar" class="propertyToolBar">
+				<div id="propertyToolBarLeft" class="propertyToolBarLeft">
+					<div id="tabEntityName" class="PTBAREntityLabel cursorDefault"></div>
+					<div id="createPropertyIcon" class="createPropertyIcon"
+						onclick="uEntityTypeOperations.getEditEntityTypeName();" title="Edit"></div>
+					<div id="deletePropertyIcon" class="deletePropertyIcon"
+						onclick="openCreateEntityModal('#entityTypeDeleteModalWindow','#entityTypeDeleteDialogBox', 'btnCancelDeleteEntityType');" title="Delete"></div>
+				</div>
+				<div id="propertyToolBarRight" class="propertyToolBarRight mainTableEllipsis"></div>
+			</div>
+			<div id="propertySubNav" class="propertySubNav">
+				<div id="propertyToolBarLeft" class="propertyToolBarLeft"
+					style="float: left">
+					<div id="PropertyTab" class="genericSelectRed" onClick="displayPropDetails();">Property</div>
+				</div>
+				<div id="AssociationTab" class="propertyToolBarRight"
+					onClick="uSchemaManagement.loadAssociationEndViewMode();">Association</div>
+			</div>
+			<div id="propertyTerNav" class="propertyTerNav">
+				<div id="propertyTerNavHeader"
+					style="width: 100%; height: 35px; display: block; background: #f2f2f2;">
+					<div id="propertyTerNavLeft"
+						style="float: left; min-width: 272px; width: 28%; height: 35px; border-right: 1px solid #e6e6e6; font-family: Segoe UI; font-size: 10pt; color: #1b1b1b;">
+						<div
+							style="margin-left: 10px; margin-top: 10px; width: 30%; font-family: Segoe UI; font-size: 10pt; color: #1b1b1b;">
+							<div style="width: 30%; float: left">Property</div>
+							<div id="createPropertyDiv"
+								style="width: 20%; float: left; margin-left: 20px;">
+								<div class="createBlackGenericIcon" id="btnAddEntityTypeProp" onclick="openCreateEntityModal('#propertyModalWindow', '#propertyDialogBox', 'txtBoxPropertyName');"></div>
+							</div>
+						</div>
+						<div style="float: right; width: 60%;">
+							<div style="float: right; margin-right: 10px; color: #6B6666" id="propertyCountLabel"></div>
+						</div>
+					</div>
+					<div id="propertyTerNavRHS" style="float: left;width:71%;min-width:697px;">
+						<div id="propDetailLabel" class="mainTableEllipsis"
+							style="float: left; margin-left: 10px; margin-top: 10px; max-width: 609px; font-family: Segoe UI; font-size: 10pt; color: #1b1b1b;">
+							</div>
+						<div id="terNavIcons" style="float: left; margin-left: 20px;">
+							<!-- <div id="createPropertyIcon" class="createGenericPropertyIcon"></div> -->
+							<div id="deletePropertyIcon" class="deleteGenericPropertyIcon" onclick="openCreateEntityModal('#propertyDeleteModalWindow','#propertyDeleteDialogBox', 'btnCancelDeleteProperty');" title="Delete"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="PropertyViewEmptyBody" style="width: 100%;display:none;">
+				<div id="propertyListLHSEmpty"
+					style="width: 28%;min-width: 272px;float: left;height: 100%;border-right: 1px solid #e6e6e6;">
+					<div style="font-family: Segoe UI;cursor: default;font-size: 10pt;color: #1b1b1b;background: #fff1f1;border: 1px solid #d2d2d2;height: 23px;min-width: 155px;width: 155px;margin-top: 40%;padding-left: 11px;margin-left: 47px;line-height: 21px;">
+						No properties added yet
+					</div>
+				</div>
+			</div>
+			<div id="PropertyViewBody" style="width: 100%;">
+				<div id="propertyListLHS"
+					style="width: 28%; min-width:272px;float: left;">
+					<table class="propertyList" id="propertyList" cellpadding="0" cellspacing="0" border="0">
+						<tbody id="propertyListTbody" class='entityGridTbody' style="border-right: 1px solid #e6e6e6;"></tbody>
+					</table>
+				</div>
+				<div id="PropertyViewBodyRight"
+					style="width: 71.8%; float: right;">
+					<table id="propDetailTable" style="font-family:Segoe UI;font-size:10pt;" >
+					<tbody id='propertyDetailsView' class='entityGridTbody' style="display: block;width: 100%;overflow: auto;"></tbody>
+					</table>
+				</div>
+			</div>
+		<div id="associationEndMainDiv"></div>
+		</div>
+		
+		<!-- Complex Type Property View: START  -->
+		<div id="complexTypePropertyViewUI" class="propertyViewUI" style="display: none;">
+		<div id="propertyViewUI" class="propertyViewUI">
+			<div id="propertyToolBar" class="propertyToolBar">
+				<div class="propertyToolBarLeft" style="width: 99.8%;" id="complexTypeTopSection">
+					<div id="tabComplexTypeName" class="PTBAREntityLabel cursorDefault"></div>
+					<!-- <div id="editComplexTypeIcon" class="createPropertyIcon"></div> -->
+					<div id="deleteComplexTypeIcon" class="deletePropertyIcon" style="margin-right: 10px;margin-left: 10px;" onclick="openCreateEntityModal('#compTypeDeleteModalWindow','#compTypeDeleteDialogBox', 'btnCancelComplexTypeDelete');" title="Delete"></div>
+				</div>
+			</div>
+			<div id="propertyTerNav" class="propertyTerNav">
+				<div id="propertyTerNavHeader" class="ctpTerNavHeader">
+					<div id="propertyTerNavLeft" class="ctpTerNavLeft">
+						<div class="ctpLeftHeading">
+							<div class="ctpText">Complex Type Property</div>
+							<div class="createComplexTypePropertyIcon" onclick="openCreateEntityModal('#complexTypePropertyModalWindow', '#complexTypePropertyDialogBox', 'txtBoxComplexTypePropName');"></div>
+						</div>
+					</div>
+					<div id="complexTypePropertyTerNavRHS" class="ctpTerNavRHS">
+						<div id="complexTypePropLabel" class="mainTableEllipsis ctpLabel"></div>
+						<div style="float: left; margin-left: 20px;">
+							<!-- <div id="editComplexTypePropertyIcon" class="createGenericPropertyIcon"></div> -->
+							<div id="deleteComplexTypePropertyIcon" class="deleteGenericPropertyIcon" onclick="openCreateEntityModal('#complexTypePropertyDeleteModalWindow','#complexTypePropertyDeleteDialogBox', 'btnCancelDeleteComplexTypeProperty');" title="Delete"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+				<div id="PropertyViewBody" style="width: 100%;">
+					<div id="ctpListLHS" class="ctpListLHS" style="height: 260px;">
+					<div style="border-right: 1px solid #e6e6e6;width: 100%;" id="parentDivNoCTPMessage" style="display: none;">
+					<div id="innerDivNoCTPMessage"></div>
+						<div id="dvNoCompTypeProp" class="emptyTableMessage"
+							style="display: none; width: 245px;margin: 0 auto;cursor: default;">No complex type property created yet</div>
+							</div>
+						<div style="border-right: 1px solid #e6e6e6;width: 100%;" id="divCTPTable">
+						<table id="complexTypePropertyList" class="propertyList"
+							style="padding-right: 0px !important;" cellpadding='0'
+							cellspacing='0' border='0'>
+							<tbody class="entityGridTbody" id="ctpTbody" style="margin-top: 2px;">
+							</tbody>
+						</table>
+						</div>
+					</div>
+
+				</div>
+				<div id="PropertyViewBodyRight"
+					style="width: 71.8%; float: left; height: 228px;">
+					<table id="complexTypePropertyDetailView" cellpadding='0' cellspacing='0' border='0'
+						class="mainTableComplexTypeProp">
+						<tbody class="entityGridTbody" id='complexTypePropertyDetailViewTbody'
+							style="display: block; width: 100%; overflow: auto;"
+							cellpadding='0' cellspacing='0' border='0'></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- Complex Type Property View: END  -->
+		
+	</div>
+	
+	<!-- /*********************** CREATE PROPERTY POPUP : START *********************/ -->
+
+	<div id="propertyModalWindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 458px; width: 706px; background: #ffffff"
+			id="propertyDialogBox">
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#propertyModalWindow');" tabindex="8" title="Close"></div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Add Property</label>
+			</div>
+			<div>
+				<table cellpadding='0' cellspacing='0' border='0' class="popupcreatePropertyTable">
+					<tr>
+						<td id="idPropertyName" style="width: 336px"><div style="margin-bottom: 10px;">
+								<label class="lblElement">* Name</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox" id = "txtBoxPropertyName" tabindex="1"> <span
+									class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="propertyNameErrorMsg"></aside>
+								</span>
+							</div></td>
+						<td id="idPropDefaultValue"><div id="defaultValueLabel" style="margin-bottom: 9px;">
+								<label class="lblElement">Default Value</label>
+							</div>
+							<div id="defaultValueDiv" >
+								<input type="text" class="bigTextBox propertyPopUpTextBox" id = "txtBoxPropDefaultValue" tabindex="4"> <span
+									class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="defaultValuePropErrorMsg"></aside>
+								</span>
+							</div></td>
+							
+							<td id = "idPropStringType" style="display: none"><div style="margin-bottom: 9px;">
+								<label class="lblElement">Default Value</label>
+							</div>
+							<div>
+								<div style="height: 29px">
+								<textarea rows="1" cols="1"
+										id="txtAreaPropDefaultValue" class="bigTextBox propertyPopUpTextArea" tabindex="4"></textarea></div><span
+									class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="defaultValuetxtAreaPropErrorMsg"></aside>
+								</span>
+							</div></td>
+							
+							<td id = "idPropBooleanType" style="display: none"><div style="margin-bottom: 9px;">
+								<label class="lblElement">Default Value</label>
+							</div>
+							<div>
+							<div class="customSelectIcon" style="background-position-x: 106.5%">
+								<select name=""
+									id="dropDownPropTypeBoolean" class="selectMenuPopup" tabindex="4">
+								</select></div> <span
+									class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="defaultValuePropErrorMsg"></aside>
+								</span>
+							</div></td>
+							
+					</tr>
+					<tr>
+						<td id ="idEntityTypeName" style="width: 336px"><div style="margin-bottom: 10px;">
+								<label class="lblElement">* Entity Type Name</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox" id = "txtBoxEntityTypeName" disabled="disabled"> <span
+									class="spanPopupErrorMessageCommon"> <!-- <aside class="asidePopupErrorMessageCommon" id="entityTypeNameErrorMsg"></aside> -->
+								</span>
+							</div></td>
+						<td id="idPropCollectionKind"><div style="margin-bottom: 10px;">
+								<label class="lblElement">Collection Kind</label>
+							</div>
+							<div class="customSelectIcon" style="background-position-x: 106.5%">
+								<select name="" id="dropDownPropCollectionKind"
+									class="selectMenuPopup" tabindex="5">
+									<option value="None">None</option>
+									<option value="List">List</option>
+								</select>
+
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="collectionKindPropDDErrorMsg"></aside>
+						</span></td>
+					</tr>
+					<tr>
+						<td id="idPropType" style="width: 336px"><div style="margin-bottom: 10px;">
+								<label class="lblElement">* Type</label>
+							</div>
+							<div class="customSelectIcon">
+								<select name="" id="dropDownPropType" class="selectMenuPopup"
+									onclick="uEntityTypeProperty.setPropDefaultValueFieldAsPerType();" onchange="uEntityTypeProperty.emptyDefaultValueFieldAsPerType();" tabindex="2">
+									<option value="">Select</option>
+									<option id="null" title="Edm.String">Edm.String</option>
+									<option id="null" title="Edm.Int32">Edm.Int32</option>
+									<option id="null" title="Edm.Double">Edm.Double</option>
+									<option id="null" title="Edm.Boolean">Edm.Boolean</option>
+									<option id="null" title="Edm.DateTime">Edm.DateTime</option>
+									<optgroup label="-------------------------------------------"
+										id="optGrpComplexTypeList">
+									</optgroup>
+									<!-- <option value="Select One">Select One</option> -->
+								</select>
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="typePropertyDDErrorMsg"></aside>
+						</span></td>
+						<td id="idPropIsKey"><div style="margin-bottom: 10px;">
+								<label class="lblElement">IsKey</label>
+							</div>
+							<div class="customSelectIcon" style="background-position-x: 106.5%">
+								<select name=""
+									disabled="disabled" id="dropDownPropIsKey"
+									class="selectMenuPopup customSlectDDDisabledIsKey">
+										<option value="false">False</option>
+										<option value="true">True</option>
+								</select>
+							</div> <span
+									class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="isKeyPropDDErrorMsg"></aside>
+								</span>
+							</td>
+					</tr>
+					<tr>
+						<td id="idPropNullable" style="width: 336px"><div style="margin-bottom: 10px;">
+								<label class="lblElement">Nullable</label>
+							</div>
+							<div class="customSelectIcon">
+								<select name="" id="dropDownPropNullable"
+									class="selectMenuPopup"
+									onclick="uEntityTypeProperty.createDefaultValueDropDownForBoolean();" tabindex="3">
+									<option value="null">Select</option>
+									<option value="true">True</option>
+									<option value="false">False</option>
+								</select>
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="nullablePropDDErrorMsg"></aside>
+						</span></td>
+						<td id="idPropUniqueKey"><div style="margin-bottom: 10px;">
+								<label class="lblElement">Unique Key</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox" id = "txtBoxPropUniqueKey" disabled="disabled" tabindex="4"> <span
+									class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="propUniqueKeyErrorMsg"></aside>
+								</span>
+							</div></td>
+					</tr>
+
+
+				</table>
+			</div>
+
+			<!-- Button Section Starts -->
+			<section class="positionButtons">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button" id="btnAddProperty" class="btnClose"
+						value="Create" tabindex="7">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id="btnCancel"
+						onclick="closeEntityModal('#propertyModalWindow')"
+						class="cancelBtn" value="Cancel" tabindex="6">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+	<!-- /*********************** CREATE PROPERTY POPUP : END *********************/ -->
+
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerSchemaManagement" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"></div>
+		</div>
+	</div>
+	<!-- Spinner code - End -->
+	<!-- <img id="leftArrow" class="leftArrow"/> -->
+
+	<!-- /*********************** DELETE PROPERTY POPUP : START *********************/ -->
+
+	<div id="propertyDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="propertyDeleteDialogBox">
+
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#propertyDeleteModalWindow');" tabindex="3" title="Close"></div>
+
+			<div class="sessionExpiryDiv" id="dvAccessheader">
+				<label class="sessionExpiredPopUpHeading" id="lblHeadingAccessToken">
+					Delete Property</label>
+			</div>
+
+			<div class="sessionExpiredLabel" style="margin-top: 26px;">
+				<label>Do you want to delete selected property ?</label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup" id="btnCancelDeleteProperty"
+					onclick="closeEntityModal('#propertyDeleteModalWindow');" tabindex="1">
+				<input type="button" id="btnDeleteProperty" class="btnSavePopup"
+					onclick="" value="Delete" style="margin-right: 0px;" tabindex="2">
+			</div>
+		</div>
+	</div>
+
+	<!-- /*********************** DELETE PROPERTY POPUP : END *********************/ -->
+</body>

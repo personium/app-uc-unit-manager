@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/uCell.js"></script>
+<script type="text/javascript" src="./js/externalCell.js"></script>
+<!-- <script type="text/javascript"
+	src="../js/externalCellToRelationMapping.js"></script> -->
+<!-- <link href="../css/stylesheet.css" rel="stylesheet" type="text/css"> -->
+</head>
+<body>
+	<div class="boxOperationSection">
+		<div class="leftSubHeading">
+			<div class="divList">
+				<label class="lblList">External Cell List</label>
+			</div>
+
+			<div id="createEntityWrapper" class="createExternalCellWrapper" onclick="openCreateEntityModal('#externalCellModalWindow','#externalCellDialogBox', 'lblThisRadioExtCell');">
+				<div id="createIcon" class="createIcon"></div>
+				<div id="createText" class="createText">Register External Cell</div>
+			</div>
+
+			<div class="divDeleteIcon">
+				<input type="button" class="deleteIconDisabled" id = "btnDeleteExternalCell"  onclick="openCreateEntityModal('#multipleExternalCellDeleteModalWindow', '#multipleExternalCellDeleteDialogBox', 'btnCancelDeleteExtCell');" title="Delete">
+			</div>
+		</div>
+		<div id="extCellMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="extCellMessageIcon">&nbsp;</span>
+				<div id="extCellSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		<div class="rightSubHeading">
+			<div class="sortWrapper">
+				<label class="sortText">Sort by Date</label>
+				<div class="downArrow"></div>
+			</div>
+			<div class="paginationWrapper">
+				<div class="recordCount" id="recordCount_ExtCell"></div>
+				<div class="paginationIcons">
+					<div class="leftPagination">
+						<div class="firstPageDisabled" id="firstPage_ExtCell" title="First"></div>
+						<div class="prevPageDisabled" id="prevPage_ExtCell" title="Previous"></div>
+					</div>
+					<div class="rightPagination">
+						<div class="nextPageDisabled" id="nextPage_ExtCell" title="Next"></div>
+						<div class="lastPageDisabled" id="lastPage_ExtCell" title="Last"></div>
+					</div>
+					<div class="rightPagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="dvExternalCell">
+		<form name='externalCellftable'>
+			<table id='mainExternalCellTable' cellpadding='0' cellspacing='0' class='mainTable'>
+				<thead>
+					<tr>
+						<th class='col1'><input type='checkbox' 
+						id='chkSelectall' onclick='checkAll(this)'
+						class='checkBox cursorHand regular-checkbox big-checkbox'/><label for="chkSelectall" class="checkBoxLabel"></label></th>
+						<th class='col2'>Name</th>
+						<th class='col3'>URL</th>
+						<th class='col4'>Created</th>
+						<th class='col5'>Updated</th>
+						<th class='col6'>Relation</th>
+					</tr>
+				</thead>
+				<tbody id='entityGridTbody' class='entityGridTbody'></tbody>
+			</table>
+		</form>
+	</div>
+	<!-- Right Section ends here -->
+	<div class="clearBoth"></div>
+
+</body>
+<!-- External Cell CREATE Pop Up Start -->
+<div id="externalCellModalWindow" class="modelback"
+	style="display: none;">
+	<div class="modal-window block-border"
+		style="display: block; height: 300px; width: 706px; background: #ffffff"
+		id="externalCellDialogBox">
+		<div id="closeModalbox" class="crossDeletePropIcon" onclick="objExtCell.closeExternalPopUpWindow();" tabindex="9" title="Close"></div>
+		<div class="accessTokenDiv" style="padding-bottom: 15px"
+			id="dvAccessheader">
+			<label class="AccessTokenHeading"> Register External Cell</label>
+		</div>
+		<div>
+			<table cellpadding='0' cellspacing='0' border='0'
+				class="popupcreatePropertyTable">
+				<tr>
+					<td style="width: 336px"><div style="margin-bottom: 10px;">
+							<label class="lblElement">External Cell Location</label>
+						</div>
+						<div class="lblElement radio" style="height: 40px">
+							<input id="rdMyCell" type="radio" name="externalCell" value="This Unit" style="display: inline-block;opacity: 0" tabindex="1" onfocus="radioBtnThisFocusOnExternalCell();" onblur="radioBtnThisBlurOnExternalCell();">
+							<label for="rdMyCell" style="margin-right: 6px; margin-left: -16px;height: 18px;padding-top: 2px;padding-right: 2px;" id= "lblThisRadioExtCell">This Unit</label> 
+							<input id="rdExternalCell" type="radio" name="externalCell" value="Other" style="display: inline-block;opacity: 0" tabindex="2" onfocus="radioBtnOthereFocusOnExternalCell();" onblur="radioBtnOtherBlurOnExternalCell();">
+							<label for="rdExternalCell" style="margin-right: 6px; margin-left: 44px;height: 18px;padding-top: 2px;padding-right: 2px;" id="lblOtherRadioExtCell">Other</label>
+						</div></td>
+					<td><div style="margin-bottom: 10px; margin-top: -12px;">
+							<input type='checkbox' id='chkBoxCreateExtCell'
+								class='checkBox cursorHand regular-checkbox big-checkbox'
+								onclick="objCommon.clickAssignChkBoxCreatePopup('chkBoxCreateExtCell', 'dropDownAssignRelationCreateExtCell', true, 'selectRelationDropDownError');" style="display: inline-block;opacity: 0" tabindex="5" onfocus="checkboxFocusOnExtCell();" onblur="checkboxBlurOnExtCell();"/><label
+								for="chkBoxCreateExtCell" class="checkBoxLabel" style="margin-left: -13px" id="lblAssignrelationExtCell"></label><label
+								class="lblElement assignChkBoxLabel">Assign Relation</label>
+						</div></td>
+				</tr>
+				<tr>
+					<td style="width: 336px" id="rowMyCell"><div
+							style="margin-bottom: 10px;">
+							<label class="lblElement">Select Cell</label>
+						</div>
+						<div class="customSelectIconAssociation"
+							style="background-position-x: 81.5%">
+							<select name="" id="ddlCellList" class="selectMenuPopup" tabindex="3">
+								<option>Select Cell</option>
+							</select>
+
+						</div> <span class="spanPopupErrorMessageCommon">
+							<aside class="asidePopupErrorMessageCommon" id="ddCellListErrorMsg"></aside>
+					</span></td>
+
+					<td style="width: 336px; display: none" id="rowCellURL">
+						<div style="margin-bottom: 10px;">
+							<label class="lblElement">Cell URL</label>
+						</div>
+						<div>
+							<input type="text" class="bigTextBox propertyPopUpTextBox"
+								id="txtUrl" tabindex="4"> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="externalCellURLErrorMesage"></aside>
+							</span>
+						</div>
+					</td>
+
+					<td><div style="margin-bottom: 10px; margin-top: -70px;">
+							<label class="lblElement">Relation</label>
+						</div>
+						<div>
+							<div class="customSelectIconAssociation"
+								style="background-position-x: 106.5%">
+								<select name="" id="dropDownAssignRelationCreateExtCell"
+									class="selectMenuPopup" disabled="disabled" tabindex="6">
+									<option>Select Relation (Box)</option>
+								</select>
+
+							</div>
+							<span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="selectRelationDropDownError"></aside>
+							</span>
+						</div></td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- Button Section Starts -->
+		<section class="positionButtons">
+			<div id="dvCreate" class="dvCreate">
+				<input type="button" id="btnRegister" class="btnClose"
+					value="Create" onclick="" tabindex="8">
+			</div>
+			<div id="dvCancel" class="dvCreate">
+				<input type="button" id="btnCancel" onclick="objExtCell.closeExternalPopUpWindow();" class="cancelBtn"
+					value="Cancel" tabindex="7">
+			</div>
+		</section>
+		<!-- Button Section Ends -->
+	</div>
+</div>
+<!-- External Cell Create Pop Up End -->
+<!-- Spinner code - Start -->
+<div id="modalSpinnerExtCell" class="modelbackSpinner"
+	style="display: none;">
+	<div class="modal-window block-border"
+		style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+		id="dialogSpinner">
+		<div id="spinnerPopUp"></div>
+	</div>
+</div>
+<!-- Spinner code - End -->
+
+<!-- External cell Single Delete Pop Up Start-->
+<!-- <div id="externalCellSingleDeleteModalWindow" class="modelback"
+	style="display: none;">
+	<div class="modal-window block-border"
+		style="display: block; height: 175px; width: 375px; background: #ffffff"
+		id="externalCellSingleDeleteDialogBox">
+		<div class="popupWrapper" id="deleteAccountpopup">
+			<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+				onclick="closeEntityModal('#externalCellSingleDeleteModalWindow');">Close</a>
+			<header class="popupHeader">Delete External Cell </header>
+			<div class="popupContent">
+				<section class="popupInnerContent">
+					<aside class="deleteAccount">Do you want to delete selected
+						External Cell ?</aside>
+				</section>
+				<section class="bottomBtn">
+					<input type="button" value="Cancel"
+						onclick="closeEntityModal('#externalCellSingleDeleteModalWindow');"
+						class="normalButtonGrey" /> <input type="button" value="Ok"
+						id="deleteSingleExternalCellId" class="normalButtonBlue" />
+				</section>
+			</div>
+		</div>
+	</div>
+</div> -->
+<!-- External cell Single Delete Pop Up End -->
+
+<!--  External Cell Multiple Delete Pop Up Start-->
+<div id="multipleExternalCellDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 242px; width: 467px; background: #ffffff"
+			id="multipleExternalCellDeleteDialogBox">
+			<div class="boxPopupWrapper" id="deleteAccountpopup">
+				<div id="dvCloseIcon" class="popupCloseIcon"
+				onclick="closeEntityModal('#multipleExternalCellDeleteModalWindow');" tabindex="3" title="Close"></div>
+
+			<div class="sessionExpiryDiv"  style="padding-top:30px">
+				<label class="sessionExpiredPopUpHeading" >
+					Delete External Cell(s)</label>
+			</div>
+
+			<div class="sessionExpiredLabel" style="margin-top: 44px;height:34px">
+				<div style="text-align:left;">Do you want to delete External
+						Cell(s) ?</div>
+							
+			</div>
+			<div id="externalCellDivClose" class="sessionPopUpCloseSection">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#multipleExternalCellDeleteModalWindow');" tabindex="1" id ="btnCancelDeleteExtCell">
+				<input type="button"  class="btnSavePopup" id="deleteMultipleExternalCellId"
+									value="Delete" style="margin-right: 0px;" onclick="objExtCell.deleteMultipleExternalCell();" tabindex="2">
+			</div>
+		</div>
+		</div>
+	</div>
+<!-- External Cell Multiple Delete Pop Up End -->
+
+</html>

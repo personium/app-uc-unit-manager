@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<div>
+	<div style="height: 30px;">
+		<div class="assignBackWrapper" style="float:left;">
+			<div class="assignBackIcon" onclick="objCommon.clickAssignBackButton();"></div>
+			<div class="divAssignEllipsis" id="divAssignRoleName"><label id="assignRoleName" class="backBtnTxt"></label></div><label
+				id="assignBoxName" style="display: none;"></label>
+			<div class="divEditIcon">
+				<input id="btnEditRoleIcon" onclick="openCreateEntityModal('#roleEditModalWindow','#roleEditDialogBox', 'txtEditRoleName');" type="button" class="editIconEnabled" tabindex="-1" title="Edit">
+			</div>
+		</div>
+		<div id="roleLinkMessageBlock" class="crudOperationSuccessWrapper"
+			style="display:none;float: left;position:absolute;margin-top: 6px;width: 0px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="roleLinkMessageIcon">&nbsp;</span>
+				<div id="roleLinkSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="assignEntities">
+		<ul>
+			<li id="assignAccountToRole" class="assignNavigation selected"
+				onclick="clickRoleAccountLinkMappingPage();"><label>Assign
+					Account</label></li>
+			<li id="assignExtCellToRole" class="assignNavigation" onclick="openRoleExtCellLinkPage();"><label>Assign
+					External Cell</label></li>
+			<li id="assignRelationToRole" class="assignNavigation" onclick="openRoleRelationLinkMappingPage();"><label>Assign
+					Relation</label></li>
+			<li id="assignExtRoleToRole" class="assignNavigation" onclick="openRoleExtRoleLinkPage();"><label>Assign
+					External Role</label></li>
+			<li id="assignRoleInfo" class="assignNavigation" onclick="uMainNavigation.openRoleInfo();"><label>Info</label></li>
+		</ul>
+
+	</div>
+
+	<div id="roleAccountLinkDiV"></div>
+	<div style="display: none;width:0px;padding-left: 8px;padding-right: 8px;" id="dvemptyAssignTableMessage"
+		class="emptyTableMessage"></div>
+
+<!-- Role EDIT Pop Up Start -->
+	<div id="roleEditModalWindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 315px; width: 474px; background: #ffffff"
+			id="roleEditDialogBox">
+			<div style="height: 300px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon"
+						onclick="closeEditRolePopUp('#roleEditModalWindow');" tabindex="5" title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label class="AccessTokenHeading">Edit Role</label>
+					<section class="sectionContent"
+						style="height: 170px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+							<table>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">Name</label></td>
+								</tr>
+								<tr>
+									<td><input type="text" id="txtEditRoleName"
+										class="bigTextBoxCollection" autocomplete="off"
+										style="width: 205px" tabindex="1"> <span
+										class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon"
+												id="editPopupRoleErrorMsg" style="width: 248px"></aside>
+									</span></td>
+								</tr>
+								<tr>
+									<td id="idselectBox"><div style="margin-bottom: 10px;">
+											<label class="lblElement">Box where this Role is
+												used</label>
+										</div>
+										<div class="customSelectIconAssociation"
+											style="background-position-x: 79.5%">
+											<select name="" id="dropDownBoxEdit" class="selectMenuPopup"
+												style="width: 248px;" tabindex="2">
+												<option value="None"></option>
+											</select>
+										</div></td>
+								</tr>
+							</table>
+						</form>
+					</section>
+					<section style="float: right; margin: 15px 0px 0px 0px;"
+						class="divLogoutBtn">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+							onclick="closeEditRolePopUp('#roleEditModalWindow');" tabindex="3"> <input type="button"
+							value="Save" class="btnSavePopup" id="btnEditRole" onclick="updateRole();" tabindex="4">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Role EDIT Pop Up End -->
+</div>

@@ -1,0 +1,148 @@
+/**
+ * Personium
+ * Copyright 2016 FUJITSU LIMITED
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ .Heading1 {
+	font-family:Segoe UI Light;
+	font-size:24pt;
+	color:#1b1b1b;
+}
+
+.Heading2 {
+	font-family:Segoe UI;
+	font-size:16px;
+	color:#1b1b1b;
+}
+
+.ContentHeading1 {
+	font-family:Segoe UI;
+	font-size:12px;
+	color:#1b1b1b;
+}
+
+.ContentHeadingpt1 {
+	font-family:Segoe UI;
+	font-size:10pt;
+	color:#1b1b1b;
+}
+
+.ContentTextpt1 {
+	font-family:Segoe UI;
+	font-size:10pt;
+	color:#3c3c3c;
+}
+
+.ContentText1 {
+	font-family:Segoe UI;
+	font-size:12px;
+	color:#3c3c3c;
+}
+
+.ContentTextpt16 {
+	font-family:Segoe UI Light;
+	font-size:16pt;
+	color:#3c3c3c;
+}
+
+.border {
+	border:1px solid #d2d2d2;
+}
+
+.border2 {
+	border: 1px solid #f6cdcd;
+}
+
+.border3 {
+	border: 1px solid #cdcdcd;
+}
+
+.borderTop {
+	border-top:1px solid #e6e6e6;
+}
+
+.borderBottom {
+	border-bottom:1px solid #e6e6e6;
+}
+
+.backgroundcolor1 {
+	background-color:#d9d9d9;
+}
+
+.backgroundcolor2 {
+	background-color: #f6f6f6;
+}
+
+.backgroundcolor3 {
+	background-color:#efefef;
+}
+
+.backgroundcolor4 {
+	background-color:#ffe3e3;
+}
+
+.backgroundcolor5 {
+	background-color:#c80000;
+}
+
+.backgroundcolor6 {
+	background-color:#f4f4f4;
+}
+
+.marginleft5 {
+	margin-left:5px;
+}
+
+.marginleft10 {
+	margin-left:10px;
+}
+
+.margintop5 {
+	margin-top:5px;
+}
+
+.margintop10 {
+	margin-top:10px;
+}
+
+.marginright5 {
+	margin-right:5px;
+}
+
+.marginright10 {
+	margin-right:10px;
+}
+
+.margintop30 {
+	margin-top:30px;
+}
+
+.popupCloseIcon {
+background: url(../images/newSprite.png) no-repeat -16px -1468px;
+float: right;
+height: 14px;
+width: 15px;
+margin: 20px 20px 0px 0px;
+}
+
+.popupCloseIcon:hover {
+	background: url(../images/newSprite.png) no-repeat -17px -1497px;
+	cursor: pointer;
+}
+
+.ellipsis {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}

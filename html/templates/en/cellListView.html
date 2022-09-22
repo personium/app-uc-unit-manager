@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="./js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript">
+var jquery1_9_0 = jQuery.noConflict();
+</script>
+<script type="text/javascript"
+    src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/commonFunctions.js"></script>
+<script type="text/javascript" src="./js/main/core/DaoConfig.js"></script>
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/main/core/Principal.js"></script>
+<script type="text/javascript" src="./js/uCellPopup.js"></script>
+<script type="text/javascript" src="./js/uCell.js"></script>
+<script type="text/javascript" src="./js/main/util/StringUtils.js"></script>
+<script type="text/javascript" src="./js/main/util/UrlUtils.js"></script>
+<script type="text/javascript"
+    src="./js/main/http/PersoniumRequestHeaderBuilder.js"></script>
+<script type="text/javascript" src="./js/main/http/RestAdapter.js"></script>
+<script type="text/javascript"
+    src="./js/main/http/RestAdapterFactory.js"></script>
+<script type="text/javascript" src="./js/main/http/PersoniumResponse.js"></script>
+<!-- include core functions -->
+<script type="text/javascript" src="./js/main/core/DaoException.js"></script>
+
+<!--  script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script-->
+<script type="text/javascript"
+    src="./js/main/core/AbstractODataContext.js"></script>
+<script type="text/javascript" src="./js/main/core/PersoniumCollection.js"></script>
+<script type="text/javascript" src="./js/main/core/DavCollection.js"></script>
+<script type="text/javascript" src="./js/main/core/ODataManager.js"></script>
+<script type="text/javascript" src="./js/main/core/EntitySet.js"></script>
+<script type="text/javascript" src="./js/main/core/Accessor.js"></script>
+<script type="text/javascript" src="./js/main/core/DavResponse.js"></script>
+<script type="text/javascript" src="./js/main/core/Account.js"></script>
+<script type="text/javascript" src="./js/main/core/AccountManager.js"></script>
+<script type="text/javascript" src="./js/main/core/Ace.js"></script>
+<script type="text/javascript" src="./js/main/core/Acl.js"></script>
+<script type="text/javascript" src="./js/main/core/AclManager.js"></script>
+<script type="text/javascript" src="./js/main/core/AssociationEnd.js"></script>
+<script type="text/javascript"
+    src="./js/main/core/AssociationEndManager.js"></script>
+<script type="text/javascript" src="./js/main/core/Box.js"></script>
+<script type="text/javascript" src="./js/main/core/BoxManager.js"></script>
+<script type="text/javascript" src="./js/main/core/Cell.js"></script>
+<script type="text/javascript" src="./js/main/core/CellManager.js"></script>
+<script type="text/javascript" src="./js/main/core/EntityType.js"></script>
+<script type="text/javascript"
+    src="./js/main/core/EntityTypeManager.js"></script>
+<script type="text/javascript" src="./js/main/core/Event.js"></script>
+<script type="text/javascript" src="./js/main/core/EventManager.js"></script>
+<script type="text/javascript" src="./js/main/core/ExtCell.js"></script>
+<script type="text/javascript" src="./js/main/core/ExtCellManager.js"></script>
+<script type="text/javascript" src="./js/main/core/ExtRoleManager.js"></script>
+<script type="text/javascript" src="./js/main/core/LinkManager.js"></script>
+<script type="text/javascript"
+    src="./js/main/core/MetadataLinkManager.js"></script>
+<script type="text/javascript" src="./js/main/core/OwnerAccessor.js"></script>
+<script type="text/javascript" src="./js/main/core/PersoniumQuery.js"></script>
+<script type="text/javascript" src="./js/main/core/Relation.js"></script>
+<script type="text/javascript" src="./js/main/core/RelationManager.js"></script>
+<script type="text/javascript" src="./js/main/core/Role.js"></script>
+<script type="text/javascript" src="./js/main/core/RoleManager.js"></script>
+<script type="text/javascript" src="./js/main/core/Rule.js"></script>
+<script type="text/javascript" src="./js/main/core/RuleManager.js"></script>
+<script type="text/javascript"
+    src="./js/main/core/ServiceCollection.js"></script>
+<script type="text/javascript" src="./js/main/core/UnitManager.js"></script>
+<script type="text/javascript" src="./js/main/core/ODataCollection.js"></script>
+<script type="text/javascript" src="./js/main/core/ODataResponse.js"></script>
+<script type="text/javascript" src="./js/main/core/MessageManager.js"></script>
+<script type="text/javascript"
+    src="./js/main/core/SentMessageManager.js"></script>
+<script type="text/javascript"
+    src="./js/main/core/ReceivedMessageManager.js"></script>
+<script type="text/javascript" src="./js/main/http/PersoniumHttpClient.js"></script>
+<script type="text/javascript" src="./js/main/http/Promise.js"></script>
+<script type="text/javascript" src="./js/cellProfile.js"></script>
+
+<link href="./css/jquery.mCustomScrollbar.css" rel="stylesheet"
+    type="text/css" />
+
+<style>
+.content {
+    height: 476px;
+    overflow: auto;
+    overflow-x: hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 0px;
+}
+</style>
+<script>
+// Global variable
+var maxRows=10;
+var token = getClientStore().token;
+var contextRoot = sessionStorage.contextRoot;
+var gcellList = null;
+var selectedCellTemplate = null;
+var textSearch = false;
+
+/**
+ * The purpose of the following method is to create default role for cell.
+ */
+function createRoleFromCellWindow(accessor,roleName,cellName) {
+     var json = null;
+    var boxName = null;
+    json = {"Name" : roleName,"_Box.Name" : null};
+    var objJRole = new _pc.Role(accessor, json);
+    var objRoleManager = new _pc.RoleManager(accessor);
+    objRoleManager.create(objJRole);
+
+}
+
+function isCellExist(responseCode) {
+    if (responseCode === false) {
+        //When Create Role is checked.
+        if ($('#chkAdmin').is(':checked')) {
+            var roleName = document.getElementById("txtRoleName").value;
+            if (!roleValidation(roleName, "popupDefaultRoleErrorMsg")) {
+                return false;
+            }
+        }
+
+        //When Create Profile is checked.
+        if ($('#chkCreateProfile').is(':checked')) { 
+            var displayName = $("#txtCellDisplayName").val();
+            var descriptionDetails = document.getElementById("txtCellDescription").value;
+            var scopeSelection = $("#btnPublic").val();
+            if ($('#btnPrivate').is(':checked')) {
+                scopeSelection = $("#btnPrivate").val();
+            }
+            if (!uCellProfile.validate(displayName, descriptionDetails,"popupCellDisplayNameErrorMsg", "popupCellDescriptionErrorMsg") || isFileValid==false) {
+                return false;
+            }
+        }
+        return true;
+    }
+    document.getElementById("popupErrorMsg").innerHTML = "Cell name already exists";
+    removeSpinner("modalSpinnerCellList");
+    return false;
+}
+
+/* The purpose of this function is to reload the cell list.
+ */
+function reloadCellList(createdCellName) {
+    var objCommon = new common();
+    var shorterBoxName = objCommon.getShorterEntityName(createdCellName);
+    addSuccessClass();
+    inlineMessageBlock();
+    document.getElementById("successmsg").innerHTML = "Cell "+ shorterBoxName + " created successfully!";
+    document.getElementById("successmsg").title = createdCellName;
+    sessionStorage.selectedindex = 0;
+    $("#dvCellListContainer").load(contextRoot+'/templates/cellListView.html');
+    $('#createCellModal, .window').hide();
+    objCommon.autoHideAssignRibbonMessage('crudOperationMessageBlock');
+}
+
+/* The purpose of this function is to validate the cell name.
+ */
+function checkLength(cellName) {
+    var letters = /^[0-9a-zA-Z-_]+$/;
+    lenCellName = cellName.length;
+    if(lenCellName < 1) {
+        document.getElementById("popupErrorMsg").innerHTML = "Please enter cell name";
+        return false;
+    } else if(lenCellName >128) {
+        document.getElementById("popupErrorMsg").innerHTML = "Cell name cannot exceed 128 characters";
+        return false;
+    } else if (lenCellName != 0 && ! (cellName.match(letters))){
+        document.getElementById("popupErrorMsg").innerHTML = "Special characters: only - & _ are allowed";
+        return false;
+    }
+    return true;
+}
+
+/**
+ * The purpose of the following method is to search cells.
+ */
+function searchCells() { 
+    var id = objCommon.isSessionExist();
+    if (id != null) {
+        var toBeSearchedCellName = document.getElementById("txtSearchCellName").value.toUpperCase();
+        if(toBeSearchedCellName!='') {  
+            var cNextList = $('#downID');
+            cNextList.removeClass('disabled');
+            createcelltable("true");
+        }
+    } else {
+        window.location.href = contextRoot;
+    }
+}
+
+function setStyleSelectedCell(cellName,index) { 
+    var objCommon = new common();
+    var shorterCellName = objCommon.getShorterEntityName(cellName);
+    sessionStorage.selectedcell = cellName;
+    var accessor = objCommon.initializeAccessor(getClientStore().baseURL, sessionStorage.selectedcell,"","");
+    var objCellManager = new _pc.CellManager(accessor);
+    sessionStorage.selectedcellUrl = objCellManager.getCellUrl(sessionStorage.selectedcell);
+    var objFirstCell=$('#cellList'+index);
+    objFirstCell.siblings().removeClass('selectedCellInCellList');
+    objFirstCell.addClass('selectedCellInCellList');
+    $("#cellNameHeading").html(cellName);
+    $("#cellNameHeading").attr('title', cellName);
+}
+
+/* The purpose of this function is to call the dynamic table function. 
+ */
+$(document).ready(function() {
+    $('#rightSection :input').attr('disabled', false);
+    $('#cellProfileElements :input').attr('disabled', true);
+    document.getElementById("cellURL").innerHTML = getClientStore().baseURL;
+    $('#cellURL').attr('title', getClientStore().baseURL);
+    $("#txtSearchCellName").mousemove(function(e){
+        if($("#txtSearchCellName").val() != "" && $("#txtSearchCellName").val() != undefined){
+            var searchBoxWidth = document.getElementById('txtSearchCellName').offsetWidth;
+            var searchBoxHeight = document.getElementById('txtSearchCellName').offsetHeight;
+            var xPosition = e.pageX;
+            var yPosition = e.pageY;
+            var crossIconWidth = xPosition - searchBoxWidth -17;
+            var crossIconHeight = searchBoxHeight - yPosition;
+            if(crossIconWidth >= -20 && crossIconWidth <= -8 && crossIconHeight <= -35 && crossIconHeight >=-62){
+                $("#txtSearchCellName").removeClass("clearable");
+                $("#txtSearchCellName").addClass("clearableHover");
+                $("#txtSearchCellName").css("cursor","pointer");
+            } else{
+                if($("#txtSearchCellName").hasClass("clearableHover")){
+                    $("#txtSearchCellName").removeClass("clearableHover");
+                    $("#txtSearchCellName").addClass("clearable");
+                    $("#txtSearchCellName").css("cursor","default");
+                }
+            }
+        }
+    });
+    
+    $("#txtSearchCellName").mouseover(function(){
+        if($("#txtSearchCellName").val() == "" || $("#txtSearchCellName").val() == undefined){
+            $("#txtSearchCellName").css("cursor","default");
+        }
+    });
+
+    $("#txtSearchCellName").click(function(e){
+        var searchBoxWidth = document.getElementById('txtSearchCellName').offsetWidth;
+        var searchBoxHeight = document.getElementById('txtSearchCellName').offsetHeight;
+        var xPosition = e.clientX;
+        var yPosition = e.clientY;
+        var crossIconWidth = searchBoxWidth - xPosition;
+        var crossIconHeight = searchBoxHeight - yPosition;
+
+        if(crossIconWidth >= -4 && crossIconWidth <= 4 && crossIconHeight <= -40 && crossIconHeight >=-56){
+            if(textSearch) {
+                restoreCellList();
+            }
+            $("#txtSearchCellName").val("");
+            $("#txtSearchCellName").removeClass("clearableHover");
+            textSearch = false;
+        }
+    });
+    
+    $("#chkAdmin").click(function() {
+    if ($('#chkAdmin').is(':checked')){
+        document.getElementById("txtRoleName").disabled = false;
+    } else {
+        uCellProfile.removeStatusIcons("#txtRoleName");
+        $('#popupRoleNameErrorMsg').html('');
+        document.getElementById("txtRoleName").disabled = true;
+        document.getElementById("txtRoleName").value = "";
+    }
+    });
+    $("#chkCreateProfile").click(function() {
+        cellpopup.validateInput();
+        if ($('#chkAdmin').is(':checked')){
+            cellpopup.roleValidation();
+        }
+        if ($('#chkCreateProfile').is(':checked')){
+            //to be changed to false while cell profile implementation
+            $(".addOrRemoveCursor").css('cursor', 'pointer');
+            $('#cellProfileElements :input').removeAttr('disabled');
+            enableBrowseButton("#btnCellProfileBrowse","#idImgFileCell");
+        } else {
+            $('#cellProfileElements :input').attr('disabled', true);
+            $(".addOrRemoveCursor").css('cursor', 'default');
+            disableBrowseButton("#btnCellProfileBrowse");
+            $('#publicProfile').attr('checked', false);
+            uCellProfile.removeStatusIcons("#trDisplayName");
+            clearBoxProfileSection('#idImgFileCell', 'popupCellImageErrorMsg','#btnCellProfileBrowse','#figCellProfile','#imgCellProfile','#lblCellNoFileSelected');
+        }
+    });
+    getWindowSize();
+    var index = 0;
+    var isSearch = "false";
+    if (sessionStorage.isSearch!== "undefined" && sessionStorage.isSearch === "true") {
+        isSearch = "true";
+        sessionStorage.isSearch = "false";
+    }
+    createcelltable(isSearch);
+    if (sessionStorage.isSocialGraph == "true") {
+        setStyleSelectedCell(sessionStorage.selectedCellNameOnGraphList,sessionStorage.index);
+        sessionStorage.isSocialGraph = "false";
+    }
+}); 
+
+/* The purpose of this function is to toggle the selected cell. 
+ */
+function activeCell(index) {
+    var obj=$('#cellList'+index);
+    obj.siblings().removeClass('selectedCellInCellList');
+    obj.addClass('selectedCellInCellList');
+}
+
+/* The purpose of this function is for Cell sorting. 
+ */
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+    var x = a[key]; 
+    var y = b[key];
+    return ((y < x) ? -1 : ((x > y) ? 0 : 1));
+ });
+}
+/**
+ * The purpose of the following meethod is to search cell name.
+ */
+function searchCellName() { 
+    //var allCellRecords= objCommon.getCellList();
+    var singleCellInformation = "";
+    var arrCellData = [];
+    var jsonCellRecords = JSON.stringify(gcellList);
+    var strCellRecords = JSON.parse(jsonCellRecords);
+    var totalRecords = strCellRecords.length;
+    var toBeSearchedCellName = document.getElementById("txtSearchCellName").value.toUpperCase();
+    for ( var count = 0; count < totalRecords; count++) {
+        var cellName = strCellRecords[count].Name.toUpperCase();
+        if (cellName.search(toBeSearchedCellName) != -1) {
+            singleCellInformation = {
+            "Name" : strCellRecords[count].Name,
+            "__published" : strCellRecords[count].__published,
+            "Count" : count
+            };
+            arrCellData.push(singleCellInformation);
+        }
+    }
+    return arrCellData;
+}
+
+function createHeader(dynamicTable) {
+    dynamicTable = "<form name='frmCellList'>";
+    dynamicTable += "<table id='mainCellTable' cellpadding='0' cellspacing='0'>";
+    dynamicTable += "<tr style='display:none;'>"; 
+    dynamicTable += '<th style="display:none;"></th>';
+    dynamicTable += "</tr>";
+    return dynamicTable;
+}
+
+function createRows(dynamicTable, finalSelectedCellDate, fullCellName, count) {
+    if (sessionStorage.isSocialGraph == "true" ) { 
+        if (sessionStorage.selectedCellNameOnGraphList.length > 0) {
+            if (fullCellName == sessionStorage.selectedCellNameOnGraphList ) { 
+                sessionStorage.index = count;
+            }
+        }
+    }
+    if(count == 0){
+        dynamicTable += '<tr class="allCell selectedCellInCellList" id = "cellList'+count+'">';
+    }else{
+        dynamicTable += '<tr class="allCell" id = "cellList'+count+'">';
+    }
+    dynamicTable += '<td onClick="getselectedcell(\'' + fullCellName + '\',\'' + count + '\','+finalSelectedCellDate+')" name = "Cell"><div class="cellNameList" title = "'+fullCellName+'" valign="top" >'+fullCellName+'</div></td>';
+    dynamicTable += "</tr>";
+    return dynamicTable;
+}
+
+/* The purpose of this funciton is to create dynamic table for cells. 
+ */
+function createcelltable() {
+    $('#txtSearchCellName').val('');
+    
+    gcellList = getCellList();
+
+    var jsondata = JSON.stringify(gcellList);
+    var JSONstring = JSON.parse(jsondata);
+    var lenJSONstring = JSONstring.length;
+    //var totalCellCount = sessionStorage.totalCellCountForUnit;
+    var objCommon = new common();
+    var totalCellCount = objCommon.retrieveCellRecordCount();
+    var cellsText = getUiProps().LBL0011;
+    $("#lblTotalCellCount").html(totalCellCount+" "+cellsText);
+    var name = new Array();
+    var date = new Array();
+    var dynamicTable;
+    dynamicTable = createHeader(dynamicTable);
+    if (lenJSONstring > 0) {
+        for(var count = 0; count < lenJSONstring; count++) {
+            var obj = JSONstring[count];
+            fullCellName = JSONstring[count].Name;
+            date[count] = obj.__published;
+            var dtCreate = ""+ date[count]+"";
+            var selectedCellDate = objCommon.convertEpochDateToReadableFormat(dtCreate);
+            var finalSelectedCellDate = "'"+selectedCellDate+"'";
+            dynamicTable = createRows(dynamicTable,finalSelectedCellDate,fullCellName,count);
+        }
+        dynamicTable += "</table>";
+        dynamicTable += "</form>";
+        document.getElementById("tableDiv").innerHTML = dynamicTable;
+        jquery1_9_0("#tableDiv").mCustomScrollbar({
+            scrollButtons:{
+                enable:false
+            },
+            advanced:{
+                updateOnBrowserResize: false
+            },
+                callbacks:{
+                    onTotalScroll:function(){
+                        retrieveChunkedDataCell();
+                    }
+                },
+             theme:"light"
+        });
+        getFirstCellSelected(JSONstring[0].Name, JSONstring[0].__published, 0);
+    } else if (lenJSONstring == 0) {
+        sessionStorage.selectedcell = '';
+        sessionStorage.selectedcellUrl = '';
+        sessionStorage.isCellDeleted = 0;
+        var unitURL = sessionStorage.selectedUnitUrl;
+        $('#cellURLHeading').html(unitURL);
+        $('#cellURLHeading').attr('title', unitURL);
+        $('#cellNameHeading').html(sessionStorage.selectedcell);
+        $('#cellNameHeading').attr('title', sessionStorage.selectedcell);
+        sessionStorage.totalCellCountForUnit = 0;
+        $("#mainCellTable").empty();
+        $("#mainContainer").hide();
+        $("#mainContent").empty();
+        setTimeout(function() {
+            $("#mainContainer").show();
+            $('#deleteModal, .window').hide("fast");
+            var ucellP = new cellUI.popup();
+            //ucellP.openAutoPopup();
+            ucellP.selTemplateUI();
+            if(document.getElementById("spinnerEnvt") != null){
+                $("#spinnerEnvt").remove();
+            }
+        }, 300);
+    }
+}
+
+function getCellList() {
+    let res = null;
+    let ManagerInfo = JSON.parse(sessionStorage.ManagerInfo);
+    if (ManagerInfo.isCellManager) {
+        res = [{
+            Name: sessionStorage.selectedUnitCellName,
+            __metadata: {},
+            __published: ManagerInfo.__published,//"/Date(1505096205363)/", // need to get the real published date
+            __updated: ManagerInfo.__published,
+        }]
+    } else {
+        let url = getClientStore().baseURL;
+        let objJdcContext = new _pc.PersoniumContext(url, "", "", "");
+        let ac = objJdcContext.withToken(token);
+        res = ac.asCellOwner().unit.cell.query().orderby('__updated desc').top(500).skip(0).run();  
+    }
+
+    return res;
+}
+</script>
+</head>
+<body>
+    <!-- Cell List - Start -->
+    <div id='dvEnvironmentName' class="envNameHeadingCellList">
+        <label>Cell List</label>
+        <!-- <label id ='lblEnvironmentName'></label> -->
+    </div>
+    <div class="divTxtboxCellListSearch" id="dvCellListSearchPanel">
+
+        <input type="text" id="txtSearchCellName" class="txtBoxCellSearch"
+            onkeyup="handleCrossIconOnTextSearch();" placeholder="Search Cell..."
+            onkeypress="textCellSearchOnKeyPress();" tabindex="-1"/> <input type="button"
+            id="imgSearchRecords" title="Search" onclick="textCellSearch();" src=""
+            class="searchImage" tabindex="-1"/> <input type="submit" value=""
+            title="Refresh List" class="btnCellRefresh"
+            onclick="refreshCellList();" tabindex="-1"/>
+    </div>
+    <div id="dvCellCountDisplay" class="divCellCountDisplay">
+        <label class="lblCellCountDisplay" id='lblTotalCellCount'></label>
+    </div>
+
+    <div id="tableDiv" class="content divCellTable"></div>
+    <div class="divExpandCellList" id="dvCellListStretch">
+        <input type="button" value="" class="btnCellListStretch"
+            id="btnCellListSlide" tabindex="-1">
+    </div>
+    <div class="divCreateCell" id="btnCreateCell" onclick="cellpopup.selTemplateUI()" title="Create a blank cell">
+        <input type="button" class="cellCreateIcon" id='cellCreateIcon'
+            onclick="cellpopup.selTemplateUI();" tabindex="-1"/> <label for="cellCreateIcon" class="lblCellCreate">Create</label>
+    </div>
+    <!-- Cell List - End -->
+
+    <!-- Spinner code - Start -->
+    <div id="modalSpinnerCellList" class="modelbackSpinner"
+        style="display: none;">
+        <div class="modal-window block-border"
+            style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+            id="dialogSpinner">
+            <div id="spinnerPopUp"></div>
+        </div>
+    </div>
+    <!-- Spinner code - End -->
+</body>
+</html>

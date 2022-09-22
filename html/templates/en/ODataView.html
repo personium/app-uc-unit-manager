@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="utf-8">
+<script type="text/javascript" src="./js/spin.js"></script>
+<script type="text/javascript" src="./js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.modalbox.js"></script>
+<script type="text/javascript" src="./js/entityTypeOperations.js"></script>
+<script type="text/javascript" src="./js/dataManagement.js"></script>
+<script type="text/javascript" src="./js/main/core/PersoniumCollection.js"></script>
+<script type="text/javascript" src="./js/main/core/EntityTypeManager.js"></script>
+<script type="text/javascript" src="./js/entityTypeProperty.js"></script>
+<script type="text/javascript" src="./js/main/core/Entity.js"></script>
+<script type="text/javascript" src="./js/main/core/EntityManager.js"></script>
+<script type="text/javascript" src="./js/main/core/ComplexTypeManager.js"></script>
+<script type="text/javascript" src="./js/main/core/ComplexTypePropertyManager.js"></script>
+<script type="text/javascript" src="./js/complexTypeProperty.js"></script>
+<script type="text/javascript" src="./js/main/core/EntityLinkManager.js"></script>
+<script type="text/javascript" src="./js/main/core/EntityLink.js"></script>
+<!-- <title>OData View</title> -->
+</head>
+<body>
+	<div class="odataNavBar">
+		<div class="data odataTabSelected" id="OdataDataTab">Data</div>
+		<div class="schema" onClick="uEntityTypeOperations.openSchemaMgmtView();" id="OdataSchemaTab" >Schema</div>
+	<div id="crudOperationMessageBlock"
+				class="crudOperationSuccessWrapper" style="display: none;position:absolute;margin: -3px auto;">
+				<div class="crudOperationMsgWrapper" style="display: table-cell;white-space: nowrap;padding-right: 34px;">
+					<span class="crudOperationSuccessIcon" id="WebDavMessageIcon">&nbsp;</span>
+					<div id="WebDavSuccessmsg" class="crudOperationSuccessMsg" style="padding-top: 2px;"></div>
+				</div>
+			</div>
+	</div>
+	
+	<div class="odataContentArea" id="odataContentArea"></div>
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerEntityType" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"></div>
+		</div>
+	</div>
+	<!-- Spinner code - End -->
+	<!-- /********************* CREATE ENTITY TYPE POPUP : START **********************/ -->
+	<div id="createETypeModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 231px; width: 474px; background: #ffffff"
+			id="createETypeDialog">
+			<div style="height: 231px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon"
+						onclick="closeEntityModal('#createETypeModal');" tabindex="4" title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label class="AccessTokenHeading">Create Entity Type</label>
+					<section class="sectionContent"
+						style="height: 100px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+							<table>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">*
+											Entity Type Name</label></td>
+								</tr>
+								<tr>
+									<td><input type="text" id="txtETypeName"
+										class="bigTextBoxCollection" autocomplete="off" tabindex="1"> <span
+										class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon"
+												id="popupETypeErrorMsg"></aside>
+									</span></td>
+								</tr>
+							</table>
+						</form>
+					</section>
+					<section style="float: right;" class="divLogoutBtn">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+							onclick="closeEntityModal('#createETypeModal');" tabindex="2"> <input
+							type="button" value="Create" class="btnSavePopup" id=""
+							onclick="uEntityTypeOperations.createEntityType();" tabindex="3">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /********************* CREATE ENTITY TYPE POPUP : END **********************/ -->
+
+	<!-- /********************* CREATE COMPLEX TYPE POPUP : START **********************/ -->
+	<div id="createCTypeModal" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 231px; width: 474px; background: #ffffff"
+			id="createCTypeDialog">
+			<div style="height: 231px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon"
+						onclick="closeEntityModal('#createCTypeModal');" tabindex="4" title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label class="AccessTokenHeading">Create Complex Type</label>
+					<section class="sectionContent"
+						style="height: 100px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+							<table>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">*
+											Complex Type Name</label></td>
+								</tr>
+								<tr>
+									<td><input type="text" id="txtCTypeName"
+										class="bigTextBoxCollection" autocomplete="off" tabindex="1"> <span
+										class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon"
+												id="popupCTypeErrorMsg"></aside>
+									</span></td>
+								</tr>
+							</table>
+						</form>
+					</section>
+					<section style="float: right;" class="divLogoutBtn">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+							onclick="closeEntityModal('#createCTypeModal');" tabindex="2"> <input
+							type="button" value="Create" class="btnSavePopup"
+							id="btnCreateComplexType"
+							onclick="uEntityTypeOperations.createComplexType();" tabindex="3">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /********************* CREATE COMPLEX TYPE POPUP : END **********************/ -->
+
+	<!-- /***************** CREATE COMPLEX TYPE PROPERTY POPUP : START ***************/ -->
+	
+	<div id="complexTypePropertyModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 380px; width: 706px; background: #ffffff"
+			id="complexTypePropertyDialogBox">
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#complexTypePropertyModalWindow');" tabindex="8" title="Close"></div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading" id="lblHeadingAccessToken">
+					Add Complex Type Property</label>
+			</div>
+			<div>
+				<table cellpadding='0' cellspacing='0' border='0'
+					class="popupcreatePropertyTable">
+					<tr>
+						<td id="idComplexTypePropName" style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">* Name</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox"
+									id="txtBoxComplexTypePropName" tabindex="1">
+								<span class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="complexTypePropNameErrorMsg"></aside>
+								</span>
+							</div></td>
+						<td id="idNullable"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">Nullable</label>
+							</div>
+							<div class="customSelectIcon" style="background-position-x: 106.5%">
+								<select name="" id="dropDownNullable" class="selectMenuPopup"
+									onclick="uEntityTypeProperty.createDefaultValueDropDownForBoolean();" tabindex="3">
+									<option value="null">Select</option>
+									<option value="true">True</option>
+									<option value="false">False</option>
+								</select>
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="nullableDDErrorMsg"></aside>
+						</span></td>
+					</tr>
+					<tr>
+						<td id="idComplexTypeName" style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">* Complex Type Name</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox" id="txtBoxComplexTypeName"
+									disabled="disabled"> <span
+									class="spanPopupErrorMessageCommon"> <!-- <aside class="asidePopupErrorMessageCommon" id="complexTypeNameErrorMsg"></aside> -->
+								</span>
+							</div></td>
+							
+							<td id="idDefaultValue"><div id="idcomplexDefaultValueDiv" style="margin-bottom: 10px;">
+								<label class="lblElement">Default Value</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox" id="txtBoxDefaultValue" tabindex="4"> <span
+									class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="defaultValueErrorMsg"></aside>
+								</span>
+							</div></td>
+						<td id="idStringType" style="display: none"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">Default Value</label>
+							</div>
+							<div>
+								<div style="height: 29px">
+									<textarea rows="1" cols="1"
+										id="txtAreaDefaultValue" class="bigTextBox propertyPopUpTextArea" tabindex="4"></textarea>
+								</div>
+								<span class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="defaultValueTxtAreaErrorMsg"></aside>
+								</span>
+							</div></td>
+						<td id="idBooleanType" style="display: none"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">Default Value</label>
+							</div>
+							<div>
+								<div class="customSelectIcon"
+									style="background-position-x: 106.5%">
+									<select name="" id="dropDownTypeBoolean"
+										class="selectMenuPopup" tabindex="4">
+										<option value="true">True</option>
+										<option value="false">False</option>
+									</select>
+								</div>
+								<span class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="defaultValueErrorMsg"></aside>
+								</span>
+							</div></td>
+							
+					</tr>
+					<tr>
+						<td id="idType" style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">* Type</label>
+							</div>
+							<div class="customSelectIcon">
+								<select name="" id="dropDownType" class="selectMenuPopup"
+									onclick="uComplexTypeProperty.setDefaultValueFieldAsPerType();"
+									onchange="uComplexTypeProperty.emptyComplexTypeDefaultValueFieldAsPerType();" tabindex="2">
+									<option value="">Select</option>
+									<option id="null" title="Edm.String">Edm.String</option>
+									<option id="null" title="Edm.Int32">Edm.Int32</option>
+									<option id="null" title="Edm.Double">Edm.Double</option>
+									<option id="null" title="Edm.Boolean">Edm.Boolean</option>
+									<option id="null" title="Edm.DateTime">Edm.DateTime</option>
+									<optgroup label="-------------------------------------------"
+										id="optGrpComplexTypeList">
+									</optgroup>
+									<!-- <option value="Select One">Select One</option> -->
+								</select>
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon" id="typeDDErrorMsg"></aside>
+						</span></td>
+						<td id="idCollectionKind"><div style="margin-bottom: 10px;">
+								<label class="lblElement">Collection Kind</label>
+							</div>
+							<div class="customSelectIcon" style="background-position-x: 106.5%">
+								<select name="" id="dropDownCollectionKind"
+									class="selectMenuPopup" tabindex="5">
+									<option value="None">None</option>
+									<option value="List">List</option>
+								</select>
+
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="collectionKindDDErrorMsg"></aside>
+						</span></td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- Button Section Starts -->
+			<section class="positionButtons">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button" id="btnCreateComplexTypeProp" class="btnClose" onclick="uComplexTypeProperty.createComplexTypeProperty();"
+						value="Create" tabindex="7">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id=""
+						onclick="closeEntityModal('#complexTypePropertyModalWindow')"
+						class="cancelBtn" value="Cancel" tabindex="6">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+	<!-- /***************** CREATE COMPLEX TYPE PROPERTY POPUP : END ***************/ -->
+
+	<!--  DELETE COMPLEX TYPE POPUP - START-->
+	<div id="compTypeDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="compTypeDeleteDialogBox">
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#compTypeDeleteModalWindow');" tabindex="3" title="Close"></div>
+			<div class="sessionExpiryDiv" id="dvAccessheader">
+				<label class="sessionExpiredPopUpHeading">
+					Delete Complex Type</label>
+			</div>
+			<div class="sessionExpiredLabel" style="margin-top: 26px;">
+				<label>Do you want to delete selected complex type ?</label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="closeEntityModal('#compTypeDeleteModalWindow');" tabindex="1" id="btnCancelComplexTypeDelete">
+				<input type="button" id="btnDeleteComplexType" class="btnSavePopup"
+					onclick="uEntityTypeOperations.deleteComplexType();" value="Delete"
+					style="margin-right: 0px;" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!--  DELETE COMPLEX TYPE POPUP - END -->
+
+	<!-- /********ENTITY TYPE EDIT POP UP START ****************/ -->
+	<div id="enityTypeEditModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 231px; width: 474px; background: #ffffff"
+			id="entityTypeEditDialogBox">
+			<div style="height: 231px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon"
+						onclick="closeEntityModal('#enityTypeEditModalWindow');" tabindex="4" title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label class="AccessTokenHeading">Edit Entity Type</label>
+					<section class="sectionContent"
+						style="height: 100px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+							<table>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">*
+											Entity Type Name</label></td>
+								</tr>
+								<tr>
+									<td><input type="text" id="txtEditEntityTypeName"
+										class="bigTextBoxCollection" tabindex="1"> <span
+										class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon"
+												id="editEnityTypeErrorMsg"></aside>
+									</span></td>
+								</tr>
+							</table>
+						</form>
+					</section>
+					<section style="float: right;" class="divLogoutBtn">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+							onclick="closeEntityModal('#enityTypeEditModalWindow');" tabindex="2">
+						<input type="button" value="Save" class="btnSavePopup"
+							id="btnEditEntityType" tabindex="3">
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /********ENTITY TYPE EDIT POP UP END ****************/ -->
+
+	<!--  DELETE ENTITY TYPE POPUP - START-->
+	<div id="entityTypeDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 217px; width: 460px; background: #ffffff"
+			id="entityTypeDeleteDialogBox">
+			<section class="headerSection">
+				<div id="dvCloseIcon" class="closeIconDiv" style="padding: 0px">
+					<a href="#" title="Close" id="modalbox-close" tabindex="3"
+						class="popupCloseIcon"
+						onclick="closeEntityModal('#entityTypeDeleteModalWindow');" tabindex="3"></a>
+				</div>
+				<div class="sessionExpiryDiv" id="dvAccessheader">
+					<label class="sessionExpiredPopUpHeading"
+						id="lblHeadingAccessToken"> Delete Entity Type</label>
+				</div>
+			</section>
+			<div class="sessionExpiredLabel">
+				<label>Do you want to delete selected entity type ? </label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup" id="btnCancelDeleteEntityType"
+					onclick="closeEntityModal('#entityTypeDeleteModalWindow');" tabindex="1">
+				<input type="button" id="btnDeleteEntityType" class="btnSavePopup"
+					onclick="" value="Delete" style="margin-right: 0px" tabindex="2">
+			</div>
+		</div>
+	</div>
+
+	<!--  DELETE ENTITY TYPE POPUP - END -->
+
+	<!--  DELETE COMPLEX TYPE PROPERTY POPUP - START -->
+	<div id="complexTypePropertyDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 230px; width: 515px; background: #ffffff"
+			id="complexTypePropertyDeleteDialogBox">
+
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#complexTypePropertyDeleteModalWindow');" tabindex="3" title="Close"></div>
+
+			<div class="sessionExpiryDiv" id="dvAccessheader">
+				<label class="sessionExpiredPopUpHeading" id="lblHeadingAccessToken">
+					Delete Complex Type Property</label>
+			</div>
+
+			<div class="sessionExpiredLabel" style="margin-top: 28px;margin-bottom: 57px">
+				<label>Do you want to delete
+				 selected complex type property ?</label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup" id="btnCancelDeleteComplexTypeProperty"
+					onclick="closeEntityModal('#complexTypePropertyDeleteModalWindow');" tabindex="1">
+				<input type="button" id="btnDeleteComplexTypeProperty" class="btnSavePopup"
+					onclick="uComplexTypeProperty.deleteComplexTypeProperty();" value="Delete" style="margin-right: 0px;" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!--  DELETE COMPLEX TYPE PROPERTY POPUP - END -->
+	<!-- Session Expiration Pop Up Start-->
+	<div id="timeOutOdataModalWindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 175px; width: 375px; background: #ffffff"
+			id="timeOutOdataDialogBox">
+			<div class="popupWrapper" id="timeOutpopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="objOdataCommon.redirectLoginPage();">Close</a>
+				<header class="popupHeader">Session Expired</header>
+				<div class="popupContent">
+					<section class="popupInnerContent">
+						<aside class="deleteAccount">Your session has expired. Please log in again.</aside>
+					</section>
+					<section class="bottomBtn">
+						<input type="button" onclick="objOdataCommon.redirectLoginPage();" id="btnTimeout" value="Ok"
+							class="normalButtonBlue" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Session Expiration Pop Up End -->
+</body>
+</html>
+

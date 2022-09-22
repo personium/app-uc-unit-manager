@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="./js/commonFunctions.js"></script>
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/relationToRoleMapping.js"></script>
+</head>
+
+<body>
+	<div class="divAssignEntity">
+		<div class="leftSubHeading" style="margin-top: 0px;">
+
+			<div class="divAssignEntityTxtBox">
+			<select class="dropDownBig" id="roleBoxDropDown" onclick="uRelationToRoleMapping.enableDisableAssignRelationToRoleBtn();" tabindex="-1">
+					<option value="0">Select Role (Box Name)</option>
+			</select>
+				<!-- <input type="text" class="bigTextBox assignEntityTxtBox"
+					id="txtAssignEntity"> -->
+			</div>
+			<div class="divAssignEntityBtn">
+				<input type="button" class="assignBtn assignBtnDisabled" value="Assign"
+					style="margin-left: -25px;" id = "btnAssignRelationToRole" disabled="disabled">
+			</div>
+			<div class="divDeleteIcon divDeleteAssignEntityIcon">
+				<input type="button" class="deleteIconDisabled" id= "btnDeleteRelationToRoleMapping" onclick="uRelationToRoleMapping.openRelationPopUpWindow('#multipleDeleteRelationToRoleDialogBox','#multipleDeleteRelationToRoleModalWindow');" tabindex="-1" title="Delete">
+			</div>
+
+		</div>
+		<div id="relationToRoleMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="relationToRoleMessageIcon">&nbsp;</span>
+				<div id="relationToRoleSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		<div class="rightSubHeading">
+			<div class="sortWrapper">
+				<label class="sortText" style="margin-top: 5px;">Sort by
+					Date</label>
+				<div id="arrow" class="downArrow assignEntityDownArrow"></div>
+			</div>
+			<div class="paginationWrapper" style="margin-top: 3px;">
+				<div class="recordCount" id="recordCount_assignRelationTab"></div>
+				<div class="paginationIcons">
+					<div class="leftPagination">
+						<div class="firstPageDisabled" id="firstPage_assignRelationTab" title="First"></div>
+						<div class="prevPageDisabled" id="prevPage_assignRelationTab" title="Previous"></div>
+					</div>
+					<div class="rightPagination">
+						<div class="nextPageDisabled" id="nextPage_assignRelationTab" title="Next"></div>
+						<div class="lastPageDisabled" id="lastPage_assignRelationTab" title="Last"></div>
+					</div>
+					<div class="rightPagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<form name='ftable'>
+			<table id='mainRelationRoleLinkTable' cellpadding='0'
+				cellspacing='0' class='mainTable'>
+				<thead>
+					<tr>
+						<th class="col1"><input
+							type='checkbox' id='checkAllRelationRoleAssign'
+							onclick='uRelationToRoleMapping.checkAll(this)'
+							class='checkBox cursorHand regular-checkbox big-checkbox' /><label
+							for='checkAllRelationRoleAssign' class='checkBoxLabel'></label></th>
+						<th class="col2">Role</th>
+						<th class="col3">Box</th>
+					</tr>
+				</thead>
+				<tbody id='assignEntityGridTbody' class='entityGridTbody'></tbody>
+			</table>
+		</form>
+	</div>
+
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerRelationMappingLink" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp">
+			</div>
+		</div>
+	</div>
+	<!-- Spinner code - End -->
+	<!-- Relation Single Delete Pop Up Start-->
+	<!-- <div id="singleDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 175px; width: 375px; background: #ffffff"
+			id="singleDeleteDialogBox">
+			<div class="popupWrapper" id="deleteRelationpopup">
+				<a href="#" title="Close" id="modalbox-close" class="closeIcon"
+					onclick="uRelationToRoleMapping.closeRelation();">Close</a>
+				<header class="popupHeader"> Delete Role Assignation</header>
+				<div class="popupContent">
+					<section class="popupInnerContent">
+						<aside class="deletePopupField">Do you want to delete
+							selected assigned role ?</aside>
+					</section>
+					<section class="bottomBtn">
+						<input type="button" value="Cancel"
+							onclick="uRelationToRoleMapping.closeRelation();"
+							class="normalButtonGrey" /> <input type="button" value="Ok"
+							onclick="uRelationToRoleMapping.deleteSingleRelation(true);"
+							class="normalButtonBlue" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- Relation Single Delete Pop Up End -->
+
+	<!-- Relation Multiple Delete Pop Up Start-->
+	<div id="multipleDeleteRelationToRoleModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 230px; width: 528px; background: #ffffff"
+			id="multipleDeleteRelationToRoleDialogBox">
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="uRelationToRoleMapping.closeRelation();" tabindex="3" title="Close"></div>
+			<div class="sessionExpiryDiv" id="dvAccessheader">
+				<label class="sessionExpiredPopUpHeading"> Delete Role Assignation(s)</label>
+			</div>
+			<div class="sessionExpiredLabel"
+				style="margin-top: 32px; margin-bottom: 54px;">
+				<label>Do you want to delete selected role assignation(s) ?</label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="uRelationToRoleMapping.closeRelation();" tabindex="1" id="btnCancelRelationToRole">
+				<input type="button" class="btnSavePopup"
+					onclick="uRelationToRoleMapping.deleteMultipleLinks();" value="Delete"
+					style="margin-right: 0px;" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- Relation Multiple Delete Pop Up End -->
+</body>
+</html>

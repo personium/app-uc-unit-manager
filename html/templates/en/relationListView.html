@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script src="./js/uRelation.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+</head>
+<body>
+	<div class="boxOperationSection">
+		<div class="leftSubHeading">
+			<div class="divList">
+				<label class="lblList">Relation List</label>
+			</div>
+
+			<div id="createEntityWrapper" class="createRelationWrapper" onclick="openCreateEntityModal('#modalCreateRel','#dialogCreateRel', 'txtRelName');">
+				<div id="createIcon" class="createIcon"></div>
+				<div id="createText" class="createText">Create Relation</div>
+			</div>
+
+			
+
+			<div class="divDeleteIcon">
+				<input type="button" class="deleteIconDisabled" id="btnDeleteRelation" tabindex="-1" title="Delete">
+			</div>
+		</div>
+		<div id="relationMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="relationMessageIcon">&nbsp;</span>
+				<div id="relationSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+		<div class="rightSubHeading">
+			<div class="sortWrapper">
+				<label class="sortText">Sort by Date</label>
+				<div class="downArrow"></div>
+			</div>
+			<div class="paginationWrapper">
+				<div class="recordCount" id="recordCount_Relation"></div>
+				<div class="paginationIcons">
+					<div class="leftPagination">
+						<div class="firstPageDisabled" id="firstPage_Relation" title="First"></div>
+						<div class="prevPageDisabled" id="prevPage_Relation" title="Previous"></div>
+					</div>
+					<div class="rightPagination">
+						<div class="nextPageDisabled" id="nextPage_Relation" title="Next"></div>
+						<div class="lastPageDisabled" id="lastPage_Relation" title="Last"></div>
+					</div>
+					<div class="rightPagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="relationView">
+		<table id="mainRelationTable" class="mainTable" cellspacing="0"
+			border='0' cellpadding="0">
+			<thead>
+				<tr>
+					<th class='col1'><input type='checkbox' id='chkSelectall'
+						onclick='objRelation.checkAllSelect(this);'
+						class='checkBox cursorHand regular-checkbox big-checkbox' /><label
+						for="chkSelectall" class="checkBoxLabel"></label></th>
+					<th class="col2">Name</th>
+					<th class="col3">Box</th>
+					<th class="col4">Created</th>
+					<th class="col5">Updated</th>
+					<th class="col6">Role</th>
+					<!-- <th class="col6"></th> -->
+				</tr>
+			</thead>
+			<tbody id='entityGridTbody' class="entityGridTbody"></tbody>
+		</table>
+	</div>
+
+	<!-- Create Relation popup : Start-->
+	<div id="modalCreateRel" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 300px; width: 706px; background: #ffffff"
+			id="dialogCreateRel">
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#modalCreateRel');" tabindex="7" title="Close"></div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvAccessheader">
+				<label class="AccessTokenHeading">
+					Create Relation</label>
+			</div>
+			<div>
+				<table cellpadding='0' cellspacing='0' border='0'
+					class="popupcreatePropertyTable">
+					<tr>
+						<td style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">* Name</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox"
+									id="txtRelName" tabindex="1">
+								<span class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="popupRelErrorMsg"></aside>
+								</span>
+							</div></td>
+						<td><div
+								style="margin-bottom: 10px;margin-top: -12px;">
+								<input type='checkbox' id='chkBoxAssignRoleToRelation'
+						class='checkBox cursorHand regular-checkbox big-checkbox' onclick="objCommon.clickAssignChkBoxCreatePopup('chkBoxAssignRoleToRelation', 'dropDownRoleAssignToRelation', true, 'ddRoleBoxErrorMsg');" style="display: inline;opacity: 0" tabindex="3" onfocus="checkboxFocusOnrelation();" onblur="checkboxBlurOnRelation();"/><label
+						for="chkBoxAssignRoleToRelation" class="checkBoxLabel" style="margin-left: -13px" id="lblAssignCreateRelation"></label><label class="lblElement assignChkBoxLabel">Assign Role</label>
+						</div></td>
+					</tr>
+					<tr>
+						<td style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">* Box where this relation is used</label>
+							</div>
+							<div class="customSelectIconAssociation" style="background-position-x: 81.5%">
+								<select name="" id="dropDownBox"
+									class="selectMenuPopup" tabindex="2">
+								</select>
+
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="ddlErrorMsg"></aside>
+						</span></td>
+							
+							<td><div style="margin-bottom: 10px;margin-top: -70px;">
+								<label class="lblElement">Role</label>
+							</div>
+							<div>
+								<div class="customSelectIconAssociation" style="background-position-x: 106.5%">
+								<select name="" id="dropDownRoleAssignToRelation"
+									class="selectMenuPopup" disabled="disabled" tabindex="4">
+								</select>
+
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="ddRoleBoxErrorMsg"></aside>
+						</span>
+							</div></td>
+					</tr>
+					</table>
+					</div>
+
+			<!-- Button Section Starts -->
+			<section class="positionButtons">
+				<div id="dvCreate" class="dvCreate">
+					<input type="button" id="relCreateBtn" class="btnClose"
+						value="Create" onclick="objRelation.createRelation();" tabindex="6">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id=""
+						onclick="closeEntityModal('#modalCreateRel')"
+						class="cancelBtn" value="Cancel" tabindex="5">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+	<!-- Create Relation PopUp : End -->
+
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerRel" class="modelbackSpinner"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp"></div>
+		</div>
+	</div>
+	<!-- Spinner code - End -->
+
+	<!-- Relation Multiple Delete Pop Up Start-->
+	
+	<div id="multipleDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 242px; width: 467px; background: #ffffff"
+			id="multipleDeleteDialogBox">
+			<div class="boxPopupWrapper" id="deleteRelationpopup">
+				<div id="dvCloseIcon" class="popupCloseIcon"
+				onclick="closeEntityModal('#multipleDeleteModalWindow');" tabindex="3" title="Close"></div>
+
+			<div class="sessionExpiryDiv"  style="padding-top:30px">
+				<label class="sessionExpiredPopUpHeading" >
+					Delete Relation(s)</label>
+			</div>
+
+			<div class="sessionExpiredLabel" style="margin-top: 44px;height:34px">
+				<div style="text-align:left;">Do you want to delete
+							selected relation(s) ?</div>
+							
+			</div>
+			<div id="relationDivClose" class="sessionPopUpCloseSection">
+						<input type="button" value="Cancel" class="btnCancelPopup"
+					onclick="objRelation.closeRelation();" tabindex="1" id="btnCancelDeleteRelation">
+				<input type="button"  class="btnSavePopup"
+					onclick="objRelation.deleteMultipleRelations();"
+					value="Delete" style="margin-right: 0px;" tabindex="2">
+			</div>
+		</div>
+		</div>
+	</div>
+	<!-- Relation Multiple Delete Pop Up End -->
+</body>
+</html>

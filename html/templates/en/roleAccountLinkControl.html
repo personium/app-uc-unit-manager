@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="./js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="./js/commonFunctions.js"></script>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.modalbox.js"></script>
+<script type="text/javascript" src="./js/roleAccountLink.js"></script>
+</head>
+<body>
+	<div class="clearBoth"></div>
+	<div class="">
+		<div style="height: 30px;">
+			<div class="assignBackWrapper" style="float:left;">
+				<div class="assignBackIcon" onclick="objCommon.clickAssignBackButton();"></div>
+				<div class="divAssignEllipsis" id="divAssignRoleName">
+				<label id="lblAccountName" class="backBtnTxt"></label>
+				</div>
+				<div class="divEditIcon">
+					<input id="iconEditAccount" type="button" class="editIconEnabled" onclick="openCreateEntityModal('#accountEditModalWindow','#accountEditDialogBox', 'txtEditAccountName');" tabindex="-1" title="Edit">
+				</div>
+			</div>
+			<div id="accountLinkMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="accountLinkMessageIcon">&nbsp;</span>
+					<div id="accountLinkSuccessmsg" class="crudOperationSuccessMsg"></div>
+				</div>
+			</div>
+		</div>
+		<div class="assignEntities">
+			<ul>
+				<li id="assignAccountToRole" class="selected" onclick="clickAccountRoleLinkMappingPage();"><label
+					class="assignNavigation">Assign Role</label></li>
+				<li style="margin-right: 0px;" id="assignRoleInfo" onclick="uMainNavigation.openAccountInfo();"><label
+					class="assignNavigation">Info</label></li>
+			</ul>
+		</div>
+		<div class="divAssignEntity" id="divAccountHeader">
+			<div class="leftSubHeading" style="margin-top: 0px;">
+
+				<div class="divAssignEntityTxtBox">
+					<select id="ddlRoleBox" class="dropDownBig" onclick="enableDisableAssignAccoutnToRoleBtn();" tabindex="-1">
+						<option>Select Role (Box)</option>
+					</select> <!-- <input type="submit" onclick="linkAccountAndRole();"/> -->
+					<!-- <input type="text" class="bigTextBox assignEntityTxtBox"
+						id="txtAssignRoleBoxName"> -->
+				</div>
+				<div class="divAssignEntityBtn">
+					
+					<input type="button" id = "btnAssignAccountToRole" class="assignBtn assignBtnDisabled" value="Assign" style="margin-left: -25px;" onclick="linkAccountAndRole();" disabled="disabled" tabindex="-1"/>
+				</div>
+				<div class="divDeleteIcon divDeleteAssignEntityIcon">
+					<input type="button" class="deleteIconDisabled" id= "btnDeleteAccountToRoleMapping" onclick="openPopUpWindow('#multipleDeleteAccountToRoleMappingDialogBox','#multipleDeleteAccountToRoleMappingModalWindow');" tabindex="-1" title="Delete">
+				</div>
+
+			</div>
+			<div id="accountToRoleMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="accountToRoleMessageIcon">&nbsp;</span>
+				<div id="accountToRoleSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+			<div class="rightSubHeading">
+				<div class="sortWrapper">
+					<label class="sortText" style="margin-top: 5px;">Sort by
+						Date</label>
+					<div id="arrow" class="downArrow assignEntityDownArrow"></div>
+				</div>
+				<div class="paginationWrapper" style="margin-top: 3px;">
+					<div class="recordCount" id="recordCount_assignAccountTab"></div>
+					<div class="paginationIcons">
+						<div class="leftPagination">
+							<div class="firstPageDisabled" id="firstPage_assignAccountTab" title="First"></div>
+							<div class="prevPageDisabled" id="prevPage_assignAccountTab" title="Previous"></div>
+						</div>
+						<div class="rightPagination">
+							<div class="nextPageDisabled" id="nextPage_assignAccountTab" title="Next"></div>
+							<div class="lastPageDisabled" id="lastPage_assignAccountTab" title="Last"></div>
+						</div>
+						<div class="rightPagination"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="webDavAccountArea">
+			<form name='ftable'>
+				<table id='mainRoleAccountControlTable' cellpadding="0" cellspacing="0" border="0" class='mainTable'>
+					<thead>
+						<tr class="mainTableHeaderRow">
+							<th style="border-top: 0px" class="col1"><input
+								type="checkbox" id="chkSelectAllAccountMappingRecords"
+								onclick="checkAll(this)"
+								class="checkBox cursorHand regular-checkbox big-checkbox"><label
+								for="chkSelectAllAccountMappingRecords" class="checkBoxLabel"></label></th>
+							<th style="border-top: 0px" class="col2">Role</th>
+							<th style="border-top: 0px" class="col3">Box</th>
+						</tr>
+					</thead>
+					<tbody id='assignEntityGridTbody' class="entityGridTbody"></tbody>
+				</table>
+			</form>
+		</div>
+	
+	<!-- Account EDIT Pop Up Start -->
+	<div id="accountEditModalWindow" class="modelback" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 382px; width: 474px; background: #ffffff"
+			id="accountEditDialogBox">
+			<div style="height: 300px; width: 474px;">
+				<div style="height: 34px; width: 474px">
+					<a class="popupCloseIcon"
+						onclick="objAccount.closeEditPopUpWindow();" tabindex="6" title="Close"></a>
+				</div>
+				<div class="divPopupInner">
+					<label class="AccessTokenHeading">Edit Account</label>
+					<section class="sectionContent"
+						style="height: 170px; width: 320px; margin-left: 58px;">
+						<form onsubmit="return false;">
+						<div class= 'popUpEditAccountContent'>
+							<table>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">* Name</label></td>
+								</tr>
+								<tr>
+									<td><input type="text" id="txtEditAccountName"
+										class="bigTextBoxCollection" autocomplete="off"
+										style="width: 205px" tabindex="1"> <span
+										class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon"
+												id="popupEditErrorMsg" style="width: 248px"></aside>
+									</span></td>
+								</tr>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">* New Password</label></td>
+								</tr>
+								<tr>
+									<td><input type="password" id="txtEditPassword"
+										class="bigTextBoxCollection" autocomplete="off"
+										style="width: 205px" tabindex="2"> <span
+										class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon"
+												id="editChangedPassword" style="width: 248px"></aside>
+									</span></td>
+								</tr>
+								<tr>
+									<td style="padding-bottom: 5px;"><label class="lblElement">* Retype Password</label></td>
+								</tr>
+								<tr>
+									<td><input type="password" id="txtEditReTypePassword"
+										class="bigTextBoxCollection" autocomplete="off"
+										style="width: 205px" tabindex="3"> <span
+										class="spanPopupErrorMessageCommon">
+											<aside class="asidePopupErrorMessageCommon"
+												id="editReTypePassword" style="width: 248px"></aside>
+									</span></td>
+								</tr>
+							</table>
+							</div>
+						</form>
+					</section>
+			<!-- Button Section Starts -->
+			<section style="margin-top: 82px" class="positionButtons">
+				<div id="dvCreate" class="dvCreate">
+					<input onclick="updateAccount();" type="button" class="btnClose"
+						value="Save" tabindex="5">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id="btnCancel"
+						onclick="objAccount.closeEditPopUpWindow();"
+						class="cancelBtn" value="Cancel" tabindex="4">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Account EDIT Pop Up End -->
+	<!-- Mapping Multiple Delete Pop Up Start-->
+	<div id="multipleDeleteAccountToRoleMappingModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 230px; width: 528px; background: #ffffff"
+			id="multipleDeleteAccountToRoleMappingDialogBox">
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#multipleDeleteAccountToRoleMappingModalWindow');" tabindex="3" title="Close"></div>
+			<div class="sessionExpiryDiv" id="dvAccessheader">
+				<label class="sessionExpiredPopUpHeading">
+					Delete Role Assignation(s)</label>
+			</div>
+			<div class="sessionExpiredLabel" style="margin-top: 32px;margin-bottom: 54px;">
+				<label>Do you want to delete selected role assignation(s) ?</label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup" id="btnCancelAccountToRoleAssign"
+					onclick="closeEntityModal('#multipleDeleteAccountToRoleMappingModalWindow');" tabindex="1">
+				<input type="button" class="btnSavePopup"
+					onclick="deleteMultipleMappings();" value="Delete"
+					style="margin-right: 0px;" tabindex="2">
+			</div>
+		</div>
+	</div>
+	<!-- Mapping Multiple Delete Pop Up End -->
+		<!-- Spinner code - Start -->
+		<div id="modalSpinnerAcctRoleMap" class="modelbackSpinner"
+			style="display: none;">
+			<div class="modal-window block-border"
+				style="display: block; height: 0; width: 0; background: transparent; position: absolute; top: 50%; left: 50%; border: 0"
+				id="dialogSpinner">
+				<div id="spinnerPopUp"></div>
+			</div>
+		</div>
+		<!-- Spinner code - End -->
+		<div style="display: none;"
+			id="dvemptyAssignTableMessage"
+			class="emptyTableMessage accountEmptyTableMessageWidth"></div>
+	</div>
+</body>
+</html>

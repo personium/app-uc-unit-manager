@@ -1,0 +1,1370 @@
+/**
+ * Personium
+ * Copyright 2016 FUJITSU LIMITED
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ *{margin:0;padding:0}
+ .cellProfileBody{font-family:Segoe UI;font-size:1em;background:url(../newImages/bk.png) repeat-y #ffffff;width:100%;height:auto} 
+/* #cellProfileBody{font-family:Segoe UI;font-size:1em;background:url(../newImages/bk.png) repeat-y #ffffff;width:100%;height:auto} */
+
+/**** Common css starts here ****/
+img, img a{border:none}
+.flLt{float:left}
+.flRt{float:right}
+.clearBoth{clear:both}
+.txtLeft{text-align:left}
+.txtRight{text-align:right}
+.borderNone{border:none!important}
+.borderRNone{border-right:none!important}
+.hand{cursor:pointer}
+/**** Common css ends here ****/
+
+/**** Buttons css starts here ****/
+.normalButton{min-width:80px;height:29px;background:url(../newImages/sprite_icons.png) repeat-x 0 -801px #9bca19;border:none;border-radius:5px;box-shadow:2px 2px 2px #bababa;color:#373f49;cursor:pointer;font-family:Segoe UI;padding:0 5px}
+.normalButtonBlue{min-width:100px;height:29px;background:#58c2cf;border:none;border-radius:5px;color:#ffffff;cursor:pointer;font-family:Segoe UI}
+.bigBlueButton{min-width:125px}
+.biggestBlueButton{min-width:150px}
+.normalButtonBlue[disabled="disabled"]{background:url(../newImages/sprite_icons.png) repeat-x 0 -1888px;color:#ffffff;cursor:auto;text-shadow:none}
+.normalButtonYellow{min-width:80px;height:29px;background:#f4d149;border:none;border-radius:5px;color:#373f49;cursor:pointer;font-family:Segoe UI;padding:0 5px}
+.normalButtonGrey{width:100px;height:29px;background:#d8d8d8;border:none;border-radius:5px;color:#000000;cursor:pointer;font-family:Segoe UI}
+.normalButton[disabled="disabled"]{background:url(../newImages/sprite_icons.png) repeat-x 0 -1339px;color:#9b9fa3;cursor:auto;text-shadow:none}
+.normalButtonYellow:hover{background:#fce17a}
+.normalButton[disabled="disabled"]:hover{background:url(../newImages/sprite_icons.png) repeat-x 0 -1888px}
+.normalButtonBlueDisabled:hover{background:url(../newImages/sprite_icons.png) repeat-x 0 -1888px}
+.normalButtonBlue[disabled="disabled"]:hover{background:url(../newImages/sprite_icons.png) repeat-x 0 -1888px}
+.normalButton:hover{background:#61c6d2}
+.normalButtonBlue:hover{background:#61c6d2}
+.normalButtonBlueEnabled:hover{background:#61c6d2}
+.normalButtonGrey:hover{background:#e8e8e8}
+.createBtn{background:#4fbfcd url(../newImages/sprite_icons.png) no-repeat 3px -2741px;min-width:45px;height:29px;border:none;border-radius:5px;color:#ffffff;cursor:pointer;font-family:Segoe UI}
+.createBtn a{text-decoration:none}
+.createBtn:hover{background:#61c6d2 url(../newImages/sprite_icons.png) no-repeat 3px -2741px}
+.deleteBtn{background:#4fbfcd url(../newImages/sprite_icons.png) no-repeat 3px -2776px;min-width:45px;height:29px;border:none;border-radius:5px;color:#ffffff;cursor:pointer}
+.deleteBtn a{text-decoration:none}
+.deleteBtn:hover{background:#61c6d2 url(../newImages/sprite_icons.png) no-repeat 3px -2776px}
+.deleteBtnDisabled{background:#addee4 url(../newImages/sprite_icons.png) no-repeat 3px -2776px;min-width:45px;height:29px;border:none;border-radius:5px;color:#ffffff;cursor:default}
+.deleteBtnDisabled:hover{background:#addee4 url(../newImages/sprite_icons.png) no-repeat 3px -2776px;cursor:default}
+.importBtn{background:#4fbfcd url(../newImages/sprite_icons.png) no-repeat 3px -2821px;min-width:45px;height:28px;border:none;border-radius:5px;color:#ffffff;cursor:pointer}
+.importBtn a{text-decoration:none}
+.importBtn:hover{background:#61c6d2 url(../newImages/sprite_icons.png) no-repeat 3px -2821px}
+.downloadBtnDisabled{background:#addee4 url(../newImages/sprite_icons.png) no-repeat 3px -2821px;min-width:45px;height:28px;border:none;border-radius:5px;color:#ffffff;cursor:default}
+.downloadBtnDisabled:hover{background:#addee4 url(../newImages/sprite_icons.png) no-repeat 3px -2821px}
+.selectSrcColRow td{background:#dfdfdf!important;border-bottom:1px solid #fff!important;}
+.blueBut{color:#7a7f85;border:1px solid #dfdfdf;min-width:40px;border-radius:5px;padding:0 2px;line-height:18px;background:url(../newImages/sprite_icons.png) 0 -1374px repeat-x;float:left;cursor:pointer;font-size:0.8em}
+.blueBut:hover{background:url(../newImages/sprite_icons.png) 0 -2022px repeat-x}
+.editIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -1436px;text-indent:-2000px;float:left;width:20px;height:20px;margin-left:50px}
+.editIcon:hover{background:url(../newImages/sprite_icons.png) no-repeat -9px -2613px;}
+.deleteIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -1463px;text-indent:-2000px;float:left;width:20px;height:20px;margin-left:20px}
+.deleteIcon:hover{background:url(../newImages/sprite_icons.png) no-repeat -9px -2640px;cursor:pointer}
+.deleteIconDisabled{background:url(../newImages/sprite_icons.png) no-repeat -9px -1673px;text-indent:-2000px;float:left;width:20px;height:20px;margin-left:20px}
+.accountIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -1498px;text-indent:-2000px;float:left;width:26px;height:21px;cursor:pointer}
+.accountIcon:hover{background:url(../newImages/sprite_icons.png) no-repeat -9px -2344px;}
+.extCellIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -1538px;text-indent:-2000px;float:left;width:25px;height:22px;cursor:pointer;}
+.relationIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -1586px;text-indent:-2000px;float:left;width:22px;height:20px;cursor:pointer;}
+.extRoleIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -1637px;text-indent:-2000px;float:left;width:22px;height:18px;cursor:pointer;}
+.exportIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -1798px;text-indent:-2000px;float:left;width:20px;height:20px;margin-left:20px}
+.collectionIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -1715px;text-indent:-2000px;float:left;width:22px;height:20px;cursor: pointer;}
+.collectionIcon:hover{background:url(../newImages/sprite_icons.png) no-repeat -9px -2531px}
+.boxIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -1714px;text-indent:-2000px;float:left;width:25px;height:20px;margin-right:5px}
+.smielyIcon{background:url(../newImages/congrats_smiely.png) no-repeat 0 0;width:50px;height:50px;text-indent:-2000px;display:inline-block;margin-left:45%}
+.tickIcon{background:url(../newImages/sucess_reg.png) no-repeat 0 0;width:357px;height:225px;text-indent:-2000px;display:inline-block;margin:0 auto}
+.relationMappingIcon{background:url(../newImages/sprite_icons.png) no-repeat -5px -2161px;text-indent:-2000px;float:left;width:22px;height:18px;cursor:pointer}
+.relationMappingIcon:hover{background:url(../newImages/sprite_icons.png) no-repeat -5px -2571px;cursor:pointer}
+.normalButtonBrowse{width:72px;height:28px;background:#EAEBD1;border:none;border-radius:5px;box-shadow:2px 2px 2px #bababa;color:#373f49;cursor:pointer;font-family:Segoe UI}
+.textBoxNormal{padding:2%;color:#000000;border:none}
+.textBoxCircle{background:none repeat scroll 0 0 #FFFFFF;border:1px solid #4FBFCD;border-radius:3px;float:left;font-size:0.8em;margin:0 15px 0 1px;max-height:20px;max-width:20px;min-height:12px;text-align:center}
+/**** Buttons css ends here ****/
+
+/**** Header starts here ****/
+.innerHeaderContainer{width:100%;background:#373f49}
+.innerHeaderContainer .personaLogo{background:url(../newImages/personainner_logo.png) no-repeat top left;float:left;margin:9px 15px 0 15px;width:230px;height:18px}
+.userName{float:right;font-size:0.9em;font-weight:normal;padding:10px 0px 10px 35px;width:110px;background:#1d2126 url(../newImages/userIcon.png) no-repeat 10px 10px;color:#ffffff}
+.userName a{color:#fff;font-size:0.9em;font-family:Segoe UI;text-decoration:none;padding:0 0 0 15px}
+.userName a img{float:right;padding:8px 15px 0 0px}
+.slidingDiv{position:absolute;color:#fff;top:35px;height:20px;background:#1D2126;width:140px;text-align:center}
+.slidingDiv .logout{padding:0 0 0 17px}
+.show_hide{display:none}
+.arrow{padding:0 0 0 15px}
+.userNameHeader{overflow: hidden;text-overflow: ellipsis;white-space:nowrap;width:65%;max-width:65%;padding-left:37px!important;padding-right:10px!important;}
+/**** Header ends here ****/
+
+/**** Logout starts here ****/
+#menu, #menu ul{margin:0;padding:0;list-style:none}
+#menu{float:right;font-size:0.9em;font-weight:normal;width:220px;background:#1d2126 url(../newImages/userIcon.png) no-repeat 15px 10px;color:#ffffff}
+#menu:before,
+#menu:after{content:"";display:table}
+#menu:after{clear:both}
+#menu{zoom:1}
+#menu li{float:left;position:relative;width:100%}
+#menu a{float:left;padding:12px 0 12px 25px;font:bold 12px Segoe UI;text-decoration:none}
+#menu li:hover > a{color:#fafafa}
+#menu ul{margin:20px 0 0 0;opacity:0;visibility:hidden;position:absolute;top:38px;left:0;z-index:1;background:#444;background:linear-gradient(#444, #111);box-shadow:0 -1px 0 rgba(255,255,255,.3);border-radius:3px;transition:all .2s ease-in-out}
+#menu li:hover > ul{opacity:1;visibility:visible;margin:0}
+#menu ul ul{top:0;left:150px;margin:0 0 0 20px;box-shadow:-1px 0 0 rgba(255,255,255,.3)}
+#menu ul li{float:none;display:block;border:0;box-shadow:0 1px 0 #111, 0 2px 0 #666}
+#menu ul li:last-child{box-shadow:none}
+#menu ul a{padding:10px;width:130px;display:block;white-space:nowrap;float:none;text-transform:none}
+#menu ul a:hover{background-color:#4FBFCD;background-image:linear-gradient(#04acec, #4FBFCD)}
+#menu ul li:first-child > a{border-radius:3px 3px 0 0}
+#menu ul li:first-child > a:after{content:'';position:absolute;left:40px;top:-6px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #444}
+#menu ul ul li:first-child a:after{left:-6px;top:50%;margin-top:-6px;border-left:0;border-bottom:6px solid transparent;border-top:6px solid transparent;border-right:6px solid #3b3b3b}
+#menu ul li:first-child a:hover:after{border-bottom-color:#4FBFCD}
+#menu ul ul li:first-child a:hover:after{border-right-color:#0299d3;border-bottom-color:transparent}
+#menu ul li:last-child > a{border-radius:0 0 3px 3px;width:200px}
+/**** Logout ends here ****/
+
+/**** Footer starts here ****/
+.innerFooter{width:100%;background:#373f49;height:10px;padding:10px 0;bottom:0;position:relative;font-family:Segoe UI;font-size:0.70em;color:#a7abaf}
+.innerFooter nav{width:450px;float:left}
+.innerFooter nav ul{margin:0 20px 0 10px}
+.innerFooter nav ul li{display:inline;float:left;padding:0 10px;border-right:1px solid #918d8d;line-height:10px}
+.innerFooter nav ul li a{color:#a7abaf;text-decoration:none}
+.innerFooter a:hover{color:#fff}
+.innerFooter address{float:right;width:120px;text-align:right;margin:0 20px 0 0;color:#a7abaf;font-style:normal}
+.innerFooter address a{text-transform:uppercase;color:#a7abaf;text-decoration:none}
+/**** Footer ends here ****/
+
+/**** Home Footer starts here ****/
+.innerHomeFooter{width:100%;background:#373f49;height:10px;padding:10px 0;bottom:0;position:relative;font-family:Segoe UI;font-size:0.70em;color:#a7abaf}
+.innerHomeFooter nav{width:450px;float:left}
+.innerHomeFooter nav ul{margin:0 20px 0 -125px}
+.innerHomeFooter nav ul li{display:inline;float:left;padding:0 10px;border-right:1px solid #918d8d;line-height:10px}
+.innerHomeFooter nav ul li a{color:#a7abaf;text-decoration:none}
+.innerHomeFooter a:hover{color:#fff}
+.innerHomeFooter address{float:right;width:330px;text-align:right;margin:0 20px 0 0;color:#a7abaf;font-style:normal}
+.innerHomeFooter address a{text-transform:uppercase;color:#a7abaf;text-decoration:none}
+/**** Home Footer ends here ****/
+
+/**** Main Container starts here ****/
+#mainContainer{margin:0 auto;width:100%}
+#mainContainer #contentWrapper{width:100%;height:auto;display:block}
+/**** Main Container ends here ****/
+
+/**** Left Panel starts here ****/
+.leftPanel{background:#edeef0;width:50px;float:left;position:absolute}
+.leftPanelCellList{background:#edeef0;width:50px;float:left;min-height:559px}
+.leftNav{width:45px}
+.leftNav ul li{list-style:none;float:left;width:50px}
+.leftNav ul li.selected{background-color:#4fbfcd}
+.leftNav ul li a{text-indent:-2000px;float:left;padding:10px}
+.leftNav ul li:hover{background:#4FBFCD}
+.socialGraph{background:url(../newImages/sprite_icons.png) no-repeat 5px -890px;width:35px;height:36px}
+.resouceMgmt{background:url(../newImages/sprite_icons.png) no-repeat 5px -946px;width:35px;height:37px}
+.statistic{background:url(../newImages/sprite_icons.png) no-repeat 5px -1006px;width:35px;height:36px}
+.leftNav ul li.selected .socialGraph{background:url(../newImages/sprite_icons.png) no-repeat 5px -1064px;width:35px;height:36px}
+.leftNav ul li.selected .resouceMgmt{background:url(../newImages/sprite_icons.png) no-repeat 5px -1122px;width:35px;height:37px}
+.leftNav ul li.selected .statistic{background:url(../newImages/sprite_icons.png) no-repeat 5px -1181px;width:35px;height:36px}
+/**** Left Panel ends here ****/
+
+/**** Cell List starts here ****/
+/* .cellList{float:left;background:#4fbfcd;width:238px;min-height:630px;position:absolute;margin:0 0 0 50px}
+.cellGroupList{width:100%;float:left;color:#fff;font-family:Segoe UI;float:left;font-size:0.8em}
+.cellGroupList tr td{border-bottom:1px dotted #61c6d2;padding:10px 0 0 38px;height:40px}
+.cellGroupList tr td:hover{background:url(../newImages/sprite_icons.png) no-repeat 18px -744px #61c6d2}
+.cellGroupList tr td:hover{
+color: #ffffff;
+}
+.cellGroupList tr td a{text-decoration:none;font-weight:bold;color:#fff}
+.cellGroupList tr td span{display:block;font-size:0.8em;font-weight:normal}
+.allCell{background:url(../newImages/sprite_icons.png) no-repeat 18px -744px}
+.allCell:hover{background:url(../newImages/sprite_icons.png) no-repeat 18px -744px #61c6d2;cursor:pointer}
+.cellGroupList .activeCellList{background:url(../newImages/sprite_icons.png) no-repeat 18px -2700px #298a96;color:#ffffff}
+.cellGroupList .activeCellList a{color:#ffffff}
+.cellGroupList .activeCellList:hover{background:url(../newImages/sprite_icons.png) no-repeat 18px -2700px #298a96;color:#ffffff;cursor:default}
+.search{padding:1% 1% 1% 6%;width:91%}
+.searchBox{margin:8% 0 4% 0;border: medium none;color:#4fbfcd;padding:2%}
+.searchIcon{cursor:pointer;width:29px;margin:2px 0 0 2px;border:none}
+.searchImage{padding:18px 0 0 3px;position:absolute;height:24px;cursor:pointer}
+.searchBullet{background:url(../newImages/sprite_icons.png) no-repeat 0 -749px;width:13px;height:12px}
+.refreshButton{background:url(../newImages/sprite_icons.png) no-repeat -7px -43px;border:none;cursor:pointer;float:right;height:28px;margin:17px 0 0 33px;position:absolute;width:27px}
+
+.upward a, .downward a{width:100%;text-indent:-2000px;background:#373f49 url(../newImages/sprite_icons.png) no-repeat;float:left;height:10px}
+.upward a{background-position:110px -77px}
+.downward a{background-position:110px -715px}
+
+.upward a:hover{background:url(../newImages/sprite_icons.png) no-repeat 110px -77px #101215}
+.downward a:hover{background:url(../newImages/sprite_icons.png) no-repeat 110px -715px #101215}
+
+.upwardDisable a, .downwardDisable a{width:100%;text-indent:-2000px;background:#30a0ae url(../newImages/sprite_icons.png) no-repeat;float:left;height:10px;cursor:default}
+.upwardDisable a{background-position:110px -2112px}
+.downwardDisable a{background-position:110px -2136px}
+
+.bigButton{width:149px;height:29px;background-color:#ffffff;border:none;border-radius:5px;color:#178e9d;cursor:pointer;line-height:29px;font-family:Segoe UI;font-size:0.9em}
+.createCell input[type="button"]{margin: 62px 50px 8px 50px;background-image:url(../newImages/sprite_icons.png);background-repeat:no-repeat;background-position:10px -1248px;padding-left:20px}
+.createCell input[type="button"]:hover{background:url(../newImages/sprite_icons.png) no-repeat 10px -1248px #f4f4f4} */
+/**** Cell List ends here ****/
+
+/**** Common Right Panel starts here ****/
+#mainContainer #contentWrapper #rightContainer{float:right;position:absolute;margin:0 0 0 288px;text-align:justify;padding:0 20px 10px 20px}
+
+/**** Breadcrum starts here ****/
+.breadcrumb{list-style:none;float:left;margin-bottom:5px;clear:both;width:100%;padding:14px 0 7px 0;font-family:Segoe UI}
+.breadcrumb li{float:left}
+.breadcrumb li .cellName{background:url(../newImages/sprite_icons.png) no-repeat scroll right -1918px transparent;float:left;margin:0 10px 0 0;width:100%;padding:0 10px 0 0;color:#178e9d;font-size:1.1em}
+.breadcrumb li .firstHeading{background:url(../newImages/sprite_icons.png) no-repeat scroll right -1946px transparent;font-size:0.8em;color:#373f49;float:left;margin:4px 10px 0 0;padding:0 10px 0 0;width:100%}
+.breadcrumb li .firstHeading a{color:#178e9d;text-decoration:underine}
+.breadcrumb li .firstHeading a:hover{color:#373f49;text-decoration:none}
+/**** Breadcrum ends here ****/
+
+/**** Main Nav starts here ****/
+.mainNav ul{display:block;width:100%}
+.mainNav ul li{display:inline;float:left;list-style:none;background:#edeef0;border-right:1px solid #edeef0;line-height:22px;padding:5px 0;/* border-bottom:1px solid #cdd3de */}
+.mainNav ul li:hover{background:#dfdfdf}
+.mainNav{margin:10px 0 0 0}
+.mainNav ul li a{text-decoration:none;color:#373f49;font-size:0.9em;font-family:Segoe UI}
+/* .cell{min-width:16%}
+.box{min-width:11%}
+.role{min-width:11%}
+.acc{min-width:13%}
+.extC{min-width:17%}
+.rel{min-width:13%}
+.extR{min-width:18%} */
+.mainNav .selected{background:#00a9da url(../newImages/nav_bgPattern.png) 0 0;width:auto}
+.mainNav .selected:hover{background:#00a9da url(../newImages/nav_bgPattern.png) 0 0}
+.mainNav .selected a{color:#fff}
+.cellProfileNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -92px;padding:9px 0 5px 37px}
+.boxNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -135px;padding:6px 0 5px 37px}
+.roleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -177px;padding:6px 0 5px 37px}
+.accountNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -219px;padding:6px 0 5px 37px}
+.socialNav{background: url(../newImages/sprite_newIcons.png) no-repeat  -3% -58px;padding:9px 40px 5px 37px}
+.extCellNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -261px;padding:9px 0 5px 37px}
+.relationNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -309px;padding:7px 0 5px 37px}
+.messageNav{background:url(../newImages/sprite_newIcons.png) no-repeat -2% -138px;padding:7px 40px 5px 37px}
+.extRoleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -350px;padding:9px 0 5px 37px}
+.eventNav{background:url(../newImages/sprite_newIcons.png) no-repeat 1% -172px;padding:9px 70px 5px 41px}
+.snapshotNav{background:url(../newImages/sprite_newIcons.png) no-repeat 1% -172px;padding:9px 70px 5px 41px}
+.selected .cellProfileNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -392px;padding:9px 0 5px 37px}
+.selected .boxNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -439px;padding:6px 0 5px 37px}
+.selected .roleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -482px;padding:6px 0 5px 37px}
+.selected .accountNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -526px;padding:6px 0 5px 37px}
+.selected .socialNav{background:url(../newImages/sprite_newIcons.png) no-repeat -3% -21px;padding:9px 40px 5px 37px}
+.selected .messageNav{background:url(../newImages/sprite_newIcons.png) no-repeat -2% -101px;padding:7px 40px 5px 37px}
+.selected .eventNav{background:url(../newImages/sprite_newIcons.png) no-repeat 1% -209px;padding:9px 70px 5px 41px}
+.selected .snapshotNav{background:url(../newImages/sprite_newIcons.png) no-repeat 1% -209px;padding:9px 70px 5px 41px}
+/* .selected .relationNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -618px;padding:7px 0 5px 37px}
+.selected .extRoleNav{background:url(../newImages/sprite_icons.png) no-repeat 1% -666px;padding:9px 0 5px 37px} */
+/**** Main Nav ends here ****/	
+
+/**** Message-Successful/Partial Successful/Error starts here ****/
+.messageWrapper{width:100%;margin:1px 0 0 0;text-align:center;float:left;display:block;border-bottom:5px solid #ffffff;font-style:normal;color:#373f49;font-family:Segoe UI;font-size:.7em;font-weight:bold;line-height:23px}
+.messageWrapper .messageClose{background:url(../newImages/close.png) no-repeat scroll 0 0;border:none;float:right;height:8px;width:8px;margin:5px 5px 0 0;;cursor:pointer}
+.successfulWrapper{background:#d4ee7b;width:100%}
+.successfulIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -2304px;display:inline-block;height:20px;width:20px;padding:0 5px 0 0;top:1px;position:relative}
+.partialSuccessfulWrapper{background:#f4d558;width:100%}
+.partialSuccessfulIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -2216px;display:inline-block;height:20px;width:20px;padding:0 5px 0 0;top:1px;position:relative}
+.errorWrapper{background:#e96244;width:100%;color:#fff}
+.errorIcon{background:url(../newImages/sprite_icons.png) no-repeat -9px -2264px;display:inline-block;height:20px;width:20px;padding:0 5px 0 0;top:1px;position:relative}
+/**** Message-Successful/Partial Successful/Error ends here ****/
+
+/**** Top Area starts here ****/
+.mainContentTop{margin:15px 10px 0 0;width:100%;min-width: 952px}
+.topArea input[type="button"]{float:right}
+.topArea a{color:#178E9D;float:right;font-size:0.8em;text-decoration:underline}
+.topArea a.topLink{margin:7px 15px 0 0}
+.topArea a:hover{color:#373F49;text-decoration:none}
+.topTable{margin-bottom:3px;margin-top:14px}
+.topLeft{float:left;padding:0 26% 0 0}
+.sortLabel{font-size:0.8em}
+.dropDownNormal{width:150px;border:1px solid #d1d5db;padding:3px}
+.dropDownNormal option{color:#373f49}
+.dropDownBig{min-width:180px;border:1px solid #d1d5db;padding:3px;color:373f49;font-size:0.7em}
+.dropDownBig option{color:#373f49;font-size:0.75em;height:12px}
+.dropDownBigger{min-width:215px;border:1px solid #d1d5db;padding:3px;color:373f49;font-size:0.9em;float:right}
+.dropDownBigger option{color:#373f49;font-size:0.75em;height:12px}
+.blackSearch{float:left;border:1px solid #d1d5db}
+.blackSearch input{background:url(../newImages/sprite_icons.png) -7px -1299px no-repeat #fff;color:#373f49;padding:3px 3px 3px 25px;}
+.topRight{float:right;margin-right: 5px}
+.topRight input{margin-left:5px}
+/**** Top Area ends here ****/
+
+/**** Sub Wrapper starts here ****/
+.subWrapper{background:#ffffff;overflow-y:auto;overflow-x:none;height:430px;width:100%;border:1px solid #fff;padding:0 5px 0 0}
+.subWrapper .subContent{width:100%}
+.internalHeight{height:437px!important;margin:5px 0 0 0}
+.subWrapperWithHeading{background:#ffffff;overflow-y:auto;overflow-x:none;height:410px;width:100%;border:1px solid #fff;padding:0 5px 0 0}
+.subWrapperWithHeading .subContentWithHeading{width:100%}
+.subInnerHeading{font-family:Segoe UI; color:#1c919f; font-size:0.9em; font-weight:normal}
+/**** Sub Wrapper ends here ****/
+
+/**** Pagination ends here ****/
+.pagination{float:right;padding:15px 0;max-width:290px;min-width:65px}
+.prev{background:#d4d4d4 url(../newImages/sprite_icons.png) 4px -1397px no-repeat;text-indent:-2000px;float:left;border:1px solid #c3c3c3;width:18px;height:18px;cursor:default;margin:2px 0 0 0}
+.next{background:#d4d4d4 url(../newImages/sprite_icons.png) -10px -1410px no-repeat;text-indent:-2000px;float:right;border:1px solid #c3c3c3;width:18px;height:18px;cursor:default;margin:2px 0 0 4px}
+.prev:hover{background:url(../newImages/sprite_icons.png) 4px -1397px no-repeat #f4f4f4}
+.next:hover{background:url(../newImages/sprite_icons.png) -10px -1410px no-repeat #f4f4f4}
+.paginationBut:hover{background:#f4f4f4}
+.prevDisable{background:#f4f4f4 url(../newImages/sprite_icons.png) -11px -1972px no-repeat;text-indent:-2000px;float:left;border:1px solid #d8d8d8;width:18px;height:18px;cursor:pointer}
+.nextDisable{background:#f4f4f4 url(../newImages/sprite_icons.png) -11px -1995px no-repeat;text-indent:-2000px;float:right;border:1px solid #d8d8d8;width:18px;height:18px;cursor:pointer}
+.paginationBut{border:1px solid #d8d8d8;width:20px;height:18px;color:#373f49;font-size:0.68em;margin-left:5px;line-height:20px;text-align:center;background:#ffffff}
+.paginationButSelect{width:20px;height:20px;color:#373f49;font-weight:bold;font-size:0.68em;line-height:20px;text-align:center;background:#ffffff;border:none}
+.pagText{color:#373f49;font-size:0.7em;margin:0 5px}
+/**** Pagination ends here ****/
+
+/**** Sub Tab Area stars here ****/
+.subTabArea{margin:10px 0 0 0}
+.subTabs{float:left}
+.subTabs li{list-style:none;float:left;display:inline}
+.subTabs li a{text-decoration:none;color:#373f49;font-family:Segoe UI;padding:7px 10px;font-size:0.8em;margin-right:10px;float:left;cursor:default}
+.subTabs .selected a{background:#edeef0;cursor:default}
+.subTabArea .popupAlertmsg{font-size:0.6em!important}
+.mappingCount{float:right;font-size:0.7em;color:#373f49;margin:10px 0 0 0}
+.subTabBottom{background:#edeef0;padding:6px 10px}
+.subLeft{float:left}
+.subLeft select{margin-right:20px}
+.subRight{float:right;top:0}
+/**** Sub Tab Area ends here ****/
+
+/**** Link Table stars here ****/
+.linkWrapper{background:#ffffff;padding:5px;width:100%;border:1px solid #e0e0e0;margin:10px 0;font-size:0.8em}
+.linkLeft{width:20%;padding:6px 0}
+.linkRight{width:45%}
+.linkInfo{text-align:right;padding:0 0 0 10px;color:#373F49;font-size:0.85em}
+.linkWrapper .dropDownBig{font-size:0.85em}
+.linkWrapper .emptyTableSmall{width:275px;text-align:center;font-family:Segoe UI;font-size:1em;background:#f4d558;color:#373f49;padding:8px 0;margin: 0 0 0 110px}
+.linkTable{font-family:Segoe UI;color:#373f49}
+.linkTable td{padding:4px 10px;font-size:0.9em;border-bottom:1px solid #dfdfdf}
+.linkTable .alterRow{background:#c7ecf7}
+.linkTable .selectRow td{background:#e4f3b0;border-top:1px solid #fff;border-bottom:1px solid #fff}
+.linkTable .popupAlertmsg{color:#e90000;font-size:0.8em;text-align:left}
+/**** Link Table ends here ****/
+
+.mappingInfo{/* background:#addee4; */background:#fff;padding:7px;margin:0 0 7px 0;width:98.5%}
+.mappingInfo li{list-style:none;color:#373f49;float:left;font-size:0.85em;width:32%}
+.mappingInfoFirstli{width:34%!important;}
+.mappingInfoSecondli{width:27%!important;}
+.mappingInfoThirdli{width:26%!important;}
+.mappingInfoFourthli{width:13%!important;}
+.mainTable{width:100%;font-family:Segoe UI;color:#373f49}
+.mainTable th{background:#4fbfcd;padding:6px 10px 6px 10px;font-size:0.9em;font-weight:normal;color:#fff;text-align:left;border-bottom:1px solid #fff}
+.mainTable tr{border-bottom:1px solid #dfdfdf}
+.mainTable td{padding:5px 10px;font-size:0.75em;border-bottom:1px solid #dfdfdf}
+.mainTable td a{text-decoration:underline;color:#178E9D}
+.mainTable td a:hover{text-decoration:none;color:#373F49}
+.alterRow{background:#f4f4f4}
+.selectRow td{background:#dfdfdf;border-bottom:1px solid #fff}
+.emptyTableMessage{text-align:center;font-family:Segoe UI;font-size:0.9em;width:275px;height:22px;background:#f4d558;color:#373f49;margin:45px auto;padding:5px 0}
+/**** Common Right Panel ends here ****/
+
+/**** Create First Cell starts here ****/
+.firstCell{float:left;margin:18% 0 0 95px}
+.leftText{color:#ffffff;font-family:Segoe UI;font-size:0.85em;text-align:center;margin:0 0 10% 0;line-height:18px}
+.firstCellWrapperBK{display:block;width:600px;height:550px;z-index:-1;margin:0 auto}
+#createCell .bigButton{padding-left:10%;background:url(../newImages/sprite_icons.png) no-repeat 10px -1248px #ffffff;color:#178e9d}
+#createCell .bigButton:hover{background:url(../newImages/sprite_icons.png) no-repeat 10px -1248px #f4f4f4}
+/**** Create First Cell ends here ****/
+
+/**** Cell Profile starts here ****/
+.profileDesc{color:#6e6e6e;clear:both}
+.profileDescLeft{float:left;width:130px;margin-right:15px}
+.profileDescLeft figure{text-indent:-2000px;margin-bottom:10px;width:120px;height:120px}
+.cellProfileImage{background:url(../newImages/userImage.jpg) no-repeat 40% 60%}
+.createInfo, .updateInfo{font-size:0.70em;display:block;margin-bottom:3px;text-align:center}
+
+.profileDescRight{margin:0;padding:0;width:83%;float:left}
+.profileHeading{color:#178e9d;font-family:Segoe UI;font-size:1em;font-weight:normal;margin-bottom:10px}
+.profileHeading .boxName{color:#373f49}
+.profileHeading .bigProfileHeading{font-size:1.3em}
+.profileDescRight p{font-size:0.75em;line-height:16px;margin:10px 0}
+/**** Cell Profile startsends here ****/
+
+/**** Box Profile starts here ****/
+.boxProfileImage{background:url(../newImages/boxImage.jpg) no-repeat 40% 60%}
+.mainContentBottom{border:1px solid #e0e0e0;padding:10px;min-height:250px;height:auto;margin:0 0 10px 0}
+.aboutAuthor{width:16%;margin:0 1% 0 0;background:#f4f4f4;float:left}
+.authorContent .aboutAuthorImage{display:block;width:100%;height:auto;z-index:-1;margin:0 auto}
+.subHeading{background:#addee4;padding:6px 10px;font-size:0.9em;font-weight:normal;color:#373f49;text-align:left;border-bottom:1px solid #fff}
+.subHeading .addLink a{float:right;font-weight:normal;font-size:0.8em;text-decoration:underline;color:#373f49}
+.subHeading .addLink a:hover{text-decoration:none}
+.authorContent{margin:9px}
+.authorContentContainer{height:210px;overflow-y:auto;overflow-x:hidden}
+.authorContent figure{background:url(../newImages/aboutauthor.png) no-repeat center top;width:141px;height:97px;text-indent:-9000px}
+.aboutAuthor aside{font-size:0.7em;color:#6e6e6e;margin:5% 0;line-height:15px;width:100%;float:left}
+.profileRoles{margin:0 1% 0 0;background:#f4f4f4;float:left;width:50%}
+.profileRelations{margin:0;background:#f4f4f4;float:left;width:49%}
+.aclSettings{float:left;width:25%}
+.profileTableWrapper{height:217px;overflow-y:auto;overflow-x:hidden;background:#ffffff}
+.profileTable{width:100%;font-family:Segoe UI;color:#373f49;font-size:0.7em;font-weight:normal;text-align:left;background:#ffffff}
+.profileTable tr{height:30px;background:#ffffff}
+.profileTable tr td{padding:0 0 0 10px}
+.profileTable tr.selectProfileRow .profileDeleteIcon{background:url(../newImages/sprite_icons.png) no-repeat center -2081px;}
+.profileDeleteIcon{background:url(../newImages/sprite_icons.png) no-repeat center -2053px;text-indent:-2000px;float:right;width:20px;height:20px;margin-right:5px}
+.boxDisplayNameText{width:55%!important;max-width:55%!important}
+/**** Box Profile ends here ****/
+
+/*--------------------------------------------------	********* ACCOUNT LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#accountView .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainAccountTable{width:100%}
+#mainAccountTable .col1{width:5%}
+#mainAccountTable .col2{width:50%}
+#mainAccountTable .col3{width:30%}
+#mainAccountTable .col4{width:15%}
+#mainAccountTable .col5{width:20%}
+
+.blueBut{color:#7a7f85;border:1px solid #dfdfdf;min-width:40px;border-radius:5px;padding:0 2px;line-height:18px;background:url(../newImages/sprite_icons.png) 0 -1374px repeat-x;float:left;cursor:pointer;font-size:0.8em}
+.blueBut:hover{background:url(../newImages/sprite_icons.png) 0 -2022px repeat-x;}
+
+/*--------------------------------------------------	********* ACCOUNT LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* ROLE LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#roleView .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainRoleTable{width:100%}
+#mainRoleTable .col1{width:5%}
+#mainRoleTable .col2{width:25%}
+#mainRoleTable .col3{width:25%}
+#mainRoleTable .col4{width:9%}
+#mainRoleTable .col5{width:26%}
+#mainRoleTable .col6{width:6%}
+/*--------------------------------------------------	********* ROLE LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* ROLE ACCOUNT LINK LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#roleView .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainRoleAccountLinkTable{width:100%}
+#mainRoleAccountLinkTable .col1{width:5%}
+#mainRoleAccountLinkTable .col2{width:80%}
+#mainRoleAccountLinkTable .col3{width:15%}
+/*--------------------------------------------------	********* ROLE ACCOUNT LINK LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* ROLE ACCOUNT LINK CONTROL LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#mainRoleAccountControlTable{width:100%}
+#mainRoleAccountControlTable .col1{width:5%}
+#mainRoleAccountControlTable .col2{width:40%}
+#mainRoleAccountControlTable .col3{width:40%}
+#mainRoleAccountControlTable .col4{width:15%}
+/*--------------------------------------------------	********* ROLE ACCOUNT CONTROL LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* RELATION ROLE MAPPING LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#mappedRoleList .middleWrapper{box-shadow:0 0 10px #CCC}
+#mappedRoleList{width:100%}
+#mappedRoleList .col1{width:5%}
+#mappedRoleList .col2{width:40%}
+#mappedRoleList .col3{width:40%}
+#mappedRoleList .col4{width:15%}
+/*--------------------------------------------------	********* RELATION ROLE MAPPING LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* RELATION LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#mainRelationTable .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainRelationTable{width:100%}
+#mainRelationTable .col1{width:5%}
+#mainRelationTable .col2{width:34%}
+#mainRelationTable .col3{width:34%}
+#mainRelationTable .col4{width:10%}
+#mainRelationTable .col5{width:15%;padding-left:22px;}
+/* #mainRelationTable .col6{width:20%} */
+/*--------------------------------------------------	********* RELATION LIST VIEW ENDS HERE ********* ---------------------------------------------*/
+
+/*--------------------------------------------------	********* External CELL LIST VIEW STARTS HERE ********* ---------------------------------------------*/
+#mainExternalCellTable .middleWrapper{box-shadow:0 0 10px #CCC}
+#mainExternalCellTable{width:100%}
+#mainExternalCellTable .col1{width:5%}
+#mainExternalCellTable .col2{width:25%}
+#mainExternalCellTable .col3{width:45%}
+#mainExternalCellTable .col4{width:10%}
+#mainExternalCellTable .col5{width:15%;padding-left:20px;}
+/* #mainExternalCellTable .col6{width:10%} */
+/*--------------------------------------------------	********* External CELL VIEW ENDS HERE ********* ---------------------------------------------*/
+
+#mainBoxTable{width:100%}
+#mainBoxTable .col1{width:5%}
+#mainBoxTable .col2{width:30%}
+#mainBoxTable .col3{width:40%}
+#mainBoxTable .col4{width:10%}
+#mainBoxTable .col5{width:10%}
+#mainBoxTable .col6{width:15%}
+
+#externalRoleTable{width:100%}
+#externalRoleTable .col1{width:5%}
+#externalRoleTable .col2{width:35%}
+#externalRoleTable .col3{width:20%}
+#externalRoleTable .col4{width:20%}
+#externalRoleTable .col5{width:10%}
+#externalRoleTable .col6{width:10%}
+
+#mainRoleExtCellLinkTable{width:100%}
+#mainRoleExtCellLinkTable .col1{width:5%}
+#mainRoleExtCellLinkTable .col2{width:42%}
+#mainRoleExtCellLinkTable .col3{width:42%}
+#mainRoleExtCellLinkTable .col4{width:10%}
+
+#mainRoleRelationLinkTable{width:100%}
+#mainRoleRelationLinkTable .col1{width:5%}
+#mainRoleRelationLinkTable .col2{width:42%}
+#mainRoleRelationLinkTable .col3{width:42%}
+#mainRoleRelationLinkTable .col4{width:10%}
+
+#mainRoleExtRoleLinkTable{width:100%}
+#mainRoleExtRoleLinkTable .col1{width:5%}
+#mainRoleExtRoleLinkTable .col2{width:25%}
+#mainRoleExtRoleLinkTable .col3{width:25%}
+#mainRoleExtRoleLinkTable .col4{width:25%}
+#mainRoleExtRoleLinkTable .col5{width:10%}
+
+#mainExternalCellRoleTable{width:100%}
+#mainExternalCellRoleTable .col1{width:5%}
+#mainExternalCellRoleTable .col2{width:47%}
+#mainExternalCellRoleTable .col3{width:48%}
+
+/* MODALBOX STARTS */
+#modalbox{position:absolute;width:auto;height:auto;padding:0;background:#fff;color:#000;top:50%;left:50%;margin-left:-350px;margin-top:-200px;display:none;z-index:50000; font-family:Segoe UI;box-shadow:0 0 10px #000000}
+	/*#modalbox #modalbox-header #modalbox-close{float:right;line-height:20px;font-size:11px; color:#669933; text-decoration:none;}
+	#modalbox #modalbox-header #modalbox-close:hover{color:#fff}
+	#modalbox #modalbox-header #modalbox-h2{line-height:20px;font-size:14px; color:#333; text-transform:capitalize;}*/
+#modalbox #modalbox-content{overflow:hidden;height:auto}
+#modalbox-flyout{position:absolute;background:#000;top:0;left:0;display:none;z-index:40000}
+.modalbox{text-decoration:none}
+.closeIcon{background:url(../newImages/sprite_icons.png) no-repeat center -1820px;float:right;height:40px;position:absolute;right:-16px;text-indent:-2000px;top:-20px;width:34px;z-index:9999;cursor:pointer}
+.closeIcon:hover{background:url(../newImages/sprite_icons.png) no-repeat center -2660px;}
+.popupHeader{background:#4FBFCD;height:38px;width:365px;color:#ffffff;padding:0 0 0 10px;font-family:Segoe UI;line-height:35px;position:relative;cursor:default;}
+.popupContent{margin:10px 10px 7px 10px}
+.popupInnerContent{background:#dedede;font-family:Segoe UI;font-size:0.8em;color:#373f49;padding:15px 10px 5px 10px;line-height:27px}
+.conflict{padding:5px 10px 20px 10px!important;font-size:0.7em;line-height:25px}
+.popupInnerContent label{float:left}
+.popupCommonTable {width:100%}
+.popupCommonTable tr td{padding:0 0 5px 0;line-height:15px}
+.popupCommonTable .space{padding:0 0 15px 0}
+.popupMessage{color:#373F49;font-family:Segoe UI;font-size:0.9em;padding:0;float:right}
+.popupContent .normalButton{width:100px}
+/* MODALBOX ENDS */
+
+/*-------------------------------------	********* CREATE CELL(MANAGING RESOURCE) POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createCellpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+
+.textBoxPopup{width:204px;border:0;height:16px;font-family:Segoe UI;font-size:1.0em;color:#373f49;padding:5px;clear:both;float:right}
+.selectBoxPopup{width:200px;border:0;height:26px;font-family:Segoe UI;font-size:1.0em;color:#373f49;padding:3px;clear:both;float:right}
+.textBoxSmallPopup{width:190px;border:0;height:16px;font-family:Segoe UI;font-size:1.0em;color:#373f49;padding:5px;clear:both;float:right}
+.textBoxPopupSmall{width:110px;border:0;height:16px;font-family:Segoe UI;font-size:1.0em;color:#373f49;padding:5px 10px 5px 5px;clear:both;float:left}
+.checkBoxPopup{margin:0 7px 0 5px}
+.checkBoxPopupText{font-family:Segoe UI;font-size:0.8em;color:#373f49;padding:5px 43px 0 0;float:left}
+.clearSpace{clear:both;height:7px}
+.bottomBtn{float:right;margin:10px 0 0 0}
+.textAreaPopup{width:212px}
+.popupCellTable {width:auto}
+.popupCellTable tr td{padding:0 0 5px 0;line-height:15px}
+.popupCellTable tr td.last{padding:10px}
+.popupAlertArea{color:#E90000;float:left;height:15px;padding:1px 0 0 0px;text-align:left;width:100%}
+.popupAlertmsg{color:#e90000;font-size:0.8em;text-align:left;}
+.popupAlertmsgForDropDown{float:none;width:auto}
+.popupInnerContent .deletePopupField{height:45px;margin:15px 0 0 0;text-align:center} 
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE CELL(MANAGING RESOURCE) POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------------------	********* CREATE ACCOUNT / EDIT ACCOUNT / DELETE ACCOUNT POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+
+/**** Middle Part starts here *****/
+#createAccountpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+.popupInnerContent .deleteAccount{height:45px;margin:15px 0 0 0;text-align:center}
+.popupInnerContent .conflictAccount{height:65px;margin:15px 0 0 0;text-align:center}
+#editAccountpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE ACCOUNT / EDIT ACCOUNT / DELETE ACCOUNT POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------------------	********* CREATE BOX / EDIT BOX / DELETE BOX POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createBoxpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+.popupInnerContent .deleteBox{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE BOX / EDIT BOX / DELETE BOX POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------------------	********* CREATE ROLE / EDIT ROLE / DELETE ROLE POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createRolepopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+#createRolepopup .popupInnerContent{padding:15px 20px 0}
+#createRolepopup .popupInnerContent .deleteRole{height:65px;margin:15px 0 0 0;text-align:center}
+.popupInnerContent .deleteRole{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE ROLE / EDIT ROLE / DELETE ROLE POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------------------	********* CREATE RELATION / DELETE RELATION POPUP STARTS HERE *********	 -------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createRelationpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+#createRelationpopup .popupInnerContent{padding:15px 20px 0;}
+.popupInnerContent .deleteRelation{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*--------------------------------------------	********* CREATE RELATION / DELETE RELATION POPUP ENDS HERE *********	 -------------------------------*/
+
+/*--------------------------------	********* CREATE EXTERNAL CELL / DELETE CREATE EXTERNAL CELL POPUP STARTS HERE *********	 ---------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createExternalCellpopup .popupWrapper{width:100%;background:#f4f4f4;line-height:18px;position:relative}
+.popupInnerContent .deleteExternalCell{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*-------------------------	********* CREATE CREATE EXTERNAL CELL / DELETE CREATE EXTERNAL CELL POPUP ENDS HERE *********	 -----------------------------*/
+
+
+/*--------------------------------	********* CREATE EXTERNAL ROLE / EDIT EXTERNAL ROLE / DELETE CREATE EXTERNAL ROLE POPUP STARTS HERE *********	 ---------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+/**** Middle Part starts here *****/
+#createpopup .textBoxSmallPopup{width:175px}
+#createExternalRolepopup .selectBoxPopup{width:185px}
+#editExternalRolepopup .textBoxSmallPopup{width:175px}
+#editExternalRolepopup .selectBoxPopup{width:185px}
+.popupInnerContent .deleteExternalRole{height:45px;margin:15px 0 0 0;text-align:center}
+
+/**** Middle Part ends here ****/
+/************************ Create Cell(Managing Resource) Popup Media Query For 1024 X 768 Ends Here ************************/
+/*-------------------------	********* CREATE CREATE EXTERNAL ROLE / EDIT EXTERNAL ROLE / DELETE CREATE EXTERNAL ROLE POPUP ENDS HERE *********	 -----------------------------*/
+.normalButtonBlue .disableBlue{background:url(../newImages/sprite_icons.png) repeat-x 0 -1888px;color:#ffffff;cursor:auto;text-shadow:none}
+
+/*--------------------------------------------------	********* BOX PROFILE STARTS HERE ********* ---------------------------------------------*/
+/*****************************************************
+Common CSS for both resolutions starts here 
+*****************************************************/
+.boxProfileTop{padding:8px 0 0 0}
+
+/*****************************************************
+Common CSS for both resolutions ends here 
+*****************************************************/
+
+/*--------------------------------------------------	********* BOX PROFILE ENDS HERE ********* ---------------------------------------------*/
+
+
+/****************** Modal window ****************/
+.modelback{
+	/* background: url(../newImages/old-browsers-bg/black50.png); */
+	background: rgba(0, 0, 0, 0.5);
+	position: fixed;	
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index:1
+}
+div.modal-window {
+	position: absolute;
+	left: 0;
+	top: 0;
+	-moz-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+	box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+}
+.modal-content {
+	overflow: hidden;
+	margin: -2.833em -1.667em -1.667em;
+	padding: 2.833em 1.667em 1.667em;
+	}
+	
+.modelbackSpinner{
+	/* background: url(../newImages/old-browsers-bg/black50.png); */
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;	
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;	
+	z-index:3	
+}
+	
+	
+#modal > .block-border > .block-content {
+	/* z-index: 90; */
+}
+
+.btnEditIconDisabled{background:#addee4 url(../images/editIconSmall.png) no-repeat 13px;
+	min-width:45px;
+	height:29px;
+	border:none;
+	border-radius:5px;
+	color:#ffffff;
+	cursor:default;
+	font-family:Segoe UI;
+	margin-left:5px;
+}
+	
+.btnEditIconEnabled{background:#4fbfcd url(../images/editIconSmall.png) no-repeat 13px;
+	min-width:45px;
+	height:29px;
+	border:none;
+	border-radius:5px;
+	color:#ffffff;
+	cursor:pointer;
+	font-family:Segoe UI;
+	margin-left:5px;
+}
+
+.btnEditIconEnabled:hover{background:#61c6d2 url(../images/editIconSmall.png) no-repeat 13px}
+.fileUpload{ width: 185px;
+	}
+
+.cellListDownwardIconLargeScreen {
+position: fixed;
+bottom: 87px;
+left: 0;
+right: 0;
+/* height: 10px; */
+margin-left: 50px;
+width: 234px;
+}
+
+.cellListCreateButtonLargeScreen {
+position: fixed;
+bottom: 127px;
+left: 0;
+right: 0;
+height: 10px;
+margin-left: 45px;
+}
+
+.orgIDLbl{
+	width:164px;
+	background:none!important;
+	font-family: Segoe UI;
+	font-size:0.7em;
+	padding-top:11px;
+}
+
+.orgIDValue{
+	padding:1px 0px 0px 0px;
+	background:none!important;
+	float: right;
+	font-family: Segoe UI;
+	font-size: 0.9em;
+	font-weight: normal;
+	width: 71px;
+	color: #ffffff;
+}
+
+.envAlign{
+	padding-top: 30px;
+}
+.normalButtonBlueCreateEnv{min-width:100px;height:29px;background:#58c2cf;border:none;border-radius:5px;color:#ffffff;cursor:pointer;font-family:Segoe UI;margin:-4px 118px 10px 10px;}
+.normalButtonBlueCreateEnv:hover{background:#61c6d2}
+.normalButtonBlueCreateEnv[disabled="disabled"]{background:url(../newImages/sprite_icons.png) repeat-x 0 -1888px;color:#ffffff;cursor:auto;text-shadow:none}
+.normalButtonBlueCreateEnv[disabled="disabled"]:hover{background:url(../newImages/sprite_icons.png) repeat-x 0 -1888px}
+.normalButtonGreyCreateEnv{width:100px;height:29px;background:#d8d8d8;border:none;border-radius:5px;color:#000000;cursor:pointer;font-family:Segoe UI;margin: 26px 118px 10px 10px;}
+
+.scrollEnv{
+	overflow:auto;
+	max-height: 425px;
+	display: block;
+	width: 100%
+}
+.popUpErrMsgEnvironment{float:right;width:215px;}
+.homeSuccessWrapper{margin-bottom:12px !important;margin-left:25px !important;width:95.5% !important;min-width: 1082px !important;}
+.breadrCrumTableTr {
+	float: left;
+}
+
+.breadCrumSelectedTd {
+	cursor: pointer;
+	text-decoration: underline;
+}
+.editIconACL{background:url(../images/editIconACL.png) no-repeat 3px -3px;
+	width:26px;
+	height:20px;
+	margin-left:5px;
+	border:none;
+	float:right;
+	cursor:pointer;
+}
+.cellACL{
+	height:60%;
+	width:20%;
+	margin-top:2%;
+	float:left;
+	cursor:default;
+}
+.propsPaneCellACL{
+	margin:0px!important;
+	font-size:0.9em!important;
+}
+.cellACLSetBody{
+	margin:0px 0px 4px 0px!important;
+}
+.cellACLRoleBody{
+	max-height:107px!important;
+	height:107px!important;
+	border-bottom:1px solid #dfdfdf;
+	font-size:0.75em;
+	font-weight:normal;
+	height:60px;
+	color: #373f49
+}
+.cellACLPrivBody{
+	max-height:122px!important;
+	height:122px!important;
+}
+.externalCellListCellProfile{
+	height:60%;
+	width:80%;
+	margin-top:2%;
+	float: right;
+}
+
+.roleIconAcl{background:url(../newImages/arrow.gif) no-repeat;
+	width: 25px;
+	height: 20px;
+	margin-left: -3px;
+	border: none;
+	float: left;
+}
+.cellRoleAclTableTD {
+	width: 160px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 2px;
+	cursor: default;
+	border-bottom:1px solid #fff;
+}
+.cellAclSetImage{
+	background:url(../images/aclSettingsIcon.png) no-repeat -4px -4px;
+	float:left;
+	width:26px;
+	height:20px;
+	border: none;
+}
+.selectRowCellACLRole td{
+	background:url(../newImages/arrow.gif) no-repeat #dfdfdf;
+	border-bottom:1px solid #fff;
+	background-size: cover;
+}
+.noRolesCellACL{
+	padding: 37px 5px 5px 36px;
+	font-size: 1em;
+	cursor: default;
+}
+.showExternalCell {
+height: 288px;
+width: 77%;
+min-height: 288px;
+float:right;
+background:#F4F4F4;border:none;
+padding-left: 12px;
+overflow-y:none;
+overflow-x:none;
+}
+
+.boxBreadCrumLeftArrow {
+background:url(../newImages/arrow_left.png) no-repeat;
+width: 20px;
+height: 20px;
+float: left;
+margin-top: 13px;
+margin-right: -6px;
+cursor: pointer;
+}
+
+.boxBreadCrumRightArrow {
+background:url(../newImages/arrow_right.png) no-repeat;
+width: 20px;
+height: 20px;
+float: right;
+margin-top: -27px;
+cursor: pointer;
+}
+.setExternalCellImage {
+background: url(../images/extCellIcon.png) no-repeat -1px -1px;
+float: left;
+width: 26px;
+height: 20px;
+border: none;
+}
+
+.boxBreadCrumLeftArrowDisable {
+background:url(../newImages/arrow_left_disable.png) no-repeat;
+width: 20px;
+height: 20px;
+float: left;
+margin-top: 13px;
+margin-right: -6px;
+cursor: default;
+}
+
+.boxBreadCrumRightArrowDisable {
+background:url(../newImages/arrow_right_disable.png) no-repeat;
+width: 20px;
+height: 20px;
+float: right;
+margin-top: -27px;
+cursor: default;
+}
+.emptyTableMessageForCellSearch {
+	margin-top: 198px;
+	width: 184px;
+	margin-left: 28px;
+	height: 24px;
+	padding-top: 5px;
+	text-align: center;
+	font-family: Segoe UI;
+	font-size: 0.8em;
+	background: #f4d558;
+}
+.cellACLRoleScroll {
+	max-height: 103px;
+	overflow-y: auto;
+	display: block;
+	width: 100%;
+}
+.schemaURLMsg{font-size:0.8em}
+.dvEmptyBoxProfileMsg{
+	text-align: center;
+	font-family: Segoe UI;
+	font-size: 0.9em;
+	width: 470px;
+	background: #f4d558;
+	/* margin-top: 21.5%; */
+	margin-left: 20%;
+	padding: 5px 5px;
+}
+.editBoxProfileLink{
+	float:left;
+	text-decoration: underline;
+	color: #4fbfcd;
+	font-family: Segoe UI;
+	font-size: 0.9em;
+	cursor: pointer;
+	margin-left:8px;
+	vertical-align:bottom;
+}
+.editBoxProfile{font-family: Segoe UI;font-weight: normal;font-size: 0.8em;color: #178e9d;}
+.boxProfileTopSection{width:100%;height:30px;}
+.boxProfileTopRight{width:23%;float:right;}
+.boxProfileData{float:right;margin-top:40px;width:83%;}
+.dvBoxProfileEmpty{float:left;width:440px;}
+.dvBoxProfileEmptyMsg1{float:left;margin-left:10px;}
+.moreLink{color:#178e9d;font-family:Segoe UI;font-size:0.8em;font-weight:normal;margin-bottom:10px;margin-top:-5px;text-decoration:underline;cursor:pointer}
+.boxProfileDesc{font-family:Segoe UI;font-size:0.75em;font-weight:normal;margin-bottom:10px;max-height:92px;}
+.expandDesc{overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 5; /* number of lines to show */
+   -webkit-box-orient: vertical;}
+ .descWithMoreLink{overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 5; /* number of lines to show */
+   -webkit-box-orient: vertical;}
+.expanded{
+   overflow-y:auto;
+   display:block;
+   max-height:75px;
+   }
+.noProfileInfoMessage{text-align:center;font-family:Segoe UI;font-size:0.9em;width:275px;height:22px;background:#f4d558;color:#373f49;margin-left:45px;padding:5px 0;}
+.roleNameLink{text-decoration: underline;color: #178E9D;cursor: pointer;}
+.roleNameLink:hover{text-decoration: none;color: #373F49;}
+
+
+.textAreaShowAccessToken {
+font-family:Segoe UI;
+font-size:0.9em;
+color:#373f49;
+line-height:15px;
+height: 175px;
+width:530px;
+margin-top:9px;
+
+}
+.tokenExpiryTime {
+font-family:Segoe UI;
+font-size:0.8em;
+color:#373f49;
+margin-top:10px;
+float:left;
+}
+
+#showToken, #showToken ul{margin:0;padding:0;list-style:none}
+/* #showToken{float:right;font-size:0.9em;font-weight:normal;width:220px;background:url(../newImages/showTokenIcon.png) no-repeat;color:#ffffff} */
+#showToken{float:right;font-size:0.9em;font-weight:normal;background:none;color:#ffffff}
+#showToken:before,
+#showToken:after{content:"";display:table}
+#showToken:after{clear:both}
+#showToken{zoom:1}
+#showToken li{float:left;position:relative;width:100%}
+/* #showToken a{float:left;padding:12px 0 12px 45px;font:bold 12px Segoe UI;text-decoration:none} */
+#showToken a{float:left;font:bold 12px Segoe UI;text-decoration:none}
+#showToken li:hover > a{color:#fafafa}
+#showToken ul{margin:20px 0 0 0;opacity:0;visibility:hidden;position:absolute;top:38px;left:0;z-index:1;background:#444;background:linear-gradient(#444, #111);box-shadow:0 -1px 0 rgba(255,255,255,.3);border-radius:3px;transition:all .2s ease-in-out}
+#showToken li:hover > ul{opacity:1;visibility:visible;margin:0}
+/* #showToken ul ul{top:0;left:150px;margin:0 0 0 20px;box-shadow:-1px 0 0 rgba(255,255,255,.3)} */
+#showToken ul li{float:none;display:block;border:0;box-shadow:0 1px 0 #111, 0 2px 0 #666}
+#showToken ul li:last-child{box-shadow:none}
+/* #showToken ul a{padding:10px;display:block;white-space:nowrap;float:none;text-transform:none} */
+#showToken ul a:hover{background-color:#4FBFCD;background-image:linear-gradient(#04acec, #4FBFCD)}
+#showToken ul li:first-child > a{border-radius:3px 3px 0 0}
+#showToken ul li:first-child > a:after{content:'';position:fixed;left:40px;top:-6px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #444}
+#showToken ul ul li:first-child a:after{left:-6px;top:50%;margin-top:-6px;border-left:0;border-bottom:6px solid transparent;border-top:6px solid transparent;border-right:6px solid #3b3b3b}
+#showToken ul li:first-child a:hover:after{border-bottom-color:#4FBFCD}
+#showToken ul ul li:first-child a:hover:after{border-right-color:#0299d3;border-bottom-color:transparent}
+#showToken ul li:last-child > a{border-radius:0 0 3px 3px;}
+
+/* Service Registration */
+.registerNewServiceIcon {float:left;background:#4fbfcd url(../newImages/sprite_icons.png) no-repeat -2px -2741px;min-width:40px;height:29px;border:none;}
+.registeredServiceTable{width:100%;font-weight:normal;font-family:Segoe UI;cursor:default;}
+.registeredServiceTable .col1{width:31.5px;padding-left:10px;}
+.registeredServiceTable .col2{width:155px;font-weight:normal;}
+.registeredServiceTable .col3{width:164px;font-weight:normal;}
+.registeredServiceTable .col4{width:297px;font-weight:normal;}
+.registeredServiceTable .col5{width:30px;font-weight:normal;}
+.registeredServiceTable thead{display: block; width: 100%;font-size:0.9em;color:#fff;background:#4fbfcd;}
+.registeredServiceTable tbody{max-height: 180px; overflow: auto; display: block; width: 100%;font-size:0.75em;overflow-x: hidden;}
+.registeredServiceTable tr{width:100%;}
+.colData1{width: 30px;padding-left: 10px;padding-top: 5px;padding-bottom: 5px;border-bottom: 1px solid #dfdfdf}
+.colData2{width: 155px;padding: 5px 10px 5px 0px;font-size: 0.9em;color: #373F49;font-family: Segoe UI;border-bottom: 1px solid #dfdfdf;}
+.colData3{width: 155px;padding: 5px 10px 5px 0px;font-size: 0.9em;color: #373F49;font-family: Segoe UI;border-bottom: 1px solid #dfdfdf;}
+.colData4{width: 354px;padding: 5px 10px 5px 0px;font-size: 0.9em;color: #373F49;font-family: Segoe UI;border-bottom: 1px solid #dfdfdf;}
+.colData2Trim{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 158px;max-width: 150px;}
+.colData3Trim{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 161px;max-width: 161px;}
+.colData4Trim{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 354px;max-width: 354px;}
+.deleteServiceRegistrationIconDisabled{background:url(../newImages/sprite_icons.png) no-repeat -10px -3311px;min-width:21px;height:20px;border:none;cursor:default;margin-top:5px;margin-left:33px;}
+.deleteServiceRegistrationIconEnabled{background:url(../newImages/sprite_icons.png) no-repeat -11px -2781px;min-width:21px;height:20px;border:none;cursor:pointer;margin-left:33px;margin-top:5px;}
+.registerServiceBlueButton{min-width:70px;height:29px;background:#4fbfcd;border:none;border-radius:5px;color:#ffffff;cursor:pointer;font-family:Segoe UI;float: left;margin-left:56px;margin-right:1px;margin-top: 2px;}
+.registerServiceBlueButton:hover{background:#61c6d2}
+.registerServiceGreyButton{min-width:70px;height:29px;background:#d8d8d8;border:none;border-radius:5px;margin-left:5px;color:#000000;cursor:pointer;font-family:Segoe UI;margin-top: 2px;}
+.registerServiceGreyButton:hover{background:#e8e8e8}
+.validationMessageAside{color:#e90000;font-size:0.72em;text-align:left;float:none;width:auto;font-family:Segoe UI;}
+.registerServiceDiv{background:#4fbfcd;margin-left:0px;margin-top: 6px;font-size:0.9em;color:#fff;height:30px;}
+.serviceNameDiv{float: left;margin-right:186px;font-family: Segoe UI;font-size: 0.9em;margin-left: 16px;margin-top: 5px;}
+.sourceFileDiv{font-family: Segoe UI;font-size: 0.9em;margin-top: 5px;}
+.serviceNameTxtBox{float: left;margin-right: 31px;font-family: Segoe UI;font-size: 0.9em;margin-left: 15px;margin-top: 5px;}
+.sourceFileDropdown{font-family: Segoe UI;font-size: 0.9em;margin-top: 5px;float: left;}
+.registerServiceTxtBox{border: 1px solid #b2b2b2;width:225px;}
+.registerServiceDropDown{border: 1px solid #b2b2b2;width:254px;cursor: pointer;font-size: 0.9em;}
+
+/* Role Tab Mappings */
+.roleToAccMapRoleName{display: inline-block;width:90%!important;max-width:90%!important;}
+.roleToAccMapBoxName{display: inline-block;width:90%!important;max-width:90%!important;}
+.roleToAccMapDate{display: inline-block;width:100%!important;max-width:100%!important}
+.roleToExtCellMapRoleName{display: inline-block;width:90%!important;max-width:90%!important;}
+.roleToExtCellMapBoxName{display: inline-block;width:90%!important;max-width:90%!important;}
+.roleToExtCellMapDate{display: inline-block;width:100%!important;max-width:100%!important;}
+.roleToRelMapRoleName{display: inline-block;width:90%!important;max-width:90%!important;}
+.roleToRelMapBoxName{display: inline-block;width:90%!important;max-width:90%!important;}
+.roleToRelMapDate{display: inline-block;width:100%!important;max-width:100%!important;}
+.roleToExtRoleMapRoleName{display: inline-block;width:90%!important;max-width:90%!important;}
+.roleToExtRoleMapBoxName{display: inline-block;width:90%!important;max-width:90%!important;}
+.roleToExtRoleMapDate{display: inline-block;width:100%!important;max-width:100%!important;}
+
+/* Account Tab Mappings */
+.actToRoleMapActName{display: inline-block;width:90%!important;max-width:90%!important;}
+.actToRoleMapDate{display: inline-block;width:100%!important;max-width:100%!important;}
+
+/* External Cell Mappings */
+.extCellToRelRoleMapExtCellName{display: inline-block;width:90%!important;max-width:90%!important;}
+.extCellToRelRomeMapExtCellURL{display: inline-block;width:90%!important;max-width:90%!important;}
+.extCellToRelRomeMapDate{display: inline-block;width:100%!important;max-width:100%!important;}
+
+/* Relation Mappings */
+.relToExtCellRoleMapRelName{display: inline-block;width:90%!important;max-width:90%!important;}
+.relToExtCellRoleMapBoxName{display: inline-block;width:90%!important;max-width:90%!important;}
+.relToExtCellRoleMapDate{display: inline-block;width:100%!important;max-width:100%!important;}
+
+/* External Role Mappings */
+.extRoleToRoleMapExtRoleName{display: inline-block;width:90%!important;max-width:90%!important;}
+.extRoleToRoleMapRelName{display: inline-block;width:90%!important;max-width:90%!important;}
+.extRoleToRoleMapBoxName{display: inline-block;width:90%!important;max-width:90%!important;}
+.extRoleToRoleMapDate{display: inline-block;width:100%!important;max-width:100%!important;}
+
+.propertyRow {
+font-size: 0.75em;
+float: left;
+width: 84px;
+color: #373f49;
+font-weight: bold;
+}
+.propertyColumn {
+font-size: 0.75em;
+float: initial;
+margin-left: 51px;
+width: 82px;
+color: #373f49;
+}
+.selectRowPopUp td{background:#dfdfdf;border-bottom:1px solid #fff}
+.propertyHeader {
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+width: 78px;
+max-width: 78px;
+}
+.propertyData{
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+max-width: 73px;
+width: 73px;
+}
+.trEven{
+background-color: #F4F4F4;	
+}
+
+.mainTableEllipsis{
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+}
+.textAreaPopupFirstCell {
+width: 204px;
+padding: 5px;
+clear: both;
+float: right;
+height: 120px;
+}
+.setWhiteBackGround {
+	background: #fff;
+}
+.boxProfileSubHeading{
+background:#4fbfcd;
+padding:6px 10px;
+font-size:0.9em;
+font-weight:normal;
+color:#fff;
+text-align:left;
+border-bottom:1px solid #fff;
+margin-top: -6px;
+}
+.boxProfileSubHeadingEllipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap
+}
+
+.mainNav ul ul {
+	display: none;
+}
+.mainNav ul li:hover > ul {
+	display: block;
+}
+.socialMenuDropDown li {
+	float: none; position: absolute; z-index: 1;border-bottom: 1px solid #ff; border-top: 1px solid #fff;
+}
+.messageMenuDropDown li {
+	float: none; position: absolute; z-index: 1; border-bottom: 1px solid #ff; border-top: 1px solid #fff;
+}
+.cellMenuFirstChild {
+	 margin-top: 5px; min-width: 13.7%;
+}
+
+.cellMenuSecondChild {
+	  margin-top: 38px; min-width: 13.7%;
+}
+.cellMenuLastChild {
+	 margin-top: 71px; min-width: 13.7%;
+}
+.sentMessageIcon{background:url(../newImages/sprite_newIcons.png) no-repeat -1% -138px;padding:7px 70px 5px 37px}
+.receiveMessageIcon{background:url(../newImages/sprite_newIcons.png) no-repeat -1% -138px;padding:7px 42px 5px 37px}
+
+.leftUpperMenudiv {
+/* width: 118px;
+background: #addee4; 
+padding: 3px 0px 6px 0px;*/
+font-size: 0.85em;
+font-family: Segoe UI;
+text-align: center;
+color: #373f49;
+font-weight: bold;
+}
+
+.displayNoneCellMenu{
+	display: none!important;
+}
+
+.anchorColor {
+	color: #373f49!important;
+}
+.infoIcon{
+	background: url(../newImages/sprite_newIcons.png) no-repeat -8px  -313px;
+	float: left;
+	width: 22px;
+	height: 18px;
+	margin-right: 5px;
+}
+
+.infoIcon:hover{
+	background: url(../newImages/sprite_newIcons.png) no-repeat -8px  -339px;
+	cursor: pointer;
+}
+
+.progressBarPercentage {
+margin-top: 3px;
+font-size: x-large;
+}
+
+ 
+.progressReadyState {
+	background:url(../newImages/sprite_newIcons.png) no-repeat -8px -369px;
+	color:#fff;
+	border-radius:3px;
+	font-size:0.85em;
+	height: 34px;
+	width: 35px;
+	}
+.lblInstallComplete {
+	font-size: 1em; 
+	font-family: Segoe UI;
+	margin-top: -2px;
+}
+
+#sentMessageTable tbody td{padding:5px 10px;font-size:0.75em;border:1px solid #dfdfdf;white-space: nowrap;}
+#sentMessageTable tbody td a{text-decoration:underline;color:#178E9D}
+#sentMessageTable tbody td a:hover{text-decoration:none;color:#373F49}
+#sentMessageTable .selectRow td {border: 1px solid #fff!important;}
+#sentMessageTable{width:100%}
+#sentMessageTable .col1{min-width:280px;}
+#sentMessageTable .col2{min-width:150px;}
+#sentMessageTable .col3{min-width:150px;}
+#sentMessageTable .col4{min-width:280px;}
+#sentMessageTable .col5{min-width:150px;}
+#sentMessageTable .col6{min-width:150px;}
+#sentMessageTable .col7{min-width:150px;}
+#sentMessageTable .col8{min-width:280px;}
+#sentMessageTable .col9{min-width:200px;}
+#sentMessageTable .col10{min-width:150px;}
+#sentMessageTable .col11{min-width:150px;}
+#sentMessageTable .col12{min-width:150px;}
+#sentMessageTable .col13{min-width:280px;}
+#sentMessageTable .col14{min-width:100px;}
+#sentMessageTable .col15{min-width:280px;}
+#sentMessageTable .col16{min-width:280px;}
+
+.jsonRawViewSentMessageTable {
+height: 50px;
+border: 1px solid #fff !important;
+font-family: Segoe UI;
+font-size: 0.8em;
+text-align: initial;
+display: table-row;
+}
+
+.logBreadCrumb {
+	text-decoration: none;
+	color: #373F49;
+	cursor: default;
+}
+
+.linkLogBreadCrumb {
+	text-decoration: underline;
+	color: #178E9D;
+	cursor: pointer;
+}
+
+.dvLogBreadCrumb {
+	float: left;
+	margin-top: -9px;
+	font-size: 0.9em;
+	font-family: Segoe UI;
+	cursor: default;
+}
+
+.noPropertyMessage {
+	text-align: center;
+	margin-top: 14px;
+	color: #1d2126;
+	font-size: 0.8em;
+	cursor: default;
+	font-family: Segoe UI;
+}
+
+.noACLSettingsMessage {
+	text-align: center;
+	padding-top: 78px;
+	color: #1d2126;
+	font-size: 0.8em;
+	cursor: default;
+	font-family: Segoe UI;
+}
+
+.logBreadcrumbSection {
+	float: left;
+	width: 80.5%;
+}
+
+.leftArrowLogBreadcrumb {
+	margin-top: -4px;
+}
+
+.normalButtonBlueDisabledSentMessage {
+min-width:100px;
+height:29px;
+background:#addee4;
+border:none;
+border-radius:5px;
+color:#ffffff;
+cursor:default;
+font-family:Segoe UI;	
+}
+
+.cursorDefault {
+	cursor: default!important;
+}
+
+#receivedMessageTable tbody td{padding:5px 10px;font-size:0.75em;border:1px solid #dfdfdf;white-space: nowrap;font-family: Segoe UI; color: #373f49}
+#receivedMessageTable tbody td a{text-decoration:underline;color:#178E9D}
+#receivedMessageTable tbody td a:hover{text-decoration:none;color:#373F49}
+#receivedMessageTable .selectRow td {border: 1px solid #fff!important;}
+#receivedMessageTable{width:100%}
+#receivedMessageTable .col1{min-width:280px;}
+#receivedMessageTable .col2{min-width:150px;}
+#receivedMessageTable .col3{min-width:150px;}
+#receivedMessageTable .col4{min-width:280px;}
+#receivedMessageTable .col5{min-width:150px;}
+#receivedMessageTable .col6{min-width:150px;}
+#receivedMessageTable .col7{min-width:150px;}
+#receivedMessageTable .col8{min-width:280px;}
+#receivedMessageTable .col9{min-width:200px;}
+#receivedMessageTable .col10{min-width:150px;}
+#receivedMessageTable .col11{min-width:150px;}
+#receivedMessageTable .col12{min-width:150px;}
+#receivedMessageTable .col13{min-width:280px;}
+#receivedMessageTable .col14{min-width:100px;}
+#receivedMessageTable .col15{min-width:280px;}
+#receivedMessageTable .col16{min-width:280px;}
+#receivedMessageTable .col17{min-width:150px;}
+#receivedMessageTable .col18{min-width:150px;}
+
+.jsonRawViewReceivedMessageTable {
+height: 50px;
+border: 1px solid #fff !important;
+font-family: Segoe UI;
+font-size: 0.8em;
+text-align: initial;
+display: table-row;
+}
+.profileImageDeleteIcon{
+	background:url(../newImages/sprite_icons.png) no-repeat center -2081px;
+	text-indent:-2000px;
+	float:left;
+	width:20px;
+	height:20px;
+	padding-left: 10px;
+}

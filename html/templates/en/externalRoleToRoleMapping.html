@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+Personium
+Copyright 2016 FUJITSU LIMITED
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<script type="text/javascript" src="./js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="./js/commonFunctions.js"></script>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.modalbox.js"></script>
+<script type="text/javascript" src="./js/main/core/PersoniumContext.js"></script>
+<script type="text/javascript" src="./js/main/util/extend.js"></script>
+<script type="text/javascript" src="./js/externalRoleToRoleMapping.js"></script>
+</head>
+<body>
+<div class="clearBoth"></div>
+
+<div class="">
+		<div style="height: 30px;">
+			<div class="assignBackWrapper">
+				<div class="assignBackIcon" onclick="objCommon.clickAssignBackButton();"></div>
+				<div class="divAssignEllipsis" id="divAssignRoleName">
+					<label id="lblExtRoleName" class="backBtnTxt"></label>
+				</div>
+				<div class="divEditIcon">
+					<input type="button" id="iconEditExtRole"  onclick="openCreateEntityModal('#externalRoleEditModalWindow','#externalRoleEditDialogBox', 'txtBoxExtRoleEditURL');"  class="editIconEnabled" tabindex="-1" title="Edit">
+				</div>
+				<label id="lblExtRoleRelationName" class="assignEntityText" style="display:none;"></label>
+				<label id="lblExtRoleBoxName" class="assignEntityText" style="display:none;"></label>
+			</div>
+		</div>
+		<div class="assignEntities">
+			<ul>
+				<li id="assignAccountToExtRole" class="selected" onclick="clickExternalRoleLinkMappingPage();"><label
+					class="assignNavigation">Assign Role</label></li>
+				<li style="margin-right: 0px;" id="assignExtRoleInfo"><label
+					class="assignNavigation" onclick="uMainNavigation.openExternalRoleInfo();">Info</label></li>
+			</ul>
+		</div>
+		<div class="divAssignEntity"  id="divAccountHeader">
+			<div class="leftSubHeading" style="margin-top: 0px;">
+
+				<div class="divAssignEntityTxtBox">
+				<select id="ddlRoleBox" class="dropDownBig" onclick="uExternalRoleToRoleMapping.enableDisableAssignBtn();" tabindex="-1">
+						<option>Select Role (Box)</option>
+					</select>
+					<!-- <input type="text" class="bigTextBox assignEntityTxtBox"
+						id="txtAssignExtRoleBoxName"> -->
+				</div>
+				<div class="divAssignEntityBtn">
+					
+					<input type="button" class="assignBtn assignBtnDisabled" id="btnMapToExtenalRole" value="Assign" style="margin-left: -25px;" disabled="disabled">
+				</div>
+				<div class="divDeleteIcon divDeleteAssignEntityIcon">
+					<input type="button" class="deleteIconDisabled" id="btnDeleteAssignExtRoleToRole" onclick="openCreateEntityModal('#extRoleToRoleDeleteModalWindow', '#extRoleToRoleDeleteDialogBox', 'btnCancelDeleteExternalRole');" tabindex="-1" title="Delete">
+				</div>
+			</div>
+			<div id="extRoleToRoleMessageBlock" class="crudOperationSuccessWrapper" style="display:none;float: left;position:absolute;margin-top: 6px;">
+			<div class="crudOperationMsgWrapper operationMsgDynamicWidth">
+				<span class="crudOperationSuccessIcon" id="extRoleToRoleMessageIcon">&nbsp;</span>
+				<div id="extRoleToRoleSuccessmsg" class="crudOperationSuccessMsg"></div>
+			</div>
+		</div>
+			<div class="rightSubHeading">
+				<div class="sortWrapper">
+					<label class="sortText" style="margin-top: 5px;">Sort by
+						Date</label>
+					<div id="arrow" class="downArrow assignEntityDownArrow"></div>
+				</div>
+				<div class="paginationWrapper" style="margin-top: 3px;">
+					<div class="recordCount" id="recordCount_assignExtRoleTab"></div>
+					<div class="paginationIcons">
+						<div class="leftPagination">
+							<div class="firstPageDisabled" id="firstPage_assignExtRoleTab" title="First"></div>
+							<div class="prevPageDisabled" id="prevPage_assignExtRoleTab" title="Previous"></div>
+						</div>
+						<div class="rightPagination">
+							<div class="nextPageDisabled" id="nextPage_assignExtRoleTab" title="Next"></div>
+							<div class="lastPageDisabled" id="lastPage_assignExtRoleTab" title="Last"></div>
+						</div>
+						<div class="rightPagination"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="webDavAccountArea">
+			<form name='ftable'>
+				<table id='extRoleToRoleMappingTable' cellpadding="0"
+					cellspacing="0" border="0" class='mainTable'>
+					<thead>
+						<tr class="mainTableHeaderRow">
+							<th style="border-top: 0px" class="col1"><input
+								type="checkbox" id="chkSelectAllExtRoleMappingRecords"
+								onclick="uExternalRoleToRoleMapping.checkAllSelect(this)"
+								class="checkBox cursorHand regular-checkbox big-checkbox"><label
+								for="chkSelectAllExtRoleMappingRecords" class="checkBoxLabel"></label></th>
+							<th style="border-top: 0px" class="col2">Role</th>
+							<th style="border-top: 0px" class="col3">Box</th>
+						</tr>
+					</thead>
+					<tbody id='assignEntityGridTbody' class="entityGridTbody"></tbody>
+				</table>
+			</form>
+		</div>
+	<!-- Spinner code - Start -->
+	<div id="modalSpinnerExtRoleToRoleMap" class="modelbackSpinner" style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 0; width: 0; background:transparent;position:absolute;top:50%;left:50%;border:0"
+			id="dialogSpinner">
+			<div id="spinnerPopUp">
+			</div>
+		</div>
+	</div>
+		<!-- Spinner code - End -->
+		<div style="display: none;"
+			id="dvemptyAssignTableMessage"
+			class="emptyTableMessage accountEmptyTableMessageWidth"></div>
+	</div>
+
+	<!-- Edit External Role pop up : Start-->
+	<div id="externalRoleEditModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 321px; width: 504px; background: #ffffff"
+			id="externalRoleEditDialogBox">
+			<div id="dvEditCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#externalRoleEditModalWindow');" tabindex="7" title="Close"></div>
+			<div class="accessTokenDiv" style="padding-bottom: 15px"
+				id="dvEditAccessheader">
+				<label class="AccessTokenHeading">
+					Edit External Role</label>
+			</div>
+			<div>
+				<table cellpadding='0' cellspacing='0' border='0'
+					class="popupcreatePropertyTable">
+					<tr>
+						<td style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">* External Role URL</label>
+							</div>
+							<div>
+								<input type="text" class="bigTextBox propertyPopUpTextBox"
+									id="txtBoxExtRoleEditURL" tabindex="1">
+								<span class="spanPopupErrorMessageCommon">
+									<aside class="asidePopupErrorMessageCommon"
+										id="externalRoleEditURLErrorMsg"></aside>
+								</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 336px"><div
+								style="margin-bottom: 10px;">
+								<label class="lblElement">* Relation</label>
+							</div>
+							<div class="customSelectIconAssociation" style="background-position-x: 41.5%">
+								<select name="" id="idEditRelationBoxDropDown"
+									class="selectMenuPopup" tabindex="2">
+								</select>
+
+							</div> <span class="spanPopupErrorMessageCommon">
+								<aside class="asidePopupErrorMessageCommon"
+									id="relationBoxEditDDErrorMsg"></aside>
+							</span>
+						</td>
+					</tr>
+					<tr><td colspan = "2"><label class="lblElement" style="vertical-align: top;">Relation must be assigned to the External Cell which provides the External Role.</label></td></tr>
+					</table>
+					</div>
+
+			<!-- Button Section Starts -->
+			<section class="positionButtons">
+				<div id="dvEdit" class="dvCreate">
+					<input type="button" id="relCreateBtn" class="btnClose"
+						value="Edit" onclick="uExternalRole.editExternalRole();" tabindex="6">
+				</div>
+				<div id="dvCancel" class="dvCreate">
+					<input type="button" id=""
+						onclick="closeEntityModal('#externalRoleEditModalWindow')"
+						class="cancelBtn" value="Cancel" tabindex="5">
+				</div>
+			</section>
+			<!-- Button Section Ends -->
+		</div>
+	</div>
+	<!-- Edit External Role pop up : End-->
+
+<!--ExtRole to role mapping delete pop up start  -->
+	<div id="extRoleToRoleDeleteModalWindow" class="modelback"
+		style="display: none;">
+		<div class="modal-window block-border"
+			style="display: block; height: 230px; width: 528px; background: #ffffff"
+			id="extRoleToRoleDeleteDialogBox">
+			<div id="dvCloseIcon" class="crossDeletePropIcon"
+				onclick="closeEntityModal('#extRoleToRoleDeleteModalWindow');" tabindex="3" title="Close"></div>
+			<div class="sessionExpiryDiv" id="dvAccessheader">
+				<label class="sessionExpiredPopUpHeading">
+					Delete Role Assignation(s)</label>
+			</div>
+			<div class="sessionExpiredLabel" style="margin-top: 32px;margin-bottom: 54px;">
+				<label>Do you want to delete selected role assignation(s) ?</label>
+			</div>
+			<div id="dvClose" class="sessionPopUpCloseSection">
+				<input type="button" value="Cancel" class="btnCancelPopup" id="btnCancelDeleteExternalRole"
+					onclick="closeEntityModal('#extRoleToRoleDeleteModalWindow');" tabindex="1">
+				<input type="button" class="btnSavePopup"
+					onclick="uExternalRoleToRoleMapping.deleteMultipleMapping();" value="Delete"
+					style="margin-right: 0px;" tabindex="2">
+			</div>
+		</div>
+	</div>
+<!-- ExtRole to role mapping pop up end -->
+</body>
+</html>
