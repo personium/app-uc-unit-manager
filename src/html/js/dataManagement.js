@@ -3750,6 +3750,15 @@ dataManagement.prototype.openEntityURLPopUp = function(count){
 	$("#urlDataManagement").focus();
 };
 
+String.prototype.sanitize = function() {
+  return this/* w w  w. j  a  v  a2  s  .c  o m*/
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 /**
  * The purpose of this method is to create dynamic row for entity data
  * 
@@ -3795,6 +3804,7 @@ dataManagement.prototype.createEntityRow = function(count,
     dynamicCols = dynamicCols + "<td class='entityColData' style='min-width:"+ colWidth +"px' id='colUpdatedOn_"
     + count + "'>" + updatedOn + "</td>";
     for ( var indexHeader = 0; indexHeader < headerListSize; indexHeader++) {
+		var propType = propNameValuePairForRow[indexHeader][2];
         var propValue = propNameValuePairForRow[indexHeader][1].toString();
         /*var propValWidth = propValue.length * 8;*/
         var propNameWidth = 0;
@@ -3807,6 +3817,9 @@ dataManagement.prototype.createEntityRow = function(count,
         	propNameWidth = colWidth;
         }
         
+		if (propValue != "" && propType == "Edm.String") {
+			propValue = propValue.sanitize();
+		}
         var shorterPropValue = "";
         var length = propValue.length;
         if (length > 16) {
